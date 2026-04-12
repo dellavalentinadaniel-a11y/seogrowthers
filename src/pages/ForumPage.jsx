@@ -61,7 +61,8 @@ const ForumPage = () => {
           profiles:author_id (
             username,
             full_name,
-            avatar_url
+            avatar_url,
+            role
           )
         `)
         .eq('status', 'published')
@@ -199,9 +200,17 @@ const ForumPage = () => {
                         </div>
                       )}
                       <div className="flex flex-col">
-                        <span className="text-sm font-semibold text-on-surface uppercase tracking-tight">
-                          {article.profiles?.full_name || article.profiles?.username || 'Usuario'}
-                        </span>
+                        <div className="flex items-center gap-2">
+                          <span className="text-sm font-semibold text-on-surface uppercase tracking-tight">
+                            {article.profiles?.full_name || article.profiles?.username || 'Usuario'}
+                          </span>
+                          {article.profiles?.role === 'admin' && (
+                            <span className="text-[10px] bg-red-500/10 text-red-500 border border-red-500/20 px-1.5 py-0.5 rounded font-bold">ADMIN</span>
+                          )}
+                          {article.profiles?.role === 'moderator' && (
+                            <span className="text-[10px] bg-cyan-500/10 text-cyan-400 border border-cyan-500/20 px-1.5 py-0.5 rounded font-bold">MOD</span>
+                          )}
+                        </div>
                         <span className="text-[10px] text-slate-500 font-label uppercase tracking-widest">
                           {format(new Date(article.created_at), 'd MMM · HH:mm', { locale: es })}
                         </span>
