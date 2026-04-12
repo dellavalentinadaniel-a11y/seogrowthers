@@ -395,6 +395,9 @@ const ProfilePage = () => {
                     </>
                   ) : (
                     <>
+                      <button onClick={() => navigate('/blog/create')} className="w-full py-2.5 bg-primary text-on-primary font-bold rounded-xl text-sm transition-all shadow-[0_0_15px_rgba(0,229,255,0.2)] hover:shadow-[0_0_20px_rgba(0,229,255,0.4)] flex justify-center items-center gap-2 mb-2">
+                        <FileText className="w-4 h-4" /> Crear Publicación
+                      </button>
                       <button onClick={() => setEditing(true)} className="w-full py-2.5 bg-purple-500/10 hover:bg-purple-500/20 text-purple-300 font-medium rounded-xl text-sm transition-all border border-purple-500/20 flex justify-center items-center gap-2">
                         <Edit2 className="w-3.5 h-3.5" /> Editar Perfil
                       </button>

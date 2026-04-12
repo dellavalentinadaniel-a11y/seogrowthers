@@ -12,11 +12,12 @@ import {
   Clock, 
   TrendingUp, 
   Verified, 
-  Hash,
   LayoutGrid,
-  Zap
+  Zap,
+  Trash2
 } from 'lucide-react';
 import ImageOptimized from '@/components/shared/ImageOptimized';
+import ForumCarousel from '@/components/forum/ForumCarousel';
 import { format } from 'date-fns';
 import { es } from 'date-fns/locale';
 
@@ -28,34 +29,47 @@ const ForumPage = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [activeCategory, setActiveCategory] = useState('All Topics');
   const [session, setSession] = useState(null);
+  const [userRole, setUserRole] = useState(null);
 
   useEffect(() => {
     supabase.auth.getSession().then(({ data: { session } }) => {
       setSession(session);
+      if (session?.user) fetchUserRole(session.user.id);
     });
 
     const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
       setSession(session);
+      if (session?.user) fetchUserRole(session.user.id);
+      else setUserRole(null);
     });
 
     return () => subscription.unsubscribe();
   }, []);
+
+  const fetchUserRole = async (userId) => {
+    const { data } = await supabase.from('profiles').select('role').eq('id', userId).single();
+    if (data) setUserRole(data.role);
+  };
 
   const fetchArticles = useCallback(async () => {
     setLoading(true);
     try {
       const { data, error } = await supabase
         .from('articles')
-        .select('*')
+        .select(`
+          *,
+          profiles:author_id (
+            username,
+            full_name,
+            avatar_url
+          )
+        `)
         .eq('status', 'published')
+        .eq('category', 'Debates')
         .order('created_at', { ascending: false });
 
       if (error) throw error;
-
-      if (data && data.length > 0) {
-        setFeaturedArticle(data[0]);
-        setArticles(data.slice(1));
-      }
+      setArticles(data || []);
     } catch (err) {
       console.error('Error fetching articles:', err);
     } finally {
@@ -67,19 +81,33 @@ const ForumPage = () => {
     fetchArticles();
   }, [fetchArticles]);
 
-  const categories = ['All Topics', 'SEO', 'Web Dev', 'AI Tools', 'Growth'];
+  const categories = ['Todos', 'SEO', 'Web Dev', 'Herramientas AI', 'Growth'];
 
   const handleStartThread = () => {
     if (!session) {
       toast({
-        title: "Acceso Restringido",
-        description: "Necesitas una cuenta premium para iniciar un debate.",
+        title: "Acceso Requerido",
+        description: "Debes iniciar sesión para iniciar un debate.",
         variant: "destructive"
       });
       navigate('/login', { state: { from: '/forum' } });
       return;
     }
     navigate('/blog/create', { state: { category: 'Debates', from: '/forum' } });
+  };
+
+  const handleDeleteArticle = async (articleId) => {
+    if (!window.confirm('¿Estás seguro de que deseas eliminar esta publicación?')) return;
+    
+    try {
+      const { error } = await supabase.from('articles').delete().eq('id', articleId);
+      if (error) throw error;
+      
+      toast({ title: "Publicación eliminada", description: "El contenido ha sido removido exitosamente." });
+      setArticles(prev => prev.filter(a => a.id !== articleId));
+    } catch (err) {
+      toast({ title: "Error", description: "No tienes permisos para eliminar esto o hubo un fallo de red.", variant: "destructive" });
+    }
   };
 
   return (
@@ -90,41 +118,8 @@ const ForumPage = () => {
       </Helmet>
 
       <main className="pt-24 pb-32 px-4 md:px-8 max-w-7xl mx-auto">
-        {/* Hero Featured Section */}
-        {featuredArticle && (
-          <section className="mb-12 relative group animate-in fade-in slide-in-from-bottom-4 duration-700">
-            <Link to={`/blog/${featuredArticle.category}/${featuredArticle.slug}`} className="block relative h-[450px] w-full overflow-hidden rounded-xl bg-surface-container-high border-t border-white/5">
-              <ImageOptimized 
-                src={featuredArticle.featured_image} 
-                alt={featuredArticle.title}
-                className="w-full h-full object-cover opacity-60 group-hover:scale-105 transition-transform duration-700"
-                fetchpriority="high"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-surface via-surface/40 to-transparent"></div>
-              <div className="absolute bottom-0 left-0 p-8 md:p-12 w-full md:w-3/4">
-                <div className="flex gap-3 mb-4">
-                  <span className="bg-primary/20 text-primary px-3 py-1 rounded text-xs font-bold uppercase tracking-widest font-headline">Featured</span>
-                  <span className="bg-secondary/20 text-secondary px-3 py-1 rounded text-xs font-bold uppercase tracking-widest font-headline">
-                    {featuredArticle.category || 'SEO Strategy'}
-                  </span>
-                </div>
-                <h1 className="text-4xl md:text-6xl font-headline font-bold leading-tight tracking-tighter text-on-surface mb-6 group-hover:text-primary transition-colors">
-                  {featuredArticle.title}
-                </h1>
-                <div className="flex items-center gap-6 text-on-surface-variant font-label text-sm">
-                  <div className="flex items-center gap-2">
-                    <Clock size={16} className="text-primary" />
-                    <span>8 min read</span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <MessageSquare size={16} className="text-secondary" />
-                    <span>24 comments</span>
-                  </div>
-                </div>
-              </div>
-            </Link>
-          </section>
-        )}
+        {/* Hero Forum Carousel Section */}
+        <ForumCarousel />
 
         {/* Categories & Filters */}
         <section className="mb-10 animate-in fade-in slide-in-from-bottom-4 delay-150 duration-700">
@@ -144,20 +139,36 @@ const ForumPage = () => {
                 </button>
               ))}
             </div>
-            <div className="flex items-center gap-2 bg-surface-container-low p-1 rounded-xl border-t border-white/5">
+            <div className="flex items-center gap-4">
+              <div className="flex items-center gap-2 bg-surface-container-low p-1 rounded-xl border-t border-white/5">
+                <button 
+                  className="px-4 py-1.5 rounded-lg text-sm font-medium bg-surface-container-highest text-primary flex items-center gap-2"
+                  aria-label="Filter by Latest"
+                >
+                  <Zap size={14} /> Latest
+                </button>
+                <button 
+                  className="px-4 py-1.5 rounded-lg text-sm font-medium text-slate-500 hover:text-on-surface transition-colors flex items-center gap-2"
+                  aria-label="Filter by Trending"
+                >
+                  <TrendingUp size={14} /> Trending
+                </button>
+              </div>
               <button 
-                className="px-4 py-1.5 rounded-lg text-sm font-medium bg-surface-container-highest text-primary flex items-center gap-2"
-                aria-label="Filter by Latest"
+                onClick={handleStartThread}
+                className="hidden md:flex items-center gap-2 bg-primary text-on-primary px-5 py-2 rounded-xl font-bold text-xs uppercase tracking-widest hover:shadow-[0_0_20px_rgba(0,229,255,0.4)] transition-all transform active:scale-95"
               >
-                <Zap size={14} /> Latest
-              </button>
-              <button 
-                className="px-4 py-1.5 rounded-lg text-sm font-medium text-slate-500 hover:text-on-surface transition-colors flex items-center gap-2"
-                aria-label="Filter by Trending"
-              >
-                <TrendingUp size={14} /> Trending
+                <MessageSquare size={16} /> NUEVO DEBATE
               </button>
             </div>
+          </div>
+          <div className="mt-6 md:hidden">
+            <button 
+              onClick={handleStartThread}
+              className="w-full flex items-center justify-center gap-2 bg-primary text-on-primary px-5 py-3 rounded-xl font-bold text-xs uppercase tracking-widest"
+            >
+              <MessageSquare size={16} /> INICIAR DEBATE
+            </button>
           </div>
         </section>
 
@@ -176,19 +187,40 @@ const ForumPage = () => {
                 <div className="p-6">
                   <div className="flex items-center justify-between mb-4">
                     <div className="flex items-center gap-3">
-                      <div className="w-8 h-8 rounded-full bg-primary/20 flex items-center justify-center text-primary font-bold text-xs">
-                        {article.author?.[0] || 'A'}
-                      </div>
+                      {article.profiles?.avatar_url ? (
+                        <img 
+                          src={article.profiles.avatar_url} 
+                          alt={article.profiles.username}
+                          className="w-10 h-10 rounded-full object-cover border border-primary/30"
+                        />
+                      ) : (
+                        <div className="w-10 h-10 rounded-full bg-primary/20 flex items-center justify-center text-primary font-bold text-sm">
+                          {article.profiles?.username?.[0]?.toUpperCase() || 'A'}
+                        </div>
+                      )}
                       <div className="flex flex-col">
-                        <span className="text-sm font-semibold text-on-surface uppercase tracking-tight">Admin Expert</span>
+                        <span className="text-sm font-semibold text-on-surface uppercase tracking-tight">
+                          {article.profiles?.full_name || article.profiles?.username || 'Usuario'}
+                        </span>
                         <span className="text-[10px] text-slate-500 font-label uppercase tracking-widest">
                           {format(new Date(article.created_at), 'd MMM · HH:mm', { locale: es })}
                         </span>
                       </div>
                     </div>
-                    <span className="text-[10px] text-secondary font-bold font-label bg-secondary/10 px-2 py-1 rounded uppercase">
-                      {article.category || 'GENERAL'}
-                    </span>
+                    <div className="flex items-center gap-2">
+                      <span className="text-[10px] text-secondary font-bold font-label bg-secondary/10 px-2 py-1 rounded uppercase">
+                        {article.category || 'GENERAL'}
+                      </span>
+                      {(userRole === 'admin' || userRole === 'moderator' || session?.user?.id === article.author_id) && (
+                        <button 
+                          onClick={() => handleDeleteArticle(article.id)}
+                          className="p-1.5 text-red-500 hover:bg-red-500/10 rounded-lg transition-colors"
+                          title="Eliminar Publicación"
+                        >
+                          <Trash2 size={14} />
+                        </button>
+                      )}
+                    </div>
                   </div>
                   <Link to={`/blog/${article.category}/${article.slug}`}>
                     <h3 className="text-xl font-headline font-bold mb-3 group-hover:text-primary transition-colors leading-tight">
@@ -284,13 +316,13 @@ const ForumPage = () => {
             {/* CTA */}
             <div className="relative overflow-hidden rounded-xl bg-primary-container p-6 text-on-primary-container group">
               <div className="relative z-10">
-                <h4 className="font-headline font-bold text-xl mb-2">Join the Elite</h4>
-                <p className="text-sm opacity-80 mb-4">Connect with 12k+ SEO Architects globally.</p>
+                <h4 className="font-headline font-bold text-xl mb-2">Únete a la Comunidad</h4>
+                <p className="text-sm opacity-80 mb-4">Conecta con más de 12k expertos en SEO.</p>
                 <button 
                   onClick={handleStartThread}
                   className="w-full bg-white text-black py-3 rounded-lg font-bold text-xs uppercase tracking-widest hover:bg-black hover:text-white transition-all transform active:scale-95"
                 >
-                  START A THREAD
+                  INICIAR DEBATE
                 </button>
               </div>
               <LayoutGrid className="absolute -right-8 -bottom-8 opacity-10 text-[120px] rotate-12 group-hover:rotate-0 transition-transform duration-700" size={140} />
