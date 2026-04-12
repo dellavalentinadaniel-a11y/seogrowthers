@@ -14,7 +14,8 @@ import {
   Verified, 
   LayoutGrid,
   Zap,
-  Trash2
+  Trash2,
+  Hash
 } from 'lucide-react';
 import ImageOptimized from '@/components/shared/ImageOptimized';
 import ForumCarousel from '@/components/forum/ForumCarousel';
