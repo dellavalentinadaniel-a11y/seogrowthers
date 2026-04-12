@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Activity, Network, Search, CheckCircle, XCircle, BookOpen, Clock, ChevronRight, Award, Zap, Code, Shield, Cloud, Server, Database, X, Maximize2 } from 'lucide-react';
-import RelatedNews from '@/components/shared/RelatedNews';
 import FAQSection from '@/components/shared/FAQSection';
 
 // Mapeo dinamico de iconos ampliado para soportar más temáticas
@@ -297,13 +296,10 @@ const InteractiveGuide = ({ guideData, title, subtitle, faqs }) => {
       </article>
       </div>
       
+      
       {/* Sección compartida de FAQs (si aplica a esta guía) */}
       <div className="max-w-7xl mx-auto w-full">
         {faqs && faqs.length > 0 && <FAQSection faqs={faqs} />}
-      </div>
-
-      <div className="max-w-7xl mx-auto w-full">
-        <RelatedNews />
       </div>
 
       {/* Lightbox / Zoomed Image Modal */}

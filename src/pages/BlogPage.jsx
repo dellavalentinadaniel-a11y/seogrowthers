@@ -10,8 +10,11 @@ import { Search, Loader2, Plus, PenSquare, MessageSquare } from 'lucide-react';
 import AdUnit from '@/components/ads/AdUnit';
 import AdSidebar from '@/components/ads/AdSidebar';
 import { Button } from '@/components/ui/button';
+import Pagination from '@/components/shared/Pagination';
 
-import { newsData as localNews } from '@/data/newsData';
+const PAGE_SIZE = 6;
+
+
 
 const BlogPage = () => {
   const { category } = useParams();
@@ -20,6 +23,8 @@ const BlogPage = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [categories, setCategories] = useState([]);
   const [session, setSession] = useState(null);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalCount, setTotalCount] = useState(0);
 
   useEffect(() => {
     supabase.auth.getSession().then(({ data: { session } }) => {
@@ -44,7 +49,7 @@ const BlogPage = () => {
     try {
       let query = supabase
         .from('articles')
-        .select('id, title, summary, content, content_html, featured_image, slug, category, created_at, status')
+        .select('id, title, summary, content, content_html, featured_image, slug, category, created_at, status', { count: 'exact' })
         .eq('status', 'published')
         .neq('category', 'news') // Exclude news from blog
         .order('created_at', { ascending: false });
@@ -53,43 +58,49 @@ const BlogPage = () => {
         query = query.ilike('category', `%${category}%`); 
       }
 
-      const { data, error } = await query;
+      if (searchTerm) {
+        query = query.ilike('title', `%${searchTerm}%`);
+      }
+
+      // Pagination range
+      const from = (currentPage - 1) * PAGE_SIZE;
+      const to = from + PAGE_SIZE - 1;
+      query = query.range(from, to);
+
+      const { data, error, count } = await query;
       if (!error && data) {
         dbArticles = data.map(item => ({
           ...item,
           description: item.summary,
           excerpt: item.summary
         }));
+        setTotalCount(count || 0);
       }
     } catch (err) {
       console.warn("DB fetch failed:", err);
     }
 
-    // Merge with local newsData
-    const localFiltered = localNews.filter(n => {
-      if (!category) return true;
-      return n.category.toLowerCase().includes(category.toLowerCase());
-    });
-
-    const merged = [...localFiltered];
-    dbArticles.forEach(dbItem => {
-      if (!merged.find(m => m.slug === dbItem.slug)) {
-        merged.push(dbItem);
-      }
-    });
-
-    setArticles(merged);
+    setArticles(dbArticles);
     setLoading(false);
-  }, [category]);
+  }, [category, searchTerm, currentPage]);
+
+  // Reset page when filtering changes
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [category, searchTerm]);
+
+  // Scroll to top when page changes
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }, [currentPage]);
 
   useEffect(() => {
     fetchCategories();
     fetchArticles();
   }, [category, fetchCategories, fetchArticles]);
 
-  const filteredArticles = articles.filter(article => 
-    article.title.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  // Logic moved to fetchArticles for server-side search and pagination
+  const filteredArticles = articles;
 
   return (
     <>
@@ -190,11 +201,19 @@ const BlogPage = () => {
                    </div>
                 ) : filteredArticles.length > 0 ? (
                    <>
-                       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                           {filteredArticles.map(article => (
                              <ArticleCard key={article.id} article={article} />
                           ))}
                        </div>
+
+                       <Pagination 
+                          currentPage={currentPage}
+                          totalItems={totalCount}
+                          pageSize={PAGE_SIZE}
+                          onPageChange={setCurrentPage}
+                          className="mt-12"
+                       />
                        
                        {/* Footer Leaderboard for Grid */}
                        <div className="mt-12">

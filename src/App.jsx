@@ -11,8 +11,6 @@ import { AnimatePresence } from 'framer-motion';
 const Home = lazy(() => import('@/pages/Home'));
 const ContactPage = lazy(() => import('@/pages/ContactPage'));
 const Project = lazy(() => import('@/pages/Project'));
-const NewsPage = lazy(() => import('@/pages/NewsPage'));
-const NewsDetail = lazy(() => import('@/pages/NewsDetail'));
 const ArticleDetail = lazy(() => import('@/pages/ArticleDetail'));
 const Services = lazy(() => import('@/pages/Services'));
 const ResourcesPage = lazy(() => import('@/pages/ResourcesPage'));
@@ -35,8 +33,6 @@ const AdminLayout = lazy(() => import('@/components/admin/AdminLayout'));
 const Login = lazy(() => import('@/pages/admin/Login'));
 const ArticlesList = lazy(() => import('@/pages/admin/ArticlesList'));
 const ArticleForm = lazy(() => import('@/pages/admin/ArticleForm'));
-const NewsList = lazy(() => import('@/pages/admin/NewsList'));
-const NewsForm = lazy(() => import('@/pages/admin/NewsForm'));
 const ToolsList = lazy(() => import('@/pages/admin/ToolsList'));
 const ToolForm = lazy(() => import('@/pages/admin/ToolForm'));
 const ResourcesList = lazy(() => import('@/pages/admin/ResourcesList'));
@@ -78,10 +74,7 @@ function App() {
               <Route path="blog/:category" element={<BlogPage />} />
               <Route path="blog/:category/:slug" element={<ArticleDetail />} />
 
-              {/* News Cluster */}
-              <Route path="news" element={<NewsPage />} />
-              <Route path="news/:slug" element={<NewsDetail />} />
-              <Route path="news/:category/:slug" element={<NewsDetail />} />
+
 
               {/* Services Cluster */}
               <Route path="services" element={<Services />} />
@@ -124,10 +117,7 @@ function App() {
               <Route path="articles/new" element={<ArticleForm />} />
               <Route path="articles/:id/edit" element={<ArticleForm />} />
 
-              {/* News */}
-              <Route path="news" element={<NewsList />} />
-              <Route path="news/new" element={<NewsForm />} />
-              <Route path="news/:id/edit" element={<NewsForm />} />
+
 
               {/* Tools */}
               <Route path="tools" element={<ToolsList />} />

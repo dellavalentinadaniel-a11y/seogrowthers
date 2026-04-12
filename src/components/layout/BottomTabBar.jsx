@@ -6,8 +6,8 @@ const BottomTabBar = () => {
 
   const navItems = [
     { label: 'Inicio', icon: 'home', path: '/' },
+    { label: 'Blog', icon: 'article', path: '/blog' },
     { label: 'Foro', icon: 'forum', path: '/forum' },
-    { label: 'Noticias', icon: 'newspaper', path: '/news' },
     { label: 'Recursos', icon: 'grid_view', path: '/resources' },
     { label: 'Perfil', icon: 'person', path: '/profile' }
   ];

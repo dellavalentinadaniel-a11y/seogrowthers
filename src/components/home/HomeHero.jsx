@@ -25,13 +25,7 @@ const HomeHero = () => {
 
   const fetchCarouselData = useCallback(async () => {
     try {
-      // Fetch latest 3 news
-      const { data: newsData } = await supabase
-        .from('blog_news')
-        .select('id, title, slug, excerpt, content, featured_image')
-        .eq('status', 'published')
-        .order('published_at', { ascending: false })
-        .limit(3);
+
 
       // Fetch latest 2 resources
       const { data: resourcesData } = await supabase
@@ -42,20 +36,7 @@ const HomeHero = () => {
 
       const dynamicSlides = [];
 
-      if (newsData) {
-        newsData.forEach(news => {
-          dynamicSlides.push({
-            id: `news-${news.id}`,
-            type: 'news',
-            title: news.title,
-            subtitle: news.excerpt || (news.content ? news.content.substring(0, 120) + '...' : ''),
-            image: news.featured_image || 'https://images.unsplash.com/photo-1485827404703-89b55fcc006d',
-            link: `/news/${news.slug}`,
-            cta: 'Leer Noticia',
-            badge: 'Últimas Noticias'
-          });
-        });
-      }
+
 
       if (resourcesData) {
         resourcesData.forEach(resource => {

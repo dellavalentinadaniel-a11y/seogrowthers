@@ -31,6 +31,14 @@ Google utiliza **Google Search Console** para evaluar la visibilidad y **PageSpe
       options: ["LCP (Largest Contentful Paint)", "CLS (Cumulative Layout Shift)", "INP (Interaction to Next Paint)", "TTFB (Time to First Byte)"],
       correctAnswer: 2,
       explanation: "A partir de marzo de 2024, Google implementó INP (Interaction to Next Paint) para reemplazar a FID, ofreciendo una métrica de respuesta más rigurosa a las latencias complejas de JavaScript."
+    },
+    infographic: {
+      title: "Optimización del LCP y CLS",
+      steps: [
+        { icon: "Zap", label: "Carga de Hero Image Prioritaria" },
+        { icon: "Maximize2", label: "Dimensiones Explícitas en Medios" },
+        { icon: "Activity", label: "Minimizar JavaScript de Bloqueo" }
+      ]
     }
   },
   {
@@ -63,6 +71,14 @@ Planifica los enlaces para que las páginas con mayor autoridad en tu web (ej. l
       options: ["Lo ignora por ser puramente decorativo", "Lo procesa como si fuera el texto ancla (anchor text)", "Lo usa únicamente para Google Imágenes", "Penaliza a la web debido a problemas de accesibilidad"],
       correctAnswer: 1,
       explanation: "Google lee directamente el atributo de texto alternativo (ALT) de la imagen y lo procesa de manera idéntica al texto ancla (anchor text) convencional de los enlaces de texto."
+    },
+    infographic: {
+      title: "Flujo de Autoridad (Topic Clusters)",
+      steps: [
+        { icon: "Maximize2", label: "Página Pilar (Hub Central)" },
+        { icon: "ChevronRight", label: "Páginas Satélite Especializadas" },
+        { icon: "Network", label: "Retroalimentación de Enlaces" }
+      ]
     }
   },
   {
@@ -95,6 +111,33 @@ El *Crawl Budget* es la cantidad limitada de URLs que los robots de Google está
       options: ["Garantizar ranking número 1 en Google", "Forzar indexaciones diarias", "Proveer a Google una lista de qué URLs y activos deben priorizarse", "Evitar penalizaciones de Black-Hat SEO"],
       correctAnswer: 2,
       explanation: "Proveer un sitemap indica a Google (mediante jerarquía o prioridades) de forma ordenada las páginas, ayudando a eficientizar enormemente el presupuesto de rastreo."
+    },
+    infographic: {
+      title: "Ciclo de Indexación Exitosa",
+      steps: [
+        { icon: "Search", label: "Rastreo (Googlebot)" },
+        { icon: "Database", label: "Renderizado y Análisis" },
+        { icon: "CheckCircle", label: "Indexación en el SERP" }
+      ]
     }
+  }
+];
+
+export const seoFaqs = [
+  {
+    question: "¿Cuánto tarda Google en indexar un cambio?",
+    answer: "Depende de la frecuencia de rastreo del sitio. Puede ir desde unas pocas horas para sitios con alta autoridad hasta semanas para webs nuevas. Usar el botón 'Solicitar indexación' en GSC acelera este proceso."
+  },
+  {
+    question: "¿Es malo tener demasiados enlaces internos?",
+    answer: "Google recomienda un número razonable (generalmente menos de un par de cientos por página). Lo más importante es que sean útiles para el usuario y no parezcan spam."
+  },
+  {
+    question: "¿Los Core Web Vitals afectan directamente el ranking?",
+    answer: "Sí, Google los utiliza como un factor de ranking oficial (Page Experience Update), aunque el contenido de alta calidad y relevancia sigue siendo el factor número uno."
+  },
+  {
+    question: "¿Qué pasa si bloqueo el JavaScript en robots.txt?",
+    answer: "Es una práctica peligrosa. Google necesita procesar el JS para ver tu contenido tal como lo hace un usuario. Bloquearlo puede resultar en una indexación incompleta o nula."
   }
 ];

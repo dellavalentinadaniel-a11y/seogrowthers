@@ -45,7 +45,6 @@ const Footer = () => {
             links: [
                 { name: 'Inicio', href: '/' },
                 { name: 'Servicios', href: '/services' },
-                { name: 'Noticias', href: '/news' },
                 { name: 'Recursos', href: '/resources' },
                 { name: 'Herramientas', href: '/tools' },
             ],
