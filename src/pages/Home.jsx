@@ -6,12 +6,12 @@ import HomeHero from '@/components/home/HomeHero';
 import ServicesSection from '@/components/home/ServicesSection';
 import SuccessCasesCarousel from '@/components/home/SuccessCasesCarousel';
 import StatsSection from '@/components/home/StatsSection';
-import LatestNewsSection from '@/components/home/LatestNewsSection';
 import TestimonialsCarousel from '@/components/home/TestimonialsCarousel';
 import ToolsSection from '@/components/home/ToolsSection';
 import CTA from '@/components/home/CTA';
 import FAQSection from '@/components/home/FAQSection';
 import SectionAnimator from '@/components/home/SectionAnimator';
+import BlogSection from '@/components/home/BlogSection';
 
 const Home = () => {
   // Scroll to top on mount
@@ -76,14 +76,16 @@ const Home = () => {
         </SectionAnimator>
 
         <SectionAnimator>
+          <BlogSection />
+        </SectionAnimator>
+
+        <SectionAnimator>
           <StatsSection />
         </SectionAnimator>
 
         {(hasScrolled || footerInView) && (
           <>
-            <SectionAnimator>
-              <LatestNewsSection />
-            </SectionAnimator>
+
 
             <SectionAnimator>
               <TestimonialsCarousel />

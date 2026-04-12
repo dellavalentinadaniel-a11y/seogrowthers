@@ -12,7 +12,7 @@ import MarkdownRenderer from '@/components/shared/MarkdownRenderer';
 import BlogCommentsSection from '@/components/blog/BlogCommentsSection';
 import InteractionBar from '@/components/article/InteractionBar';
 
-import { newsData as localNews } from '@/data/newsData';
+
 
 const ArticleDetail = () => {
   const { category, slug } = useParams();
@@ -41,10 +41,7 @@ const ArticleDetail = () => {
         console.warn("Supabase fetch error:", err);
       }
 
-      // 2. Try fallback to local newsData
-      if (!current) {
-        current = localNews.find(n => n.slug === fullSlug || n.slug === slug);
-      }
+
 
     if (!current) {
       toast({ title: "Error", description: "No se encontró el artículo.", variant: "destructive" });

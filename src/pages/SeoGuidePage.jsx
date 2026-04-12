@@ -3,7 +3,7 @@ import { Helmet } from 'react-helmet-async';
 import { motion } from 'framer-motion';
 import { BookOpen } from 'lucide-react';
 import InteractiveGuide from '@/components/resources/InteractiveGuide';
-import { seoGuideData } from '@/data/seoGuideData';
+import { seoGuideData, seoFaqs } from '@/data/seoGuideData';
 import CompleteGuideButton from '@/components/resources/CompleteGuideButton';
 
 const SeoGuidePage = () => {
@@ -60,6 +60,7 @@ const SeoGuidePage = () => {
           guideData={seoGuideData} 
           title="Google Search Central & SEO Fundamentals"
           subtitle="Aprende buenas prácticas de indexación con la IA"
+          faqs={seoFaqs}
         />
       </section>
       

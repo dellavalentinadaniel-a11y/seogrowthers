@@ -9,8 +9,8 @@ import { toast } from '@/components/ui/use-toast';
 
 const navLinks = [
   { name: 'Inicio', href: '/' },
+  { name: 'Blog', href: '/blog' },
   { name: 'Foro', href: '/forum' },
-  { name: 'Noticias', href: '/news' },
   { name: 'Recursos', href: '/resources' },
   { name: 'Servicios', href: '/services' },
   { name: 'Herramientas', href: '/tools' },
@@ -27,7 +27,7 @@ const Header = () => {
 
   useEffect(() => {
     const fetchProfile = async (userId) => {
-        const { data } = await supabase.from('profiles').select('avatar_url').eq('id', userId).single();
+        const { data } = await supabase.from('profiles').select('avatar_url, role').eq('id', userId).single();
         if (data) setProfile(data);
     };
 

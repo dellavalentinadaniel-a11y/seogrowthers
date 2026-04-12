@@ -21,6 +21,7 @@ const CreatePostPage = () => {
     const [loading, setLoading] = useState(false);
     const [preview, setPreview] = useState(false);
     const [user, setUser] = useState(null);
+    const [userRole, setUserRole] = useState(null);
     const [categories, setCategories] = useState([]);
 
     const [formData, setFormData] = useState({
@@ -43,6 +44,8 @@ const CreatePostPage = () => {
                 navigate('/login');
             } else {
                 setUser(user);
+                const { data: profile } = await supabase.from('profiles').select('role').eq('id', user.id).single();
+                if (profile) setUserRole(profile.role);
             }
         };
 
@@ -222,17 +225,55 @@ const CreatePostPage = () => {
                                     <label className="text-xs font-bold text-gray-500 uppercase tracking-widest flex items-center gap-2">
                                         <Tag size={12} /> Categoría
                                     </label>
-                                    <select 
-                                        name="category"
-                                        value={formData.category}
-                                        onChange={handleChange}
-                                        className="w-full bg-slate-800 border border-slate-700 text-white rounded-lg p-3 text-sm focus:ring-1 focus:ring-cyan-500 outline-none"
-                                    >
-                                        <option value="Comunidad">Comunidad</option>
-                                        <option value="Debates">Debates</option>
-                                        <option value="Preguntas">Preguntas</option>
-                                        <option value="Showcase">Showcase</option>
-                                    </select>
+                                    <div className="space-y-4">
+                                        <div>
+                                            <p className="text-[10px] text-gray-400 uppercase tracking-tighter mb-2">Comunidad (Foro)</p>
+                                            <div className="flex flex-wrap gap-2">
+                                                {[
+                                                    { id: 'Debates', icon: '💬' },
+                                                    { id: 'Preguntas', icon: '❓' },
+                                                    { id: 'Showcase', icon: '🚀' }
+                                                ].map((cat) => (
+                                                    <button
+                                                        key={cat.id}
+                                                        type="button"
+                                                        onClick={() => setFormData(prev => ({ ...prev, category: cat.id }))}
+                                                        className={`px-3 py-1.5 rounded-lg border text-xs font-bold transition-all flex items-center gap-2 ${
+                                                            formData.category === cat.id
+                                                            ? 'bg-cyan-500 border-cyan-400 text-[#0C0D0D]'
+                                                            : 'bg-slate-800 border-slate-700 text-slate-400 hover:border-slate-600'
+                                                        }`}
+                                                    >
+                                                        <span>{cat.icon}</span>
+                                                        {cat.id}
+                                                    </button>
+                                                ))}
+                                            </div>
+                                        </div>
+
+                                        {userRole === 'admin' && categories.length > 0 && (
+                                            <div>
+                                                <p className="text-[10px] text-cyan-400/60 uppercase tracking-tighter mb-2">Editor Experto (Blog)</p>
+                                                <div className="flex flex-wrap gap-2">
+                                                    {categories.map((cat) => (
+                                                        <button
+                                                            key={cat.id}
+                                                            type="button"
+                                                            onClick={() => setFormData(prev => ({ ...prev, category: cat.name }))}
+                                                            className={`px-3 py-1.5 rounded-lg border text-xs font-bold transition-all flex items-center gap-2 ${
+                                                                formData.category === cat.name
+                                                                ? 'bg-cyan-500 border-cyan-400 text-[#0C0D0D]'
+                                                                : 'bg-cyan-500/5 border-cyan-500/20 text-cyan-400/80 hover:bg-cyan-500/10'
+                                                            }`}
+                                                        >
+                                                            <span>📄</span>
+                                                            {cat.name}
+                                                        </button>
+                                                    ))}
+                                                </div>
+                                            </div>
+                                        )}
+                                    </div>
                                 </div>
                             </div>
 

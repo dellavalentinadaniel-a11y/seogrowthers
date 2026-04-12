@@ -12,10 +12,15 @@ const BlogCommentsSection = ({ articleId }) => {
   const [loading, setLoading] = useState(true);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [user, setUser] = useState(null);
+  const [userRole, setUserRole] = useState(null);
 
   const checkUser = useCallback(async () => {
     const { data: { user } } = await supabase.auth.getUser();
     setUser(user);
+    if (user) {
+      const { data: profile } = await supabase.from('profiles').select('role').eq('id', user.id).single();
+      if (profile) setUserRole(profile.role);
+    }
   }, []);
 
   const fetchComments = useCallback(async () => {
@@ -73,7 +78,12 @@ const BlogCommentsSection = ({ articleId }) => {
       setNewComment('');
       toast({ title: "Comentario enviado", description: "Tu respuesta ha sido publicada." });
     } catch (error) {
-      toast({ title: "Error", description: "No se pudo enviar el comentario.", variant: "destructive" });
+      console.error('Error submitting comment:', error);
+      toast({ 
+        title: "Error al comentar", 
+        description: error.message || "No se pudo enviar el comentario. Inténtalo de nuevo.", 
+        variant: "destructive" 
+      });
     } finally {
       setIsSubmitting(false);
     }
@@ -172,10 +182,11 @@ const BlogCommentsSection = ({ articleId }) => {
                     </div>
                   </div>
                   
-                  {user?.id === comment.user_id && (
+                  {(user?.id === comment.user_id || userRole === 'admin' || userRole === 'moderator') && (
                     <button 
                       onClick={() => handleDelete(comment.id)}
                       className="text-gray-600 hover:text-red-400 transition-colors opacity-0 group-hover:opacity-100 p-2"
+                      title="Eliminar Comentario"
                     >
                       <Trash2 size={16} />
                     </button>
