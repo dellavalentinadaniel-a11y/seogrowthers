@@ -1,0 +1,40 @@
+Los **Core Web Vitals** son un conjunto de métricas establecidas por Google diseñadas para evaluar la experiencia de página de los usuarios, enfocándose fundamentalmente en ofrecer una carga rápida, dar prioridad a los dispositivos móviles (mobile-first) y garantizar una buena interacción [1]. Si tu sitio web no carga a tiempo o "se siente pesado", la experiencia del usuario se deteriora y, en consecuencia, tu posicionamiento SEO sufrirá [2].
+
+En cuanto a las herramientas oficiales para su medición, las fuentes señalan que Google utiliza **Google Search Console** para monitorear el rendimiento, la visibilidad orgánica y los problemas de usabilidad móvil [1-3], y **PageSpeed Insights** para analizar específicamente la velocidad y el rendimiento técnico del sitio [4]. También es muy común apoyarse en herramientas externas de diagnóstico como **GTmetrix** [5, 6].
+
+De las tres métricas principales, las fuentes destacan particularmente una actualización reciente:
+*   **INP (Interaction to Next Paint):** Desde marzo de 2024, Google introdujo INP para evaluar la capacidad de respuesta y la interacción real de un sitio web, sustituyendo a la métrica anterior conocida como FID (First Input Delay) [2, 7]. 
+
+*Aviso importante: La información específica que solicitas sobre las definiciones exactas de LCP y CLS, los umbrales numéricos de Google para considerar una página como "buena", así como la lista exacta de los errores comunes que afectan cada métrica, no se encuentra dentro de las fuentes proporcionadas. A continuación, te ofrezco esta información basándome en conocimientos generales de SEO técnico, pero te sugiero verificarla de forma independiente.*
+
+### Definición de los Core Web Vitals y Umbrales de Google (Información Externa)
+
+1.  **LCP (Largest Contentful Paint - Tiempo de Carga):** Mide el tiempo que tarda en renderizarse (hacerse visible) el elemento de contenido más grande de la pantalla (generalmente una imagen destacada, un video o un bloque de texto).
+    *   **Bueno:** Menos de 2.5 segundos.
+    *   **Necesita mejora:** Entre 2.5 y 4.0 segundos.
+    *   **Malo:** Más de 4.0 segundos.
+2.  **INP (Interaction to Next Paint - Interactividad):** Mide la latencia de todas las interacciones del usuario (clics, toques en la pantalla, pulsaciones del teclado) a lo largo de la vida útil de la página. Evalúa qué tan rápido responde visualmente la página tras la acción del usuario.
+    *   **Bueno:** Menos de 200 milisegundos.
+    *   **Necesita mejora:** Entre 200 y 500 milisegundos.
+    *   **Malo:** Más de 500 milisegundos.
+3.  **CLS (Cumulative Layout Shift - Estabilidad Visual):** Mide cuánto se mueven los elementos de la página de forma inesperada mientras esta se carga (por ejemplo, cuando vas a hacer clic en un botón y este se desplaza porque cargó un anuncio encima).
+    *   **Bueno:** Menos de 0.1.
+    *   **Necesita mejora:** Entre 0.1 y 0.25.
+    *   **Malo:** Más de 0.25.
+
+### Errores más comunes que bajan tus métricas (Información Externa)
+
+*   **LCP bajo:** Servidores lentos, imágenes súper pesadas sin comprimir, carga de recursos que bloquean el renderizado (archivos JavaScript y CSS innecesarios en la cabecera), y no utilizar estrategias de caché.
+*   **INP bajo:** Ejecución masiva de JavaScript que bloquea el hilo principal del navegador (main thread), tareas largas (long tasks) de código que impiden que el navegador responda a los clics del usuario, y estructuras del DOM (HTML) excesivamente complejas.
+*   **CLS bajo:** Imágenes, videos o iframes incrustados sin los atributos de ancho (`width`) y alto (`height`) definidos en el HTML, inyección dinámica de contenido (como anuncios o banners) sin reservar el espacio previamente, y fuentes web (tipografías) que cambian de tamaño al cargar.
+
+### Tips y pasos concretos para optimizarlos
+
+Combinando las buenas prácticas mencionadas en tus fuentes con los estándares de optimización, aquí tienes los pasos a seguir:
+
+1.  **Optimiza al máximo tus imágenes (Ayuda al LCP):** Las imágenes suelen ser los elementos que más incrementan el peso de las páginas web y las ralentizan [8]. Usa formatos modernos y recomendados por Google como **WebP, AVIF o JPEG** optimizados [8, 9].
+2.  **Define dimensiones para los recursos visuales (Ayuda al CLS):** Asegúrate de usar siempre atributos y etiquetas de imagen HTML estándar (como `<img>` con `src` y `alt`), evitando depender de imágenes inyectadas vía CSS si son el contenido principal [10]. *(Nota externa: Declarar el ancho y alto exacto en estas etiquetas previene el CLS).*
+3.  **Utiliza una Red de Distribución de Contenidos o CDN (Ayuda al LCP):** Alojando y sirviendo tus imágenes a través de un CDN, aceleras enormemente la carga global de la página para usuarios en diferentes ubicaciones geográficas [11]. 
+4.  **No bloquees los recursos esenciales (Ayuda al LCP e INP):** Asegúrate de no bloquear el acceso de Google a tus recursos (como CSS o JavaScript) en tu archivo `robots.txt`, ya que el buscador necesita procesar y renderizar la página completamente para entenderla y evaluar su velocidad [12].
+5.  **Diseño 100% Adaptable y Mobile-First:** Google usa la versión móvil de tu web para indexar y clasificar (mobile-first) [13, 14]. El diseño responsivo no solo mejora la experiencia de usuario (algo crucial para estas métricas), sino que garantiza que recursos pesados o mal ubicados no afecten la interacción en pantallas pequeñas [1, 15]. Para ello es clave emplear atributos como `srcset` o la etiqueta `<picture>` para cargar tamaños de imagen adecuados a cada pantalla [15, 16].
+6.  *(Paso Externo - Ayuda al INP):* Minimiza la carga de JavaScript de terceros, retrasa (defer) la carga de scripts no críticos hasta que el usuario interactúe, y divide las tareas largas de JavaScript en fragmentos más pequeños.

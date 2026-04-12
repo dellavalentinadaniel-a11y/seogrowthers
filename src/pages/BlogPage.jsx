@@ -1,0 +1,223 @@
+
+import React, { useEffect, useState, useCallback } from 'react';
+import { useParams, Link } from 'react-router-dom';
+import { supabase } from '@/lib/customSupabaseClient';
+import ArticleCard from '@/components/article/ArticleCard';
+import SEOHead from '@/components/shared/SEOHead';
+import Breadcrumbs from '@/components/layout/Breadcrumbs';
+import { Input } from '@/components/ui/input';
+import { Search, Loader2, Plus, PenSquare, MessageSquare } from 'lucide-react';
+import AdUnit from '@/components/ads/AdUnit';
+import AdSidebar from '@/components/ads/AdSidebar';
+import { Button } from '@/components/ui/button';
+
+import { newsData as localNews } from '@/data/newsData';
+
+const BlogPage = () => {
+  const { category } = useParams();
+  const [articles, setArticles] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [searchTerm, setSearchTerm] = useState('');
+  const [categories, setCategories] = useState([]);
+  const [session, setSession] = useState(null);
+
+  useEffect(() => {
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      setSession(session);
+    });
+
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+      setSession(session);
+    });
+
+    return () => subscription.unsubscribe();
+  }, []);
+
+  const fetchCategories = useCallback(async () => {
+    const { data } = await supabase.from('blog_categories').select('id, name, slug').eq('type', 'article');
+    setCategories(data || []);
+  }, []);
+
+  const fetchArticles = useCallback(async () => {
+    setLoading(true);
+    let dbArticles = [];
+    try {
+      let query = supabase
+        .from('articles')
+        .select('id, title, summary, content, content_html, featured_image, slug, category, created_at, status')
+        .eq('status', 'published')
+        .neq('category', 'news') // Exclude news from blog
+        .order('created_at', { ascending: false });
+
+      if (category) {
+        query = query.ilike('category', `%${category}%`); 
+      }
+
+      const { data, error } = await query;
+      if (!error && data) {
+        dbArticles = data.map(item => ({
+          ...item,
+          description: item.summary,
+          excerpt: item.summary
+        }));
+      }
+    } catch (err) {
+      console.warn("DB fetch failed:", err);
+    }
+
+    // Merge with local newsData
+    const localFiltered = localNews.filter(n => {
+      if (!category) return true;
+      return n.category.toLowerCase().includes(category.toLowerCase());
+    });
+
+    const merged = [...localFiltered];
+    dbArticles.forEach(dbItem => {
+      if (!merged.find(m => m.slug === dbItem.slug)) {
+        merged.push(dbItem);
+      }
+    });
+
+    setArticles(merged);
+    setLoading(false);
+  }, [category]);
+
+  useEffect(() => {
+    fetchCategories();
+    fetchArticles();
+  }, [category, fetchCategories, fetchArticles]);
+
+  const filteredArticles = articles.filter(article => 
+    article.title.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
+  return (
+    <>
+      <SEOHead 
+        title={category ? `Blog de ${category} - Artículos y Guías` : "Blog de Tecnología y Desarrollo - Agency CMS"}
+        description="Explora nuestros artículos sobre desarrollo web, inteligencia artificial, y estrategias digitales para potenciar tu negocio."
+        type="blog"
+      />
+      
+      <div className="bg-[#0C0D0D] min-h-screen pt-24 pb-12 px-6">
+        <div className="container mx-auto max-w-7xl">
+          {/* Top Leaderboard Ad */}
+          <div className="mb-8">
+            <AdUnit 
+                slotId="blog-top-leaderboard" 
+                width="728px" 
+                height="90px" 
+                className="hidden md:flex justify-center"
+            />
+             <AdUnit 
+                slotId="blog-top-mobile" 
+                width="320px" 
+                height="50px" 
+                className="md:hidden justify-center"
+            />
+          </div>
+
+          <Breadcrumbs className="mb-8" />
+          
+          <div className="text-center mb-16">
+            <h1 className="text-4xl md:text-6xl font-bold text-white mb-6">
+              Nuestro <span className="text-cyan-400">Blog</span>
+            </h1>
+            
+            {session && (
+              <div className="flex justify-center mb-6">
+                <Link to="/forum">
+                  <Button className="bg-cyan-500 hover:bg-cyan-600 text-[#0C0D0D] font-bold px-6 py-6 rounded-xl flex items-center gap-2 shadow-[0_0_20px_rgba(0,229,255,0.3)] transition-all hover:scale-105 active:scale-95">
+                    <MessageSquare size={20} />
+                    Iniciar Debate en el Foro
+                  </Button>
+                </Link>
+              </div>
+            )}
+            <p className="text-xl text-gray-400 max-w-2xl mx-auto">
+              Ideas, tutoriales y noticias sobre el mundo del desarrollo de software y la transformación digital.
+            </p>
+          </div>
+
+          <div className="flex flex-col md:flex-row gap-8 mb-12 items-start">
+             {/* Sidebar Filters & Ads */}
+             <aside className="w-full md:w-64 flex-shrink-0 space-y-6">
+                <div className="bg-slate-900/50 p-6 rounded-xl border border-slate-800">
+                   <h3 className="font-bold text-white mb-4">Buscar</h3>
+                   <div className="relative">
+                      <Search className="absolute left-3 top-2.5 h-4 w-4 text-gray-500" />
+                      <Input 
+                        placeholder="Buscar artículos..." 
+                        value={searchTerm}
+                        onChange={(e) => setSearchTerm(e.target.value)}
+                        className="pl-9 bg-slate-800 border-slate-700 text-white"
+                      />
+                   </div>
+                </div>
+
+                <div className="bg-slate-900/50 p-6 rounded-xl border border-slate-800">
+                   <h3 className="font-bold text-white mb-4">Categorías</h3>
+                   <nav className="flex flex-col gap-2">
+                      <Link 
+                        to="/blog" 
+                        className={`text-sm py-2 px-3 rounded transition-colors ${!category ? 'bg-cyan-500/10 text-cyan-400' : 'text-gray-400 hover:text-white hover:bg-slate-800'}`}
+                      >
+                        Todas
+                      </Link>
+                      {categories.map(cat => (
+                         <Link 
+                           key={cat.id} 
+                           to={`/blog/${cat.slug}`}
+                           className={`text-sm py-2 px-3 rounded transition-colors ${category === cat.slug ? 'bg-cyan-500/10 text-cyan-400' : 'text-gray-400 hover:text-white hover:bg-slate-800'}`}
+                         >
+                           {cat.name}
+                         </Link>
+                      ))}
+                   </nav>
+                </div>
+                
+                {/* Sidebar Ads */}
+                <div className="hidden md:block">
+                  <AdSidebar />
+                </div>
+             </aside>
+
+             {/* Grid */}
+             <div className="flex-1">
+                {loading ? (
+                   <div className="flex justify-center py-20">
+                      <Loader2 className="animate-spin h-10 w-10 text-cyan-500" />
+                   </div>
+                ) : filteredArticles.length > 0 ? (
+                   <>
+                       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                          {filteredArticles.map(article => (
+                             <ArticleCard key={article.id} article={article} />
+                          ))}
+                       </div>
+                       
+                       {/* Footer Leaderboard for Grid */}
+                       <div className="mt-12">
+                          <AdUnit 
+                            slotId="blog-bottom-leaderboard" 
+                            width="728px" 
+                            height="90px" 
+                            className="hidden md:flex justify-center"
+                          />
+                       </div>
+                   </>
+                ) : (
+                   <div className="text-center py-20 bg-slate-900/30 rounded-xl border border-dashed border-slate-800">
+                      <p className="text-gray-400 text-lg">No se encontraron artículos.</p>
+                      {category && <Link to="/blog" className="text-cyan-400 mt-2 inline-block hover:underline">Ver todos los artículos</Link>}
+                   </div>
+                )}
+             </div>
+          </div>
+        </div>
+      </div>
+    </>
+  );
+};
+
+export default BlogPage;
