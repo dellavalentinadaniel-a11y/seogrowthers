@@ -9,7 +9,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { ArrowLeft, Save, Loader2, Calendar as CalendarIcon } from 'lucide-react';
 import { toast } from '@/components/ui/use-toast';
 import { slugify } from '@/lib/utils';
-import RichTextEditor from '@/components/admin/RichTextEditor';
+import NovelEditor from '@/components/shared/NovelEditor';
 import ImageUpload from '@/components/admin/ImageUpload';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { Calendar } from '@/components/ui/calendar';
@@ -143,7 +143,7 @@ const GenericForm = ({
 
             <div>
               <Label className="mb-2 block">Contenido</Label>
-              <RichTextEditor 
+              <NovelEditor 
                 content={formData.content} 
                 onChange={(html) => setFormData({...formData, content: html})}
               />

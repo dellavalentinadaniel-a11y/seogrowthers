@@ -1,6 +1,6 @@
 
 import React, { useState, useEffect } from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useNavigate, useLocation, useParams } from 'react-router-dom';
 import { supabase } from '@/lib/customSupabaseClient';
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -12,10 +12,14 @@ import {
 } from 'lucide-react';
 import SEOHead from '@/components/shared/SEOHead';
 import MarkdownRenderer from '@/components/shared/MarkdownRenderer';
+import NovelEditor from '@/components/shared/NovelEditor';
+import ImageUpload from '@/components/admin/ImageUpload';
 
 const CreatePostPage = () => {
     const navigate = useNavigate();
     const location = useLocation();
+    const { id } = useParams();
+    const isEditMode = !!id;
     const forumMode = location.state?.from === '/forum';
     const initialCategory = location.state?.category || '';
     const [loading, setLoading] = useState(false);
@@ -30,6 +34,8 @@ const CreatePostPage = () => {
         excerpt: '',
         category: initialCategory,
         featured_image: '',
+        meta_title: '',
+        meta_description: ''
     });
 
     useEffect(() => {
@@ -59,14 +65,40 @@ const CreatePostPage = () => {
                 setFormData(prev => ({ ...prev, category: data[0].name }));
             }
         };
+        const fetchExistingPost = async () => {
+            if (!id) return;
+            try {
+                const { data, error } = await supabase.from('articles').select('*').eq('id', id).single();
+                if (error) throw error;
+                if (data) {
+                    setFormData({
+                        title: data.title || '',
+                        content: data.content_html || data.content || '',
+                        excerpt: data.summary || '',
+                        category: data.category || '',
+                        featured_image: data.featured_image || '',
+                        meta_title: data.meta_title || '',
+                        meta_description: data.meta_description || ''
+                    });
+                }
+            } catch (err) {
+                console.error('Error fetching post:', err);
+                toast({ title: 'Error', description: 'No se pudo cargar la publicación', variant: 'destructive' });
+            }
+        };
 
         checkUser();
         fetchCategories();
-    }, [navigate]);
+        fetchExistingPost();
+    }, [navigate, id]);
 
     const handleChange = (e) => {
         const { name, value } = e.target;
         setFormData(prev => ({ ...prev, [name]: value }));
+    };
+
+    const handleEditorChange = (html) => {
+        setFormData(prev => ({ ...prev, content: html }));
     };
 
     const generateSlug = (title) => {
@@ -91,31 +123,49 @@ const CreatePostPage = () => {
         }
 
         setLoading(true);
+        // Only generate slug if it's new. For existing, we can keep the old one or generate a new one. Let's keep existing unchanged or update it minimally.
         const slug = generateSlug(formData.title);
 
         try {
-            const { error } = await supabase
-                .from('articles')
-                .insert([{
-                    title: formData.title,
-                    slug: slug,
-                    content_html: formData.content, // We store raw markdown/text here for simplicity as the renderer handles it
-                    summary: formData.excerpt || formData.content.substring(0, 150) + '...',
-                    category: formData.category || 'Comunidad',
-                    author_id: user.id,
-                    status: 'published', // User posts are public by default in forum
-                    created_at: new Date().toISOString(),
-                }]);
+            let error;
+            const articleData = {
+                title: formData.title,
+                slug: slug,
+                content_html: formData.content,
+                summary: formData.excerpt || formData.content.substring(0, 150) + '...',
+                category: formData.category || 'Comunidad',
+                featured_image: formData.featured_image,
+                meta_title: formData.meta_title,
+                meta_description: formData.meta_description,
+                updated_at: new Date().toISOString()
+            };
+
+            if (isEditMode) {
+                const { error: updateError } = await supabase
+                    .from('articles')
+                    .update(articleData)
+                    .eq('id', id);
+                error = updateError;
+            } else {
+                articleData.author_id = user.id;
+                articleData.status = 'published';
+                articleData.created_at = new Date().toISOString();
+                
+                const { error: insertError } = await supabase
+                    .from('articles')
+                    .insert([articleData]);
+                error = insertError;
+            }
 
             if (error) throw error;
 
             toast({
-                title: "¡Publicado con éxito! 🎉",
-                description: forumMode ? "Tu debate ya está disponible en el foro." : "Tu post ya está disponible en el blog.",
+                title: isEditMode ? "¡Actualizado con éxito! 🎉" : "¡Publicado con éxito! 🎉",
+                description: isEditMode ? "Los cambios han sido guardados." : (forumMode ? "Tu debate ya está disponible en el foro." : "Tu post ya está disponible en el blog."),
             });
             navigate(forumMode ? '/forum' : '/blog');
         } catch (error) {
-            console.error('Error creating post:', error);
+            console.error('Error saving post:', error);
             toast({
                 title: "Error al publicar",
                 description: error.message,
@@ -146,7 +196,7 @@ const CreatePostPage = () => {
                     <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-12">
                         <div>
                             <h1 className="text-3xl md:text-5xl font-bold text-white mb-2">
-                                {forumMode ? 'Iniciar' : 'Crear'} <span className="text-cyan-400">{forumMode ? 'Debate' : 'Publicación'}</span>
+                                {isEditMode ? 'Editar' : (forumMode ? 'Iniciar' : 'Crear')} <span className="text-cyan-400">{forumMode ? 'Debate' : 'Publicación'}</span>
                             </h1>
                             <p className="text-gray-400">Comparte tu experiencia con los demás miembros.</p>
                         </div>
@@ -165,15 +215,118 @@ const CreatePostPage = () => {
                                 className="bg-cyan-500 hover:bg-cyan-600 text-[#0C0D0D] font-bold px-8 shadow-[0_0_20px_rgba(0,229,255,0.2)]"
                             >
                                 {loading ? <Loader2 size={18} className="mr-2 animate-spin"/> : <Send size={18} className="mr-2"/>}
-                                Publicar
+                                {isEditMode ? 'Actualizar' : 'Publicar'}
                             </Button>
                         </div>
                     </div>
 
-                    <div className="grid grid-cols-1 lg:grid-cols-3 gap-10">
+                    <div className="grid grid-cols-1 lg:grid-cols-3 gap-10 items-start">
+                        {/* Sidebar Izquierda - Opciones */}
+                        <div className={`space-y-6 ${preview ? 'hidden' : 'block'}`}>
+                            <div className="bg-slate-900/50 p-6 rounded-2xl border border-slate-800 space-y-6 sticky top-24">
+                                <h3 className="font-bold text-white flex items-center gap-2">
+                                    <Layout size={16} /> Panel de Opciones
+                                </h3>
+                                
+                                <div className="space-y-4 pt-2 border-t border-slate-800">
+                                    <div>
+                                        <label className="text-xs font-bold text-gray-500 uppercase tracking-widest flex items-center gap-2 mb-2">
+                                            <ImageIcon size={12} /> Imagen Destacada
+                                        </label>
+                                        <div className="bg-slate-950 p-3 rounded-xl border border-slate-800 text-sm">
+                                            <ImageUpload 
+                                                value={formData.featured_image || ''}
+                                                onChange={(url) => setFormData(prev => ({ ...prev, featured_image: url }))}
+                                                bucket="article-images"
+                                            />
+                                        </div>
+                                    </div>
+
+                                    <div>
+                                        <label className="text-xs font-bold text-gray-500 uppercase tracking-widest flex items-center gap-2 mb-2">
+                                            <Tag size={12} /> Título SEO (Opcional)
+                                        </label>
+                                        <Input 
+                                            name="meta_title"
+                                            value={formData.meta_title}
+                                            onChange={handleChange}
+                                            placeholder="Título para buscadores"
+                                            className="bg-slate-950 border-slate-800 focus:border-cyan-500/50 text-white text-xs"
+                                        />
+                                    </div>
+
+                                    <div>
+                                        <label className="text-xs font-bold text-gray-500 uppercase tracking-widest flex items-center gap-2 mb-2">
+                                            <PenSquare size={12} /> Descripción SEO
+                                        </label>
+                                        <Textarea 
+                                            name="meta_description"
+                                            value={formData.meta_description}
+                                            onChange={handleChange}
+                                            placeholder="Breve resumen del artículo para Google..."
+                                            className="bg-slate-950 border-slate-800 focus:border-cyan-500/50 text-white min-h-[100px] text-xs resize-none"
+                                        />
+                                    </div>
+
+                                    <div>
+                                        <label className="text-xs font-bold text-gray-500 uppercase tracking-widest flex items-center gap-2 mb-2">
+                                            <Tag size={12} /> Categoría
+                                        </label>
+                                        <div className="space-y-3">
+                                            <div>
+                                                <div className="flex flex-wrap gap-2">
+                                                    {[
+                                                        { id: 'Debates', icon: '💬' },
+                                                        { id: 'Preguntas', icon: '❓' },
+                                                        { id: 'Showcase', icon: '🚀' }
+                                                    ].map((cat) => (
+                                                        <button
+                                                            key={cat.id}
+                                                            type="button"
+                                                            onClick={() => setFormData(prev => ({ ...prev, category: cat.id }))}
+                                                            className={`px-3 py-1.5 rounded-lg border text-[10px] font-bold transition-all flex items-center gap-2 ${
+                                                                formData.category === cat.id
+                                                                ? 'bg-cyan-500 border-cyan-400 text-[#0C0D0D]'
+                                                                : 'bg-slate-800 border-slate-700 text-slate-400 hover:border-slate-600'
+                                                            }`}
+                                                        >
+                                                            <span>{cat.icon}</span>
+                                                            {cat.id}
+                                                        </button>
+                                                    ))}
+                                                </div>
+                                            </div>
+                                            {(userRole === 'admin' || userRole === 'owner') && categories.length > 0 && (
+                                                <div className="pt-2 border-t border-slate-800/50">
+                                                    <p className="text-[10px] text-cyan-400/60 uppercase tracking-tighter mb-2">Categorías de Blog</p>
+                                                    <div className="flex flex-wrap gap-2">
+                                                        {categories.map((cat) => (
+                                                            <button
+                                                                key={cat.id}
+                                                                type="button"
+                                                                onClick={() => setFormData(prev => ({ ...prev, category: cat.name }))}
+                                                                className={`px-3 py-1.5 rounded-lg border text-[10px] font-bold transition-all flex items-center gap-2 ${
+                                                                    formData.category === cat.name
+                                                                    ? 'bg-cyan-500 border-cyan-400 text-[#0C0D0D]'
+                                                                    : 'bg-cyan-500/5 border-cyan-500/20 text-cyan-400/80 hover:bg-cyan-500/10'
+                                                                }`}
+                                                            >
+                                                                <span>📄</span>
+                                                                {cat.name}
+                                                            </button>
+                                                        ))}
+                                                    </div>
+                                                </div>
+                                            )}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
                         {/* Editor Section */}
                         <div className={`lg:col-span-2 space-y-8 ${preview ? 'hidden' : 'block'}`}>
-                            <div className="space-y-2">
+                            <div className="space-y-4">
                                 <label className="text-sm font-medium text-gray-400 flex items-center gap-2">
                                     <Sparkles size={14} className="text-cyan-400" /> Título de la publicación
                                 </label>
@@ -186,107 +339,27 @@ const CreatePostPage = () => {
                                 />
                             </div>
 
-                            <div className="space-y-2">
+                            <div className="space-y-4">
                                 <label className="text-sm font-medium text-gray-400 flex items-center gap-2">
-                                    <PenSquare size={14} className="text-cyan-400" /> Contenido (Soporta Markdown)
+                                    <PenSquare size={14} className="text-cyan-400" /> Contenido del artículo
                                 </label>
-                                <Textarea 
-                                    name="content"
-                                    value={formData.content}
-                                    onChange={handleChange}
-                                    placeholder="Escribe aquí tu artículo... Puedes usar # para títulos, * para negritas, etc."
-                                    className="bg-slate-900/50 border-slate-800 text-white min-h-[400px] py-4 focus:border-cyan-500/50 transition-all resize-none shadow-inner leading-relaxed"
-                                />
-                                <p className="text-[10px] text-gray-500 flex items-center gap-1 mt-2">
-                                    <AlertCircle size={10} /> Sugerencia: Usa Markdown para una mejor presentación.
-                                </p>
+                                <div className="min-h-[500px]">
+                                    <NovelEditor 
+                                        content={formData.content} 
+                                        onChange={handleEditorChange} 
+                                    />
+                                </div>
                             </div>
                         </div>
 
                         {/* Preview Section */}
-                        <div className={`lg:col-span-2 bg-slate-900/30 rounded-2xl border border-slate-800 p-8 ${!preview ? 'hidden' : 'block'}`}>
+                        <div className={`lg:col-span-3 bg-slate-900/30 rounded-2xl border border-slate-800 p-8 ${!preview ? 'hidden' : 'block'}`}>
                             <div className="prose prose-invert max-w-none">
                                 <h1 className="text-4xl font-bold text-white mb-6">{formData.title || 'Tu Título Aquí'}</h1>
                                 {formData.featured_image && (
                                     <img src={formData.featured_image} alt="Preview" className="w-full h-64 object-cover rounded-xl mb-8 border border-slate-800" />
                                 )}
-                                <MarkdownRenderer content={formData.content || '_No hay contenido para previsualizar todavía..._'} />
-                            </div>
-                        </div>
-
-                        {/* Sidebar Options */}
-                        <div className="space-y-6">
-                            <div className="bg-slate-900/50 p-6 rounded-2xl border border-slate-800 space-y-6">
-                                <h3 className="font-bold text-white flex items-center gap-2">
-                                    Configuración
-                                </h3>
-                                
-                                <div className="space-y-2">
-                                    <label className="text-xs font-bold text-gray-500 uppercase tracking-widest flex items-center gap-2">
-                                        <Tag size={12} /> Categoría
-                                    </label>
-                                    <div className="space-y-4">
-                                        <div>
-                                            <p className="text-[10px] text-gray-400 uppercase tracking-tighter mb-2">Comunidad (Foro)</p>
-                                            <div className="flex flex-wrap gap-2">
-                                                {[
-                                                    { id: 'Debates', icon: '💬' },
-                                                    { id: 'Preguntas', icon: '❓' },
-                                                    { id: 'Showcase', icon: '🚀' }
-                                                ].map((cat) => (
-                                                    <button
-                                                        key={cat.id}
-                                                        type="button"
-                                                        onClick={() => setFormData(prev => ({ ...prev, category: cat.id }))}
-                                                        className={`px-3 py-1.5 rounded-lg border text-xs font-bold transition-all flex items-center gap-2 ${
-                                                            formData.category === cat.id
-                                                            ? 'bg-cyan-500 border-cyan-400 text-[#0C0D0D]'
-                                                            : 'bg-slate-800 border-slate-700 text-slate-400 hover:border-slate-600'
-                                                        }`}
-                                                    >
-                                                        <span>{cat.icon}</span>
-                                                        {cat.id}
-                                                    </button>
-                                                ))}
-                                            </div>
-                                        </div>
-
-                                        {userRole === 'admin' && categories.length > 0 && (
-                                            <div>
-                                                <p className="text-[10px] text-cyan-400/60 uppercase tracking-tighter mb-2">Editor Experto (Blog)</p>
-                                                <div className="flex flex-wrap gap-2">
-                                                    {categories.map((cat) => (
-                                                        <button
-                                                            key={cat.id}
-                                                            type="button"
-                                                            onClick={() => setFormData(prev => ({ ...prev, category: cat.name }))}
-                                                            className={`px-3 py-1.5 rounded-lg border text-xs font-bold transition-all flex items-center gap-2 ${
-                                                                formData.category === cat.name
-                                                                ? 'bg-cyan-500 border-cyan-400 text-[#0C0D0D]'
-                                                                : 'bg-cyan-500/5 border-cyan-500/20 text-cyan-400/80 hover:bg-cyan-500/10'
-                                                            }`}
-                                                        >
-                                                            <span>📄</span>
-                                                            {cat.name}
-                                                        </button>
-                                                    ))}
-                                                </div>
-                                            </div>
-                                        )}
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div className="bg-cyan-500/5 p-6 rounded-2xl border border-cyan-500/10">
-                                <h4 className="text-cyan-400 font-bold text-sm mb-2 flex items-center gap-2">
-                                    <AlertCircle size={16} /> Guía de Publicación
-                                </h4>
-                                <ul className="text-xs text-gray-400 space-y-2 list-disc pl-4">
-                                    <li>Sé respetuoso con los demás miembros.</li>
-                                    <li>Evita el spam o contenido irrelevante.</li>
-                                    <li>Usa imágenes de alta calidad (Unsplash recomendado).</li>
-                                    <li>Comprueba la ortografía antes de publicar.</li>
-                                </ul>
+                                <div dangerouslySetInnerHTML={{ __html: formData.content || '<em>No hay contenido para previsualizar todavía...</em>' }} />
                             </div>
                         </div>
                     </div>

@@ -31,7 +31,7 @@ const ArticleDetail = () => {
         const { data, error } = await supabase
           .from('articles')
           .select('id, title, summary, content, content_html, featured_image, slug, category, created_at, status, author_id')
-          .or(`slug.eq."${fullSlug}",slug.eq."${slug}"`)
+          .or(`slug.eq.${fullSlug},slug.eq.${slug}`)
           .single();
 
         if (!error && data) {

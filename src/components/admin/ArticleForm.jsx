@@ -1,7 +1,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { supabase } from '@/lib/customSupabaseClient';
-import ArticleEditor from '@/components/admin/ArticleEditor';
+import NovelEditor from '@/components/shared/NovelEditor';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -208,7 +208,7 @@ const ArticleForm = ({ initialData, isEditing = false }) => {
             
             <div>
               <Label className="text-white mb-2 block">Contenido</Label>
-              <ArticleEditor 
+              <NovelEditor 
                 content={formData.content} 
                 onChange={(html) => handleInputChange('content', html)} 
               />

@@ -71,6 +71,7 @@ function App() {
               <Route path="blog" element={<BlogPage />} />
               <Route path="forum" element={<ForumPage />} />
               <Route path="blog/create" element={<CreatePostPage />} />
+              <Route path="blog/edit/:id" element={<CreatePostPage />} />
               <Route path="blog/:category" element={<BlogPage />} />
               <Route path="blog/:category/:slug" element={<ArticleDetail />} />
 
