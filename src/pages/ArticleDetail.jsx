@@ -4,8 +4,9 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { supabase } from '@/lib/customSupabaseClient';
 import { Helmet } from 'react-helmet-async';
 import { extractHeadings, injectHeadingIds } from '@/lib/seoHelpers';
-import { Calendar, User, Clock, Tag } from 'lucide-react';
+import { Calendar, User, Clock, Tag, Edit, Trash2 } from 'lucide-react';
 import { toast } from '@/components/ui/use-toast';
+import { Button } from '@/components/ui/button';
 import AdUnit from '@/components/ads/AdUnit';
 import AdSidebar from '@/components/ads/AdSidebar';
 import MarkdownRenderer from '@/components/shared/MarkdownRenderer';
@@ -21,6 +22,13 @@ const ArticleDetail = () => {
   const [article, setArticle] = useState(null);
   const [loading, setLoading] = useState(true);
   const [toc, setToc] = useState([]);
+  const [currentUserEmail, setCurrentUserEmail] = useState(null);
+
+  useEffect(() => {
+    supabase.auth.getUser().then(({ data: { user } }) => {
+      if (user) setCurrentUserEmail(user.email);
+    });
+  }, []);
 
   const fetchArticle = useCallback(async () => {
     setLoading(true);
@@ -149,10 +157,41 @@ const ArticleDetail = () => {
               />
 
               <header className="mb-8">
-                <div className="flex flex-wrap gap-2 mb-4">
+                <div className="flex flex-wrap gap-2 mb-4 justify-between items-center">
                   <span className="bg-cyan-500/10 text-cyan-400 px-3 py-1 rounded-full text-sm font-medium border border-cyan-500/20">
                     {article.category || 'Noticias'}
                   </span>
+                  
+                  {currentUserEmail === 'dellavalentina.daniel@gmail.com' && (
+                    <div className="flex gap-2">
+                        <Button 
+                            variant="select" 
+                            size="sm" 
+                            className="bg-cyan-500/10 text-cyan-400 border border-cyan-500/20 hover:bg-cyan-500/20"
+                            onClick={() => navigate(`/blog/edit/${article.id}`)}
+                        >
+                            <Edit size={14} className="mr-2" /> Editar Artículo
+                        </Button>
+                        <Button 
+                            variant="destructive" 
+                            size="sm"
+                            className="bg-red-500/10 text-red-400 border border-red-500/20 hover:bg-red-500/20 hover:text-red-300"
+                            onClick={async () => {
+                                if(window.confirm('¿Estás SEGURO de que deseas borrar esta publicación? Esta acción NO se puede deshacer y sacará el artículo de producción permanentemente.')){
+                                    const { error } = await supabase.from('articles').delete().eq('id', article.id);
+                                    if(error){
+                                        toast({ title: 'Error al borrar', description: error.message, variant: 'destructive' });
+                                    } else {
+                                        toast({ title: 'Éxito', description: 'El artículo ha sido eliminado' });
+                                        navigate('/blog');
+                                    }
+                                }
+                            }}
+                        >
+                            <Trash2 size={14} className="mr-2" /> Borrar
+                        </Button>
+                    </div>
+                  )}
                 </div>
                 <h1 className="text-3xl md:text-5xl font-bold text-white mb-6 leading-tight">
                   {article.title}
