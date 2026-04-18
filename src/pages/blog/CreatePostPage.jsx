@@ -231,14 +231,27 @@ const CreatePostPage = () => {
                                 <div className="space-y-4 pt-2 border-t border-slate-800">
                                     <div>
                                         <label className="text-xs font-bold text-gray-500 uppercase tracking-widest flex items-center gap-2 mb-2">
-                                            <ImageIcon size={12} /> Imagen Destacada
+                                            <ImageIcon size={12} /> Imagen Destacada / Miniatura
                                         </label>
-                                        <div className="bg-slate-950 p-3 rounded-xl border border-slate-800 text-sm">
+                                        <p className="text-[10px] text-gray-500 mb-3 leading-tight">
+                                            Esta imagen aparecerá en los bloques del blog y en las previsualizaciones del sitio.
+                                        </p>
+                                        <div className="bg-slate-950 p-3 rounded-xl border border-slate-800 space-y-3">
                                             <ImageUpload 
                                                 value={formData.featured_image || ''}
                                                 onChange={(url) => setFormData(prev => ({ ...prev, featured_image: url }))}
                                                 bucket="article-images"
                                             />
+                                            <div className="pt-2 border-t border-slate-800/50">
+                                                <p className="text-[9px] text-gray-600 uppercase mb-1.5 font-bold tracking-tighter">O pega una URL directa:</p>
+                                                <Input 
+                                                    name="featured_image"
+                                                    value={formData.featured_image}
+                                                    onChange={handleChange}
+                                                    placeholder="https://ejemplo.com/imagen.jpg"
+                                                    className="bg-slate-900 border-slate-800 text-[10px] h-8 focus:border-cyan-500/50"
+                                                />
+                                            </div>
                                         </div>
                                     </div>
 

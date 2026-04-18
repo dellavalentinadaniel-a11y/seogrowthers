@@ -4,14 +4,13 @@ import { Helmet } from 'react-helmet-async';
 import { useInView } from 'react-intersection-observer';
 import HomeHero from '@/components/home/HomeHero';
 import ServicesSection from '@/components/home/ServicesSection';
-import SuccessCasesCarousel from '@/components/home/SuccessCasesCarousel';
+import UnifiedCarousel from '@/components/home/UnifiedCarousel';
 import StatsSection from '@/components/home/StatsSection';
 import TestimonialsCarousel from '@/components/home/TestimonialsCarousel';
 import ToolsSection from '@/components/home/ToolsSection';
 import CTA from '@/components/home/CTA';
 import FAQSection from '@/components/home/FAQSection';
 import SectionAnimator from '@/components/home/SectionAnimator';
-import BlogSection from '@/components/home/BlogSection';
 
 const Home = () => {
   // Scroll to top on mount
@@ -68,15 +67,11 @@ const Home = () => {
         <HomeHero />
 
         <SectionAnimator>
+          <UnifiedCarousel />
+        </SectionAnimator>
+
+        <SectionAnimator>
           <ServicesSection />
-        </SectionAnimator>
-
-        <SectionAnimator>
-          <SuccessCasesCarousel />
-        </SectionAnimator>
-
-        <SectionAnimator>
-          <BlogSection />
         </SectionAnimator>
 
         <SectionAnimator>
@@ -85,8 +80,6 @@ const Home = () => {
 
         {(hasScrolled || footerInView) && (
           <>
-
-
             <SectionAnimator>
               <TestimonialsCarousel />
             </SectionAnimator>

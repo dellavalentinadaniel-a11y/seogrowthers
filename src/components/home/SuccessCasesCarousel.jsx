@@ -20,7 +20,31 @@ const SuccessCasesCarousel = () => {
         .select('*')
         .order('created_at', { ascending: false });
       
-      if (data) setCases(data);
+      if (data) {
+        const aluvalleCase = {
+          id: 'aluvalle-static',
+          title: 'Aluvalle: Transformación Digital y SEO',
+          description: 'Rediseño completo y estrategia SEO para la tienda líder en carpintería de aluminio. Optimización de catálogo y mejora radical de la experiencia de usuario.',
+          image: '/images/aluvalle-case.png',
+          result: '+300% Tráfico Orgánico',
+          industry: 'Retail / Construcción',
+          slug: 'aluvalle-transformacion-digital',
+          created_at: new Date().toISOString()
+        };
+        setCases([aluvalleCase, ...data]);
+      } else {
+        const aluvalleCase = {
+          id: 'aluvalle-static',
+          title: 'Aluvalle: Transformación Digital y SEO',
+          description: 'Rediseño completo y estrategia SEO para la tienda líder en carpintería de aluminio. Optimización de catálogo y mejora radical de la experiencia de usuario.',
+          image: '/images/aluvalle-case.png',
+          result: '+300% Tráfico Orgánico',
+          industry: 'Retail / Construcción',
+          slug: 'aluvalle-transformacion-digital',
+          created_at: new Date().toISOString()
+        };
+        setCases([aluvalleCase]);
+      }
       setLoading(false);
     };
 
