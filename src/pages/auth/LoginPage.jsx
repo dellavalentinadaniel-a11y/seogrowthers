@@ -102,7 +102,7 @@ const LoginPage = () => {
             <div className="space-y-2 group">
               <div className="flex justify-between items-center px-1">
                 <label className="font-label text-[10px] uppercase tracking-[0.2em] text-slate-500">Clave_Criptográfica</label>
-                <a className="text-[10px] font-label uppercase tracking-widest text-primary/40 hover:text-primary transition-colors" href="#">¿Olvidó Clave?</a>
+                <Link className="text-[10px] font-label uppercase tracking-widest text-primary/40 hover:text-primary transition-colors" to="/auth/forgot-password">¿Olvidó Clave?</Link>
               </div>
               <div className="relative flex items-center transition-all duration-300 bg-[#0d0e17]/80 border border-white/5 rounded-2xl group-within:border-primary/50 group-within:shadow-[0_0_20px_rgba(0,229,255,0.1)]">
                 <span className="material-symbols-outlined absolute left-4 text-slate-600 text-xl group-focus-within:text-primary-container transition-colors">lock</span>

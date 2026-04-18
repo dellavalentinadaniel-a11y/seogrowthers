@@ -20,6 +20,11 @@ const ArticleCard = ({ article, className }) => {
     url: `${typeof window !== 'undefined' ? window.location.origin : ''}/blog/${article.category || 'general'}/${article.slug}`
   });
 
+  const fallbackImage = 'https://images.unsplash.com/photo-1451187580459-43490279c0fa';
+  const imageUrl = article.featured_image && article.featured_image.trim() !== '' 
+    ? article.featured_image 
+    : fallbackImage;
+
   return (
     <>
       <Helmet>
@@ -31,7 +36,7 @@ const ArticleCard = ({ article, className }) => {
       <article className={`group flex flex-col h-full bg-[#111218] rounded-2xl overflow-hidden border border-white/5 hover:border-cyan-500/30 transition-all duration-500 hover:shadow-[0_20px_40px_rgba(0,0,0,0.4),0_0_20px_rgba(6,182,212,0.1)] ${className}`}>
         <Link to={`/blog/${article.category || 'general'}/${article.slug}`} className="block relative h-52 overflow-hidden">
           <ImageOptimized 
-            src={article.featured_image}
+            src={imageUrl}
             alt={article.featured_image_alt || article.title}
             className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
             width={400}
