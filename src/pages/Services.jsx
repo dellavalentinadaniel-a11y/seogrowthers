@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { Link } from 'react-router-dom';
 import ScrollToTop from '@/components/layout/ScrollToTop';
-import RecentArticlesCarousel from '@/components/shared/RecentArticlesCarousel';
+import SuccessCasesHeroCarousel from '@/components/shared/SuccessCasesHeroCarousel';
 
 const Services = () => {
   useEffect(() => {
@@ -39,7 +39,7 @@ const Services = () => {
         </section>
 
         <section className="px-8 max-w-7xl mx-auto mb-20">
-          <RecentArticlesCarousel title="Insights & Estrategia" subtitle="BLOG RECIENTE" />
+          <SuccessCasesHeroCarousel />
         </section>
 
         {/* Services Grid */}
