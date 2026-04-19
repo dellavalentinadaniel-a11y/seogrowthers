@@ -11,6 +11,7 @@ import ToolsSection from '@/components/home/ToolsSection';
 import CTA from '@/components/home/CTA';
 import FAQSection from '@/components/home/FAQSection';
 import SectionAnimator from '@/components/home/SectionAnimator';
+import AluvalleShowcase from '@/components/home/AluvalleShowcase';
 
 const Home = () => {
   // Scroll to top on mount
@@ -68,6 +69,10 @@ const Home = () => {
 
         <SectionAnimator>
           <UnifiedCarousel />
+        </SectionAnimator>
+
+        <SectionAnimator>
+          <AluvalleShowcase />
         </SectionAnimator>
 
         <SectionAnimator>

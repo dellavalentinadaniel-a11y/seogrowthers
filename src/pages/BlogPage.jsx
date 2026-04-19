@@ -70,11 +70,15 @@ const BlogPage = () => {
 
       const { data, error, count } = await query;
       if (!error && data) {
-        dbArticles = data.map(item => ({
-          ...item,
-          description: item.summary,
-          excerpt: item.summary
-        }));
+        dbArticles = data.map(item => {
+          // Strip HTML tags for the excerpt
+          const cleanExcerpt = (item.summary || '').replace(/<[^>]*>/g, '');
+          return {
+            ...item,
+            description: cleanExcerpt,
+            excerpt: cleanExcerpt
+          };
+        });
         setTotalCount(count || 0);
       }
     } catch (err) {

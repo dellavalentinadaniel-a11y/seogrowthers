@@ -26,9 +26,9 @@ const UnifiedCarousel = () => {
         const aluvalleCase = {
           id: 'aluvalle-static',
           type: 'case',
-          title: 'Aluvalle: Transformación Digital y SEO',
-          description: 'Rediseño completo y estrategia SEO para la tienda líder en carpintería de aluminio. Optimización de catálogo y mejora radical de la experiencia de usuario.',
-          image: '/images/aluvalle-case.png',
+          title: 'Aluvalle: Transformación Digital e Impacto SEO',
+          description: 'Implementamos una arquitectura digital escalable y una estrategia de contenidos avanzada, logrando resultados extraordinarios en visibilidad y tasa de conversión.',
+          image: '/images/aluvalle-premium.png',
           result: '+300% Tráfico Orgánico',
           industry: 'Retail / Construcción',
           slug: 'aluvalle-transformacion-digital',

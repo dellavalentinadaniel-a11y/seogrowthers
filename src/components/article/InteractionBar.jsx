@@ -5,7 +5,7 @@ import { Heart, MessageSquare, Share2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { toast } from '@/components/ui/use-toast';
 
-const InteractionBar = ({ contentId, contentType, commentsCount = 0 }) => {
+const InteractionBar = ({ contentId, contentType, commentsCount = 0, onLikeChange }) => {
     const [likes, setLikes] = useState(0);
     const [isLiked, setIsLiked] = useState(false);
     const [loading, setLoading] = useState(true);
@@ -69,7 +69,9 @@ const InteractionBar = ({ contentId, contentType, commentsCount = 0 }) => {
 
         // Optimistic UI Update
         setIsLiked(!isLiked);
-        setLikes(isLiked ? likes - 1 : likes + 1);
+        const newLikes = isLiked ? likes - 1 : likes + 1;
+        setLikes(newLikes);
+        if (onLikeChange) onLikeChange(newLikes);
 
         try {
             if (previousLiked) {

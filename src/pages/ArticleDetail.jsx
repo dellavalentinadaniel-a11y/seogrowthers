@@ -4,7 +4,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { supabase } from '@/lib/customSupabaseClient';
 import { Helmet } from 'react-helmet-async';
 import { extractHeadings, injectHeadingIds } from '@/lib/seoHelpers';
-import { Calendar, User, Clock, Tag, Edit, Trash2 } from 'lucide-react';
+import { Calendar, User, Clock, Tag, Edit, Trash2, Share2, Facebook, Twitter, Linkedin, MessageCircle, Instagram, ArrowLeft, Heart, Sparkles } from 'lucide-react';
 import { toast } from '@/components/ui/use-toast';
 import { Button } from '@/components/ui/button';
 import AdUnit from '@/components/ads/AdUnit';
@@ -13,6 +13,9 @@ import MarkdownRenderer from '@/components/shared/MarkdownRenderer';
 import BlogCommentsSection from '@/components/blog/BlogCommentsSection';
 import InteractionBar from '@/components/article/InteractionBar';
 import AuthorBox from '@/components/article/AuthorBox';
+import ArticleCard from '@/components/article/ArticleCard';
+
+
 
 
 
@@ -24,6 +27,9 @@ const ArticleDetail = () => {
   const [loading, setLoading] = useState(true);
   const [toc, setToc] = useState([]);
   const [currentUserEmail, setCurrentUserEmail] = useState(null);
+  const [likesCount, setLikesCount] = useState(0);
+  const [commentsCount, setCommentsCount] = useState(0);
+  const [recommendedArticles, setRecommendedArticles] = useState([]);
 
   useEffect(() => {
     supabase.auth.getUser().then(({ data: { user } }) => {
@@ -110,7 +116,39 @@ const ArticleDetail = () => {
     }
     setToc(extractedHeadings);
     setLoading(false);
+
+    // Fetch Likes/Comments Count & Recommended
+    fetchStats(current.id, current.category, current.tags || []);
   }, [slug, fullSlug, navigate]);
+
+  const fetchStats = async (articleId, articleCategory, articleTags) => {
+    try {
+        // Likes
+        const { count: likes } = await supabase
+            .from('article_likes')
+            .select('id', { count: 'exact', head: true })
+            .eq('article_id', articleId);
+        setLikesCount(likes || 0);
+
+        // Comments
+        const { count: comments } = await supabase
+            .from('blog_comments')
+            .select('id', { count: 'exact', head: true })
+            .eq('article_id', articleId);
+        setCommentsCount(comments || 0);
+
+        // Recommended
+        const { data: recommended } = await supabase
+            .from('articles')
+            .select('*')
+            .neq('id', articleId)
+            .or(`category.eq.${articleCategory}`)
+            .limit(3);
+        setRecommendedArticles(recommended || []);
+    } catch (err) {
+        console.error("Error fetching stats:", err);
+    }
+  };
 
   useEffect(() => {
     fetchArticle();
@@ -158,10 +196,18 @@ const ArticleDetail = () => {
             {/* Main Content */}
             <main className="lg:col-span-8">
               <header className="mb-8">
-                <div className="flex flex-wrap gap-2 mb-4 justify-between items-center">
-                  <span className="bg-cyan-500/10 text-cyan-400 px-3 py-1 rounded-full text-sm font-medium border border-cyan-500/20">
-                    {article.category || 'Noticias'}
-                  </span>
+                <div className="flex flex-wrap gap-4 mb-4 justify-between items-center">
+                  <div className="flex items-center gap-3">
+                    <button 
+                        onClick={() => navigate(-1)}
+                        className="p-2 bg-white/5 border border-white/10 rounded-lg text-gray-400 hover:text-white hover:bg-white/10 transition-all flex items-center gap-2 text-sm font-medium"
+                    >
+                        <ArrowLeft size={16} /> Volver
+                    </button>
+                    <span className="bg-cyan-500/10 text-cyan-400 px-3 py-1 rounded-full text-sm font-medium border border-cyan-500/20">
+                      {article.category || 'Noticias'}
+                    </span>
+                  </div>
                   
                   {currentUserEmail === 'dellavalentina.daniel@gmail.com' && (
                     <div className="flex gap-2">
@@ -198,18 +244,98 @@ const ArticleDetail = () => {
                   {article.title}
                 </h1>
                 
-                <div className="flex items-center gap-6 text-gray-400 text-sm border-b border-slate-800 pb-6 mb-6">
-                  <div className="flex items-center gap-2">
-                    <User size={16} />
-                    <span>{article.author?.full_name || article.author?.username || 'Redacción'}</span>
+                <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 border-b border-white/10 pb-8 mb-8">
+                  <div className="flex items-center gap-4">
+                    <div className="relative">
+                      <div className="w-12 h-12 rounded-full overflow-hidden border-2 border-cyan-500/30 p-0.5">
+                        <img 
+                          src={article.author?.avatar_url || `https://ui-avatars.com/api/?name=${article.author?.full_name || 'Redaccion'}&background=06B6D4&color=fff`} 
+                          alt={article.author?.full_name}
+                          className="w-full h-full rounded-full object-cover"
+                        />
+                      </div>
+                      <div className="absolute -bottom-1 -right-1 w-4 h-4 bg-green-500 border-2 border-[#0C0D0D] rounded-full"></div>
+                    </div>
+                    <div>
+                      <div className="flex items-center gap-2">
+                        <span className="text-white font-bold">{article.author?.full_name || article.author?.username || 'Equipo Editorial'}</span>
+                        <span className="bg-cyan-500/10 text-cyan-400 text-[10px] px-2 py-0.5 rounded border border-cyan-500/20 font-bold uppercase tracking-wider">
+                          {article.author?.role || 'Contributor'}
+                        </span>
+                      </div>
+                      <div className="flex items-center gap-4 text-xs text-gray-400 mt-1">
+                        <span className="flex items-center gap-1.5"><Calendar size={12} className="text-cyan-500/50" /> {new Date(article.created_at).toLocaleDateString()}</span>
+                        <span className="flex items-center gap-1.5"><Clock size={12} className="text-cyan-500/50" /> 5 min lectura</span>
+                      </div>
+                    </div>
                   </div>
-                  <div className="flex items-center gap-2">
-                    <Calendar size={16} />
-                    <span>{new Date(article.created_at).toLocaleDateString()}</span>
-                  </div>
-                   <div className="flex items-center gap-2">
-                    <Clock size={16} />
-                    <span>5 min lectura</span>
+
+                  <div className="flex items-center gap-4">
+                    <div className="flex items-center gap-3 bg-white/5 border border-white/10 px-4 py-2 rounded-xl">
+                      <button 
+                        onClick={() => {
+                            const section = document.getElementById('interactions-section');
+                            if (section) section.scrollIntoView({ behavior: 'smooth' });
+                        }}
+                        className="flex items-center gap-1.5 text-gray-400 hover:text-pink-500 transition-colors"
+                      >
+                        <Heart size={16} />
+                        <span className="text-xs font-bold">{likesCount}</span>
+                      </button>
+                      <div className="w-px h-3 bg-white/10"></div>
+                      <button 
+                         onClick={() => {
+                            const section = document.getElementById('comments-section');
+                            if (section) section.scrollIntoView({ behavior: 'smooth' });
+                        }}
+                        className="flex items-center gap-1.5 text-gray-400 hover:text-cyan-400 transition-colors"
+                      >
+                        <MessageCircle size={16} />
+                        <span className="text-xs font-bold">{commentsCount}</span>
+                      </button>
+                    </div>
+
+                    <div className="flex items-center gap-3 pl-4 border-l border-white/10">
+                      <span className="text-[10px] font-bold text-gray-500 uppercase tracking-widest mr-1 hidden sm:inline">Compartir:</span>
+                      <a 
+                        href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(window.location.href)}&quote=${encodeURIComponent(article.social_meta?.facebook || article.title)}`} 
+                        target="_blank" rel="noopener noreferrer"
+                        className="w-9 h-9 flex items-center justify-center rounded-lg bg-white/5 border border-white/10 text-gray-400 hover:text-white hover:bg-[#1877F2] hover:border-[#1877F2] transition-all"
+                      >
+                        <Facebook size={18} />
+                      </a>
+                      <a 
+                        href={`https://twitter.com/intent/tweet?url=${encodeURIComponent(window.location.href)}&text=${encodeURIComponent(article.social_meta?.x || article.title)}`} 
+                        target="_blank" rel="noopener noreferrer"
+                        className="w-9 h-9 flex items-center justify-center rounded-lg bg-white/5 border border-white/10 text-gray-400 hover:text-white hover:bg-black hover:border-black transition-all"
+                      >
+                        <Twitter size={18} />
+                      </a>
+                      <a 
+                        href={`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(window.location.href)}`} 
+                        target="_blank" rel="noopener noreferrer"
+                        className="w-9 h-9 flex items-center justify-center rounded-lg bg-white/5 border border-white/10 text-gray-400 hover:text-white hover:bg-[#0A66C2] hover:border-[#0A66C2] transition-all"
+                      >
+                        <Linkedin size={18} />
+                      </a>
+                      <a 
+                        href={`https://api.whatsapp.com/send?text=${encodeURIComponent((article.social_meta?.whatsapp || article.title) + ' ' + window.location.href)}`} 
+                        target="_blank" rel="noopener noreferrer"
+                        className="w-9 h-9 flex items-center justify-center rounded-lg bg-white/5 border border-white/10 text-gray-400 hover:text-white hover:bg-[#25D366] hover:border-[#25D366] transition-all"
+                      >
+                        <MessageCircle size={18} />
+                      </a>
+                      <button 
+                        onClick={() => {
+                          navigator.clipboard.writeText(window.location.href);
+                          toast({ title: "Enlace copiado", description: "Listo para compartir en Instagram" });
+                        }}
+                        className="w-9 h-9 flex items-center justify-center rounded-lg bg-white/5 border border-white/10 text-gray-400 hover:text-white hover:bg-gradient-to-tr hover:from-[#f9ce34] hover:via-[#ee2a7b] hover:to-[#6228d7] hover:border-transparent transition-all"
+                        title="Copiar para Instagram"
+                      >
+                        <Instagram size={18} />
+                      </button>
+                    </div>
                   </div>
                 </div>
               </header>
@@ -230,10 +356,14 @@ const ArticleDetail = () => {
                 <AdUnit slotId="mobile-in-content" width="300px" height="250px" />
               </div>
 
-              <InteractionBar 
-                contentId={article.id} 
-                contentType="article" 
-              />
+              <div id="interactions-section">
+                <InteractionBar 
+                  contentId={article.id} 
+                  contentType="article" 
+                  commentsCount={commentsCount}
+                  onLikeChange={(count) => setLikesCount(count)}
+                />
+              </div>
 
               <MarkdownRenderer content={article.content} />
 
@@ -272,7 +402,26 @@ const ArticleDetail = () => {
               />
 
               {article.id && (
-                <BlogCommentsSection articleId={article.id} />
+                <div id="comments-section">
+                  <BlogCommentsSection articleId={article.id} />
+                </div>
+              )}
+
+              {/* Recommended Articles Section */}
+              {recommendedArticles.length > 0 && (
+                <div className="mt-20 pt-10 border-t border-white/10">
+                  <div className="flex items-center justify-between mb-8">
+                    <h3 className="text-2xl font-bold text-white flex items-center gap-2">
+                      <Sparkles className="text-cyan-400" size={24} /> Recomendados para ti
+                    </h3>
+                    <div className="h-px flex-1 bg-white/10 mx-6 hidden sm:block"></div>
+                  </div>
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    {recommendedArticles.map(rec => (
+                      <ArticleCard key={rec.id} article={rec} />
+                    ))}
+                  </div>
+                </div>
               )}
             </main>
 

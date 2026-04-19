@@ -319,9 +319,7 @@ const NovelImageDialog = ({ editor }) => {
 };
 
 const NovelEditor = ({ content, onChange, placeholder = 'Presiona "/" para ver comandos o usar el menú superior...' }) => {
-  const [initialContent] = useState(content ? { type: 'doc', content: [{ type: 'paragraph' }] } : null);
   const [editorInstance, setEditorInstance] = useState(null);
-
   const extensions = [
     StarterKit.configure({
       bulletList: { HTMLAttributes: { class: "list-disc list-outside leading-3 -mt-2" } },
@@ -359,10 +357,10 @@ const NovelEditor = ({ content, onChange, placeholder = 'Presiona "/" para ver c
       <EditorRoot>
         <EditorContent
           className="min-h-[350px] outline-none prose prose-invert prose-headings:text-cyan-400 max-w-none px-4 pb-4 flex-1"
-          initialContent={initialContent}
+          initialContent={content && content.startsWith('{') ? JSON.parse(content) : undefined}
           extensions={extensions}
           onUpdate={({ editor }) => {
-            setEditorInstance(editor); // force re-render for toolbar states if needed
+            setEditorInstance(editor);
             onChange(editor.getHTML());
           }}
           editorProps={{
@@ -370,15 +368,15 @@ const NovelEditor = ({ content, onChange, placeholder = 'Presiona "/" para ver c
               keydown: (_view, event) => handleCommandNavigation(event),
             },
             attributes: {
-              class: 'prose prose-invert max-w-none prose-headings:text-cyan-400 prose-a:text-cyan-500 focus:outline-none min-h-[350px] p-2',
+              class: 'prose prose-invert max-w-none prose-headings:text-cyan-400 prose-a:text-cyan-500 focus:outline-none min-h-[350px] p-4',
             },
           }}
-          {...(content && typeof content === 'string' && content.startsWith('<') 
-            ? { onCreate: ({ editor }) => {
-                editor.commands.setContent(content);
-                setEditorInstance(editor);
-              }}
-            : { onCreate: ({ editor }) => setEditorInstance(editor) })}
+          onCreate={({ editor }) => {
+            if (content && content.startsWith('<')) {
+              editor.commands.setContent(content);
+            }
+            setEditorInstance(editor);
+          }}
         >
           {/* Menú Flotante de Formato (Bubble Menu) */}
           <EditorBubble className="flex items-center gap-1 bg-slate-800 border border-slate-700 rounded-md p-1 shadow-xl">

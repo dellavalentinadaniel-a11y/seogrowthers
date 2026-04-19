@@ -8,11 +8,15 @@ export const generateSrcSet = (url, variants = [320, 640, 768, 1024, 1280]) => {
   // Implementation note: Supabase Storage Image Transformation requires specific URL construction
   // This is a generic implementation pattern.
   
+  // Supabase Image Transformation is a paid feature. 
+  // If your plan doesn't support it, this will cause a 400 error.
+  /*
   if (url.includes('supabase')) {
      return variants
       .map(width => `${url}?width=${width}&format=webp ${width}w`)
       .join(', ');
   }
+  */
 
   // Handle Unsplash images
   if (url.includes('images.unsplash.com')) {
