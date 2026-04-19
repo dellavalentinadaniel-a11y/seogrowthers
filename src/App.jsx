@@ -35,7 +35,7 @@ const SuccessCaseAluvalle = lazy(() => import('@/pages/SuccessCaseAluvalle'));
 
 // Admin Imports (Lazy Loaded)
 const AdminLayout = lazy(() => import('@/components/admin/AdminLayout'));
-const Login = lazy(() => import('@/pages/admin/Login'));
+// const Login = lazy(() => import('@/pages/admin/Login'));
 const ArticlesList = lazy(() => import('@/pages/admin/ArticlesList'));
 const ArticleForm = lazy(() => import('@/pages/admin/ArticleForm'));
 const ToolsList = lazy(() => import('@/pages/admin/ToolsList'));
@@ -118,7 +118,7 @@ function App() {
 
 
             {/* Admin Routes */}
-            <Route path="/admin/login" element={<Login />} />
+
             <Route path="/admin" element={<AdminLayout />}>
               <Route index element={<ArticlesList />} />
               <Route path="dashboard" element={<ArticlesList />} />

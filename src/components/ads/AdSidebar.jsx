@@ -12,6 +12,7 @@ const AdSidebar = () => {
         height="600px"
         className="hidden lg:flex"
         label="Publicidad Destacada"
+        isHostinger={true}
       />
       
       {/* Secondary Sidebar Ad - 300x250 (Medium Rectangle) */}

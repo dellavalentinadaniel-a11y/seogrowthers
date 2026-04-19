@@ -1,22 +1,25 @@
 import React, { useState } from 'react';
 import { Helmet } from 'react-helmet-async';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { supabase } from '@/lib/customSupabaseClient';
 import { toast } from '@/components/ui/use-toast';
+import { Chrome } from 'lucide-react';
 
 
 const LoginPage = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-  const navigate = useNavigate();
+  const location = useLocation();
+  const queryParams = new URLSearchParams(location.search);
+  const redirectPath = queryParams.get('redirect');
 
   const handleLogin = async (e) => {
     e.preventDefault();
     setIsLoading(true);
 
     try {
-      const { data, error } = await supabase.auth.signInWithPassword({
+      const { error } = await supabase.auth.signInWithPassword({
         email,
         password,
       });
@@ -28,7 +31,11 @@ const LoginPage = () => {
         description: "Bienvenido de nuevo al ecosistema neural.",
       });
       
-      navigate('/profile');
+      if (redirectPath === 'admin') {
+        navigate('/admin');
+      } else {
+        navigate('/profile');
+      }
     } catch (error) {
       toast({
         variant: "destructive",
@@ -36,6 +43,27 @@ const LoginPage = () => {
         description: error.message || "Credenciales inválidas. Por favor verifique sus datos.",
       });
     } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const handleGoogleLogin = async () => {
+    setIsLoading(true);
+    try {
+      const { error } = await supabase.auth.signInWithOAuth({
+        provider: 'google',
+        options: {
+          redirectTo: window.location.origin + (redirectPath === 'admin' ? '/admin' : '/profile'),
+        },
+      });
+      
+      if (error) throw error;
+    } catch (error) {
+      toast({
+        variant: "destructive",
+        title: "Error de autenticación",
+        description: error.message || "No se pudo conectar con el servidor de Google.",
+      });
       setIsLoading(false);
     }
   };
@@ -154,6 +182,27 @@ const LoginPage = () => {
                 {isLoading ? "CARGANDO PROTOCOLO..." : "INICIAR SECUENCIA"}
                 {!isLoading && <span className="material-symbols-outlined text-xl group-hover:translate-x-1 transition-transform">arrow_forward</span>}
               </span>
+            </button>
+
+            {/* Separator */}
+            <div className="relative py-4">
+              <div className="absolute inset-0 flex items-center">
+                <div className="w-full border-t border-white/5"></div>
+              </div>
+              <div className="relative flex justify-center text-[10px] uppercase tracking-[0.3em]">
+                <span className="bg-[#12141d] px-4 text-slate-600">O Sincronizar vía</span>
+              </div>
+            </div>
+
+            {/* Google Login Button */}
+            <button 
+              onClick={handleGoogleLogin}
+              type="button"
+              disabled={isLoading}
+              className="w-full group relative flex items-center justify-center gap-3 py-4 bg-white/5 border border-white/10 rounded-2xl font-label text-[11px] font-bold text-white uppercase tracking-widest hover:bg-white/10 transition-all duration-300 hover:border-primary/30 disabled:opacity-50"
+            >
+              <Chrome className="w-5 h-5 text-primary-container group-hover:scale-110 transition-transform" />
+              Acceso con Google Neural
             </button>
           </form>
 

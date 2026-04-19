@@ -84,6 +84,7 @@ const GenericForm = ({
         if (data) throw new Error('El slug ya existe. Elige otro título o modifica el slug.');
       }
 
+      const { data: { user } } = await supabase.auth.getUser();
       const payload = { ...formData, updated_at: new Date().toISOString() };
       
       let error;
@@ -91,6 +92,8 @@ const GenericForm = ({
         const { error: updateError } = await supabase.from(tableName).update(payload).eq('id', id);
         error = updateError;
       } else {
+        // Add author_id for new records
+        if (user) payload.author_id = user.id;
         const { error: insertError } = await supabase.from(tableName).insert([payload]);
         error = insertError;
       }
