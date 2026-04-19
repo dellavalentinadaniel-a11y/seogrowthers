@@ -72,7 +72,7 @@
   }
   body {
     @apply text-foreground min-h-screen;
-    background-image: url('/images/fondo/site-background.png');
+    background-image: linear-gradient(rgba(12, 13, 13, 0.85), rgba(12, 13, 13, 0.85)), url('/images/fondo/site-background.png');
     background-size: cover;
     background-position: center;
     background-attachment: fixed;
