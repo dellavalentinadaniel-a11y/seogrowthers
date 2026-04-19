@@ -50,9 +50,8 @@ const BlogPage = () => {
     try {
       let query = supabase
         .from('articles')
-        .select('id, title, summary, content, content_html, featured_image, slug, category, created_at, status', { count: 'exact' })
+        .select('id, title, summary, featured_image, slug, category, created_at, status', { count: 'exact' })
         .eq('status', 'published')
-        .neq('category', 'news') // Exclude news from blog
         .order('created_at', { ascending: false });
 
       if (category) {

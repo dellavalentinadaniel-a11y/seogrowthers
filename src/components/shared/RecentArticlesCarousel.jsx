@@ -18,7 +18,13 @@ const RecentArticlesCarousel = ({ title = "Últimas Publicaciones", subtitle = "
       const { data, error } = await supabase
         .from('articles')
         .select(`
-          *,
+          id,
+          title,
+          summary,
+          featured_image,
+          category,
+          slug,
+          created_at,
           author:profiles!author_id (
             username,
             full_name,

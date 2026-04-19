@@ -19,7 +19,7 @@ const UnifiedCarousel = () => {
         // Fetch success cases
         const { data: casesData } = await supabase
           .from('success_cases')
-          .select('*')
+          .select('id, title, description, image, result, industry, slug, category')
           .order('created_at', { ascending: false });
 
         // Add the manual Aluvalle case if it's not in DB yet (as we did before)
@@ -51,7 +51,6 @@ const UnifiedCarousel = () => {
           .from('articles')
           .select('id, title, summary, featured_image, slug, category, created_at, status')
           .eq('status', 'published')
-          .neq('category', 'news')
           .order('created_at', { ascending: false })
           .limit(5);
 

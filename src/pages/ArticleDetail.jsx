@@ -4,7 +4,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { supabase } from '@/lib/customSupabaseClient';
 import { Helmet } from 'react-helmet-async';
 import { extractHeadings, injectHeadingIds } from '@/lib/seoHelpers';
-import { Calendar, User, Clock, Tag, Edit, Trash2, Share2, Facebook, Twitter, Linkedin, MessageCircle, Instagram, ArrowLeft, Heart, Sparkles } from 'lucide-react';
+import { Calendar, User, Clock, Tag, Edit, Trash2, Share2, Facebook, Twitter, Linkedin, MessageCircle, Instagram, ArrowLeft, Heart, Sparkles, LayoutGrid, MessageSquare, ArrowRight } from 'lucide-react';
 import { toast } from '@/components/ui/use-toast';
 import { Button } from '@/components/ui/button';
 import AdUnit from '@/components/ads/AdUnit';

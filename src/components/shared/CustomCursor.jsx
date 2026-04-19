@@ -1,27 +1,31 @@
-import React from 'react';
-import useMousePosition from '@/hooks/useMousePosition';
-import { motion } from 'framer-motion';
+import React, { useEffect, useRef } from 'react';
 
 const CustomCursor = () => {
-  const { x, y } = useMousePosition();
+  const cursorRef = useRef(null);
 
-  const variants = {
-    default: {
-      x: x - 8,
-      y: y - 8,
-      height: 16,
-      width: 16,
-      backgroundColor: '#9372FF', // Updated to the new purple
-      mixBlendMode: 'difference',
-    },
-  };
+  useEffect(() => {
+    const cursor = cursorRef.current;
+    if (!cursor) return;
+
+    const handleMouseMove = (e) => {
+      // Use requestAnimationFrame for smoother performance and to avoid layout thrashing
+      requestAnimationFrame(() => {
+        cursor.style.transform = `translate3d(${e.clientX - 8}px, ${e.clientY - 8}px, 0)`;
+      });
+    };
+
+    window.addEventListener('mousemove', handleMouseMove);
+
+    return () => {
+      window.removeEventListener('mousemove', handleMouseMove);
+    };
+  }, []);
 
   return (
-    <motion.div
-      variants={variants}
-      animate="default"
-      transition={{ type: "spring", stiffness: 500, damping: 28 }}
-      className="fixed top-0 left-0 rounded-full pointer-events-none z-[9999]"
+    <div
+      ref={cursorRef}
+      className="fixed top-0 left-0 w-4 h-4 rounded-full pointer-events-none z-[9999] bg-[#9372FF] mix-blend-difference transition-transform duration-75 ease-out"
+      style={{ willChange: 'transform' }}
     />
   );
 };
