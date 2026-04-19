@@ -4,6 +4,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { supabase } from '@/lib/customSupabaseClient';
 import { toast } from '@/components/ui/use-toast';
 import { motion } from 'framer-motion';
+import { Chrome } from 'lucide-react';
 
 const RegisterPage = () => {
   const [name, setName] = useState('');
@@ -45,6 +46,27 @@ const RegisterPage = () => {
       setIsLoading(false);
     }
   };
+
+  const handleGoogleLogin = async () => {
+    setIsLoading(true);
+    try {
+      const { error } = await supabase.auth.signInWithOAuth({
+        provider: 'google',
+        options: {
+          redirectTo: window.location.origin + '/profile',
+        },
+      });
+      if (error) throw error;
+    } catch (error) {
+      toast({
+        variant: "destructive",
+        title: "Error de autenticación",
+        description: error.message || "No se pudo sincronizar vía Google.",
+      });
+      setIsLoading(false);
+    }
+  };
+
 
   return (
     <div className="font-body text-on-background selection:bg-primary/30 min-h-screen flex flex-col overflow-hidden">
@@ -217,6 +239,27 @@ const RegisterPage = () => {
                   {isLoading ? "SINCRONIZANDO..." : "EMPEZAR EVOLUCIÓN"}
                   {!isLoading && <span className="material-symbols-outlined text-xl group-hover:translate-x-1 transition-transform">rocket_launch</span>}
                 </span>
+              </button>
+
+              {/* Separator */}
+              <div className="relative py-4">
+                <div className="absolute inset-0 flex items-center">
+                  <div className="w-full border-t border-white/5"></div>
+                </div>
+                <div className="relative flex justify-center text-[10px] uppercase tracking-[0.3em]">
+                  <span className="bg-[#111218] px-4 text-slate-500">O Sincronizar vía</span>
+                </div>
+              </div>
+
+              {/* Google Register Button */}
+              <button 
+                onClick={handleGoogleLogin}
+                type="button"
+                disabled={isLoading}
+                className="w-full group relative flex items-center justify-center gap-3 py-4 bg-white/5 border border-white/10 rounded-2xl font-label text-[11px] font-bold text-white uppercase tracking-widest hover:bg-white/10 transition-all duration-300 hover:border-cyan-500/30 disabled:opacity-50"
+              >
+                <Chrome className="w-5 h-5 text-cyan-400 group-hover:scale-110 transition-transform" />
+                Sincronización con Google
               </button>
             </form>
 
