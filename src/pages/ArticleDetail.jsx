@@ -30,6 +30,7 @@ const ArticleDetail = () => {
   const [likesCount, setLikesCount] = useState(0);
   const [commentsCount, setCommentsCount] = useState(0);
   const [recommendedArticles, setRecommendedArticles] = useState([]);
+  const [forumPosts, setForumPosts] = useState([]);
 
   useEffect(() => {
     supabase.auth.getUser().then(({ data: { user } }) => {
@@ -145,6 +146,16 @@ const ArticleDetail = () => {
             .or(`category.eq.${articleCategory}`)
             .limit(3);
         setRecommendedArticles(recommended || []);
+
+        // Forum Recent
+        const { data: forumData } = await supabase
+            .from('articles')
+            .select('id, title, slug, category, created_at')
+            .eq('category', 'Debates')
+            .eq('status', 'published')
+            .order('created_at', { ascending: false })
+            .limit(5);
+        setForumPosts(forumData || []);
     } catch (err) {
         console.error("Error fetching stats:", err);
     }
@@ -190,17 +201,28 @@ const ArticleDetail = () => {
       </Helmet>
 
       <div className="min-h-screen pt-32 pb-20">
+        {/* Floating Back Button */}
+        <div className="fixed top-28 left-4 md:left-8 z-50 pointer-events-none lg:block hidden">
+          <button 
+              onClick={() => navigate(-1)}
+              className="pointer-events-auto p-4 bg-slate-900/80 backdrop-blur-xl border border-white/10 rounded-2xl text-gray-400 hover:text-white hover:bg-cyan-500/10 hover:border-cyan-500/50 shadow-[0_20px_50px_rgba(0,0,0,0.5)] transition-all group flex flex-col items-center gap-2"
+          >
+              <ArrowLeft size={20} className="group-hover:-translate-x-1 transition-transform" />
+              <span className="text-[10px] font-bold uppercase tracking-widest">Volver</span>
+          </button>
+        </div>
+
         <div className="container mx-auto px-4 md:px-6">
           
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10">
             {/* Main Content */}
             <main className="lg:col-span-8">
               <header className="mb-8">
-                <div className="flex flex-wrap gap-4 mb-4 justify-between items-center">
+                <div className="flex flex-wrap gap-4 mb-4 justify-between items-center lg:items-end">
                   <div className="flex items-center gap-3">
                     <button 
                         onClick={() => navigate(-1)}
-                        className="p-2 bg-white/5 border border-white/10 rounded-lg text-gray-400 hover:text-white hover:bg-white/10 transition-all flex items-center gap-2 text-sm font-medium"
+                        className="lg:hidden p-2 bg-white/5 border border-white/10 rounded-lg text-gray-400 hover:text-white hover:bg-white/10 transition-all flex items-center gap-2 text-sm font-medium"
                     >
                         <ArrowLeft size={16} /> Volver
                     </button>
@@ -426,27 +448,67 @@ const ArticleDetail = () => {
             </main>
 
             <aside className="lg:col-span-4 space-y-8">
-               {/* Sidebar Ad Component */}
-               <AdSidebar />
-               
-               <div className="bg-slate-900/50 p-6 rounded-xl border border-slate-800 mt-8">
-                <h3 className="font-bold text-white mb-4 text-lg">Tabla de Contenidos</h3>
-                <nav>
-                  <ul className="space-y-3">
-                     {toc.length === 0 && <li className="text-gray-500 text-sm">Sin subtítulos</li>}
-                     {toc.map((heading) => (
-                      <li key={heading.id} style={{ paddingLeft: (heading.level - 2) * 16 }}>
-                        <a 
-                          href={`#${heading.id}`} 
-                          className="text-sm text-gray-400 hover:text-cyan-400 transition-colors block border-l-2 border-transparent hover:border-cyan-500 pl-3 -ml-px"
+               <div className="sticky top-28 space-y-8">
+                  {/* Sidebar Ad Component */}
+                  <AdSidebar />
+                  
+                  {/* Table of Contents */}
+                  <div className="bg-slate-900/50 backdrop-blur-md p-6 rounded-2xl border border-white/5 shadow-xl">
+                    <h3 className="font-bold text-white mb-6 text-sm uppercase tracking-widest flex items-center gap-2">
+                       <LayoutGrid size={16} className="text-cyan-500" /> Tabla de Contenidos
+                    </h3>
+                    <nav>
+                      <ul className="space-y-4">
+                        {toc.length === 0 && <li className="text-gray-500 text-xs italic">Sin subtítulos identificados</li>}
+                        {toc.map((heading) => (
+                          <li key={heading.id} style={{ paddingLeft: (heading.level === 'H3' ? 16 : 0) }}>
+                            <a 
+                              href={`#${heading.id}`} 
+                              className="text-sm text-gray-400 hover:text-cyan-400 transition-all block border-l-2 border-transparent hover:border-cyan-500/50 pl-3 -ml-px"
+                              onClick={(e) => {
+                                e.preventDefault();
+                                const el = document.getElementById(heading.id);
+                                if (el) el.scrollIntoView({ behavior: 'smooth' });
+                              }}
+                            >
+                              {heading.text}
+                            </a>
+                          </li>
+                        ))}
+                      </ul>
+                    </nav>
+                  </div>
+
+                  {/* Forum Recent Posts */}
+                  <div className="bg-slate-900/50 backdrop-blur-md p-6 rounded-2xl border border-white/5 shadow-xl overflow-hidden relative group">
+                    <div className="absolute top-0 right-0 w-24 h-24 bg-cyan-500/5 blur-3xl -mr-12 -mt-12 rounded-full"></div>
+                    <h3 className="font-bold text-white mb-6 text-sm uppercase tracking-widest flex items-center gap-2 relative z-10">
+                       <MessageSquare size={16} className="text-pink-500" /> Debates Recientes
+                    </h3>
+                    <div className="space-y-4 relative z-10">
+                      {forumPosts.map(post => (
+                        <Link 
+                          key={post.id} 
+                          to={`/blog/${post.category}/${post.slug}`}
+                          className="flex flex-col gap-1 group/post"
                         >
-                          {heading.text}
-                        </a>
-                      </li>
-                    ))}
-                  </ul>
-                </nav>
-              </div>
+                          <span className="text-xs text-gray-400 group-hover/post:text-white transition-colors line-clamp-2 font-medium leading-relaxed">
+                            {post.title}
+                          </span>
+                          <span className="text-[10px] text-gray-600 font-bold uppercase tracking-tighter">
+                            {new Date(post.created_at).toLocaleDateString()}
+                          </span>
+                        </Link>
+                      ))}
+                      <Link 
+                        to="/forum" 
+                        className="mt-4 flex items-center justify-center gap-2 w-full py-2 bg-white/5 border border-white/10 rounded-xl text-[10px] font-bold uppercase tracking-widest text-gray-400 hover:text-cyan-400 hover:bg-white/10 transition-all"
+                      >
+                        Ver todo el foro <ArrowRight size={12} />
+                      </Link>
+                    </div>
+                  </div>
+               </div>
             </aside>
           </div>
         </div>
