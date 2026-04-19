@@ -14,7 +14,7 @@ const AiStudioGuidePage = () => {
   }, []);
 
   return (
-    <div className="bg-background text-on-surface font-body selection:bg-primary-container selection:text-on-primary-container min-h-screen">
+    <div className="text-on-surface font-body selection:bg-primary-container selection:text-on-primary-container min-h-screen">
       <Helmet>
         <title>Google AI Studio & Desarrollo Asistido (2026) | Neural Workspace</title>
         <meta name="description" content="Domina el paradigma de Vibe Coding, la configuración de entornos Full-Stack duales con React 19 y Node.js para orquestar la próxima generación de inteligencia distribuida." />

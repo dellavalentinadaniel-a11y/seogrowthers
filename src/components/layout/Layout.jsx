@@ -12,7 +12,7 @@ const Layout = () => {
   return (
     <MobileMenuProvider>
       <CustomCursor />
-      <div className="min-h-screen bg-[#0C0D0D] text-white overflow-x-hidden flex flex-col pb-16 md:pb-0">
+      <div className="min-h-screen text-white overflow-x-hidden flex flex-col pb-16 md:pb-0">
         <Header />
         <main className="flex-grow">
           <Outlet />

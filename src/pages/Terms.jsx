@@ -30,7 +30,7 @@ const Terms = () => {
       animate="in" 
       exit="out" 
       variants={pageVariants}
-      className="bg-[#0C0D0D] min-h-screen pt-32 pb-20"
+      className="min-h-screen pt-32 pb-20"
     >
       <Helmet>
         <title>Términos de Servicio - AGENCY</title>

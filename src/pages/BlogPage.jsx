@@ -111,7 +111,7 @@ const BlogPage = () => {
         type="blog"
       />
       
-      <div className="bg-[#0C0D0D] min-h-screen pt-24 pb-12 px-6">
+      <div className="min-h-screen pt-24 pb-12 px-6">
         <div className="container mx-auto max-w-7xl">
           <Breadcrumbs className="mb-8" />
           

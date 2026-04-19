@@ -271,14 +271,14 @@ const ProfilePage = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-[#07060A] flex items-center justify-center">
+      <div className="min-h-screen flex items-center justify-center">
         <Loader2 className="w-12 h-12 text-purple-500 animate-spin" />
       </div>
     );
   }
 
   return (
-    <div className="bg-[#07060A] text-white font-sans min-h-screen relative overflow-hidden">
+    <div className="text-white font-sans min-h-screen relative overflow-hidden">
       <Helmet>
         <title>{displayName} — Dashboard | Lumina Quest</title>
         <meta name="robots" content="noindex" />

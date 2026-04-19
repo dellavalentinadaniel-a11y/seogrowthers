@@ -71,7 +71,13 @@
     @apply border-border;
   }
   body {
-    @apply bg-background text-foreground;
+    @apply text-foreground min-h-screen;
+    background-image: url('/images/fondo/site-background.png');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    background-color: #0C0D0D;
   }
 }
 

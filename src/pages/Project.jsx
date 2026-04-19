@@ -189,7 +189,7 @@ const Project = () => {
     window.scrollTo(0, 0);
   }, [projectId]);
 
-  return <motion.div initial="initial" animate="in" exit="out" variants={pageVariants} transition={pageTransition} className="bg-[#0C0D0D] text-white">
+  return <motion.div initial="initial" animate="in" exit="out" variants={pageVariants} transition={pageTransition} className="text-white">
       <Helmet>
         <title>{project.title} - Project Showcase</title>
         <meta name="description" content={`Details of the ${project.title} project, showcasing our creative solutions and results.`} />

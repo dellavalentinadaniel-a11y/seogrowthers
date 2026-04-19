@@ -8,7 +8,7 @@ import CompleteGuideButton from '@/components/resources/CompleteGuideButton';
 
 const SeoGuidePage = () => {
   return (
-    <div className="bg-slate-950 min-h-screen pt-24 pb-20">
+    <div className="min-h-screen pt-24 pb-20">
       <Helmet>
         <title>Google Search Central & SEO Fundamentals - Guía Interactiva</title>
         <meta name="description" content="Guía interactiva basada en Google Search Central, Core Web Vitals, Crawl Budget y Enlazado Interno extraída con NotebookLM." />

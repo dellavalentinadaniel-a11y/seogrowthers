@@ -37,7 +37,7 @@ const ForgotPassword = () => {
   };
 
   return (
-    <div className="bg-[#0C0D0D] text-on-surface font-body neural-bg min-h-screen flex items-center justify-center p-6 selection:bg-primary-container selection:text-on-primary-container overflow-hidden">
+    <div className="text-on-surface font-body neural-bg min-h-screen flex items-center justify-center p-6 selection:bg-primary-container selection:text-on-primary-container overflow-hidden">
       <Helmet>
         <title>Recuperar Clave | Neural Workspace</title>
       </Helmet>

@@ -21,7 +21,7 @@ const SuccessCaseAluvalle = () => {
   };
 
   return (
-    <div className="bg-[#0C0D0D] min-h-screen text-white pt-32 pb-20">
+    <div className="min-h-screen text-white pt-32 pb-20">
       <Helmet>
         <title>{metadata.title}</title>
         <meta name="description" content={metadata.description} />

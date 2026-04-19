@@ -63,7 +63,7 @@ const Home = () => {
         </script>
       </Helmet>
 
-      <main className="bg-[#0C0D0D] min-h-screen">
+      <main className="min-h-screen">
         <HomeHero />
 
         <SectionAnimator>

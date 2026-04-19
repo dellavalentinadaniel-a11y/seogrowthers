@@ -77,7 +77,7 @@ const SuccessCasesHeroCarousel = () => {
 
   return (
     <section 
-      className="mb-20 relative h-[450px] md:h-[550px] w-full overflow-hidden rounded-[2.5rem] bg-surface-container-low border border-white/5 group shadow-2xl"
+      className="mb-20 relative h-[450px] md:h-[550px] w-full overflow-hidden rounded-[2.5rem] bg-transparent border border-white/5 group shadow-2xl"
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
     >

@@ -151,7 +151,7 @@ const ArticleDetail = () => {
         {article.featured_image && <meta property="og:image" content={article.featured_image} />}
       </Helmet>
 
-      <div className="bg-[#0C0D0D] min-h-screen pt-32 pb-20">
+      <div className="min-h-screen pt-32 pb-20">
         <div className="container mx-auto px-4 md:px-6">
           
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10">

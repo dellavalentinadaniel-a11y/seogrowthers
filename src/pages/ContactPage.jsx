@@ -9,7 +9,7 @@ const ContactPage = () => {
   }, []);
 
   return (
-    <div className="bg-background text-on-background font-body selection:bg-primary-container selection:text-on-primary-container min-h-screen">
+    <div className="text-on-background font-body selection:bg-primary-container selection:text-on-primary-container min-h-screen">
       <Helmet>
         <title>Contacto | Neural Workspace</title>
       </Helmet>

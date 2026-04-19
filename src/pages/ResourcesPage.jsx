@@ -42,7 +42,7 @@ const ResourcesPage = () => {
 
 
   return (
-    <div className="bg-background text-on-surface font-body selection:bg-primary-container selection:text-on-primary-container min-h-screen">
+    <div className="text-on-surface font-body selection:bg-primary-container selection:text-on-primary-container min-h-screen">
       <Helmet>
         <title>Recursos Neuronales | Neural Workspace</title>
       </Helmet>

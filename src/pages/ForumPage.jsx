@@ -115,7 +115,7 @@ const ForumPage = () => {
   };
 
   return (
-    <div className="bg-surface text-on-surface min-h-screen font-body selection:bg-primary/30">
+    <div className="text-on-surface min-h-screen font-body selection:bg-primary/30">
       <Helmet>
         <title>ARCHITECT_FORUM | SEO Growthers</title>
         <meta name="description" content="Comunidad de expertos en SEO y desarrollo web." />

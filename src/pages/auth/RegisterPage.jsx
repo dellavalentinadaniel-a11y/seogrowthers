@@ -47,7 +47,7 @@ const RegisterPage = () => {
   };
 
   return (
-    <div className="bg-[#0C0D0D] font-body text-on-background selection:bg-primary/30 min-h-screen flex flex-col overflow-hidden">
+    <div className="font-body text-on-background selection:bg-primary/30 min-h-screen flex flex-col overflow-hidden">
       <Helmet>
         <title>Sincronización de Nodo | Neural Workspace</title>
       </Helmet>

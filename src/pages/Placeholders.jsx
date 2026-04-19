@@ -13,7 +13,7 @@ const PlaceholderPage = ({ title, type }) => {
   return (
     <>
       <SEOHead title={displayTitle} description={`Página de ${displayTitle}`} />
-      <div className="min-h-screen bg-[#0C0D0D] pt-32 px-6 flex items-center justify-center text-center">
+      <div className="min-h-screen pt-32 px-6 flex items-center justify-center text-center">
         <div>
           <h1 className="text-4xl font-bold text-white mb-4">{displayTitle}</h1>
           <p className="text-gray-400 text-xl">Esta página está en construcción 🚧</p>

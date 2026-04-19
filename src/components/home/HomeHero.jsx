@@ -82,7 +82,7 @@ const HomeHero = () => {
   const activeSlide = slides[currentSlide];
 
   return (
-    <section className="relative w-full h-[600px] md:h-[750px] flex items-center justify-center overflow-hidden bg-[#0a0e27]">
+    <section className="relative w-full h-[600px] md:h-[750px] flex items-center justify-center overflow-hidden">
       <AnimatePresence mode="wait">
         <motion.div
           key={activeSlide.id}
@@ -103,7 +103,7 @@ const HomeHero = () => {
               height={1080}
             />
             {/* Multi-layered overlay for depth and "Neural" feel */}
-            <div className="absolute inset-0 bg-gradient-to-b from-[#0a0e27]/80 via-[#0a0e27]/40 to-[#0C0D0D] pointer-events-none"></div>
+            <div className="absolute inset-0 bg-gradient-to-b from-[#0a0e27]/80 via-[#0a0e27]/40 to-transparent pointer-events-none"></div>
             <div className="absolute inset-0 bg-cyan-950/20 mix-blend-color pointer-events-none"></div>
             
             {/* Animated particles or grain could go here */}

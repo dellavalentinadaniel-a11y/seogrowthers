@@ -10,7 +10,7 @@ const ToolsPage = () => {
   }, []);
 
   return (
-    <div className="bg-background text-on-surface font-body selection:bg-primary-container selection:text-on-primary-container min-h-screen overflow-x-hidden">
+    <div className="text-on-surface font-body selection:bg-primary-container selection:text-on-primary-container min-h-screen overflow-x-hidden">
       <Helmet>
         <title>Herramientas | Neural Workspace</title>
       </Helmet>
