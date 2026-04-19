@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { Link } from 'react-router-dom';
 import ScrollToTop from '@/components/layout/ScrollToTop';
+import RecentArticlesCarousel from '@/components/shared/RecentArticlesCarousel';
 
 const ToolsPage = () => {
   useEffect(() => {
@@ -29,6 +30,10 @@ const ToolsPage = () => {
           <p className="max-w-2xl text-on-surface-variant text-lg leading-relaxed">
             Accede a utilidades de alto rendimiento diseñadas para el flujo de trabajo del ingeniero de 2026. Analizadores neuronales, simulación de nodos y terminales de baja latencia.
           </p>
+        </div>
+
+        <div className="mb-20">
+          <RecentArticlesCarousel title="Documentación & Tutoriales" subtitle="LATEST TOOLS" />
         </div>
         
         {/* Bento Grid Layout */}

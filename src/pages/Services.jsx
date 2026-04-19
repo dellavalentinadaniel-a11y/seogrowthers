@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { Link } from 'react-router-dom';
 import ScrollToTop from '@/components/layout/ScrollToTop';
+import RecentArticlesCarousel from '@/components/shared/RecentArticlesCarousel';
 
 const Services = () => {
   useEffect(() => {
@@ -35,6 +36,10 @@ const Services = () => {
           {/* Atmospheric Element */}
           <div className="absolute -top-24 -left-24 w-96 h-96 bg-primary-container/10 rounded-full blur-[120px] pointer-events-none"></div>
           <div className="absolute top-1/2 -right-24 w-96 h-96 bg-secondary-container/10 rounded-full blur-[120px] pointer-events-none"></div>
+        </section>
+
+        <section className="px-8 max-w-7xl mx-auto mb-20">
+          <RecentArticlesCarousel title="Insights & Estrategia" subtitle="BLOG RECIENTE" />
         </section>
 
         {/* Services Grid */}

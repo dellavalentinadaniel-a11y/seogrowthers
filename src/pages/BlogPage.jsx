@@ -11,6 +11,7 @@ import AdUnit from '@/components/ads/AdUnit';
 import AdSidebar from '@/components/ads/AdSidebar';
 import { Button } from '@/components/ui/button';
 import Pagination from '@/components/shared/Pagination';
+import RecentArticlesCarousel from '@/components/shared/RecentArticlesCarousel';
 
 const PAGE_SIZE = 6;
 
@@ -130,6 +131,11 @@ const BlogPage = () => {
 
           <Breadcrumbs className="mb-8" />
           
+          {/* Recent Articles Hero Carousel */}
+          {!category && !searchTerm && currentPage === 1 && (
+            <RecentArticlesCarousel title="Destacados del Blog" subtitle="EXPLORA LO ÚLTIMO" />
+          )}
+
           <div className="text-center mb-16">
             <h1 className="text-4xl md:text-6xl font-bold text-white mb-6">
               Nuestro <span className="text-cyan-400">Blog</span>
