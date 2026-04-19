@@ -17,8 +17,10 @@ const ArticleCard = ({ article, className }) => {
     datePublished: article.published_at || article.created_at,
     authorName: 'Equipo Editorial', // Needs author relation in real app
     description: article.excerpt,
-    url: `${typeof window !== 'undefined' ? window.location.origin : ''}/blog/${article.category || 'general'}/${article.slug}`
+    url: `${typeof window !== 'undefined' ? window.location.origin : ''}/blog/${(article.category || 'general').toLowerCase().replace(/\s+/g, '-')}/${article.slug}`
   });
+
+  const categorySlug = (article.category || 'general').toLowerCase().replace(/\s+/g, '-');
 
   const fallbackImage = 'https://images.unsplash.com/photo-1451187580459-43490279c0fa';
   const imageUrl = article.featured_image && article.featured_image.trim() !== '' 
@@ -34,7 +36,7 @@ const ArticleCard = ({ article, className }) => {
       </Helmet>
       
       <article className={`group flex flex-col h-full bg-[#111218]/80 backdrop-blur-md rounded-2xl overflow-hidden border border-white/10 hover:border-cyan-500/50 transition-all duration-500 shadow-[0_4px_20px_rgba(0,0,0,0.4)] hover:shadow-[0_20px_40px_rgba(0,0,0,0.6),0_0_20px_rgba(6,182,212,0.2)] ${className}`}>
-        <Link to={`/blog/${article.category || 'general'}/${article.slug}`} className="block relative h-52 overflow-hidden">
+        <Link to={`/blog/${categorySlug}/${article.slug}`} className="block relative h-52 overflow-hidden">
           <ImageOptimized 
             src={imageUrl}
             alt={article.featured_image_alt || article.title}
@@ -63,7 +65,7 @@ const ArticleCard = ({ article, className }) => {
                    Redacción
                 </span>
              </div>
-             <Link to={`/blog/${article.category || 'general'}/${article.slug}`}>
+             <Link to={`/blog/${categorySlug}/${article.slug}`}>
                 <h2 className="text-xl font-bold text-slate-100 group-hover:text-cyan-400 transition-colors duration-300 line-clamp-2 leading-snug">
                   {article.title}
                 </h2>
@@ -76,7 +78,7 @@ const ArticleCard = ({ article, className }) => {
           
           <footer className="mt-auto pt-5 border-t border-white/5 flex items-center justify-between">
              <Link 
-                to={`/blog/${article.category || 'general'}/${article.slug}`}
+                to={`/blog/${categorySlug}/${article.slug}`}
                 className="text-xs font-bold text-cyan-400 hover:text-cyan-300 tracking-widest uppercase inline-flex items-center gap-2 group/link"
              >
                 Leer más

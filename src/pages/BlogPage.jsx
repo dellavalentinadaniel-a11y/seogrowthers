@@ -55,7 +55,10 @@ const BlogPage = () => {
         .order('created_at', { ascending: false });
 
       if (category) {
-        query = query.ilike('category', `%${category}%`); 
+        // Encontrar el nombre real de la categoría basado en el slug (parámetro de URL)
+        const matchedCategory = categories.find(c => c.slug === category);
+        const categorySearch = matchedCategory ? matchedCategory.name : category;
+        query = query.ilike('category', `%${categorySearch}%`); 
       }
 
       if (searchTerm) {
@@ -99,9 +102,18 @@ const BlogPage = () => {
   }, [currentPage]);
 
   useEffect(() => {
-    fetchCategories();
-    fetchArticles();
-  }, [category, fetchCategories, fetchArticles]);
+    const init = async () => {
+      await fetchCategories();
+    };
+    init();
+  }, [fetchCategories]);
+
+  useEffect(() => {
+    // Solo ejecutamos fetchArticles si no hay categoría o si ya tenemos las categorías cargadas
+    if (!category || (categories && categories.length > 0)) {
+       fetchArticles();
+    }
+  }, [category, categories, fetchArticles]);
 
   // Logic moved to fetchArticles for server-side search and pagination
   const filteredArticles = articles;

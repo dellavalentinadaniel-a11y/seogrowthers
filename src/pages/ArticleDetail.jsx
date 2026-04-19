@@ -4,7 +4,7 @@ import { useParams, useNavigate, Link } from 'react-router-dom';
 import { supabase } from '@/lib/customSupabaseClient';
 import { Helmet } from 'react-helmet-async';
 import { extractHeadings, injectHeadingIds } from '@/lib/seoHelpers';
-import { Calendar, User, Clock, Tag, Edit, Trash2, Share2, Facebook, Twitter, Linkedin, MessageCircle, Instagram, ArrowLeft, Heart, Sparkles, LayoutGrid, MessageSquare, ArrowRight } from 'lucide-react';
+import { Calendar, User, Clock, Tag, Edit, Trash2, Share2, Facebook, Twitter, Linkedin, MessageCircle, Instagram, ArrowLeft, Heart, Sparkles, List, MessageSquare, ArrowRight } from 'lucide-react';
 import { toast } from '@/components/ui/use-toast';
 import { Button } from '@/components/ui/button';
 import AdUnit from '@/components/ads/AdUnit';
@@ -39,11 +39,22 @@ const ArticleDetail = () => {
   }, []);
 
   const fetchArticle = useCallback(async () => {
+    if (!slug && !category) return;
+    
     setLoading(true);
     let current = null;
     
+    // Preparar los términos de búsqueda
+    const searchTerms = [];
+    if (fullSlug) searchTerms.push(`slug.eq."${fullSlug}"`);
+    if (slug) searchTerms.push(`slug.eq."${slug}"`);
+    if (category && !slug) searchTerms.push(`slug.eq."${category}"`);
+
+    const orFilter = searchTerms.join(',');
+
     try {
-      // 1. Try from 'articles' table (Current source of truth with 5 rows)
+        console.log("Intentando cargar artículo:", { category, slug, fullSlug, orFilter });
+        
         const { data, error } = await supabase
           .from('articles')
           .select(`
@@ -61,19 +72,21 @@ const ArticleDetail = () => {
               role
             )
           `)
-          .or(`slug.eq.${fullSlug},slug.eq.${slug}`)
-          .single();
+          .or(orFilter)
+          .maybeSingle(); // Usamos maybeSingle para evitar errores si no existe
 
-        if (!error && data) {
+        if (error) {
+          console.error("Error de Supabase:", error);
+        } else if (data) {
           current = data;
+          console.log("Artículo encontrado:", current.title);
         }
       } catch (err) {
-        console.warn("Supabase fetch error:", err);
+        console.error("Error crítico en fetchArticle:", err);
       }
 
-
-
     if (!current) {
+      console.warn("No se encontró el artículo después de buscar por:", orFilter);
       toast({ title: "Error", description: "No se encontró el artículo.", variant: "destructive" });
       navigate('/blog');
       setLoading(false);
@@ -82,7 +95,7 @@ const ArticleDetail = () => {
 
     const mappedArticle = {
       ...current,
-      content: current.content_html || current.content || "", 
+      content: current.content_html || current.content || "",
       seo_title: current.seo_title || current.title,
       seo_description: current.seo_description || current.summary || current.description || "",
       keywords: current.keywords || [],
@@ -94,9 +107,11 @@ const ArticleDetail = () => {
 
     // Extract headings for TOC from Markdown or HTML
     const extractedHeadings = [];
-    if (mappedArticle.content.includes('<h2') || mappedArticle.content.includes('<h3')) {
+    const contentToParse = mappedArticle.content || "";
+    
+    if (contentToParse.includes('<h2') || contentToParse.includes('<h3')) {
       const parser = new DOMParser();
-      const doc = parser.parseFromString(mappedArticle.content, 'text/html');
+      const doc = parser.parseFromString(contentToParse, 'text/html');
       const hTags = Array.from(doc.querySelectorAll('h2, h3'));
       hTags.forEach(h => {
         extractedHeadings.push({
@@ -108,19 +123,20 @@ const ArticleDetail = () => {
     } else {
       const headingRegex = /^(#{2,3})\s+(.+)$/gm;
       let match;
-      while ((match = headingRegex.exec(mappedArticle.content)) !== null) {
+      while ((match = headingRegex.exec(contentToParse)) !== null) {
         const level = match[1].length === 2 ? 'H2' : 'H3';
         const text = match[2].trim();
         const id = text.toLowerCase().replace(/[^a-z0-9]+/g, '-');
         extractedHeadings.push({ id, text, level });
       }
     }
+    
     setToc(extractedHeadings);
     setLoading(false);
 
     // Fetch Likes/Comments Count & Recommended
     fetchStats(current.id, current.category, current.tags || []);
-  }, [slug, fullSlug, navigate]);
+  }, [slug, category, fullSlug, navigate]);
 
   const fetchStats = async (articleId, articleCategory, articleTags) => {
     try {
@@ -455,7 +471,7 @@ const ArticleDetail = () => {
                   {/* Table of Contents */}
                   <div className="bg-slate-900/50 backdrop-blur-md p-6 rounded-2xl border border-white/5 shadow-xl">
                     <h3 className="font-bold text-white mb-6 text-sm uppercase tracking-widest flex items-center gap-2">
-                       <LayoutGrid size={16} className="text-cyan-500" /> Tabla de Contenidos
+                       <List size={16} className="text-cyan-500" /> Tabla de Contenidos
                     </h3>
                     <nav>
                       <ul className="space-y-4">
