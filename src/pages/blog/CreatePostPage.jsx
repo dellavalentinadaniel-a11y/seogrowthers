@@ -179,7 +179,7 @@ const CreatePostPage = () => {
                     whatsapp: formData.social_whatsapp,
                     instagram: formData.social_instagram
                 },
-                keywords: formData.keywords ? formData.keywords.split(',').map(k => k.trim()).filter(k => k !== '') : [],
+                // keywords: formData.keywords ? formData.keywords.split(',').map(k => k.trim()).filter(k => k !== '') : [],
                 updated_at: new Date().toISOString()
             };
 
