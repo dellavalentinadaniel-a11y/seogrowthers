@@ -17,6 +17,7 @@ const Services = lazy(() => import('@/pages/Services'));
 const ResourcesPage = lazy(() => import('@/pages/ResourcesPage'));
 const SeoGuidePage = lazy(() => import('@/pages/SeoGuidePage'));
 const AiStudioGuidePage = lazy(() => import('@/pages/AiStudioGuidePage'));
+const SsdGuidePage = lazy(() => import('@/pages/SsdGuidePage'));
 const ToolsPage = lazy(() => import('@/pages/ToolsPage'));
 const Privacy = lazy(() => import('@/pages/Privacy'));
 const Terms = lazy(() => import('@/pages/Terms'));
@@ -94,6 +95,7 @@ function App() {
               <Route path="recursos" element={<ResourcesPage />} />
               <Route path="resources/google-seo-fundamentals" element={<SeoGuidePage />} />
               <Route path="resources/google-ai-studio-2026" element={<AiStudioGuidePage />} />
+              <Route path="resources/ssd-ps5-optimization-2026" element={<SsdGuidePage />} />
               <Route path="resources/:slug" element={<ResourceDetailPage />} />
 
               {/* Tools Cluster */}

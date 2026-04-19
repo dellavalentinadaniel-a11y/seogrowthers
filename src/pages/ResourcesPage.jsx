@@ -23,7 +23,27 @@ const ResourcesPage = () => {
       .order('created_at', { ascending: false });
 
     if (!error && data) {
-      setResources(data);
+      const ssdGuide = {
+        id: 'ssd-ps5-optimization-2026',
+        title: 'Mejores SSD para PS5: Guía 2026',
+        description: 'Todo lo que necesitas saber para ampliar el almacenamiento de tu consola: Gen4, Disipadores y DRAM.',
+        category: 'GUÍAS',
+        link: '/resources/ssd-ps5-optimization-2026',
+        featured: true,
+        image: '/images/seo_pillar.png' // Usando una imagen existente como placeholder
+      };
+      setResources([ssdGuide, ...data]);
+    } else {
+      // Fallback if DB is empty or error
+      setResources([{
+        id: 'ssd-ps5-optimization-2026',
+        title: 'Mejores SSD para PS5: Guía 2026',
+        description: 'Todo lo que necesitas saber para ampliar el almacenamiento de tu consola: Gen4, Disipadores y DRAM.',
+        category: 'GUÍAS',
+        link: '/resources/ssd-ps5-optimization-2026',
+        featured: true,
+        image: '/images/seo_pillar.png'
+      }]);
     }
     setLoading(false);
   };
