@@ -318,37 +318,59 @@ const NovelImageDialog = ({ editor }) => {
   );
 };
 
+const EditorUpdater = ({ content, editor }) => {
+  React.useEffect(() => {
+    if (editor && content && editor.getHTML() !== content) {
+      if (content.startsWith('<')) {
+        editor.commands.setContent(content);
+      } else if (content.startsWith('{')) {
+        try {
+          editor.commands.setContent(JSON.parse(content));
+        } catch (e) {
+          console.error("Error updating JSON content", e);
+        }
+      }
+    }
+  }, [content, editor]);
+  return null;
+};
+
+const DEFAULT_EXTENSIONS = [
+  StarterKit.configure({
+    bulletList: { HTMLAttributes: { class: "list-disc list-outside leading-3 -mt-2" } },
+    orderedList: { HTMLAttributes: { class: "list-decimal list-outside leading-3 -mt-2" } },
+    listItem: { HTMLAttributes: { class: "leading-normal -mb-2" } },
+    blockquote: { HTMLAttributes: { class: "border-l-4 border-cyan-500 pl-4 py-2 italic text-gray-300" } },
+    codeBlock: { HTMLAttributes: { class: "rounded-sm bg-slate-800 p-4 font-mono font-medium text-gray-200" } },
+    code: { HTMLAttributes: { class: "rounded-md bg-slate-800 px-1.5 py-1 font-mono font-medium text-gray-200" } },
+    horizontalRule: { HTMLAttributes: { class: "border-t border-slate-700 my-8" } },
+    dropcursor: { color: "#06b6d4", width: 2 },
+  }),
+  TiptapLink.configure({
+    HTMLAttributes: { class: "text-cyan-500 underline underline-offset-4 cursor-pointer hover:text-cyan-400" },
+  }),
+  TiptapImage.configure({
+    inline: true,
+    allowBase64: true,
+    HTMLAttributes: { class: "rounded-lg border border-slate-700 max-h-[400px] object-cover" },
+  }),
+  TiptapUnderline,
+  Color,
+  TextStyle,
+  TextAlign.configure({
+    types: ['heading', 'paragraph'],
+  }),
+];
+
 const NovelEditor = ({ content, onChange, placeholder = 'Presiona "/" para ver comandos o usar el menú superior...' }) => {
   const [editorInstance, setEditorInstance] = useState(null);
-  const extensions = [
-    StarterKit.configure({
-      bulletList: { HTMLAttributes: { class: "list-disc list-outside leading-3 -mt-2" } },
-      orderedList: { HTMLAttributes: { class: "list-decimal list-outside leading-3 -mt-2" } },
-      listItem: { HTMLAttributes: { class: "leading-normal -mb-2" } },
-      blockquote: { HTMLAttributes: { class: "border-l-4 border-cyan-500 pl-4 py-2 italic text-gray-300" } },
-      codeBlock: { HTMLAttributes: { class: "rounded-sm bg-slate-800 p-4 font-mono font-medium text-gray-200" } },
-      code: { HTMLAttributes: { class: "rounded-md bg-slate-800 px-1.5 py-1 font-mono font-medium text-gray-200" } },
-      horizontalRule: false,
-      dropcursor: { color: "#06b6d4", width: 2 },
-    }),
-    TiptapLink.configure({
-      HTMLAttributes: { class: "text-cyan-500 underline underline-offset-4 cursor-pointer hover:text-cyan-400" },
-    }),
-    TiptapImage.configure({
-      inline: true,
-      allowBase64: true,
-      HTMLAttributes: { class: "rounded-lg border border-slate-700 max-h-[400px] object-cover" },
-    }),
-    TiptapUnderline,
-    Color,
-    TextStyle,
-    TextAlign.configure({
-      types: ['heading', 'paragraph'],
-    }),
+  
+  const extensions = React.useMemo(() => [
+    ...DEFAULT_EXTENSIONS,
     Placeholder.configure({
       placeholder: placeholder,
     })
-  ];
+  ], [placeholder]);
 
   return (
     <div className="relative w-full min-h-[400px] border border-slate-800 bg-slate-900/50 rounded-lg shadow-inner text-white focus-within:border-cyan-500/50 transition-all font-sans flex flex-col">
@@ -372,12 +394,21 @@ const NovelEditor = ({ content, onChange, placeholder = 'Presiona "/" para ver c
             },
           }}
           onCreate={({ editor }) => {
-            if (content && content.startsWith('<')) {
-              editor.commands.setContent(content);
+            if (content) {
+               if (content.startsWith('<')) {
+                 editor.commands.setContent(content);
+               } else if (content.startsWith('{')) {
+                 try {
+                   editor.commands.setContent(JSON.parse(content));
+                 } catch (e) {
+                   console.error("Error parsing JSON content", e);
+                 }
+               }
             }
             setEditorInstance(editor);
           }}
         >
+          <EditorUpdater content={content} editor={editorInstance} />
           {/* Menú Flotante de Formato (Bubble Menu) */}
           <EditorBubble className="flex items-center gap-1 bg-slate-800 border border-slate-700 rounded-md p-1 shadow-xl">
              <EditorBubbleItem
