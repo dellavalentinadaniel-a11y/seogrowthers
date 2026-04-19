@@ -5,7 +5,7 @@ import { supabase } from '@/lib/customSupabaseClient';
 import { toast } from '@/components/ui/use-toast';
 import { format } from 'date-fns';
 import { es } from 'date-fns/locale';
-import { Loader2, Edit2, Check, X, User, FileText, Calendar, Link as LinkIcon, Award, Zap, Star, Trophy, Camera } from 'lucide-react';
+import { Loader2, Edit2, Check, X, User, FileText, Calendar, Link as LinkIcon, Award, Zap, Star, Trophy, Camera, Twitter, Linkedin, Globe } from 'lucide-react';
 import AvatarSelector from '@/components/profile/AvatarSelector.jsx';
 import BannerSelector from '@/components/profile/BannerSelector.jsx';
 import SkillsPicker from '@/components/profile/SkillsPicker.jsx';
@@ -20,7 +20,7 @@ const ProfilePage = () => {
   const [achievements, setAchievements] = useState([]);
   const [loading, setLoading] = useState(true);
   const [editing, setEditing] = useState(false);
-  const [editForm, setEditForm] = useState({ full_name: '', bio: '', username: '', twitter_url: '', linkedin_url: '' });
+  const [editForm, setEditForm] = useState({ full_name: '', bio: '', username: '', twitter_url: '', linkedin_url: '', website: '' });
   const [selectedAvatar, setSelectedAvatar] = useState('');
   const [selectedBanner, setSelectedBanner] = useState('');
   const [profileSkills, setProfileSkills] = useState([]);
@@ -95,6 +95,7 @@ const ProfilePage = () => {
           username: resolvedProfile.username || '',
           twitter_url: resolvedProfile.twitter_url || '',
           linkedin_url: resolvedProfile.linkedin_url || '',
+          website: resolvedProfile.website || '',
         });
       } catch (error) {
         console.error('Error fetching profile:', error);
@@ -381,6 +382,44 @@ const ProfilePage = () => {
                 ) : profile?.bio ? (
                   <p className="text-slate-400 text-xs leading-relaxed max-w-[250px] mx-auto">{profile.bio}</p>
                 ) : null}
+
+                {/* Social Links */}
+                <div className="flex flex-wrap justify-center gap-4 mt-6">
+                  {editing ? (
+                    <div className="w-full space-y-3">
+                      <div className="flex items-center gap-2 bg-white/5 border border-white/10 rounded-lg px-3 py-1.5 group focus-within:border-cyan-500/50 transition-all">
+                        <Twitter className="w-4 h-4 text-cyan-400" />
+                        <input type="text" value={editForm.twitter_url} onChange={e => setEditForm(p => ({ ...p, twitter_url: e.target.value }))} className="bg-transparent border-none text-white text-xs w-full focus:ring-0 placeholder:text-slate-600" placeholder="Twitter URL" />
+                      </div>
+                      <div className="flex items-center gap-2 bg-white/5 border border-white/10 rounded-lg px-3 py-1.5 group focus-within:border-blue-500/50 transition-all">
+                        <Linkedin className="w-4 h-4 text-blue-500" />
+                        <input type="text" value={editForm.linkedin_url} onChange={e => setEditForm(p => ({ ...p, linkedin_url: e.target.value }))} className="bg-transparent border-none text-white text-xs w-full focus:ring-0 placeholder:text-slate-600" placeholder="LinkedIn URL" />
+                      </div>
+                      <div className="flex items-center gap-2 bg-white/5 border border-white/10 rounded-lg px-3 py-1.5 group focus-within:border-emerald-500/50 transition-all">
+                        <Globe className="w-4 h-4 text-emerald-400" />
+                        <input type="text" value={editForm.website} onChange={e => setEditForm(p => ({ ...p, website: e.target.value }))} className="bg-transparent border-none text-white text-xs w-full focus:ring-0 placeholder:text-slate-600" placeholder="Website URL" />
+                      </div>
+                    </div>
+                  ) : (
+                    <>
+                      {profile?.twitter_url && (
+                        <a href={profile.twitter_url} target="_blank" rel="noopener noreferrer" className="p-2.5 rounded-xl bg-white/5 border border-white/10 text-slate-400 hover:text-cyan-400 hover:border-cyan-400/50 hover:bg-cyan-400/10 transition-all group">
+                          <Twitter className="w-4 h-4 group-hover:scale-110 transition-transform" />
+                        </a>
+                      )}
+                      {profile?.linkedin_url && (
+                        <a href={profile.linkedin_url} target="_blank" rel="noopener noreferrer" className="p-2.5 rounded-xl bg-white/5 border border-white/10 text-slate-400 hover:text-blue-500 hover:border-blue-500/50 hover:bg-blue-500/10 transition-all group">
+                          <Linkedin className="w-4 h-4 group-hover:scale-110 transition-transform" />
+                        </a>
+                      )}
+                      {profile?.website && (
+                        <a href={profile.website} target="_blank" rel="noopener noreferrer" className="p-2.5 rounded-xl bg-white/5 border border-white/10 text-slate-400 hover:text-emerald-400 hover:border-emerald-400/50 hover:bg-emerald-400/10 transition-all group">
+                          <Globe className="w-4 h-4 group-hover:scale-110 transition-transform" />
+                        </a>
+                      )}
+                    </>
+                  )}
+                </div>
 
                 {/* Actions */}
                 <div className="mt-6 w-full flex flex-col gap-2">

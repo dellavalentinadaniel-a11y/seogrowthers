@@ -63,7 +63,9 @@ const ForumPage = () => {
             username,
             full_name,
             avatar_url,
-            role
+            role,
+            xp,
+            bio
           )
         `)
         .eq('status', 'published')
@@ -205,11 +207,14 @@ const ForumPage = () => {
                           <span className="text-sm font-semibold text-on-surface uppercase tracking-tight">
                             {article.profiles?.full_name || article.profiles?.username || 'Usuario'}
                           </span>
+                          {article.profiles?.role === 'owner' && (
+                            <span className="text-[10px] bg-amber-500/10 text-amber-500 border border-amber-500/20 px-1.5 py-0.5 rounded font-bold">OWNER</span>
+                          )}
                           {article.profiles?.role === 'admin' && (
                             <span className="text-[10px] bg-red-500/10 text-red-500 border border-red-500/20 px-1.5 py-0.5 rounded font-bold">ADMIN</span>
                           )}
-                          {article.profiles?.role === 'moderator' && (
-                            <span className="text-[10px] bg-cyan-500/10 text-cyan-400 border border-cyan-500/20 px-1.5 py-0.5 rounded font-bold">MOD</span>
+                          {article.profiles?.xp >= 501 && (
+                            <span className="text-[9px] text-fuchsia-400 font-bold border border-fuchsia-500/30 px-1 rounded-sm uppercase tracking-tighter">Elite</span>
                           )}
                         </div>
                         <span className="text-[10px] text-slate-500 font-label uppercase tracking-widest">

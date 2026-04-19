@@ -29,6 +29,7 @@ const RegisterPage = lazy(() => import('@/pages/auth/RegisterPage'));
 const ProfilePage = lazy(() => import('@/pages/auth/ProfilePage'));
 const ForgotPassword = lazy(() => import('@/pages/auth/ForgotPassword'));
 const ResetPassword = lazy(() => import('@/pages/auth/ResetPassword'));
+const SuccessCaseAluvalle = lazy(() => import('@/pages/SuccessCaseAluvalle'));
 
 // Admin Imports (Lazy Loaded)
 const AdminLayout = lazy(() => import('@/components/admin/AdminLayout'));
@@ -107,6 +108,7 @@ function App() {
               <Route path="profile" element={<ProfilePage />} />
               <Route path="auth/forgot-password" element={<ForgotPassword />} />
               <Route path="auth/reset-password" element={<ResetPassword />} />
+              <Route path="services/success-cases/aluvalle-transformacion-digital" element={<SuccessCaseAluvalle />} />
             </Route>
 
 

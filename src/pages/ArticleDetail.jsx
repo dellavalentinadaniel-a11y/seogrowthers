@@ -12,6 +12,7 @@ import AdSidebar from '@/components/ads/AdSidebar';
 import MarkdownRenderer from '@/components/shared/MarkdownRenderer';
 import BlogCommentsSection from '@/components/blog/BlogCommentsSection';
 import InteractionBar from '@/components/article/InteractionBar';
+import AuthorBox from '@/components/article/AuthorBox';
 
 
 
@@ -38,7 +39,21 @@ const ArticleDetail = () => {
       // 1. Try from 'articles' table (Current source of truth with 5 rows)
         const { data, error } = await supabase
           .from('articles')
-          .select('id, title, summary, content, content_html, featured_image, slug, category, created_at, status, author_id')
+          .select(`
+            *,
+            author:profiles!author_id (
+              id,
+              username,
+              full_name,
+              avatar_url,
+              bio,
+              twitter_url,
+              linkedin_url,
+              website,
+              xp,
+              role
+            )
+          `)
           .or(`slug.eq.${fullSlug},slug.eq.${slug}`)
           .single();
 
@@ -200,7 +215,7 @@ const ArticleDetail = () => {
                 <div className="flex items-center gap-6 text-gray-400 text-sm border-b border-slate-800 pb-6 mb-6">
                   <div className="flex items-center gap-2">
                     <User size={16} />
-                    <span>Redacción</span>
+                    <span>{article.author?.full_name || article.author?.username || 'Redacción'}</span>
                   </div>
                   <div className="flex items-center gap-2">
                     <Calendar size={16} />
@@ -235,6 +250,9 @@ const ArticleDetail = () => {
               />
 
               <MarkdownRenderer content={article.content} />
+
+              {/* Author Information */}
+              <AuthorBox author={article.author} />
 
               {/* In-Article Ad (After content) */}
                <AdUnit 
