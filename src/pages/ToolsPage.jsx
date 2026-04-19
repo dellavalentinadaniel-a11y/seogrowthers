@@ -136,25 +136,25 @@ const ToolsPage = () => {
         {/* Secondary Grid: Quick Tools */}
         <div className="mt-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {/* Tool 1 */}
-          <div className="bg-surface-container-low p-6 rounded-xl border border-outline-variant/10 hover:border-primary-container/30 transition-all group cursor-pointer">
+          <div className="bg-slate-900/80 backdrop-blur-xl p-6 rounded-2xl border border-white/10 hover:border-cyan-500/30 transition-all group cursor-pointer shadow-xl">
             <span className="material-symbols-outlined text-primary-container mb-4">auto_fix_high</span>
             <h4 className="font-headline text-white font-bold mb-1">Refactorizador</h4>
             <p className="text-xs text-slate-500">Optimización instantánea de algoritmos.</p>
           </div>
           {/* Tool 2 */}
-          <div className="bg-surface-container-low p-6 rounded-xl border border-outline-variant/10 hover:border-secondary/30 transition-all group cursor-pointer">
+          <div className="bg-slate-900/80 backdrop-blur-xl p-6 rounded-2xl border border-white/10 hover:border-secondary/30 transition-all group cursor-pointer shadow-xl">
             <span className="material-symbols-outlined text-secondary mb-4">security</span>
             <h4 className="font-headline text-white font-bold mb-1">Vault Auditor</h4>
             <p className="text-xs text-slate-500">Seguridad criptográfica integrada.</p>
           </div>
           {/* Tool 3 */}
-          <div className="bg-surface-container-low p-6 rounded-xl border border-outline-variant/10 hover:border-tertiary-container/30 transition-all group cursor-pointer">
+          <div className="bg-slate-900/80 backdrop-blur-xl p-6 rounded-2xl border border-white/10 hover:border-tertiary-container/30 transition-all group cursor-pointer shadow-xl">
             <span className="material-symbols-outlined text-tertiary mb-4">database</span>
             <h4 className="font-headline text-white font-bold mb-1">Schema Mapper</h4>
             <p className="text-xs text-slate-500">Visualización de grafos de datos.</p>
           </div>
           {/* Tool 4 */}
-          <div className="bg-surface-container-low p-6 rounded-xl border border-outline-variant/10 hover:border-primary/30 transition-all group cursor-pointer">
+          <div className="bg-slate-900/80 backdrop-blur-xl p-6 rounded-2xl border border-white/10 hover:border-primary/30 transition-all group cursor-pointer shadow-xl">
             <span className="material-symbols-outlined text-primary mb-4">cloud_sync</span>
             <h4 className="font-headline text-white font-bold mb-1">Neural Bridge</h4>
             <p className="text-xs text-slate-500">Sincronización multi-cluster.</p>

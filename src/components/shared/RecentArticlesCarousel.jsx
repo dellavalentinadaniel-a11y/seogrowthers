@@ -68,7 +68,7 @@ const RecentArticlesCarousel = ({ title = "Últimas Publicaciones", subtitle = "
 
   return (
     <section 
-      className="mb-16 relative h-[400px] md:h-[500px] w-full overflow-hidden rounded-3xl bg-transparent border border-white/5 group shadow-2xl"
+      className="mb-16 relative h-[400px] md:h-[500px] w-full overflow-hidden rounded-[2.5rem] bg-transparent border border-white/10 group shadow-[0_20px_50px_rgba(0,0,0,0.8)]"
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
     >

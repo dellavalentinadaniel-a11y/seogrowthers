@@ -59,9 +59,9 @@ const stats = [
 
 const StatsSection = () => {
   return (
-    <section className="py-24 bg-gradient-to-b from-[#0a0e27] to-[#111827] border-y border-white/5">
+    <section className="py-24 border-y border-white/5 relative overflow-hidden">
       <div className="container mx-auto px-6">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {stats.map((stat, index) => {
             const Icon = stat.icon;
             return (
@@ -71,15 +71,15 @@ const StatsSection = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.1 }}
-                className="flex flex-col items-center text-center p-6 rounded-2xl hover:bg-white/5 transition-colors duration-300"
+                className="flex flex-col items-center text-center p-8 rounded-[2rem] bg-slate-900/40 backdrop-blur-xl border border-white/10 hover:border-cyan-500/50 hover:bg-slate-900/60 transition-all duration-500 group shadow-xl"
               >
-                <div className={`mb-6 p-4 rounded-full bg-white/5 ${stat.color}`}>
-                  <Icon size={32} />
+                <div className={`mb-6 p-5 rounded-2xl bg-white/5 ${stat.color} group-hover:scale-110 transition-transform duration-500 shadow-inner`}>
+                  <Icon size={36} />
                 </div>
-                <h3 className="text-4xl md:text-5xl font-extrabold text-white mb-2 font-mono">
+                <h3 className="text-4xl md:text-5xl font-extrabold text-white mb-2 font-mono tracking-tighter">
                   <AnimatedCounter value={stat.value} suffix={stat.suffix} />
                 </h3>
-                <p className="text-gray-400 font-medium tracking-wide uppercase text-sm">
+                <p className="text-gray-400 font-bold tracking-[0.2em] uppercase text-[10px]">
                   {stat.label}
                 </p>
               </motion.div>

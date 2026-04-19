@@ -187,7 +187,7 @@ const ForumPage = () => {
                 ))}
               </div>
             ) : articles.map((article, idx) => (
-              <article key={article.id} className="bg-surface-container-low/40 backdrop-blur-md rounded-xl overflow-hidden hover:bg-white/[0.03] transition-all border-t border-white/5 group border-l border-white/5">
+              <article key={article.id} className="bg-slate-900/80 backdrop-blur-xl rounded-2xl overflow-hidden hover:bg-white/[0.05] transition-all border border-white/10 hover:border-cyan-500/30 group shadow-lg">
                 <div className="p-6">
                   <div className="flex items-center justify-between mb-4">
                     <div className="flex items-center gap-3">

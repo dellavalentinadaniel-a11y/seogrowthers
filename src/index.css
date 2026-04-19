@@ -127,19 +127,22 @@ a, button, .cursor-pointer {
 /* Neural Workspace / Stitch Design Custom CSS */
 @layer components {
   .lumina-surface {
-    @apply bg-[#0e0e15] border border-white/5;
+    @apply bg-[#0e0e15]/80 backdrop-blur-md border border-white/10;
   }
   .lumina-glass {
-    @apply bg-white/5 backdrop-blur-xl border border-white/10;
+    @apply bg-white/[0.07] backdrop-blur-2xl border border-white/20;
   }
   .lumina-glass-panel {
-    @apply bg-[#1A1B24]/60 backdrop-blur-[20px] border border-white/10;
+    @apply bg-[#1A1B24]/80 backdrop-blur-[30px] border border-white/10 shadow-[0_8px_32px_0_rgba(0,0,0,0.8)];
   }
   .lumina-glow-purple {
-    @apply shadow-[0_0_20px_rgba(111,0,190,0.3)];
+    @apply shadow-[0_0_25px_rgba(111,0,190,0.4),inset_0_0_10px_rgba(111,0,190,0.1)];
   }
   .lumina-glow-cyan {
-    @apply shadow-[0_0_20px_rgba(0,229,255,0.3)];
+    @apply shadow-[0_0_25px_rgba(0,229,255,0.4),inset_0_0_10px_rgba(0,229,255,0.1)];
+  }
+  .block-highlight {
+    @apply border border-white/10 bg-white/[0.02] hover:bg-white/[0.05] hover:border-cyan-500/40 transition-all duration-300;
   }
 }
 .circuit-bg {

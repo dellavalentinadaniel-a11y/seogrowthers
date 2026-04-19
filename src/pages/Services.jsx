@@ -140,7 +140,7 @@ const Services = () => {
             </div>
             <div className="relative group">
               <div className="absolute -inset-1 bg-gradient-to-r from-primary to-secondary rounded-xl blur opacity-25 group-hover:opacity-40 transition duration-1000"></div>
-              <div className="relative bg-surface-container-highest p-4 rounded-[2rem] border border-white/5 overflow-hidden">
+              <div className="relative bg-slate-900/80 backdrop-blur-2xl p-4 rounded-[2rem] border border-white/10 overflow-hidden shadow-2xl">
                 <img alt="Futuristic lab environment" className="rounded-xl grayscale group-hover:grayscale-0 transition-all duration-700 w-full" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC3compKf5Pbt093Qc9hU_zib9yLXGp0u2yHusXfDsitGoujy__SlOrpFBszzus0U0w4_Ht8zrIJhk1hvUF_mBvoQHgatLuI7cHNGoTDlqinDs6e8OPsO9mBuBMx-l-ieQPo0tJ9YuGjpNj0gkhk1Z_tJiUNC13W_6TB62MfXb1XFT3AprJx_kUyNxFh195PKM9ysciPNlwOPTeephLLTLr-Tpsm8x8MQwhqp5F77EMlS6bQjMkBWCRrHpI8_mR1GQTzjXOl8ZjC60"/>
               </div>
             </div>

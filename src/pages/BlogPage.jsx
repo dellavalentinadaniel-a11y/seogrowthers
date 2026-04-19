@@ -143,7 +143,7 @@ const BlogPage = () => {
           <div className="flex flex-col md:flex-row gap-8 mb-12 items-start">
              {/* Sidebar Filters & Ads */}
              <aside className="w-full md:w-64 flex-shrink-0 space-y-6">
-                <div className="bg-slate-900/50 p-6 rounded-xl border border-slate-800">
+                <div className="bg-slate-900/80 backdrop-blur-xl p-6 rounded-2xl border border-white/10 shadow-xl">
                    <h3 className="font-bold text-white mb-4">Buscar</h3>
                    <div className="relative">
                       <Search className="absolute left-3 top-2.5 h-4 w-4 text-gray-500" />
@@ -156,7 +156,7 @@ const BlogPage = () => {
                    </div>
                 </div>
 
-                <div className="bg-slate-900/50 p-6 rounded-xl border border-slate-800">
+                <div className="bg-slate-900/80 backdrop-blur-xl p-6 rounded-2xl border border-white/10 shadow-xl">
                    <h3 className="font-bold text-white mb-4">Categorías</h3>
                    <nav className="flex flex-col gap-2">
                       <Link 

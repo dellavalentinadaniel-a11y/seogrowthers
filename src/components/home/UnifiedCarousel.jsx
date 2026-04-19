@@ -124,7 +124,7 @@ const UnifiedCarousel = () => {
         </div>
 
         <div 
-          className="relative w-full aspect-[16/10] md:aspect-[21/9] rounded-[2rem] overflow-hidden group shadow-2xl border border-white/5"
+          className="relative w-full aspect-[16/10] md:aspect-[21/9] rounded-[2rem] overflow-hidden group shadow-[0_30px_60px_rgba(0,0,0,0.8)] border border-white/10"
           onMouseEnter={() => setIsPaused(true)}
           onMouseLeave={() => setIsPaused(false)}
         >

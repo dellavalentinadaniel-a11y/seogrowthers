@@ -33,7 +33,7 @@ const ArticleCard = ({ article, className }) => {
         </script>
       </Helmet>
       
-      <article className={`group flex flex-col h-full bg-[#111218] rounded-2xl overflow-hidden border border-white/5 hover:border-cyan-500/30 transition-all duration-500 hover:shadow-[0_20px_40px_rgba(0,0,0,0.4),0_0_20px_rgba(6,182,212,0.1)] ${className}`}>
+      <article className={`group flex flex-col h-full bg-[#111218]/80 backdrop-blur-md rounded-2xl overflow-hidden border border-white/10 hover:border-cyan-500/50 transition-all duration-500 shadow-[0_4px_20px_rgba(0,0,0,0.4)] hover:shadow-[0_20px_40px_rgba(0,0,0,0.6),0_0_20px_rgba(6,182,212,0.2)] ${className}`}>
         <Link to={`/blog/${article.category || 'general'}/${article.slug}`} className="block relative h-52 overflow-hidden">
           <ImageOptimized 
             src={imageUrl}
