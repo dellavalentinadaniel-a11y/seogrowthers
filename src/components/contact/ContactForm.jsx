@@ -34,7 +34,7 @@ const ContactForm = () => {
     if (formData.phone && !/^[+]?[(]?[0-9]{3}[)]?[-\s.]?[0-9]{3}[-\s.]?[0-9]{4,6}$/.test(formData.phone)) {
        newErrors.phone = "Formato de teléfono inválido.";
     }
-    if (!formData.subject || formData.subject.length < 5) newErrors.subject = "El asunto debe tener al menos 5 caracteres.";
+    if (!formData.subject || formData.subject.length < 5) newErrors.subject = "Selecciona un asunto válido.";
     if (!formData.message || formData.message.length < 10) newErrors.message = "El mensaje debe tener al menos 10 caracteres.";
     if (!formData.privacy) newErrors.privacy = "Debes aceptar la política de privacidad.";
     
@@ -142,17 +142,19 @@ const ContactForm = () => {
   return (
     <motion.div 
       initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5 }}
-      className="bg-[#111827] p-8 rounded-2xl border border-slate-800 shadow-xl relative overflow-hidden"
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.8 }}
+      className="bg-slate-900/80 backdrop-blur-3xl p-8 md:p-12 rounded-[2.5rem] border border-white/10 shadow-[0_20px_50px_rgba(0,0,0,0.5)] relative overflow-hidden"
     >
-      <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-cyan-500 to-blue-600"></div>
+      <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-primary-container via-secondary-container to-tertiary-container"></div>
       
-      <h2 className="text-2xl font-bold text-white mb-6 flex items-center gap-2">
-        Envíanos un mensaje
+      <h2 className="font-headline text-3xl font-bold text-white mb-8 flex items-center gap-3">
+        <span className="material-symbols-outlined text-primary-container">rocket_launch</span>
+        Formulario de Consulta
       </h2>
 
-      <form onSubmit={handleSubmit} className="space-y-6">
+      <form onSubmit={handleSubmit} className="space-y-8">
         {/* Honeypot Field - Hidden */}
         <input 
             type="text" 
@@ -163,100 +165,102 @@ const ContactForm = () => {
             autoComplete="off"
         />
 
-        <div className="space-y-2">
-          <Label htmlFor="name" className="text-gray-300">Nombre completo <span className="text-red-500">*</span></Label>
-          <Input 
-            id="name"
-            value={formData.name}
-            onChange={(e) => handleChange('name', e.target.value)}
-            className={`bg-[#0a0e27] border-slate-700 focus:border-[#00d9ff] text-white ${errors.name ? 'border-red-500' : ''}`}
-            placeholder="Tu nombre"
-            disabled={isSubmitting}
-          />
-          {errors.name && <p className="text-red-500 text-xs mt-1">{errors.name}</p>}
-        </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div className="space-y-2 group">
+            <Label htmlFor="name" className="font-label text-[10px] uppercase tracking-[0.2em] text-primary/70 ml-1">Identidad_ID <span className="text-red-500">*</span></Label>
+            <Input 
+              id="name"
+              value={formData.name}
+              onChange={(e) => handleChange('name', e.target.value)}
+              className={`bg-surface-container-lowest border border-outline-variant/30 rounded-xl px-4 py-6 text-on-surface focus:border-primary-container focus:ring-1 focus:ring-primary-container outline-none transition-all font-body ${errors.name ? 'border-red-500' : ''}`}
+              placeholder="Nombre completo o alias"
+              disabled={isSubmitting}
+            />
+            {errors.name && <p className="text-red-500 text-[10px] mt-1 font-bold">{errors.name}</p>}
+          </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div className="space-y-2">
-            <Label htmlFor="email" className="text-gray-300">Email <span className="text-red-500">*</span></Label>
+          <div className="space-y-2 group">
+            <Label htmlFor="email" className="font-label text-[10px] uppercase tracking-[0.2em] text-primary/70 ml-1">Enlace_Protocolo <span className="text-red-500">*</span></Label>
             <Input 
               id="email"
               type="email"
               value={formData.email}
               onChange={(e) => handleChange('email', e.target.value)}
-              className={`bg-[#0a0e27] border-slate-700 focus:border-[#00d9ff] text-white ${errors.email ? 'border-red-500' : ''}`}
-              placeholder="tu@email.com"
+              className={`bg-surface-container-lowest border border-outline-variant/30 rounded-xl px-4 py-6 text-on-surface focus:border-primary-container focus:ring-1 focus:ring-primary-container outline-none transition-all font-body ${errors.email ? 'border-red-500' : ''}`}
+              placeholder="correo@neuronal.com"
               disabled={isSubmitting}
             />
-            {errors.email && <p className="text-red-500 text-xs mt-1">{errors.email}</p>}
+            {errors.email && <p className="text-red-500 text-[10px] mt-1 font-bold">{errors.email}</p>}
           </div>
+        </div>
 
-          <div className="space-y-2">
-            <Label htmlFor="phone" className="text-gray-300">Teléfono <span className="text-xs text-gray-500">(Opcional)</span></Label>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div className="space-y-2 group">
+            <Label htmlFor="phone" className="font-label text-[10px] uppercase tracking-[0.2em] text-primary/70 ml-1">Frecuencia_Tel <span className="text-xs text-gray-500 normal-case tracking-normal">(Opcional)</span></Label>
             <Input 
               id="phone"
               type="tel"
               value={formData.phone}
               onChange={(e) => handleChange('phone', e.target.value)}
-              className={`bg-[#0a0e27] border-slate-700 focus:border-[#00d9ff] text-white ${errors.phone ? 'border-red-500' : ''}`}
+              className={`bg-surface-container-lowest border border-outline-variant/30 rounded-xl px-4 py-6 text-on-surface focus:border-primary-container focus:ring-1 focus:ring-primary-container outline-none transition-all font-body ${errors.phone ? 'border-red-500' : ''}`}
               placeholder="+34 600 000 000"
               disabled={isSubmitting}
             />
-             {errors.phone && <p className="text-red-500 text-xs mt-1">{errors.phone}</p>}
+             {errors.phone && <p className="text-red-500 text-[10px] mt-1 font-bold">{errors.phone}</p>}
+          </div>
+
+          <div className="space-y-2 group">
+            <Label htmlFor="subject" className="font-label text-[10px] uppercase tracking-[0.2em] text-primary/70 ml-1">Vector_Motivo <span className="text-red-500">*</span></Label>
+            <Select 
+              value={formData.subject} 
+              onValueChange={(val) => handleChange('subject', val)}
+              disabled={isSubmitting}
+            >
+              <SelectTrigger className={`bg-surface-container-lowest border border-outline-variant/30 rounded-xl px-4 py-6 text-on-surface focus:ring-1 focus:ring-primary-container outline-none transition-all font-body ${errors.subject ? 'border-red-500' : ''}`}>
+                <SelectValue placeholder="Selecciona un vector" />
+              </SelectTrigger>
+              <SelectContent className="bg-surface-container-low border border-white/10 text-on-surface">
+                <SelectItem value="Desarrollo de Arquitectura">Desarrollo de Arquitectura</SelectItem>
+                <SelectItem value="Consultoría de Vibe Coding">Consultoría de Vibe Coding</SelectItem>
+                <SelectItem value="Expansión de Capacidad Neural">Expansión de Capacidad Neural</SelectItem>
+                <SelectItem value="Error en el Sistema">Error en el Sistema</SelectItem>
+                <SelectItem value="Otro">Otro</SelectItem>
+              </SelectContent>
+            </Select>
+            {errors.subject && <p className="text-red-500 text-[10px] mt-1 font-bold">{errors.subject}</p>}
           </div>
         </div>
 
-        <div className="space-y-2">
-          <Label htmlFor="subject" className="text-gray-300">Asunto <span className="text-red-500">*</span></Label>
-          <Select 
-            value={formData.subject} 
-            onValueChange={(val) => handleChange('subject', val)}
-            disabled={isSubmitting}
-          >
-            <SelectTrigger className={`bg-[#0a0e27] border-slate-700 focus:ring-[#00d9ff] text-white ${errors.subject ? 'border-red-500' : ''}`}>
-              <SelectValue placeholder="Selecciona un asunto" />
-            </SelectTrigger>
-            <SelectContent className="bg-[#1a2035] border-slate-700 text-white">
-              <SelectItem value="Consulta general">Consulta general</SelectItem>
-              <SelectItem value="Auditoría SEO">Auditoría SEO</SelectItem>
-              <SelectItem value="Growth Hacking">Growth Hacking</SelectItem>
-              <SelectItem value="Soporte técnico">Soporte técnico</SelectItem>
-              <SelectItem value="Otro">Otro</SelectItem>
-            </SelectContent>
-          </Select>
-          {errors.subject && <p className="text-red-500 text-xs mt-1">{errors.subject}</p>}
-        </div>
-
-        <div className="space-y-2">
-          <Label htmlFor="message" className="text-gray-300">Mensaje <span className="text-red-500">*</span></Label>
+        <div className="space-y-2 group">
+          <Label htmlFor="message" className="font-label text-[10px] uppercase tracking-[0.2em] text-primary/70 ml-1">Carga_Mensaje <span className="text-red-500">*</span></Label>
           <Textarea 
             id="message"
             value={formData.message}
             onChange={(e) => handleChange('message', e.target.value)}
-            className={`bg-[#0a0e27] border-slate-700 focus:border-[#00d9ff] text-white min-h-[120px] ${errors.message ? 'border-red-500' : ''}`}
-            placeholder="¿Cómo podemos ayudarte?"
+            className={`bg-surface-container-lowest border border-outline-variant/30 rounded-xl px-4 py-4 text-on-surface focus:border-primary-container focus:ring-1 focus:ring-primary-container outline-none transition-all font-body min-h-[150px] resize-none ${errors.message ? 'border-red-500' : ''}`}
+            placeholder="Escribe tu consulta aquí..."
             disabled={isSubmitting}
           />
-          {errors.message && <p className="text-red-500 text-xs mt-1">{errors.message}</p>}
+          {errors.message && <p className="text-red-500 text-[10px] mt-1 font-bold">{errors.message}</p>}
         </div>
 
-        <div className="flex items-start gap-2">
+        <div className="flex items-start gap-3">
           <Checkbox 
             id="privacy" 
             checked={formData.privacy}
             onCheckedChange={(checked) => handleChange('privacy', checked)}
             disabled={isSubmitting}
-            className={`border-slate-600 data-[state=checked]:bg-[#00d9ff] data-[state=checked]:border-[#00d9ff] ${errors.privacy ? 'border-red-500' : ''}`}
+            className={`border-outline-variant/50 data-[state=checked]:bg-primary-container data-[state=checked]:border-primary-container ${errors.privacy ? 'border-red-500' : ''}`}
           />
-          <Label htmlFor="privacy" className="text-sm text-gray-400 leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
-            Acepto la <a href="/privacy-policy" className="text-[#00d9ff] hover:underline">política de privacidad</a> y el tratamiento de mis datos.
+          <Label htmlFor="privacy" className="text-xs text-on-surface-variant leading-tight peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
+            Acepto los <a href="/terms-of-service" className="text-primary-container hover:underline">términos de servicio</a> y la <a href="/privacy-policy" className="text-primary-container hover:underline">política de privacidad</a>.
           </Label>
         </div>
-        {errors.privacy && <p className="text-red-500 text-xs mt-1">{errors.privacy}</p>}
+        {errors.privacy && <p className="text-red-500 text-[10px] mt-1 font-bold">{errors.privacy}</p>}
 
         {submitStatus === 'error' && (
-            <div className="p-3 bg-red-500/10 border border-red-500/30 rounded-lg flex items-center justify-between">
-                <div className="flex items-center gap-2 text-red-400 text-sm">
+            <div className="p-4 bg-error-container/20 border border-error-container/50 rounded-xl flex items-center justify-between">
+                <div className="flex items-center gap-2 text-error text-xs font-bold">
                     <AlertCircle size={16} />
                     <span>{errorMessage}</span>
                 </div>
@@ -265,30 +269,36 @@ const ContactForm = () => {
                     variant="ghost" 
                     size="sm" 
                     onClick={retry}
-                    className="h-8 text-red-400 hover:text-white hover:bg-red-500/20"
+                    className="h-8 text-error hover:text-white hover:bg-error-container/40"
                 >
                     <RefreshCcw size={14} className="mr-1" /> Reintentar
                 </Button>
             </div>
         )}
 
-        <Button 
+        <button 
           type="submit" 
           disabled={isSubmitting || submitStatus === 'success'}
-          className={`w-full h-12 text-black font-bold rounded-lg transition-all duration-300 ${
+          className={`group relative w-full md:w-auto px-10 py-5 rounded-2xl font-headline font-bold text-xs uppercase tracking-[0.3em] overflow-hidden transition-all shadow-xl active:scale-95 disabled:opacity-50 disabled:active:scale-100 ${
             submitStatus === 'success' 
-              ? 'bg-green-500 hover:bg-green-600' 
-              : 'bg-[#00d9ff] hover:bg-[#00c2e6]'
+              ? 'bg-green-500 text-white' 
+              : 'bg-primary-container text-on-primary-container hover:shadow-[0_0_30px_rgba(0,229,255,0.4)]'
           }`}
         >
-          {isSubmitting ? (
-            <><Loader2 className="mr-2 h-4 w-4 animate-spin" /> Procesando...</>
-          ) : submitStatus === 'success' ? (
-            <><CheckCircle2 className="mr-2 h-4 w-4" /> ¡Mensaje enviado!</>
-          ) : (
-            <><Send className="mr-2 h-4 w-4" /> Enviar Mensaje</>
-          )}
-        </Button>
+          <div className="relative z-10 flex items-center justify-center gap-3">
+            {isSubmitting ? (
+              <><Loader2 className="h-4 w-4 animate-spin" /> PROCESANDO...</>
+            ) : submitStatus === 'success' ? (
+              <><CheckCircle2 className="h-4 w-4" /> TRANSMITIDO</>
+            ) : (
+              <>
+                <span>Transmitir Intento</span>
+                <span className="material-symbols-outlined group-hover:translate-x-1 transition-transform">send</span>
+              </>
+            )}
+          </div>
+          <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
+        </button>
       </form>
     </motion.div>
   );

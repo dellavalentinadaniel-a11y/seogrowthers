@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { Link } from 'react-router-dom';
 import ScrollToTop from '@/components/layout/ScrollToTop';
+import ContactForm from '@/components/contact/ContactForm';
 
 const ContactPage = () => {
   useEffect(() => {
@@ -32,45 +33,8 @@ const ContactPage = () => {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
           
           {/* Contact Form Card (Large) */}
-          <div className="lg:col-span-8 glass-panel rounded-3xl p-8 md:p-12 relative overflow-hidden">
-            <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-primary-container via-secondary-container to-tertiary-container"></div>
-            <h2 className="font-headline text-3xl font-bold mb-8 flex items-center gap-3">
-              <span className="material-symbols-outlined text-primary">rocket_launch</span>
-              Formulario de Consulta
-            </h2>
-            
-            <form className="space-y-8">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div className="space-y-2">
-                  <label className="font-label text-xs uppercase tracking-[0.2em] text-primary/70 ml-1">Identidad_ID</label>
-                  <input className="w-full bg-surface-container-lowest border border-outline-variant/30 rounded-xl px-4 py-4 text-on-surface focus:border-primary-container focus:ring-1 focus:ring-primary-container outline-none transition-all font-body" placeholder="Nombre completo o alias" type="text" required/>
-                </div>
-                <div className="space-y-2">
-                  <label className="font-label text-xs uppercase tracking-[0.2em] text-primary/70 ml-1">Enlace_Protocolo</label>
-                  <input className="w-full bg-surface-container-lowest border border-outline-variant/30 rounded-xl px-4 py-4 text-on-surface focus:border-primary-container focus:ring-1 focus:ring-primary-container outline-none transition-all font-body" placeholder="correo@neuronal.com" type="email" required/>
-                </div>
-              </div>
-              <div className="space-y-2">
-                <label className="font-label text-xs uppercase tracking-[0.2em] text-primary/70 ml-1">Vector_Motivo</label>
-                <select className="w-full bg-surface-container-lowest border border-outline-variant/30 rounded-xl px-4 py-4 text-on-surface focus:border-primary-container focus:ring-1 focus:ring-primary-container outline-none transition-all font-body appearance-none">
-                  <option>Desarrollo de Arquitectura</option>
-                  <option>Consultoría de Vibe Coding</option>
-                  <option>Expansión de Capacidad Neural</option>
-                  <option>Error en el Sistema</option>
-                  <option>Otros</option>
-                </select>
-              </div>
-              <div className="space-y-2">
-                <label className="font-label text-xs uppercase tracking-[0.2em] text-primary/70 ml-1">Carga_Mensaje</label>
-                <textarea className="w-full bg-surface-container-lowest border border-outline-variant/30 rounded-xl px-4 py-4 text-on-surface focus:border-primary-container focus:ring-1 focus:ring-primary-container outline-none transition-all font-body resize-none" placeholder="Escribe tu consulta aquí..." rows="5" required></textarea>
-              </div>
-              
-              <button className="group relative w-full md:w-auto bg-primary-container text-on-primary-container font-headline font-bold py-4 px-10 rounded-xl flex items-center justify-center gap-3 overflow-hidden transition-all hover:shadow-[0_0_25px_rgba(0,229,255,0.4)]" type="submit">
-                <span className="relative z-10">Transmitir Intento</span>
-                <span className="material-symbols-outlined relative z-10 group-hover:translate-x-1 transition-transform">send</span>
-                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700"></div>
-              </button>
-            </form>
+          <div className="lg:col-span-8">
+            <ContactForm />
           </div>
 
           {/* Side Info Cards */}
