@@ -113,22 +113,6 @@ const BlogPage = () => {
       
       <div className="bg-[#0C0D0D] min-h-screen pt-24 pb-12 px-6">
         <div className="container mx-auto max-w-7xl">
-          {/* Top Leaderboard Ad */}
-          <div className="mb-8">
-            <AdUnit 
-                slotId="blog-top-leaderboard" 
-                width="728px" 
-                height="90px" 
-                className="hidden md:flex justify-center"
-            />
-             <AdUnit 
-                slotId="blog-top-mobile" 
-                width="320px" 
-                height="50px" 
-                className="md:hidden justify-center"
-            />
-          </div>
-
           <Breadcrumbs className="mb-8" />
           
           {/* Recent Articles Hero Carousel */}

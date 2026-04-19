@@ -157,20 +157,6 @@ const ArticleDetail = () => {
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10">
             {/* Main Content */}
             <main className="lg:col-span-8">
-              {/* Leaderboard Ad Above Content */}
-              <AdUnit 
-                slotId="article-top-leaderboard" 
-                width="728px" 
-                height="90px" 
-                className="hidden md:flex mb-8"
-              />
-              <AdUnit 
-                slotId="article-top-mobile" 
-                width="320px" 
-                height="50px" 
-                className="md:hidden mb-8"
-              />
-
               <header className="mb-8">
                 <div className="flex flex-wrap gap-2 mb-4 justify-between items-center">
                   <span className="bg-cyan-500/10 text-cyan-400 px-3 py-1 rounded-full text-sm font-medium border border-cyan-500/20">
