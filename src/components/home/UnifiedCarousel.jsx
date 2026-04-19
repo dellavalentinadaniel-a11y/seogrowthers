@@ -140,9 +140,11 @@ const UnifiedCarousel = () => {
               <img 
                 src={items[currentIndex].image} 
                 alt={items[currentIndex].title}
-                className="w-full h-full object-cover transition-transform duration-10000 group-hover:scale-110"
+                className="w-full h-full object-cover transition-transform duration-[10000ms] group-hover:scale-110 md:will-change-transform"
+                loading="eager"
+                decoding="async"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-[#0C0D0D] via-[#0C0D0D]/60 to-transparent opacity-90"></div>
+              <div className="absolute inset-0 bg-gradient-to-t from-[#0C0D0D] via-[#0C0D0D]/70 to-transparent opacity-95"></div>
               
               <div className="absolute inset-0 p-8 md:p-16 flex flex-col justify-end z-10">
                 <div className="max-w-3xl">
@@ -235,20 +237,20 @@ const UnifiedCarousel = () => {
         </div>
 
         {/* Thumbnail Indicators */}
-        <div className="flex justify-start md:justify-center gap-3 mt-12 px-2 overflow-x-auto pb-4 scrollbar-hide">
+        <div className="flex justify-start md:justify-center gap-3 mt-12 px-2 overflow-x-auto pb-4 scrollbar-hide touch-pan-x overscroll-contain">
           {items.map((item, idx) => (
             <button
               key={idx}
               onClick={() => setCurrentIndex(idx)}
-              className={`relative flex-shrink-0 w-20 md:w-28 aspect-video rounded-xl overflow-hidden transition-all duration-500 border-2 ${
+              className={`relative flex-shrink-0 w-20 md:w-28 aspect-video rounded-xl overflow-hidden transition-all duration-300 border-2 ${
                 idx === currentIndex 
-                  ? "border-cyan-500 scale-110 shadow-[0_0_20px_rgba(6,182,212,0.4)] z-10" 
+                  ? "border-cyan-500 scale-105 shadow-[0_0_15px_rgba(6,182,212,0.3)] z-10" 
                   : "border-white/5 opacity-40 hover:opacity-80 scale-100"
               }`}
             >
-              <img src={item.image} alt={item.title} className="w-full h-full object-cover" />
+              <img src={item.image} alt={item.title} className="w-full h-full object-cover pointer-events-none" loading="lazy" />
               <div className={`absolute inset-0 transition-opacity duration-500 ${
-                idx === currentIndex ? "bg-cyan-500/10" : "bg-black/40"
+                idx === currentIndex ? "bg-cyan-500/10" : "bg-black/60"
               }`}></div>
             </button>
           ))}
