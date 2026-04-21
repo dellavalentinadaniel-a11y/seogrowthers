@@ -45,7 +45,7 @@ const Home = () => {
     "description": "Agencia líder en SEO Growthers, especializada en Web Development, SEO y Analytics.",
     "contactPoint": {
       "@type": "ContactPoint",
-      "telephone": "+1-555-555-5555",
+      "telephone": "+54 9 299 608-7387",
       "contactType": "customer service"
     }
   };

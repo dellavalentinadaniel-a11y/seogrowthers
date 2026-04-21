@@ -40,66 +40,65 @@ const ContactPage = () => {
           {/* Side Info Cards */}
           <div className="lg:col-span-4 flex flex-col gap-6">
             
-            {/* Location Node */}
-            <div className="bg-surface-container-low rounded-3xl p-6 flex flex-col h-full border border-white/5">
-              <h3 className="font-headline text-xl font-bold text-secondary mb-4 flex items-center gap-2">
-                <span className="material-symbols-outlined">hub</span>
-                Nodo Central
-              </h3>
-              <div className="rounded-2xl overflow-hidden grayscale contrast-125 brightness-75 hover:grayscale-0 transition-all duration-500 flex-grow mb-4 aspect-video lg:aspect-auto">
-                <img alt="Ubicación Nodo Central" className="w-full h-full object-cover" src="/images/fotos/1726058564177.jpg"/>
+            {/* Ventas y Proyectos Card */}
+            <div className="bg-[#1a1c1e] rounded-2xl p-8 border border-white/5 shadow-xl">
+              <div className="w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center mb-6 text-primary">
+                <span className="material-symbols-outlined text-3xl">point_of_sale</span>
               </div>
-              <div className="space-y-1">
-                <p className="text-on-surface font-bold">Sector 7-Alpha</p>
-                <p className="text-on-surface-variant text-sm">Distrito de Innovación Cuántica, Nivel 4</p>
-                <p className="text-primary text-xs font-mono mt-2">35.6895° N, 139.6917° E</p>
+              <h3 className="font-headline text-2xl font-bold text-white mb-4">
+                Ventas y Proyectos
+              </h3>
+              <p className="text-gray-400 text-sm mb-6 leading-relaxed">
+                Asesoramiento comercial para obras y distribuidores.
+              </p>
+              <a 
+                href="mailto:seogrowthers@outlook.es" 
+                className="text-primary font-bold hover:underline transition-all block text-lg"
+              >
+                seogrowthers@outlook.es
+              </a>
+            </div>
+
+            {/* Nuestras Sedes Section */}
+            <div className="space-y-4">
+              <h3 className="font-headline text-2xl font-bold text-white flex items-center gap-3 ml-2">
+                <span className="material-symbols-outlined text-primary">location_on</span>
+                Nuestras Sedes
+              </h3>
+              
+              <div className="bg-[#1a1c1e] rounded-2xl p-6 border-l-4 border-primary border-y border-r border-white/5 shadow-xl relative overflow-hidden group">
+                <div className="flex flex-col md:flex-row justify-between gap-4 relative z-10">
+                  <div className="space-y-1">
+                    <h4 className="font-bold text-white text-lg">Planta Industrial & Ventas</h4>
+                    <p className="text-gray-400 text-sm">Argentina Neuquén Capital</p>
+                  </div>
+                  <div className="text-right md:text-right space-y-1">
+                    <p className="text-primary font-bold text-lg">+54 9 299 608-7387</p>
+                    <p className="text-gray-500 text-[10px] uppercase tracking-widest font-bold">
+                      LUN A VIE: 8:00 A 17:00 HS
+                    </p>
+                  </div>
+                </div>
+                {/* Subtle background glow */}
+                <div className="absolute top-0 right-0 w-32 h-32 bg-primary/5 rounded-full blur-3xl -mr-16 -mt-16 group-hover:bg-primary/10 transition-all duration-500"></div>
               </div>
             </div>
 
-            {/* Neural Networks (Social) */}
-            <div className="bg-surface-container-high rounded-3xl p-6 border border-white/5">
-              <h3 className="font-headline text-xl font-bold text-tertiary mb-6 flex items-center gap-2">
-                <span className="material-symbols-outlined">cell_tower</span>
-                Redes Neuronales
-              </h3>
-              <div className="grid grid-cols-2 gap-4">
-                <a className="flex items-center gap-3 p-3 rounded-xl bg-surface-container-lowest hover:bg-secondary-container/20 transition-all border border-outline-variant/10" href="#">
-                  <span className="material-symbols-outlined text-secondary">share</span>
-                  <span className="text-xs font-bold uppercase tracking-wider">Nexus</span>
-                </a>
-                <a className="flex items-center gap-3 p-3 rounded-xl bg-surface-container-lowest hover:bg-primary-container/20 transition-all border border-outline-variant/10" href="#">
-                  <span className="material-symbols-outlined text-primary">cyclone</span>
-                  <span className="text-xs font-bold uppercase tracking-wider">Vortex</span>
-                </a>
-                <a className="flex items-center gap-3 p-3 rounded-xl bg-surface-container-lowest hover:bg-tertiary-container/20 transition-all border border-outline-variant/10" href="#">
-                  <span className="material-symbols-outlined text-tertiary">stream</span>
-                  <span className="text-xs font-bold uppercase tracking-wider">Pulse</span>
-                </a>
-                <a className="flex items-center gap-3 p-3 rounded-xl bg-surface-container-lowest hover:bg-white/10 transition-all border border-outline-variant/10" href="#">
-                  <span className="material-symbols-outlined text-on-surface">terminal</span>
-                  <span className="text-xs font-bold uppercase tracking-wider">Shell</span>
-                </a>
-              </div>
-            </div>
-
-            {/* Live Status */}
-            <div className="bg-gradient-to-br from-surface-container-low to-surface-container-highest rounded-3xl p-6 border border-primary/10">
-              <div className="flex justify-between items-center">
-                <div>
-                  <p className="text-[10px] uppercase tracking-widest text-primary/60 font-bold mb-1">Estado del Enlace</p>
-                  <p className="text-lg font-headline font-bold text-primary">OPERACIONAL</p>
+            {/* Interactive Map Button */}
+            <div className="relative rounded-3xl overflow-hidden h-48 border border-white/5 group cursor-pointer shadow-2xl">
+              <img 
+                src="/images/fotos/1726058564177.jpg" 
+                alt="Mapa Interactivo" 
+                className="w-full h-full object-cover grayscale brightness-50 group-hover:scale-105 transition-transform duration-700"
+              />
+              <div className="absolute inset-0 flex flex-col items-center justify-center bg-black/40 group-hover:bg-black/20 transition-all">
+                <div className="w-12 h-12 bg-primary/20 backdrop-blur-md rounded-full flex items-center justify-center mb-3 text-primary border border-primary/30 group-hover:scale-110 transition-transform">
+                  <span className="material-symbols-outlined">location_on</span>
                 </div>
-                <div className="relative">
-                  <div className="w-3 h-3 bg-primary-container rounded-full animate-pulse"></div>
-                  <div className="absolute inset-0 w-3 h-3 bg-primary-container rounded-full animate-ping opacity-75"></div>
-                </div>
+                <span className="text-white font-bold tracking-[0.2em] text-xs uppercase drop-shadow-md">
+                  Ver Mapa Interactivo
+                </span>
               </div>
-              <div className="mt-4 flex gap-1">
-                <div className="h-1 flex-grow rounded-full bg-primary/20">
-                  <div className="h-full w-3/4 bg-primary-container rounded-full"></div>
-                </div>
-              </div>
-              <p className="text-[10px] text-on-surface-variant mt-2">Latencia: 14ms | Encriptación: AES-4096-Q</p>
             </div>
             
           </div>

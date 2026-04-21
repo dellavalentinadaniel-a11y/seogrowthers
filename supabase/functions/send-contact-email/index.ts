@@ -43,7 +43,7 @@ serve(async (req) => {
       },
       body: JSON.stringify({
         from: 'SEO Growthers <notificaciones@seogrowthers.com>',
-        to: 'info@seogrowthers.com',
+        to: 'seogrowthers@outlook.es',
         subject: `NUEVA CONSULTA: ${subject}`,
         html: adminEmailTemplate(name, email, phone, subject, message, submission.created_at),
       }),
