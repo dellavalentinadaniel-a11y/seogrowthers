@@ -131,7 +131,7 @@ const Header = () => {
                 onClick={() => setIsDropdownOpen(!isDropdownOpen)}
                 className="h-10 w-10 rounded-full border border-primary/30 overflow-hidden block hover:border-primary transition-colors focus:outline-none focus:ring-2 focus:ring-primary/50"
               >
-                <img alt="User profile avatar" className="w-full h-full object-cover" src={profile?.avatar_url || "/images/iconos/guiaspersonaje.png"}/>
+                <img alt="User profile avatar" className="w-full h-full object-cover" src={profile?.avatar_url || "/images/iconos/guiaspersonaje.webp"}/>
               </button>
 
               <AnimatePresence>

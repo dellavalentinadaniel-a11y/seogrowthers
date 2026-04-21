@@ -30,7 +30,7 @@ const ResourcesPage = () => {
         category: 'GUÃAS',
         link: '/resources/ssd-ps5-optimization-2026',
         featured: true,
-        image: '/images/seo_pillar.png' // Usando una imagen existente como placeholder
+        image: '/images/seo_pillar.webp' // Usando una imagen existente como placeholder
       };
       setResources([ssdGuide, ...data]);
     } else {
@@ -42,7 +42,7 @@ const ResourcesPage = () => {
         category: 'GUÃAS',
         link: '/resources/ssd-ps5-optimization-2026',
         featured: true,
-        image: '/images/seo_pillar.png'
+        image: '/images/seo_pillar.webp'
       }]);
     }
     setLoading(false);

@@ -24,7 +24,7 @@ const HomeHero = () => {
       type: 'case',
       title: 'Aluvalle: Transformación Digital',
       subtitle: 'Rediseño de alta gama y posicionamiento SEO que multiplicó el tráfico x3 para la mayor carpintería de aluminio de la región.',
-      image: '/images/aluvalle-premium.png',
+      image: '/images/aluvalle-premium.webp',
       link: '/services/success-cases/aluvalle-transformacion-digital',
       cta: 'Ver Caso de Estudio',
       badge: 'Destacado: Éxito en Retail'

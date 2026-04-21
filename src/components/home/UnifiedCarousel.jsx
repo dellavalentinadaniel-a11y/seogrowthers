@@ -28,7 +28,7 @@ const UnifiedCarousel = () => {
           type: 'case',
           title: 'Aluvalle: Transformación Digital e Impacto SEO',
           description: 'Implementamos una arquitectura digital escalable y una estrategia de contenidos avanzada, logrando resultados extraordinarios en visibilidad y tasa de conversión.',
-          image: '/images/aluvalle-premium.png',
+          image: '/images/aluvalle-premium.webp',
           result: '+300% Tráfico Orgánico',
           industry: 'Retail / Construcción',
           slug: 'aluvalle-transformacion-digital',

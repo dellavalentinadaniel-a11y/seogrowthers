@@ -91,7 +91,7 @@ const LoginPage = () => {
                 {/* Subtle outer glow that matches the image's vibrant green/cyan element */}
                 <div className="absolute inset-0 bg-gradient-to-tr from-primary-container/20 to-secondary/20 blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
                 <img 
-                  src="/images/iconos/ingresocomunidad.jpg" 
+                  src="/images/iconos/ingresocomunidad.webp" 
                   alt="Comunidad SEO Growthers" 
                   className="relative w-48 h-auto rounded-[2rem] shadow-2xl border border-white/5 group-hover:scale-105 transition-transform duration-700 ease-out"
                 />

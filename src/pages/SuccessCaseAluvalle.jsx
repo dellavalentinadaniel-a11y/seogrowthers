@@ -16,7 +16,7 @@ const SuccessCaseAluvalle = () => {
   const metadata = {
     title: "Aluvalle: Transformación Digital e Impacto SEO | SEOGrowthers",
     description: "Descubre cómo SEOGrowthers transformó la presencia digital de Aluvalle, logrando un aumento del 300% en tráfico orgánico y optimizando sus Core Web Vitals.",
-    image: "/images/aluvalle-case.png",
+    image: "/images/aluvalle-case.webp",
     url: "https://seogrowthers.com/services/success-cases/aluvalle-transformacion-digital"
   };
 
@@ -71,7 +71,7 @@ const SuccessCaseAluvalle = () => {
           >
             <div className="absolute -inset-4 bg-cyan-500/20 blur-3xl rounded-full opacity-30"></div>
             <img 
-              src="/images/aluvalle-case.png" 
+              src="/images/aluvalle-case.webp" 
               alt="Aluvalle Preview" 
               className="relative rounded-3xl border border-white/10 shadow-2xl w-full h-auto"
             />
@@ -167,7 +167,7 @@ const SuccessCaseAluvalle = () => {
               </div>
               <div className="rounded-2xl overflow-hidden border border-white/10 shadow-xl">
                 <img 
-                  src="/images/Gemini_Generated_Image_xd0u2jxd0u2jxd0u.png" 
+                  src="/images/Gemini_Generated_Image_xd0u2jxd0u2jxd0u.webp" 
                   alt="SEO Strategy" 
                   className="w-full h-auto hover:scale-105 transition-transform duration-700"
                 />

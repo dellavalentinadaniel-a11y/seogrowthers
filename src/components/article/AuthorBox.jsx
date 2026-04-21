@@ -27,7 +27,7 @@ const AuthorBox = ({ author }) => {
         <div className="absolute -inset-1 bg-gradient-to-r from-purple-500 to-cyan-500 rounded-full blur-sm opacity-20 group-hover:opacity-40 transition duration-700" />
         <div className="relative w-24 h-24 rounded-full border-2 border-white/10 overflow-hidden bg-slate-900 z-10">
           <img 
-            src={author.avatar_url || "/images/iconos/guiaspersonaje.png"} 
+            src={author.avatar_url || "/images/iconos/guiaspersonaje.webp"} 
             alt={displayName} 
             className="w-full h-full object-cover scale-110"
           />

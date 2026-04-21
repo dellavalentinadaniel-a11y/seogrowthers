@@ -5,19 +5,19 @@ import { Check } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
 const avatars = [
-    { id: 1, url: '/images/Diseño sin título (2)/1.svg' },
-    { id: 2, url: '/images/Diseño sin título (2)/2.svg' },
-    { id: 3, url: '/images/Diseño sin título (2)/3.svg' },
-    { id: 4, url: '/images/Diseño sin título (2)/4.svg' },
-    { id: 5, url: '/images/Diseño sin título (2)/5.svg' },
-    { id: 6, url: '/images/Diseño sin título (2)/6.svg' },
-    { id: 7, url: '/images/Diseño sin título (2)/7.svg' },
-    { id: 8, url: '/images/Diseño sin título (2)/8.svg' },
-    { id: 9, url: '/images/Diseño sin título (2)/9.svg' },
-    { id: 10, url: '/images/Diseño sin título (2)/10.svg' },
-    { id: 11, url: '/images/Diseño sin título (2)/11.svg' },
-    { id: 12, url: '/images/Diseño sin título (2)/12.svg' },
-    { id: 13, url: '/images/Diseño sin título (2)/13.svg' },
+    { id: 1, url: '/images/Diseño sin título (2)/1.webp' },
+    { id: 2, url: '/images/Diseño sin título (2)/2.webp' },
+    { id: 3, url: '/images/Diseño sin título (2)/3.webp' },
+    { id: 4, url: '/images/Diseño sin título (2)/4.webp' },
+    { id: 5, url: '/images/Diseño sin título (2)/5.webp' },
+    { id: 6, url: '/images/Diseño sin título (2)/6.webp' },
+    { id: 7, url: '/images/Diseño sin título (2)/7.webp' },
+    { id: 8, url: '/images/Diseño sin título (2)/8.webp' },
+    { id: 9, url: '/images/Diseño sin título (2)/9.webp' },
+    { id: 10, url: '/images/Diseño sin título (2)/10.webp' },
+    { id: 11, url: '/images/Diseño sin título (2)/11.webp' },
+    { id: 12, url: '/images/Diseño sin título (2)/12.webp' },
+    { id: 13, url: '/images/Diseño sin título (2)/13.webp' },
 ];
 
 const AvatarSelector = ({ currentAvatar, onSelect, onSave, isSaving }) => {

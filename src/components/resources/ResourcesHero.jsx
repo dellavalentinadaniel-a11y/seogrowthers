@@ -44,7 +44,7 @@ const ResourcesHero = ({ onSearch }) => {
                 initial={{ opacity: 0, y: 30, rotate: -10 }}
                 animate={{ opacity: 1, y: 0, rotate: 0 }}
                 transition={{ duration: 0.8, delay: 0.4 }}
-                src="/images/iconos/guiaspersonaje.png"
+                src="/images/iconos/guiaspersonaje.webp"
                 alt="Mascota"
                 className="absolute -top-16 -right-16 md:-top-24 md:-right-24 w-24 h-24 md:w-32 md:h-32 object-contain drop-shadow-[0_10px_20px_rgba(34,211,238,0.4)] pointer-events-none hover:rotate-6 transition-transform"
             />

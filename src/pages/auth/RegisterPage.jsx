@@ -134,7 +134,7 @@ const RegisterPage = () => {
             {/* Mobile Header Branding (Visible only on mobile) */}
             <div className="mb-12 md:hidden text-center">
               <img 
-                src="/images/iconos/ingresocomunidad.jpg" 
+                src="/images/iconos/ingresocomunidad.webp" 
                 alt="Comunidad" 
                 className="w-32 h-32 mx-auto rounded-3xl shadow-2xl border border-white/10 mb-6"
               />

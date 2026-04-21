@@ -52,7 +52,7 @@ const ProfilePage = () => {
               { 
                 id: user.id, 
                 full_name: user.user_metadata?.full_name || '',
-                avatar_url: user.user_metadata?.avatar_url || '/images/iconos/guiaspersonaje.png',
+                avatar_url: user.user_metadata?.avatar_url || '/images/iconos/guiaspersonaje.webp',
                 updated_at: new Date().toISOString()
               }
             ])
@@ -95,7 +95,7 @@ const ProfilePage = () => {
           .eq('user_id', user.id);
 
         setProfile(resolvedProfile);
-        setSelectedAvatar(resolvedProfile.avatar_url || '/images/iconos/guiaspersonaje.png');
+        setSelectedAvatar(resolvedProfile.avatar_url || '/images/iconos/guiaspersonaje.webp');
         setSelectedBanner(resolvedProfile.banner_url || '');
         setProfileSkills(resolvedProfile.skills_tags || []);
         setAchievements(achievementsData || []);
@@ -340,7 +340,7 @@ const ProfilePage = () => {
                       <img
                         className="w-full h-full object-cover scale-[1.35]"
                         alt={displayName}
-                        src={profile?.avatar_url || "/images/iconos/guiaspersonaje.png"}
+                        src={profile?.avatar_url || "/images/iconos/guiaspersonaje.webp"}
                       />
                   </div>
                   <Dialog open={isAvatarDialogOpen} onOpenChange={setIsAvatarDialogOpen}>

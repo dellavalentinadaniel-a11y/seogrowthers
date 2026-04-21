@@ -45,7 +45,7 @@ const SsdGuidePage = () => {
             className="mt-12 mb-4"
           >
             <img 
-              src="/images/iconos/guiaspersonaje.png" 
+              src="/images/iconos/guiaspersonaje.webp" 
               alt="Mascota Guías Hardware" 
               className="w-48 h-48 md:w-64 md:h-64 object-contain mx-auto drop-shadow-[0_15px_35px_rgba(59,130,246,0.5)] transition-transform duration-700 hover:scale-110 hover:-translate-y-4"
             />
