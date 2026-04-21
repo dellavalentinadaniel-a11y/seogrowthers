@@ -248,7 +248,11 @@ export default defineConfig({
 		viteCompression({
 			algorithm: 'gzip',
 			ext: '.gz',
-		})
+		}),
+		viteCompression({
+			algorithm: 'brotliCompress',
+			ext: '.br',
+		}),
 	],
 	server: {
 		cors: true,
@@ -276,7 +280,9 @@ export default defineConfig({
 					'react-vendor': ['react', 'react-dom', 'react-router-dom'],
 					'ui-vendor': ['@radix-ui/react-dialog', '@radix-ui/react-dropdown-menu', '@radix-ui/react-popover', '@radix-ui/react-select', 'lucide-react', 'tailwind-merge', 'clsx', 'date-fns'],
 					'animation-vendor': ['framer-motion'],
-					'supabase-vendor': ['@supabase/supabase-js']
+					'supabase-vendor': ['@supabase/supabase-js'],
+					'editor-vendor': ['novel', '@tiptap/react', '@tiptap/starter-kit', 'dompurify'],
+					'markdown-vendor': ['react-markdown', 'rehype-raw', 'rehype-slug', 'remark-gfm']
 				}
 			}
 		}

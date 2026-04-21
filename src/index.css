@@ -128,7 +128,7 @@ a, button, .cursor-pointer {
   @apply bg-slate-900 border border-slate-800 rounded-xl p-6;
 }
 
-/* Neural Workspace / Stitch Design Custom CSS */
+/* SEO Growthers / Stitch Design Custom CSS */
 @layer components {
   .lumina-surface {
     @apply bg-[#0e0e15]/80 backdrop-blur-md border border-white/10;

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+﻿import React, { useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { Link } from 'react-router-dom';
 import ScrollToTop from '@/components/layout/ScrollToTop';
@@ -12,7 +12,7 @@ const ToolsPage = () => {
   return (
     <div className="text-on-surface font-body selection:bg-primary-container selection:text-on-primary-container min-h-screen overflow-x-hidden">
       <Helmet>
-        <title>Herramientas | Neural Workspace</title>
+        <title>Herramientas | SEO Growthers</title>
       </Helmet>
       
       <ScrollToTop />
@@ -25,15 +25,15 @@ const ToolsPage = () => {
         <div className="mb-16">
           <span className="font-label text-primary tracking-[0.2em] text-xs uppercase mb-4 block">Laboratorio de Arquitectura</span>
           <h2 className="font-headline text-5xl md:text-6xl font-bold text-on-surface tracking-tight mb-6">
-            Herramientas de <span className="bg-gradient-to-r from-primary-container to-secondary-container bg-clip-text text-transparent">Nueva Generación</span>
+            Herramientas de <span className="bg-gradient-to-r from-primary-container to-secondary-container bg-clip-text text-transparent">Nueva GeneraciÃ³n</span>
           </h2>
           <p className="max-w-2xl text-on-surface-variant text-lg leading-relaxed">
-            Accede a utilidades de alto rendimiento diseñadas para el flujo de trabajo del ingeniero de 2026. Analizadores neuronales, simulación de nodos y terminales de baja latencia.
+            Accede a utilidades de alto rendimiento diseÃ±adas para el flujo de trabajo del ingeniero de 2026. Analizadores neuronales, simulaciÃ³n de nodos y terminales de baja latencia.
           </p>
         </div>
 
         <div className="mb-20">
-          <RecentArticlesCarousel title="Documentación & Tutoriales" subtitle="LATEST TOOLS" />
+          <RecentArticlesCarousel title="DocumentaciÃ³n & Tutoriales" subtitle="LATEST TOOLS" />
         </div>
         
         {/* Bento Grid Layout */}
@@ -86,7 +86,7 @@ const ToolsPage = () => {
             </div>
             
             <button className="mt-6 self-start px-6 py-3 bg-primary-container text-on-primary-container font-bold rounded-xl shadow-[0_0_15px_rgba(0,229,255,0.2)] hover:scale-105 transition-transform flex items-center gap-2 relative z-10">
-              <span>Abrir Sesión</span>
+              <span>Abrir SesiÃ³n</span>
               <span className="material-symbols-outlined text-sm">open_in_new</span>
             </button>
           </div>
@@ -95,9 +95,9 @@ const ToolsPage = () => {
           <div className="md:col-span-2 glass-panel rounded-[2rem] p-6 border border-white/5 border-t-2 border-t-secondary-container flex flex-col group">
             <div className="mb-6">
               <span className="material-symbols-outlined text-secondary text-4xl mb-4 block group-hover:rotate-12 transition-transform">analytics</span>
-              <h3 className="font-headline text-xl font-bold text-white mb-2">Analizador de Código</h3>
+              <h3 className="font-headline text-xl font-bold text-white mb-2">Analizador de CÃ³digo</h3>
               <p className="text-slate-400 text-sm leading-relaxed">
-                Escaneo heurístico profundo con IA para detectar patrones de arquitectura evolutiva.
+                Escaneo heurÃ­stico profundo con IA para detectar patrones de arquitectura evolutiva.
               </p>
             </div>
             <div className="mt-auto space-y-4">
@@ -109,7 +109,7 @@ const ToolsPage = () => {
                 <div className="w-[98%] h-full bg-secondary"></div>
               </div>
               <button className="w-full py-3 border border-secondary/20 text-secondary rounded-xl hover:bg-secondary/10 transition-colors font-bold text-xs uppercase tracking-widest">
-                Ejecutar Diagnóstico
+                Ejecutar DiagnÃ³stico
               </button>
             </div>
           </div>
@@ -139,25 +139,25 @@ const ToolsPage = () => {
           <div className="bg-slate-900/80 backdrop-blur-xl p-6 rounded-2xl border border-white/10 hover:border-cyan-500/30 transition-all group cursor-pointer shadow-xl">
             <span className="material-symbols-outlined text-primary-container mb-4">auto_fix_high</span>
             <h4 className="font-headline text-white font-bold mb-1">Refactorizador</h4>
-            <p className="text-xs text-slate-500">Optimización instantánea de algoritmos.</p>
+            <p className="text-xs text-slate-500">OptimizaciÃ³n instantÃ¡nea de algoritmos.</p>
           </div>
           {/* Tool 2 */}
           <div className="bg-slate-900/80 backdrop-blur-xl p-6 rounded-2xl border border-white/10 hover:border-secondary/30 transition-all group cursor-pointer shadow-xl">
             <span className="material-symbols-outlined text-secondary mb-4">security</span>
             <h4 className="font-headline text-white font-bold mb-1">Vault Auditor</h4>
-            <p className="text-xs text-slate-500">Seguridad criptográfica integrada.</p>
+            <p className="text-xs text-slate-500">Seguridad criptogrÃ¡fica integrada.</p>
           </div>
           {/* Tool 3 */}
           <div className="bg-slate-900/80 backdrop-blur-xl p-6 rounded-2xl border border-white/10 hover:border-tertiary-container/30 transition-all group cursor-pointer shadow-xl">
             <span className="material-symbols-outlined text-tertiary mb-4">database</span>
             <h4 className="font-headline text-white font-bold mb-1">Schema Mapper</h4>
-            <p className="text-xs text-slate-500">Visualización de grafos de datos.</p>
+            <p className="text-xs text-slate-500">VisualizaciÃ³n de grafos de datos.</p>
           </div>
           {/* Tool 4 */}
           <div className="bg-slate-900/80 backdrop-blur-xl p-6 rounded-2xl border border-white/10 hover:border-primary/30 transition-all group cursor-pointer shadow-xl">
             <span className="material-symbols-outlined text-primary mb-4">cloud_sync</span>
             <h4 className="font-headline text-white font-bold mb-1">Neural Bridge</h4>
-            <p className="text-xs text-slate-500">Sincronización multi-cluster.</p>
+            <p className="text-xs text-slate-500">SincronizaciÃ³n multi-cluster.</p>
           </div>
         </div>
       </main>
@@ -172,3 +172,4 @@ const ToolsPage = () => {
 };
 
 export default ToolsPage;
+

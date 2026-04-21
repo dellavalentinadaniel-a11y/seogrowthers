@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+﻿import React, { useState, useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { useNavigate } from 'react-router-dom';
 import { supabase } from '@/lib/customSupabaseClient';
@@ -11,14 +11,14 @@ const ResetPassword = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    // Supabase maneja la sesión automáticamente al llegar con el hash del correo
+    // Supabase maneja la sesiÃ³n automÃ¡ticamente al llegar con el hash del correo
     const checkSession = async () => {
       const { data: { session } } = await supabase.auth.getSession();
       if (!session) {
         toast({
           variant: "destructive",
-          title: "Enlace inválido o expirado",
-          description: "Por favor solicita un nuevo enlace de recuperación.",
+          title: "Enlace invÃ¡lido o expirado",
+          description: "Por favor solicita un nuevo enlace de recuperaciÃ³n.",
         });
         navigate('/auth/forgot-password');
       }
@@ -32,8 +32,8 @@ const ResetPassword = () => {
     if (password !== confirmPassword) {
       toast({
         variant: "destructive",
-        title: "Error de validación",
-        description: "Las contraseñas no coinciden.",
+        title: "Error de validaciÃ³n",
+        description: "Las contraseÃ±as no coinciden.",
       });
       return;
     }
@@ -49,7 +49,7 @@ const ResetPassword = () => {
 
       toast({
         title: "Clave actualizada",
-        description: "Tu contraseña ha sido restablecida correctamente. Iniciando sesión...",
+        description: "Tu contraseÃ±a ha sido restablecida correctamente. Iniciando sesiÃ³n...",
       });
       
       navigate('/profile');
@@ -57,7 +57,7 @@ const ResetPassword = () => {
       toast({
         variant: "destructive",
         title: "Error al actualizar",
-        description: error.message || "No pudimos actualizar tu contraseña.",
+        description: error.message || "No pudimos actualizar tu contraseÃ±a.",
       });
     } finally {
       setIsLoading(false);
@@ -67,7 +67,7 @@ const ResetPassword = () => {
   return (
     <div className="text-on-surface font-body neural-bg min-h-screen flex items-center justify-center p-6 selection:bg-primary-container selection:text-on-primary-container overflow-hidden">
       <Helmet>
-        <title>Nueva Clave | Neural Workspace</title>
+        <title>Nueva Clave | SEO Growthers</title>
       </Helmet>
 
       <main className="relative w-full max-w-md">
@@ -79,17 +79,17 @@ const ResetPassword = () => {
           
           <div className="mb-12 text-center">
             <h1 className="text-2xl font-headline font-bold text-white mb-2 uppercase tracking-tighter">Establecer Clave</h1>
-            <p className="text-xs text-slate-500 font-label tracking-widest uppercase">Actualización de Seguridad Cuántica</p>
+            <p className="text-xs text-slate-500 font-label tracking-widest uppercase">ActualizaciÃ³n de Seguridad CuÃ¡ntica</p>
           </div>
 
           <form className="space-y-6" onSubmit={handleUpdatePassword}>
             <div className="space-y-2 group">
-              <label className="font-label text-[10px] uppercase tracking-[0.2em] text-slate-500 ml-1">Nueva Clave Criptográfica</label>
+              <label className="font-label text-[10px] uppercase tracking-[0.2em] text-slate-500 ml-1">Nueva Clave CriptogrÃ¡fica</label>
               <div className="relative flex items-center transition-all duration-300 bg-[#0d0e17]/80 border border-white/5 rounded-2xl group-within:border-primary/50 group-within:shadow-[0_0_20px_rgba(0,229,255,0.1)]">
                 <span className="material-symbols-outlined absolute left-4 text-slate-600 text-xl group-focus-within:text-primary-container transition-colors">lock</span>
                 <input 
                   className="w-full bg-transparent border-none py-5 pl-12 pr-4 text-white placeholder:text-slate-700 focus:ring-0 focus:outline-none font-body text-sm" 
-                  placeholder="••••••••••••" 
+                  placeholder="â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢" 
                   type="password"
                   required
                   value={password}
@@ -104,7 +104,7 @@ const ResetPassword = () => {
                 <span className="material-symbols-outlined absolute left-4 text-slate-600 text-xl group-focus-within:text-primary-container transition-colors">lock_reset</span>
                 <input 
                   className="w-full bg-transparent border-none py-5 pl-12 pr-4 text-white placeholder:text-slate-700 focus:ring-0 focus:outline-none font-body text-sm" 
-                  placeholder="••••••••••••" 
+                  placeholder="â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢" 
                   type="password"
                   required
                   value={confirmPassword}
@@ -132,3 +132,4 @@ const ResetPassword = () => {
 };
 
 export default ResetPassword;
+

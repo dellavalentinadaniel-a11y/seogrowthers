@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+﻿import React, { useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { supabase } from '@/lib/customSupabaseClient';
@@ -27,7 +27,7 @@ const LoginPage = () => {
       if (error) throw error;
 
       toast({
-        title: "Sesión iniciada correctamente",
+        title: "SesiÃ³n iniciada correctamente",
         description: "Bienvenido de nuevo al ecosistema neural.",
       });
       
@@ -39,8 +39,8 @@ const LoginPage = () => {
     } catch (error) {
       toast({
         variant: "destructive",
-        title: "Error de autenticación",
-        description: error.message || "Credenciales inválidas. Por favor verifique sus datos.",
+        title: "Error de autenticaciÃ³n",
+        description: error.message || "Credenciales invÃ¡lidas. Por favor verifique sus datos.",
       });
     } finally {
       setIsLoading(false);
@@ -61,7 +61,7 @@ const LoginPage = () => {
     } catch (error) {
       toast({
         variant: "destructive",
-        title: "Error de autenticación",
+        title: "Error de autenticaciÃ³n",
         description: error.message || "No se pudo conectar con el servidor de Google.",
       });
       setIsLoading(false);
@@ -72,7 +72,7 @@ const LoginPage = () => {
     <div className="text-on-surface font-body neural-bg min-h-screen flex items-center justify-center p-6 selection:bg-primary-container selection:text-on-primary-container overflow-hidden">
 
       <Helmet>
-        <title>Iniciar Sesión | Neural Workspace</title>
+        <title>Iniciar SesiÃ³n | SEO Growthers</title>
       </Helmet>
 
       <main className="relative w-full max-w-md">
@@ -129,14 +129,14 @@ const LoginPage = () => {
             {/* Password Field */}
             <div className="space-y-2 group">
               <div className="flex justify-between items-center px-1">
-                <label className="font-label text-[10px] uppercase tracking-[0.2em] text-slate-500">Clave_Criptográfica</label>
-                <Link className="text-[10px] font-label uppercase tracking-widest text-primary/40 hover:text-primary transition-colors" to="/auth/forgot-password">¿Olvidó Clave?</Link>
+                <label className="font-label text-[10px] uppercase tracking-[0.2em] text-slate-500">Clave_CriptogrÃ¡fica</label>
+                <Link className="text-[10px] font-label uppercase tracking-widest text-primary/40 hover:text-primary transition-colors" to="/auth/forgot-password">Â¿OlvidÃ³ Clave?</Link>
               </div>
               <div className="relative flex items-center transition-all duration-300 bg-[#0d0e17]/80 border border-white/5 rounded-2xl group-within:border-primary/50 group-within:shadow-[0_0_20px_rgba(0,229,255,0.1)]">
                 <span className="material-symbols-outlined absolute left-4 text-slate-600 text-xl group-focus-within:text-primary-container transition-colors">lock</span>
                 <input 
                   className="w-full bg-transparent border-none py-5 pl-12 pr-12 text-white placeholder:text-slate-700 focus:ring-0 focus:outline-none font-body text-sm" 
-                  placeholder="••••••••••••" 
+                  placeholder="â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢" 
                   type="password"
                   required
                   value={password}
@@ -158,7 +158,7 @@ const LoginPage = () => {
                     <div className="absolute inset-0 bg-primary/20 blur-xl rounded-full opacity-0 group-hover:opacity-100 transition-opacity"></div>
                   </div>
                   <div className="space-y-1">
-                    <p className="text-[11px] font-bold text-white uppercase tracking-widest">Validación Biométrica</p>
+                    <p className="text-[11px] font-bold text-white uppercase tracking-widest">ValidaciÃ³n BiomÃ©trica</p>
                     <div className="flex items-center gap-2">
                       <span className="w-1.5 h-1.5 rounded-full bg-primary animate-ping"></span>
                       <p className="text-[9px] text-slate-500 uppercase tracking-tighter">Sensor de Retina / Dactilar a la espera...</p>
@@ -190,7 +190,7 @@ const LoginPage = () => {
                 <div className="w-full border-t border-white/5"></div>
               </div>
               <div className="relative flex justify-center text-[10px] uppercase tracking-[0.3em]">
-                <span className="bg-[#12141d] px-4 text-slate-600">O Sincronizar vía</span>
+                <span className="bg-[#12141d] px-4 text-slate-600">O Sincronizar vÃ­a</span>
               </div>
             </div>
 
@@ -208,7 +208,7 @@ const LoginPage = () => {
 
           {/* Footer Links */}
           <div className="mt-10 pt-8 border-t border-outline-variant/10 text-center">
-            <p className="text-xs text-slate-500">¿Nuevo en el ecosistema?</p>
+            <p className="text-xs text-slate-500">Â¿Nuevo en el ecosistema?</p>
             <Link className="inline-block mt-2 font-headline text-sm font-bold text-secondary hover:text-on-secondary-container transition-colors" to="/register">SOLICITAR ACCESO DE NODO</Link>
           </div>
         </div>
@@ -218,7 +218,7 @@ const LoginPage = () => {
           <span className="material-symbols-outlined text-secondary">shield_person</span>
           <div className="space-y-1">
             <p className="text-[10px] font-label uppercase tracking-widest leading-none">Protocolo de Seguridad v4.2</p>
-            <p className="text-[9px] text-slate-500">Encriptación cuántica de extremo a extremo habilitada para todas las sesiones de trabajo en el Workspace.</p>
+            <p className="text-[9px] text-slate-500">EncriptaciÃ³n cuÃ¡ntica de extremo a extremo habilitada para todas las sesiones de trabajo en el Workspace.</p>
           </div>
         </div>
       </main>
@@ -235,3 +235,4 @@ const LoginPage = () => {
 };
 
 export default LoginPage;
+

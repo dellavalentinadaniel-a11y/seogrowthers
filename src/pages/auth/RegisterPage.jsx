@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+﻿import React, { useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { Link, useNavigate } from 'react-router-dom';
 import { supabase } from '@/lib/customSupabaseClient';
@@ -40,7 +40,7 @@ const RegisterPage = () => {
       toast({
         variant: "destructive",
         title: "Error en Secuencia de Registro",
-        description: error.message || "Fallo en la sincronización de datos neurales.",
+        description: error.message || "Fallo en la sincronizaciÃ³n de datos neurales.",
       });
     } finally {
       setIsLoading(false);
@@ -60,8 +60,8 @@ const RegisterPage = () => {
     } catch (error) {
       toast({
         variant: "destructive",
-        title: "Error de autenticación",
-        description: error.message || "No se pudo sincronizar vía Google.",
+        title: "Error de autenticaciÃ³n",
+        description: error.message || "No se pudo sincronizar vÃ­a Google.",
       });
       setIsLoading(false);
     }
@@ -71,7 +71,7 @@ const RegisterPage = () => {
   return (
     <div className="font-body text-on-background selection:bg-primary/30 min-h-screen flex flex-col overflow-hidden">
       <Helmet>
-        <title>Sincronización de Nodo | Neural Workspace</title>
+        <title>SincronizaciÃ³n de Nodo | SEO Growthers</title>
       </Helmet>
 
       <main className="flex-grow flex items-center justify-center p-4 md:p-10 relative">
@@ -104,10 +104,10 @@ const RegisterPage = () => {
               >
                 <h1 className="font-headline text-6xl font-extrabold tracking-tighter text-white leading-[0.95] mb-8">
                   Inicia tu <br/>
-                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-white to-blue-500 animate-gradient-x">Evolución</span>
+                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-white to-blue-500 animate-gradient-x">EvoluciÃ³n</span>
                 </h1>
                 <p className="text-slate-400 text-xl max-w-sm leading-relaxed font-light">
-                  Sincroniza tu ADN digital con el núcleo de inteligencia más avanzado de la red.
+                  Sincroniza tu ADN digital con el nÃºcleo de inteligencia mÃ¡s avanzado de la red.
                 </p>
               </motion.div>
             </div>
@@ -116,10 +116,10 @@ const RegisterPage = () => {
                 <div className="p-8 rounded-[2.5rem] bg-cyan-950/20 backdrop-blur-3xl border border-cyan-500/10 space-y-6">
                   <div className="flex items-center gap-4">
                     <div className="w-3 h-3 rounded-full bg-cyan-500 animate-ping"></div>
-                    <span className="font-label text-xs tracking-[0.4em] uppercase text-cyan-400 font-bold">Estado: Pendiente_Sincronía</span>
+                    <span className="font-label text-xs tracking-[0.4em] uppercase text-cyan-400 font-bold">Estado: Pendiente_SincronÃ­a</span>
                   </div>
                   <div className="font-mono text-xs text-slate-500 leading-relaxed space-y-1">
-                    <p><span className="text-cyan-500/60">&gt;</span> cargando_módulos_biométricos... [OK]</p>
+                    <p><span className="text-cyan-500/60">&gt;</span> cargando_mÃ³dulos_biomÃ©tricos... [OK]</p>
                     <p><span className="text-cyan-500/60">&gt;</span> verificando_integridad_nodos... [OK]</p>
                     <p><span className="text-cyan-500/60">&gt;</span> esperando_input_alias_neural...</p>
                   </div>
@@ -146,7 +146,7 @@ const RegisterPage = () => {
             </div>
 
             <div className="hidden md:block space-y-3 mb-12">
-              <h2 className="text-4xl font-headline font-extrabold text-white tracking-tighter">Sincronización de Alias</h2>
+              <h2 className="text-4xl font-headline font-extrabold text-white tracking-tighter">SincronizaciÃ³n de Alias</h2>
               <p className="text-slate-500 text-base font-light">Establece tus credenciales de acceso al ecosistema neural.</p>
             </div>
 
@@ -202,13 +202,13 @@ const RegisterPage = () => {
                 transition={{ delay: 0.3 }}
                 className="space-y-2 group"
               >
-                <label className="font-label text-[10px] tracking-[0.3em] uppercase text-slate-500 ml-1">Clave_Criptográphica</label>
+                <label className="font-label text-[10px] tracking-[0.3em] uppercase text-slate-500 ml-1">Clave_CriptogrÃ¡phica</label>
                 <div className="relative flex items-center transition-all duration-500 bg-[#0d0e17]/60 border border-white/5 rounded-2xl group-within:border-cyan-500/50 group-within:shadow-[0_0_30px_rgba(6,182,212,0.15)] group-within:bg-[#0d0e17]">
                   <span className="material-symbols-outlined absolute left-5 text-slate-500 text-xl group-focus-within:text-cyan-400 transition-colors">lock</span>
                   <input 
                     className="w-full bg-transparent border-none py-5 pl-14 pr-12 text-white placeholder:text-slate-700 focus:ring-0 focus:outline-none font-body text-sm" 
                     id="password" 
-                    placeholder="••••••••••••" 
+                    placeholder="â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢" 
                     type="password"
                     required
                     value={password}
@@ -236,7 +236,7 @@ const RegisterPage = () => {
               >
                 <div className="absolute inset-0 bg-gradient-to-r from-cyan-400 via-white to-cyan-400 group-hover:animate-shimmer opacity-0 group-hover:opacity-100 transition-opacity"></div>
                 <span className="relative z-10 flex items-center gap-4">
-                  {isLoading ? "SINCRONIZANDO..." : "EMPEZAR EVOLUCIÓN"}
+                  {isLoading ? "SINCRONIZANDO..." : "EMPEZAR EVOLUCIÃ“N"}
                   {!isLoading && <span className="material-symbols-outlined text-xl group-hover:translate-x-1 transition-transform">rocket_launch</span>}
                 </span>
               </button>
@@ -247,7 +247,7 @@ const RegisterPage = () => {
                   <div className="w-full border-t border-white/5"></div>
                 </div>
                 <div className="relative flex justify-center text-[10px] uppercase tracking-[0.3em]">
-                  <span className="bg-[#111218] px-4 text-slate-500">O Sincronizar vía</span>
+                  <span className="bg-[#111218] px-4 text-slate-500">O Sincronizar vÃ­a</span>
                 </div>
               </div>
 
@@ -259,14 +259,14 @@ const RegisterPage = () => {
                 className="w-full group relative flex items-center justify-center gap-3 py-4 bg-white/5 border border-white/10 rounded-2xl font-label text-[11px] font-bold text-white uppercase tracking-widest hover:bg-white/10 transition-all duration-300 hover:border-cyan-500/30 disabled:opacity-50"
               >
                 <Chrome className="w-5 h-5 text-cyan-400 group-hover:scale-110 transition-transform" />
-                Sincronización con Google
+                SincronizaciÃ³n con Google
               </button>
             </form>
 
             {/* Footer Links (Synced with Login) */}
             <div className="mt-12 text-center">
               <p className="text-slate-500 text-xs mb-4">
-                ¿Ya tienes una cuenta activa? 
+                Â¿Ya tienes una cuenta activa? 
               </p>
               <Link className="inline-block font-headline text-sm font-black text-cyan-400 hover:text-white transition-colors tracking-widest border-b-2 border-cyan-500/20 hover:border-cyan-500" to="/login">INICIAR SECUENCIA</Link>
             </div>
@@ -275,10 +275,11 @@ const RegisterPage = () => {
       </main>
 
       <footer className="p-10 text-center text-slate-700 text-[10px] font-mono tracking-[0.5em] uppercase">
-        © 2026 NEURAL_WORKSPACE_ENGINEERING. SECURE_AUTH_V4.
+        Â© 2026 NEURAL_WORKSPACE_ENGINEERING. SECURE_AUTH_V4.
       </footer>
     </div>
   );
 };
 
 export default RegisterPage;
+

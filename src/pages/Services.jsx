@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+﻿import React, { useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { Link } from 'react-router-dom';
 import ScrollToTop from '@/components/layout/ScrollToTop';
@@ -12,7 +12,7 @@ const Services = () => {
   return (
     <div className="text-on-surface font-body selection:bg-primary-container selection:text-on-primary-container min-h-screen">
       <Helmet>
-        <title>Servicios | Neural Workspace</title>
+        <title>Servicios | SEO Growthers</title>
       </Helmet>
       
       <ScrollToTop />
@@ -27,10 +27,10 @@ const Services = () => {
               <span className="text-[10px] font-headline font-bold uppercase tracking-[0.2em] text-secondary">Portafolio de Capacidades</span>
             </div>
             <h1 className="font-headline text-5xl md:text-7xl font-bold tracking-tight text-on-surface mb-6 max-w-4xl">
-              Sistemas <span className="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">Autónomos</span> para la Nueva Era
+              Sistemas <span className="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">AutÃ³nomos</span> para la Nueva Era
             </h1>
             <p className="text-on-surface-variant text-lg md:text-xl max-w-2xl leading-relaxed">
-              Desplegamos arquitecturas de software que trascienden el código tradicional, integrando inteligencia neural y seguridad cuántica en cada línea.
+              Desplegamos arquitecturas de software que trascienden el cÃ³digo tradicional, integrando inteligencia neural y seguridad cuÃ¡ntica en cada lÃ­nea.
             </p>
           </div>
           {/* Atmospheric Element */}
@@ -46,7 +46,7 @@ const Services = () => {
         <section className="px-8 max-w-7xl mx-auto">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             
-            {/* Service Card 1: AI Consultoría */}
+            {/* Service Card 1: AI ConsultorÃ­a */}
             <div className="glass-panel group relative flex flex-col p-8 rounded-[2rem] border-t-2 border-primary/50 shadow-[0_0_40px_rgba(0,229,255,0.06)] hover:translate-y-[-8px] transition-all duration-500 overflow-hidden">
               <div className="mb-6 flex items-center justify-between relative z-10">
                 <div className="w-14 h-14 rounded-xl bg-primary-container/20 flex items-center justify-center border border-primary/20">
@@ -54,20 +54,20 @@ const Services = () => {
                 </div>
                 <span className="text-xs font-label text-outline uppercase tracking-widest">Capacidad 01</span>
               </div>
-              <h3 className="font-headline text-2xl font-bold text-on-surface mb-4 relative z-10">Consultoría en IA</h3>
+              <h3 className="font-headline text-2xl font-bold text-on-surface mb-4 relative z-10">ConsultorÃ­a en IA</h3>
               <p className="text-on-surface-variant font-body leading-relaxed mb-8 flex-grow relative z-10">
-                Diseño de agentes autónomos y LLMs personalizados integrados en el flujo de trabajo empresarial. Optimizamos la toma de decisiones mediante modelos predictivos de alta fidelidad.
+                DiseÃ±o de agentes autÃ³nomos y LLMs personalizados integrados en el flujo de trabajo empresarial. Optimizamos la toma de decisiones mediante modelos predictivos de alta fidelidad.
               </p>
               <div className="mt-auto relative z-10">
                 <button className="w-full py-4 px-6 bg-primary-container text-on-primary-container font-headline font-bold uppercase tracking-widest text-xs flex items-center justify-center gap-2 group-hover:shadow-[0_0_20px_rgba(0,229,255,0.3)] transition-all rounded-xl">
-                  Saber más
+                  Saber mÃ¡s
                   <span className="material-symbols-outlined text-sm">arrow_forward</span>
                 </button>
               </div>
               <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none"></div>
             </div>
 
-            {/* Service Card 2: Seguridad Cuántica */}
+            {/* Service Card 2: Seguridad CuÃ¡ntica */}
             <div className="glass-panel group relative flex flex-col p-8 rounded-[2rem] border-t-2 border-secondary/50 shadow-[0_0_40px_rgba(111,0,190,0.06)] hover:translate-y-[-8px] transition-all duration-500 overflow-hidden">
               <div className="mb-6 flex items-center justify-between relative z-10">
                 <div className="w-14 h-14 rounded-xl bg-secondary-container/20 flex items-center justify-center border border-secondary/20">
@@ -75,13 +75,13 @@ const Services = () => {
                 </div>
                 <span className="text-xs font-label text-outline uppercase tracking-widest">Capacidad 02</span>
               </div>
-              <h3 className="font-headline text-2xl font-bold text-on-surface mb-4 relative z-10">Auditoría Cuántica</h3>
+              <h3 className="font-headline text-2xl font-bold text-on-surface mb-4 relative z-10">AuditorÃ­a CuÃ¡ntica</h3>
               <p className="text-on-surface-variant font-body leading-relaxed mb-8 flex-grow relative z-10">
-                Blindaje de infraestructuras críticas contra ataques de computación cuántica. Implementamos criptografía post-cuántica y protocolos de seguridad de confianza cero.
+                Blindaje de infraestructuras crÃ­ticas contra ataques de computaciÃ³n cuÃ¡ntica. Implementamos criptografÃ­a post-cuÃ¡ntica y protocolos de seguridad de confianza cero.
               </p>
               <div className="mt-auto relative z-10">
                 <button className="w-full py-4 px-6 border border-secondary/30 hover:bg-secondary/10 text-on-surface font-headline font-bold uppercase tracking-widest text-xs flex items-center justify-center gap-2 transition-all rounded-xl">
-                  Saber más
+                  Saber mÃ¡s
                   <span className="material-symbols-outlined text-sm text-secondary">verified_user</span>
                 </button>
               </div>
@@ -98,11 +98,11 @@ const Services = () => {
               </div>
               <h3 className="font-headline text-2xl font-bold text-on-surface mb-4 relative z-10">Desarrollo Vibe Coding</h3>
               <p className="text-on-surface-variant font-body leading-relaxed mb-8 flex-grow relative z-10">
-                Creación de interfaces orgánicas y fluidas mediante lenguajes naturales. Software que se adapta a la intención del usuario, reduciendo la fricción entre la idea y la ejecución.
+                CreaciÃ³n de interfaces orgÃ¡nicas y fluidas mediante lenguajes naturales. Software que se adapta a la intenciÃ³n del usuario, reduciendo la fricciÃ³n entre la idea y la ejecuciÃ³n.
               </p>
               <div className="mt-auto relative z-10">
                 <button className="w-full py-4 px-6 border border-tertiary/30 hover:bg-tertiary/10 text-on-surface font-headline font-bold uppercase tracking-widest text-xs flex items-center justify-center gap-2 transition-all rounded-xl">
-                  Saber más
+                  Saber mÃ¡s
                   <span className="material-symbols-outlined text-sm text-tertiary">blur_on</span>
                 </button>
               </div>
@@ -124,7 +124,7 @@ const Services = () => {
                   </div>
                   <div>
                     <h4 className="font-bold text-on-surface">Arquitectura Evolutiva</h4>
-                    <p className="text-on-surface-variant text-sm">Sistemas que aprenden y se reconfiguran dinámicamente según la carga.</p>
+                    <p className="text-on-surface-variant text-sm">Sistemas que aprenden y se reconfiguran dinÃ¡micamente segÃºn la carga.</p>
                   </div>
                 </div>
                 <div className="flex gap-4 items-start">
@@ -133,7 +133,7 @@ const Services = () => {
                   </div>
                   <div>
                     <h4 className="font-bold text-on-surface">Monitoreo Neural</h4>
-                    <p className="text-on-surface-variant text-sm">Telemetría predictiva que detecta cuellos de botella antes de que ocurran.</p>
+                    <p className="text-on-surface-variant text-sm">TelemetrÃ­a predictiva que detecta cuellos de botella antes de que ocurran.</p>
                   </div>
                 </div>
               </div>

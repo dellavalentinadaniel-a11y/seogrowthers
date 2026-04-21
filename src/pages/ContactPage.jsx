@@ -12,7 +12,8 @@ const ContactPage = () => {
   return (
     <div className="text-on-background font-body selection:bg-primary-container selection:text-on-primary-container min-h-screen">
       <Helmet>
-        <title>Contacto | Neural Workspace</title>
+        <title>Contacto | SEO Growthers - Agencia de SEO y Desarrollo Web en Neuquén</title>
+        <meta name="description" content="Contáctanos en Neuquén Capital. Expertos en SEO, Desarrollo Web y Analytics para potenciar tu presencia digital." />
       </Helmet>
       
       <ScrollToTop />
@@ -109,7 +110,7 @@ const ContactPage = () => {
       {/* Footer Decoration */}
       <footer className="py-12 px-8 text-center border-t border-white/5 opacity-50">
         <p className="font-label text-[10px] tracking-[0.4em] uppercase text-on-surface-variant">
-          Iniciado en 2024 • Proyectado para 2026 • Neural Workspace Ecosystem
+          Iniciado en 2024 • Proyectado para 2026 • SEO Growthers Ecosystem
         </p>
       </footer>
     </div>
