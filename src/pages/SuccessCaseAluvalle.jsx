@@ -56,11 +56,22 @@ const SuccessCaseAluvalle = () => {
             <p className="text-xl text-gray-400 mb-8 leading-relaxed">
               De una presencia digital limitada a una plataforma de alto rendimiento capaz de captar leads cualificados y posicionar la marca como líder en carpintería de aluminio.
             </p>
-            <div className="flex flex-wrap gap-4">
+            <div className="flex flex-wrap gap-4 mb-8">
               <div className="bg-white/5 border border-white/10 px-4 py-2 rounded-full text-sm font-medium">Retail</div>
               <div className="bg-white/5 border border-white/10 px-4 py-2 rounded-full text-sm font-medium">E-commerce</div>
               <div className="bg-white/5 border border-white/10 px-4 py-2 rounded-full text-sm font-medium">Construcción</div>
             </div>
+
+            <a 
+              href="https://www.aluvalle.store/" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 bg-cyan-500/10 hover:bg-cyan-500/20 border border-cyan-500/30 px-6 py-3 rounded-full text-cyan-400 font-bold transition-all group mb-8"
+            >
+              <Globe size={18} className="animate-pulse" />
+              Ver sitio web en vivo
+              <ArrowRight size={16} className="ml-1 transition-transform group-hover:translate-x-1" />
+            </a>
           </motion.div>
           
           <motion.div 
@@ -186,12 +197,24 @@ const SuccessCaseAluvalle = () => {
             <p className="text-gray-300 text-lg leading-relaxed mb-8">
               El proyecto Aluvalle demuestra que la combinación de un desarrollo técnico impecable con una estrategia SEO orientada al usuario es la clave para el éxito en el entorno digital actual. Logramos no solo mejorar la estética, sino convertir el sitio en una verdadera herramienta de generación de negocio.
             </p>
-            <Link to="/contact">
-              <Button className="bg-cyan-500 hover:bg-cyan-600 text-black font-bold px-8 py-6 rounded-full transition-all group">
-                ¿Quieres resultados similares?
-                <ArrowRight className="ml-2 group-hover:translate-x-1 transition-transform" />
-              </Button>
-            </Link>
+            <div className="flex flex-col md:flex-row items-center justify-center gap-4">
+              <Link to="/contact">
+                <Button className="bg-cyan-500 hover:bg-cyan-600 text-black font-bold px-8 py-6 rounded-full transition-all group w-full md:w-auto">
+                  ¿Quieres resultados similares?
+                  <ArrowRight className="ml-2 group-hover:translate-x-1 transition-transform" />
+                </Button>
+              </Link>
+              
+              <a 
+                href="https://www.aluvalle.store/" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="text-gray-400 hover:text-white font-medium transition-colors flex items-center gap-2 px-8 py-6"
+              >
+                <Globe size={18} />
+                Explorar aluvalle.store
+              </a>
+            </div>
           </motion.div>
         </div>
       </section>
