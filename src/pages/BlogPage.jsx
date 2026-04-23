@@ -89,7 +89,7 @@ const BlogPage = () => {
 
     setArticles(dbArticles);
     setLoading(false);
-  }, [category, searchTerm, currentPage]);
+  }, [category, searchTerm, currentPage, categories]);
 
   // Reset page when filtering changes
   useEffect(() => {

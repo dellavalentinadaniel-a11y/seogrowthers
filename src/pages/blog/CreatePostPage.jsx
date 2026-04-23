@@ -134,7 +134,7 @@ const CreatePostPage = () => {
         checkUser();
         fetchCategories();
         fetchExistingPost();
-    }, [navigate, id]);
+    }, [navigate, id, initialCategory]);
 
     const handleChange = (e) => {
         const { name, value } = e.target;

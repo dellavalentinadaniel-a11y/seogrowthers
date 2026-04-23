@@ -1,5 +1,5 @@
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { supabase } from '@/lib/customSupabaseClient';
 import { Heart, MessageSquare, Share2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -14,15 +14,7 @@ const InteractionBar = ({ contentId, contentType, commentsCount = 0, onLikeChang
     const tableName = contentType === 'news' ? 'news_likes' : 'article_likes';
     const idColumn = contentType === 'news' ? 'news_id' : 'article_id';
 
-    useEffect(() => {
-        supabase.auth.getSession().then(({ data: { session } }) => {
-            setSession(session);
-        });
-
-        fetchLikes();
-    }, [contentId, contentType]);
-
-    const fetchLikes = async () => {
+    const fetchLikes = useCallback(async () => {
         setLoading(true);
         try {
             // Get total likes count
@@ -51,7 +43,15 @@ const InteractionBar = ({ contentId, contentType, commentsCount = 0, onLikeChang
         } finally {
             setLoading(false);
         }
-    };
+    }, [contentId, idColumn, tableName]);
+
+    useEffect(() => {
+        supabase.auth.getSession().then(({ data: { session } }) => {
+            setSession(session);
+        });
+
+        fetchLikes();
+    }, [fetchLikes]);
 
     const handleLike = async () => {
         if (!session) {
