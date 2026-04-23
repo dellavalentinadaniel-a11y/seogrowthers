@@ -6,7 +6,7 @@ const supabase = createClient(supabaseUrl, supabaseKey);
 
 const eliteEmails = [
   'dellavalentina.daniel@gmail.com',
-  'seogrowthers@outlook.es',
+  'seogrowthers@gmail.com',
   'assistdigital.dellavalentina@gmail.com'
 ];
 
