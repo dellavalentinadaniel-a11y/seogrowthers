@@ -59,16 +59,40 @@ const ContactPage = () => {
                 seogrowthers@gmail.com
               </a>
 
-              <div className="border-t border-white/5 pt-6">
-                <p className="text-[10px] uppercase tracking-widest text-gray-500 font-bold mb-3">
-                  PARA CONTACTARNOS
-                </p>
-                <a 
-                  href="mailto:seogrowthers@outlook.es" 
-                  className="text-gray-300 hover:text-primary transition-colors block"
-                >
-                  seogrowthers@outlook.es
-                </a>
+              <div className="border-t border-white/5 pt-6 space-y-4">
+                <div>
+                  <p className="text-[10px] uppercase tracking-widest text-gray-500 font-bold mb-2">
+                    ADMINISTRACIÓN
+                  </p>
+                  <a 
+                    href="mailto:info@seogrowthers.com" 
+                    className="text-gray-300 hover:text-primary transition-colors block"
+                  >
+                    info@seogrowthers.com
+                  </a>
+                </div>
+                <div>
+                  <p className="text-[10px] uppercase tracking-widest text-gray-500 font-bold mb-2">
+                    SOPORTE TÉCNICO
+                  </p>
+                  <a 
+                    href="mailto:servicio@seogrowthers.com" 
+                    className="text-gray-300 hover:text-primary transition-colors block"
+                  >
+                    servicio@seogrowthers.com
+                  </a>
+                </div>
+                <div>
+                  <p className="text-[10px] uppercase tracking-widest text-gray-500 font-bold mb-2">
+                    OTRAS CONSULTAS
+                  </p>
+                  <a 
+                    href="mailto:seogrowthers@outlook.es" 
+                    className="text-gray-300 hover:text-primary transition-colors block"
+                  >
+                    seogrowthers@outlook.es
+                  </a>
+                </div>
               </div>
             </div>
 
