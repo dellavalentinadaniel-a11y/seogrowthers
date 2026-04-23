@@ -53,10 +53,10 @@ const ContactPage = () => {
                 Asesoramiento comercial para obras y distribuidores.
               </p>
               <a 
-                href="mailto:seogrowthers@outlook.es" 
+                href="mailto:seogrowthers@gmail.com" 
                 className="text-primary font-bold hover:underline transition-all block text-lg"
               >
-                seogrowthers@outlook.es
+                seogrowthers@gmail.com
               </a>
             </div>
 
