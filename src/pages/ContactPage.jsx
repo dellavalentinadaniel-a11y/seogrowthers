@@ -41,23 +41,35 @@ const ContactPage = () => {
           {/* Side Info Cards */}
           <div className="lg:col-span-4 flex flex-col gap-6">
             
-            {/* Ventas y Proyectos Card */}
+            {/* Ventas y Servicios Card */}
             <div className="bg-[#1a1c1e] rounded-2xl p-8 border border-white/5 shadow-xl">
               <div className="w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center mb-6 text-primary">
-                <span className="material-symbols-outlined text-3xl">point_of_sale</span>
+                <span className="material-symbols-outlined text-3xl">mail</span>
               </div>
-              <h3 className="font-headline text-2xl font-bold text-white mb-4">
-                Ventas y Proyectos
+              <h3 className="font-headline text-2xl font-bold text-white mb-2">
+                Ventas y Servicios
               </h3>
               <p className="text-gray-400 text-sm mb-6 leading-relaxed">
-                Asesoramiento comercial para obras y distribuidores.
+                Solicitudes de presupuesto y asesoramiento técnico.
               </p>
               <a 
                 href="mailto:seogrowthers@gmail.com" 
-                className="text-primary font-bold hover:underline transition-all block text-lg"
+                className="text-primary font-bold hover:underline transition-all block text-lg mb-6"
               >
                 seogrowthers@gmail.com
               </a>
+
+              <div className="border-t border-white/5 pt-6">
+                <p className="text-[10px] uppercase tracking-widest text-gray-500 font-bold mb-3">
+                  PARA CONTACTARNOS
+                </p>
+                <a 
+                  href="mailto:seogrowthers@outlook.es" 
+                  className="text-gray-300 hover:text-primary transition-colors block"
+                >
+                  seogrowthers@outlook.es
+                </a>
+              </div>
             </div>
 
             {/* WhatsApp Card */}
