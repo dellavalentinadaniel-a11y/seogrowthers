@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
-import { Link } from 'react-router-dom';
 import ScrollToTop from '@/components/layout/ScrollToTop';
 import SuccessCasesHeroCarousel from '@/components/shared/SuccessCasesHeroCarousel';
 
@@ -134,10 +133,10 @@ const Services = () => {
                         </p>
                       </div>
                       <div className="mt-auto pt-6 border-t border-outline/10">
-                        <Link to="/contact" className={`text-sm font-bold uppercase tracking-wider flex items-center gap-2 ${category.textColor} group-hover:gap-3 transition-all`}>
+                        <a href="https://studiodigital.seogrowthers.com/" target="_blank" rel="noopener noreferrer" className={`text-sm font-bold uppercase tracking-wider flex items-center gap-2 ${category.textColor} group-hover:gap-3 transition-all`}>
                           Comenzar
                           <span className="material-symbols-outlined text-sm">arrow_forward</span>
-                        </Link>
+                        </a>
                       </div>
                       
                       {/* Hover effect glow */}
@@ -152,9 +151,9 @@ const Services = () => {
                     </span>
                     <h3 className="font-headline text-lg font-bold text-on-surface mb-2">¿Listo para escalar?</h3>
                     <p className="text-on-surface-variant text-sm mb-6">Agenda una llamada estratégica gratuita.</p>
-                    <Link to="/contact" className={`px-6 py-3 rounded-xl bg-surface-variant text-on-surface font-bold text-sm border border-outline/20 hover:border-outline/40 transition-colors`}>
+                    <a href="https://studiodigital.seogrowthers.com/" target="_blank" rel="noopener noreferrer" className={`px-6 py-3 rounded-xl bg-surface-variant text-on-surface font-bold text-sm border border-outline/20 hover:border-outline/40 transition-colors`}>
                       Contactar Ventas
-                    </Link>
+                    </a>
                   </div>
                 </div>
               </div>
@@ -176,14 +175,14 @@ const Services = () => {
                   No dejes que tu competencia se adelante. Implementa hoy las estrategias digitales que dominarán el mercado de mañana.
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                  <Link to="/contact" className="px-8 py-4 rounded-xl bg-primary text-on-primary font-headline font-bold uppercase tracking-widest text-sm hover:shadow-[0_0_30px_rgba(0,229,255,0.4)] transition-all flex items-center justify-center gap-2">
+                  <a href="https://studiodigital.seogrowthers.com/" target="_blank" rel="noopener noreferrer" className="px-8 py-4 rounded-xl bg-primary text-on-primary font-headline font-bold uppercase tracking-widest text-sm hover:shadow-[0_0_30px_rgba(0,229,255,0.4)] transition-all flex items-center justify-center gap-2">
                     Iniciar Proyecto
                     <span className="material-symbols-outlined text-base">rocket</span>
-                  </Link>
-                  <Link to="/contact" className="px-8 py-4 rounded-xl bg-surface-variant border border-outline/30 text-on-surface font-headline font-bold uppercase tracking-widest text-sm hover:bg-surface-variant/80 transition-all flex items-center justify-center gap-2">
+                  </a>
+                  <a href="https://studiodigital.seogrowthers.com/" target="_blank" rel="noopener noreferrer" className="px-8 py-4 rounded-xl bg-surface-variant border border-outline/30 text-on-surface font-headline font-bold uppercase tracking-widest text-sm hover:bg-surface-variant/80 transition-all flex items-center justify-center gap-2">
                     Agendar Consultoría
                     <span className="material-symbols-outlined text-base">calendar_month</span>
-                  </Link>
+                  </a>
                 </div>
              </div>
           </div>
