@@ -13,7 +13,23 @@ const ContactPage = () => {
     <div className="text-on-background font-body selection:bg-primary-container selection:text-on-primary-container min-h-screen">
       <Helmet>
         <title>Contacto | SEO Growthers - Agencia de SEO y Desarrollo Web en Neuquén</title>
-        <meta name="description" content="Contáctanos en Neuquén Capital. Expertos en SEO, Desarrollo Web y Analytics para potenciar tu presencia digital." />
+        <meta name="description" content="Contáctanos en Neuquén Capital. Expertos en SEO, Desarrollo Web y Analytics para potenciar tu presencia digital en Argentina." />
+        <link rel="canonical" href="https://seogrowthers.com/contact" />
+        <meta property="og:title" content="Contacto | SEO Growthers" />
+        <meta property="og:description" content="Contáctanos en Neuquén Capital. Expertos en SEO, Desarrollo Web y Analytics." />
+        <meta property="og:url" content="https://seogrowthers.com/contact" />
+        <meta property="og:type" content="website" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <script type="application/ld+json">{JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "LocalBusiness",
+          "name": "SEO Growthers",
+          "url": "https://seogrowthers.com",
+          "telephone": "+54 9 299 608-7387",
+          "email": "seogrowthers@gmail.com",
+          "address": { "@type": "PostalAddress", "addressLocality": "Neuquén Capital", "addressCountry": "AR" },
+          "priceRange": "$$"
+        })}</script>
       </Helmet>
       
       <ScrollToTop />

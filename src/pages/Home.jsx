@@ -54,11 +54,18 @@ const Home = () => {
     <>
       <Helmet>
         <title>SEO Growthers - Web Development, SEO & Analytics</title>
-        <meta name="description" content="Impulsa tu negocio con SEO Growthers. Expertos en Web Development, SEO y Analytics para maximizar tu crecimiento digital." />
+        <meta name="description" content="SEO Growthers: agencia experta en Web Development, SEO y Analytics. Potencia tu crecimiento digital con estrategias basadas en datos reales y resultados medibles." />
+        <link rel="canonical" href="https://seogrowthers.com/" />
         <meta property="og:title" content="SEO Growthers - Web Development, SEO & Analytics" />
-        <meta property="og:description" content="Impulsa tu negocio con SEO Growthers. Expertos en Web Development, SEO y Analytics." />
+        <meta property="og:description" content="Impulsa tu negocio con SEO Growthers. Expertos en Web Development, SEO y Analytics para maximizar tu crecimiento digital." />
         <meta property="og:type" content="website" />
         <meta property="og:url" content="https://seogrowthers.com/" />
+        <meta property="og:image" content="https://seogrowthers.com/logo.png" />
+        <meta property="og:locale" content="es_AR" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="SEO Growthers - Web Development, SEO & Analytics" />
+        <meta name="twitter:description" content="Agencia experta en Web Development, SEO y Analytics para potenciar tu crecimiento digital." />
+        <meta name="twitter:image" content="https://seogrowthers.com/logo.png" />
         <script type="application/ld+json">
           {JSON.stringify(structuredData)}
         </script>

@@ -69,7 +69,23 @@ const Services = () => {
   return (
     <div className="text-on-surface font-body selection:bg-primary-container selection:text-on-primary-container min-h-screen">
       <Helmet>
-        <title>Servicios Premium | SEO Growthers</title>
+        <title>Servicios de SEO, Desarrollo Web y Automatización | SEO Growthers</title>
+        <meta name="description" content="Descubre nuestros servicios premium: Desarrollo Web de alto rendimiento, Marketing Digital con ROI real y Automatización con IA. Crece con SEO Growthers." />
+        <link rel="canonical" href="https://seogrowthers.com/services" />
+        <meta property="og:title" content="Servicios Premium | SEO Growthers" />
+        <meta property="og:description" content="Desarrollo Web, SEO, Marketing Digital y Automatización con IA. La agencia que impulsa tu crecimiento digital." />
+        <meta property="og:url" content="https://seogrowthers.com/services" />
+        <meta property="og:type" content="website" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <script type="application/ld+json">{JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "Service",
+          "name": "Servicios Digitales de SEO Growthers",
+          "provider": { "@type": "Organization", "name": "SEO Growthers", "url": "https://seogrowthers.com" },
+          "description": "Web Development, Marketing Digital y Automatización con IA para empresas en crecimiento.",
+          "url": "https://seogrowthers.com/services",
+          "areaServed": { "@type": "Country", "name": "Argentina" }
+        })}</script>
       </Helmet>
       
       <ScrollToTop />
