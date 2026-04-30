@@ -3,7 +3,7 @@ import React, { useEffect, useState, useCallback } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { supabase } from '@/lib/customSupabaseClient';
 import ArticleCard from '@/components/article/ArticleCard';
-import SEOHead from '@/components/shared/SEOHead';
+import { Helmet } from 'react-helmet-async';
 import Breadcrumbs from '@/components/layout/Breadcrumbs';
 import { Input } from '@/components/ui/input';
 import { Search, Loader2, Plus, PenSquare, MessageSquare } from 'lucide-react';
@@ -120,11 +120,17 @@ const BlogPage = () => {
 
   return (
     <>
-      <SEOHead 
-        title={category ? `Blog de ${category} - Artículos y Guías` : "Blog de Tecnología y Desarrollo - SEO Growthers"}
-        description="Explora nuestros artículos sobre desarrollo web, inteligencia artificial, y estrategias digitales para potenciar tu negocio."
-        type="blog"
-      />
+      <Helmet>
+        <title>{category ? `Blog de ${category} - Artículos y Guías | SEO Growthers` : "Blog de SEO, Marketing Digital y Desarrollo Web | SEO Growthers"}</title>
+        <meta name="description" content={category ? `Artículos y guías sobre ${category}. Estrategias digitales para potenciar tu negocio.` : "Explora nuestros artículos sobre SEO, marketing digital, desarrollo web e inteligencia artificial para potenciar tu negocio."} />
+        <link rel="canonical" href={category ? `https://seogrowthers.com/blog/${category}` : "https://seogrowthers.com/blog"} />
+        <meta property="og:title" content={category ? `Blog de ${category} | SEO Growthers` : "Blog | SEO Growthers"} />
+        <meta property="og:description" content="Artículos sobre SEO, desarrollo web, IA y estrategias digitales para hacer crecer tu negocio." />
+        <meta property="og:url" content={category ? `https://seogrowthers.com/blog/${category}` : "https://seogrowthers.com/blog"} />
+        <meta property="og:type" content="blog" />
+        <meta property="og:image" content="https://seogrowthers.com/logo.png" />
+        <meta name="twitter:card" content="summary_large_image" />
+      </Helmet>
       
       <div className="min-h-screen pt-24 pb-12 px-6">
         <div className="container mx-auto max-w-7xl">

@@ -204,13 +204,56 @@ const ArticleDetail = () => {
   return (
     <>
       <Helmet>
-        <title>{article.seo_title || article.title}</title>
+        <title>{`${article.seo_title || article.title} | SEO Growthers`}</title>
         <meta name="description" content={article.seo_description || article.summary} />
-        {article.keywords && <meta name="keywords" content={article.keywords.join(', ')} />}
-        {article.canonical_url && <link rel="canonical" href={article.canonical_url} />}
+        {article.keywords && article.keywords.length > 0 && <meta name="keywords" content={article.keywords.join(', ')} />}
+        <link rel="canonical" href={article.canonical_url || `https://seogrowthers.com/blog/${article.slug}`} />
         <meta property="og:title" content={article.seo_title || article.title} />
         <meta property="og:description" content={article.seo_description || article.summary} />
+        <meta property="og:url" content={`https://seogrowthers.com/blog/${article.slug}`} />
+        <meta property="og:type" content="article" />
         {article.featured_image && <meta property="og:image" content={article.featured_image} />}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content={article.seo_title || article.title} />
+        <meta name="twitter:description" content={article.seo_description || article.summary} />
+        {article.featured_image && <meta name="twitter:image" content={article.featured_image} />}
+        {article.created_at && <meta property="article:published_time" content={new Date(article.created_at).toISOString()} />}
+        {article.updated_at && <meta property="article:modified_time" content={new Date(article.updated_at).toISOString()} />}
+        {article.category && <meta property="article:section" content={article.category} />}
+        {article.keywords && article.keywords.length > 0 && article.keywords.map((kw, i) => (
+          <meta key={i} property="article:tag" content={kw} />
+        ))}
+        <script type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "BlogPosting",
+            "headline": article.seo_title || article.title,
+            "description": article.seo_description || article.summary,
+            "image": article.featured_image || "https://seogrowthers.com/logo.png",
+            "datePublished": article.created_at ? new Date(article.created_at).toISOString() : undefined,
+            "dateModified": article.updated_at ? new Date(article.updated_at).toISOString() : (article.created_at ? new Date(article.created_at).toISOString() : undefined),
+            "author": {
+              "@type": "Person",
+              "name": article.author?.full_name || article.author?.username || "Equipo Editorial SEO Growthers",
+              "url": article.author?.website || "https://seogrowthers.com"
+            },
+            "publisher": {
+              "@type": "Organization",
+              "name": "SEO Growthers",
+              "logo": {
+                "@type": "ImageObject",
+                "url": "https://seogrowthers.com/logo.png"
+              }
+            },
+            "mainEntityOfPage": {
+              "@type": "WebPage",
+              "@id": `https://seogrowthers.com/blog/${article.slug}`
+            },
+            "url": `https://seogrowthers.com/blog/${article.slug}`,
+            ...(article.keywords && article.keywords.length > 0 ? { "keywords": article.keywords.join(", ") } : {}),
+            ...(article.category ? { "articleSection": article.category } : {})
+          })}
+        </script>
       </Helmet>
 
       <div className="min-h-screen pt-32 pb-20">
