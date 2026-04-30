@@ -5,7 +5,7 @@ slug: "el-fin-de-las-cookies-privacidad-o-monopolio-2026"
 date: "2026-04-19"
 keywords: ["fin de las cookies", "privacidad digital", "Google Privacy Sandbox", "marketing 2026", "First-Party Data"]
 pillartitle: "El fin de las cookies de terceros: Guía de privacidad y marketing en 2026"
-featured_image: "/images/blog/cookies-privacidad.png"
+featured_image: "/images/blog/cookies-privacidad.webp"
 social_meta: {
   "x": "Las cookies están muriendo, pero tu privacidad no está a salvo. 🍪💀 Google y Apple están cerrando las puertas de sus reinos y vos estás adentro. ¿Victoria del usuario o monopolio disfrazado de ética?",
   "linkedin": "El fin de las cookies de terceros es el cambio de paradigma más grande desde la invención del feed. Las empresas que dependían del 'espionaje' van a quebrar. ¿Tu estrategia depende de terceros o de tu comunidad?",

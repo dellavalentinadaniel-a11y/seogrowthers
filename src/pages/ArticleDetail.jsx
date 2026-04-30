@@ -229,7 +229,7 @@ const ArticleDetail = () => {
             "@type": "BlogPosting",
             "headline": article.seo_title || article.title,
             "description": article.seo_description || article.summary,
-            "image": article.featured_image || "https://seogrowthers.com/logo.png",
+            "image": article.featured_image || "https://seogrowthers.com/logo.webp",
             "datePublished": article.created_at ? new Date(article.created_at).toISOString() : undefined,
             "dateModified": article.updated_at ? new Date(article.updated_at).toISOString() : (article.created_at ? new Date(article.created_at).toISOString() : undefined),
             "author": {
@@ -242,7 +242,7 @@ const ArticleDetail = () => {
               "name": "SEO Growthers",
               "logo": {
                 "@type": "ImageObject",
-                "url": "https://seogrowthers.com/logo.png"
+                "url": "https://seogrowthers.com/logo.webp"
               }
             },
             "mainEntityOfPage": {

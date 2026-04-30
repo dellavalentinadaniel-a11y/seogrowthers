@@ -128,7 +128,7 @@ const BlogPage = () => {
         <meta property="og:description" content="Artículos sobre SEO, desarrollo web, IA y estrategias digitales para hacer crecer tu negocio." />
         <meta property="og:url" content={category ? `https://seogrowthers.com/blog/${category}` : "https://seogrowthers.com/blog"} />
         <meta property="og:type" content="blog" />
-        <meta property="og:image" content="https://seogrowthers.com/logo.png" />
+        <meta property="og:image" content="https://seogrowthers.com/logo.webp" />
         <meta name="twitter:card" content="summary_large_image" />
       </Helmet>
       

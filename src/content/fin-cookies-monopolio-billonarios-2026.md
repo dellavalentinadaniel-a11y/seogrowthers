@@ -5,7 +5,7 @@ slug: "fin-cookies-negocio-billonarios-monopolio-2026"
 date: "2026-04-19"
 keywords: ["monopolio digital", "Walled Gardens", "privacidad Apple Google", "marketing post-cookies", "datos de primera mano"]
 pillartitle: "Marketing post-cookies 2026: Privacidad, First-Party Data y Estrategia"
-featured_image: "/images/blog/cookies-privacidad.png"
+featured_image: "/images/blog/cookies-privacidad.webp"
 social_meta: {
   "x": "Las cookies murieron, pero el espionaje solo cambió de manos. 🍪💀 Apple y Google te vendieron la 'privacidad' para quedarse con el monopolio de tus datos.",
   "linkedin": "El marketing digital en 2026 ya no se trata de perseguir usuarios, sino de merecer sus datos. ¿Tu estrategia es de acoso o de confianza?",

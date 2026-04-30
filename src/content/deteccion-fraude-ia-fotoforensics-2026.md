@@ -5,7 +5,7 @@ slug: "detectar-documentos-falsos-ia-fotoforensics-2026"
 date: "2026-04-19"
 keywords: ["FotoForensics", "detectar documentos falsos", "ELA análisis", "fraude digital IA", "forense digital"]
 pillartitle: "Cómo detectar documentos falsos con IA: FotoForensics y análisis forense digital 2026"
-featured_image: "/images/blog/forense-digital.png"
+featured_image: "/images/blog/forense-digital.webp"
 social_meta: {
   "x": "¿Ese comprobante de pago es real o una creación de Midjourney? 💸 Aprendé a usar FotoForensics antes de que te vacíen la cuenta.",
   "linkedin": "La integridad de los documentos digitales es el nuevo campo de batalla corporativo. ¿Tu equipo sabe detectar un documento manipulado por IA?",

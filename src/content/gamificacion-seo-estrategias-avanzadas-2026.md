@@ -5,7 +5,7 @@ slug: "gamificacion-seo-estrategias-avanzadas-2026"
 date: "2026-04-19"
 keywords: ["gamificacion seo", "ludificacion marketing", "estrategias seo 2026", "aeo", "geo", "seo argentina"]
 pillartitle: "Estrategias de Gamificación"
-featured_image: "/images/blog/gamificacion-seo-2026.png"
+featured_image: "/images/blog/gamificacion-seo-2026.webp"
 social_meta:
   twitter_card: "summary_large_image"
   og_type: "article"

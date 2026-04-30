@@ -5,7 +5,7 @@ slug: "fraude-privacidad-datos-latinoamerica-2026"
 date: "2026-04-19"
 keywords: ["protección de datos Latam", "LGPD Brasil", "privacidad de datos México", "seguridad informática Argentina", "mercado negro de datos"]
 pillartitle: "Protección de datos en Latinoamérica 2026: Desafíos, leyes y derechos reales"
-featured_image: "/images/blog/privacidad-latam.png"
+featured_image: "/images/blog/privacidad-latam.webp"
 social_meta: {
   "x": "¿Te llaman de call centers todo el día? Tus datos se venden por centavos en Latam y a nadie le importa. 📉 La protección de datos es una fantasía burocrática.",
   "linkedin": "En Latinoamérica, las leyes de privacidad son un gran comienzo, pero la falta de ejecución nos deja vulnerables. ¿Estamos cumpliendo o solo buscando el vacío legal?",

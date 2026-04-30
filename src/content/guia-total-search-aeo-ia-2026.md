@@ -5,7 +5,7 @@ slug: "total-search-aeo-estrategias-ia-2026"
 date: "2026-04-19"
 keywords: ["Total Search", "AEO", "Answer Engine Optimization", "SEO IA 2026", "futuro del SEO"]
 pillartitle: "Guía de Total Search y AEO: Estrategias de IA para 2026"
-featured_image: "/images/blog/total-search-aeo.png"
+featured_image: "/images/blog/total-search-aeo.webp"
 social_meta: {
   "x": "El SEO ha muerto y Google sostiene el arma. 🔫 Si tu estrategia para 2026 sigue siendo 'palabras clave', sos un fantasma digital. El AEO y el Total Search vienen a quedarse con todo. ¿Estás listo o vas a desaparecer?",
   "linkedin": "La pregunta para los líderes de negocios en 2026 no es cuánto tráfico llega a su web, sino si son la respuesta que la IA entrega al usuario. La transición del SEO al AEO es el desafío estratégico más grande de la década. ¿Estamos optimizando para clics o para soluciones?",

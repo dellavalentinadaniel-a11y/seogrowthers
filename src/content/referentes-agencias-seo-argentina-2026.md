@@ -5,7 +5,7 @@ slug: "referentes-agencias-seo-argentina-2026"
 date: "2026-04-19"
 keywords: ["agencias seo argentina", "mejores agencias marketing digital argentina", "punto rojo seo", "eleven seo", "seonet", "seo buenos aires"]
 pillartitle: "Industria SEO Argentina"
-featured_image: "/images/blog/agencias-seo-argentina.png"
+featured_image: "/images/blog/agencias-seo-argentina.webp"
 social_meta:
   twitter_card: "summary_large_image"
   og_type: "article"
