@@ -30,7 +30,7 @@ const ServiceCard = ({ service, index = 0 }) => {
   const jsonLd = generateJsonLd('Service', {
     title: service.title,
     description: service.description,
-    providerName: 'Agency CMS',
+    providerName: 'SEO Growthers',
     offers: service.benefits.map(b => ({ '@type': 'Offer', name: b }))
   });
 

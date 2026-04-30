@@ -53,8 +53,6 @@ const ArticleDetail = () => {
     const orFilter = searchTerms.join(',');
 
     try {
-        console.log("Intentando cargar artículo:", { category, slug, fullSlug, orFilter });
-        
         const { data, error } = await supabase
           .from('articles')
           .select(`
@@ -79,7 +77,6 @@ const ArticleDetail = () => {
           console.error("Error de Supabase:", error);
         } else if (data) {
           current = data;
-          console.log("Artículo encontrado:", current.title);
         }
       } catch (err) {
         console.error("Error crítico en fetchArticle:", err);

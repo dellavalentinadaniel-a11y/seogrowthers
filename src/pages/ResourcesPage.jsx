@@ -1,4 +1,4 @@
-﻿import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { Link } from 'react-router-dom';
 import ScrollToTop from '@/components/layout/ScrollToTop';
@@ -25,21 +25,20 @@ const ResourcesPage = () => {
     if (!error && data) {
       const ssdGuide = {
         id: 'ssd-ps5-optimization-2026',
-        title: 'Mejores SSD para PS5: GuÃ­a 2026',
+        title: 'Mejores SSD para PS5: Guía 2026',
         description: 'Todo lo que necesitas saber para ampliar el almacenamiento de tu consola: Gen4, Disipadores y DRAM.',
-        category: 'GUÃAS',
+        category: 'GUÍAS',
         link: '/resources/ssd-ps5-optimization-2026',
         featured: true,
-        image: '/images/seo_pillar.webp' // Usando una imagen existente como placeholder
+        image: '/images/seo_pillar.webp'
       };
       setResources([ssdGuide, ...data]);
     } else {
-      // Fallback if DB is empty or error
       setResources([{
         id: 'ssd-ps5-optimization-2026',
-        title: 'Mejores SSD para PS5: GuÃ­a 2026',
+        title: 'Mejores SSD para PS5: Guía 2026',
         description: 'Todo lo que necesitas saber para ampliar el almacenamiento de tu consola: Gen4, Disipadores y DRAM.',
-        category: 'GUÃAS',
+        category: 'GUÍAS',
         link: '/resources/ssd-ps5-optimization-2026',
         featured: true,
         image: '/images/seo_pillar.webp'
@@ -50,48 +49,52 @@ const ResourcesPage = () => {
 
   const filteredResources = resources.filter(item => {
     if (filter === 'TODOS') return true;
-    if (filter === 'GUÃAS') return item.category?.toLowerCase().includes('guia') || item.category?.toLowerCase() === 'ebook';
+    if (filter === 'GUÍAS') return item.category?.toLowerCase().includes('guia') || item.category?.toLowerCase() === 'ebook';
     if (filter === 'ACTIVOS') return item.category?.toLowerCase().includes('plantilla') || item.category?.toLowerCase() === 'asset';
-    if (filter === 'TÃ‰CNICO') return item.category?.toLowerCase().includes('herramienta') || item.category?.toLowerCase() === 'tecnico';
-    if (filter === 'VÃDEO') return item.category?.toLowerCase().includes('webinar') || item.category?.toLowerCase() === 'video';
+    if (filter === 'TÉCNICO') return item.category?.toLowerCase().includes('herramienta') || item.category?.toLowerCase() === 'tecnico';
+    if (filter === 'VÍDEO') return item.category?.toLowerCase().includes('webinar') || item.category?.toLowerCase() === 'video';
     return true;
   });
 
   const featured = filteredResources.find(r => r.featured) || filteredResources[0];
   const others = filteredResources.filter(r => r.id !== featured?.id);
 
-
   return (
     <div className="text-on-surface font-body selection:bg-primary-container selection:text-on-primary-container min-h-screen">
       <Helmet>
         <title>Recursos Neuronales | SEO Growthers</title>
+        <meta name="description" content="Accede a recursos gratuitos de SEO, marketing digital y desarrollo web. Guías, plantillas y herramientas para potenciar tu estrategia digital." />
+        <meta property="og:title" content="Recursos Neuronales | SEO Growthers" />
+        <meta property="og:description" content="Biblioteca de recursos digitales: guías SEO, plantillas de marketing y documentación técnica avanzada." />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://seogrowthers.com/resources" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <link rel="canonical" href="https://seogrowthers.com/resources" />
       </Helmet>
-      
+
       <ScrollToTop />
-
-
 
       <main className="pt-32 pb-32 px-6 md:px-12 lg:px-24 max-w-7xl mx-auto">
         {/* Hero Section & Filters */}
         <section className="mb-16">
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 mb-12">
             <div className="max-w-2xl">
-              <span className="font-label text-xs tracking-[0.2em] text-secondary uppercase mb-4 block">CapÃ­tulo 03</span>
+              <span className="font-label text-xs tracking-[0.2em] text-secondary uppercase mb-4 block">Capítulo 03</span>
               <h2 className="font-headline text-4xl md:text-5xl font-bold text-on-surface leading-tight mb-6">
                 BIBLIOTECA DE <span className="bg-gradient-to-r from-primary-container to-secondary-container bg-clip-text text-transparent">RECURSOS_NEURALES</span>
               </h2>
               <p className="text-on-surface-variant text-lg leading-relaxed">
-                Accede a la arquitectura del conocimiento de 2026. Activos digitales, documentaciÃ³n tÃ©cnica avanzada y simulaciones de entrenamiento para ingenieros de software.
+                Accede a la arquitectura del conocimiento de 2026. Activos digitales, documentación técnica avanzada y simulaciones de entrenamiento para ingenieros de software.
               </p>
             </div>
             <div className="flex flex-wrap gap-3">
-              {['TODOS', 'GUÃAS', 'ACTIVOS', 'TÃ‰CNICO', 'VÃDEO'].map((item) => (
-                <button 
+              {['TODOS', 'GUÍAS', 'ACTIVOS', 'TÉCNICO', 'VÍDEO'].map((item) => (
+                <button
                   key={item}
                   onClick={() => setFilter(item)}
-                  className={`px-6 py-2 rounded-full border text-sm transition-all focus:outline-none 
-                    ${filter === item 
-                      ? 'border-primary-container bg-primary-container/10 text-primary font-bold tracking-wide' 
+                  className={`px-6 py-2 rounded-full border text-sm transition-all focus:outline-none
+                    ${filter === item
+                      ? 'border-primary-container bg-primary-container/10 text-primary font-bold tracking-wide'
                       : 'border-outline-variant text-on-surface-variant font-medium hover:border-primary-container hover:text-primary'
                     }`}
                 >
@@ -112,7 +115,7 @@ const ResourcesPage = () => {
             </div>
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-6 lg:grid-cols-12 gap-6">
-              
+
               {/* Featured Large Card */}
               {featured && (
                 <div className="md:col-span-6 lg:col-span-8 group relative overflow-hidden rounded-xl bg-surface-container-low border-t-2 border-primary-container shadow-xl transition-all hover:-translate-y-1">
@@ -142,10 +145,9 @@ const ResourcesPage = () => {
 
               {/* Other Resources */}
               {others.map((item, idx) => {
-                // Determine card type based on category
                 const isAsset = item.category?.toLowerCase().includes('plantilla') || item.category?.toLowerCase() === 'asset';
                 const isVideo = item.category?.toLowerCase().includes('video') || item.category?.toLowerCase() === 'webinar';
-                
+
                 if (isAsset) {
                   return (
                     <div key={item.id} className="md:col-span-6 lg:col-span-4 p-8 rounded-xl bg-surface-container-high border-t-2 border-secondary-container flex flex-col justify-between hover:bg-surface-container-highest transition-colors">
@@ -162,7 +164,7 @@ const ResourcesPage = () => {
                       <div className="flex items-center justify-between border-t border-outline-variant/30 pt-6">
                         <span className="text-xs text-outline">{item.file_size || 'N/A'}</span>
                         <Link to={item.link || '#'} className="text-secondary font-bold text-xs tracking-widest hover:text-white transition-colors flex items-center gap-2">
-                          {item.file_type === 'zip' ? 'DESCARGAR' : 'ABRIR'} 
+                          {item.file_type === 'zip' ? 'DESCARGAR' : 'ABRIR'}
                           <span className="material-symbols-outlined text-sm">{item.file_type === 'zip' ? 'download' : 'open_in_new'}</span>
                         </Link>
                       </div>
@@ -202,11 +204,11 @@ const ResourcesPage = () => {
                     </div>
                     <h5 className="font-headline font-bold mb-2">{item.title}</h5>
                     <p className="text-xs text-on-surface-variant mb-6 line-clamp-3">{item.description}</p>
-                    <Link 
-                      to={item.link && item.link.startsWith('/') ? item.link : `/resources/${item.id}`} 
+                    <Link
+                      to={item.link && item.link.startsWith('/') ? item.link : `/resources/${item.id}`}
                       className="text-primary text-[10px] font-bold tracking-[0.2em] flex items-center gap-1 group-hover:gap-2 transition-all"
                     >
-                      LEER_MÃS <span className="material-symbols-outlined text-xs">chevron_right</span>
+                      LEER MÁS <span className="material-symbols-outlined text-xs">chevron_right</span>
                     </Link>
                   </div>
                 );
@@ -219,23 +221,19 @@ const ResourcesPage = () => {
         <section className="mt-24 p-8 md:p-12 rounded-3xl border border-primary-container/10 relative overflow-hidden" style={{ backgroundImage: 'linear-gradient(to bottom, transparent, rgba(156, 240, 255, 0.03))' }}>
           <div className="relative z-10 flex flex-col lg:flex-row items-center justify-between gap-12">
             <div className="max-w-xl text-center lg:text-left">
-              <h3 className="font-headline text-3xl font-bold mb-4">SUSCRÃBETE AL FLUJO_DE_DATOS</h3>
-              <p className="text-on-surface-variant">Recibe notificaciones inmediatas cuando se liberen nuevos activos de nivel industrial y parches de documentaciÃ³n crÃ­tica.</p>
+              <h3 className="font-headline text-3xl font-bold mb-4">SUSCRÍBETE AL FLUJO DE DATOS</h3>
+              <p className="text-on-surface-variant">Recibe notificaciones inmediatas cuando se liberen nuevos activos de nivel industrial y parches de documentación crítica.</p>
             </div>
             <div className="w-full lg:w-auto flex flex-col sm:flex-row gap-4">
-              <input className="bg-surface-container-lowest border border-outline-variant/30 rounded-xl px-6 py-3 text-sm focus:border-primary-container focus:ring-1 focus:ring-primary-container outline-none w-full sm:w-80 font-mono tracking-tighter transition-colors" placeholder="INGENIERO@NEURAL.WORKSPACE" type="email"/>
+              <input className="bg-surface-container-lowest border border-outline-variant/30 rounded-xl px-6 py-3 text-sm focus:border-primary-container focus:ring-1 focus:ring-primary-container outline-none w-full sm:w-80 font-mono tracking-tighter transition-colors" placeholder="tu@email.com" type="email"/>
               <button className="bg-white text-background font-bold px-8 py-3 rounded-xl text-sm tracking-widest hover:bg-primary transition-colors whitespace-nowrap">CONECTAR</button>
             </div>
           </div>
-          {/* Decorative blur */}
           <div className="absolute -right-20 -top-20 w-64 h-64 bg-primary-container/10 blur-[100px] rounded-full pointer-events-none"></div>
         </section>
       </main>
-
-
     </div>
   );
 };
 
 export default ResourcesPage;
-

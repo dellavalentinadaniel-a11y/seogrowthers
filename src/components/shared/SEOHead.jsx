@@ -41,7 +41,7 @@ const SEOHead = ({
 
   return (
     <Helmet>
-      <title>{title ? `${title} | Agency CMS` : 'Agency CMS'}</title>
+      <title>{title ? `${title} | SEO Growthers` : 'SEO Growthers - Web Development, SEO & Analytics'}</title>
       <link rel="canonical" href={fullUrl} />
       
       {metaTags.map((tag, index) => (

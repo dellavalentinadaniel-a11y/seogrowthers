@@ -121,7 +121,7 @@ const BlogPage = () => {
   return (
     <>
       <SEOHead 
-        title={category ? `Blog de ${category} - Artículos y Guías` : "Blog de Tecnología y Desarrollo - Agency CMS"}
+        title={category ? `Blog de ${category} - Artículos y Guías` : "Blog de Tecnología y Desarrollo - SEO Growthers"}
         description="Explora nuestros artículos sobre desarrollo web, inteligencia artificial, y estrategias digitales para potenciar tu negocio."
         type="blog"
       />
