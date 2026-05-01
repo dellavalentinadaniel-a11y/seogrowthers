@@ -16,7 +16,7 @@ const SEOHead = ({
   jsonLdData = {}
 }) => {
   const location = useLocation();
-  const domain = 'https://agency-cms.com'; // Replace with actual domain
+  const domain = 'https://seogrowthers.com';
   const fullUrl = `${domain}${location.pathname}`;
   const defaultImage = 'https://images.unsplash.com/photo-1519389950473-47ba0277781c';
 
@@ -41,7 +41,7 @@ const SEOHead = ({
 
   return (
     <Helmet>
-      <title>{title ? `${title} | Agency CMS` : 'Agency CMS'}</title>
+      <title>{title ? `${title} | SEO Growthers` : 'SEO Growthers - Web Development, SEO & Analytics'}</title>
       <link rel="canonical" href={fullUrl} />
       
       {metaTags.map((tag, index) => (

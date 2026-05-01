@@ -124,7 +124,7 @@ const InteractiveGuide = ({ guideData, title, subtitle, faqs }) => {
               </div>
               <div className="hidden sm:flex relative -mt-6">
                   <img 
-                    src="/images/iconos/guiaspersonaje.png" 
+                    src="/images/iconos/guiaspersonaje.webp" 
                     alt="Personaje Guía" 
                     className="w-48 h-48 md:w-56 md:h-56 object-contain drop-shadow-[0_10px_25px_rgba(34,211,238,0.4)] transition-transform duration-500 hover:scale-110 hover:rotate-3 hover:drop-shadow-[0_15px_35px_rgba(34,211,238,0.6)]" 
                   />

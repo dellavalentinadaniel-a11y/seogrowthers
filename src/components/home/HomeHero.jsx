@@ -15,7 +15,7 @@ const HomeHero = () => {
       type: 'welcome',
       title: 'Bienvenido a SEO Growthers',
       subtitle: 'Soluciones expertas en Web Development, SEO & Analytics para escalar tus resultados digitales.',
-      image: 'https://images.unsplash.com/photo-1665065434466-8144dac4fc96',
+      image: '/images/fondo/site-background.webp',
       link: '/services',
       cta: 'Solicitar Auditoría Gratuita'
     },
@@ -24,7 +24,7 @@ const HomeHero = () => {
       type: 'case',
       title: 'Aluvalle: Transformación Digital',
       subtitle: 'Rediseño de alta gama y posicionamiento SEO que multiplicó el tráfico x3 para la mayor carpintería de aluminio de la región.',
-      image: '/images/aluvalle-premium.png',
+      image: '/images/aluvalle-premium.webp',
       link: '/services/success-cases/aluvalle-transformacion-digital',
       cta: 'Ver Caso de Estudio',
       badge: 'Destacado: Éxito en Retail'
@@ -92,7 +92,7 @@ const HomeHero = () => {
   const activeSlide = slides[currentSlide];
 
   return (
-    <section className="relative w-full h-[600px] md:h-[750px] flex items-center justify-center overflow-hidden">
+    <section className="relative w-full h-[520px] sm:h-[600px] md:h-[750px] flex items-center justify-center overflow-hidden">
       <AnimatePresence mode="wait">
         <motion.div
           key={activeSlide.id}
@@ -147,7 +147,7 @@ const HomeHero = () => {
                 </div>
               )}
 
-              <h1 className="text-4xl md:text-7xl font-extrabold text-white mb-6 leading-[1.1] tracking-tight">
+              <h1 className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-extrabold text-white mb-4 md:mb-6 leading-[1.1] tracking-tight">
                 {activeSlide.type === 'welcome' ? (
                   <>
                     Bienvenido a <br/>
@@ -160,7 +160,7 @@ const HomeHero = () => {
                 )}
               </h1>
 
-              <p className="text-lg md:text-xl text-gray-300 mb-10 max-w-2xl font-body font-light leading-relaxed">
+              <p className="text-base md:text-xl text-gray-300 mb-6 md:mb-10 max-w-2xl font-body font-light leading-relaxed">
                 {activeSlide.subtitle}
               </p>
 
@@ -168,7 +168,7 @@ const HomeHero = () => {
                 <Link to={activeSlide.link}>
                   <Button
                     size="lg"
-                    className="group bg-cyan-500 hover:bg-cyan-400 text-black font-bold text-base px-10 py-7 rounded-2xl shadow-[0_0_30px_rgba(6,182,212,0.3)] hover:shadow-[0_0_50px_rgba(6,182,212,0.5)] transition-all duration-500 hover:scale-[1.02] active:scale-[0.98]"
+                    className="group bg-cyan-500 hover:bg-cyan-400 text-black font-bold text-sm md:text-base px-6 md:px-10 py-5 md:py-7 rounded-2xl shadow-[0_0_30px_rgba(6,182,212,0.3)] hover:shadow-[0_0_50px_rgba(6,182,212,0.5)] transition-all duration-500 hover:scale-[1.02] active:scale-[0.98]"
                   >
                     {activeSlide.cta}
                     <ArrowRight className="ml-3 w-5 h-5 group-hover:translate-x-1 transition-transform" />
@@ -180,7 +180,7 @@ const HomeHero = () => {
                     <Button
                       variant="outline"
                       size="lg"
-                      className="bg-[#0a0e27]/40 backdrop-blur-md border border-white/10 text-white hover:bg-white/10 font-semibold text-base px-8 py-7 rounded-2xl transition-all duration-300"
+                      className="bg-[#0a0e27]/40 backdrop-blur-md border border-white/10 text-white hover:bg-white/10 font-semibold text-sm md:text-base px-6 md:px-8 py-5 md:py-7 rounded-2xl transition-all duration-300"
                     >
                       Casos de Éxito
                     </Button>
@@ -193,18 +193,20 @@ const HomeHero = () => {
       </div>
 
       {/* Manual Navigation Controls - Dots */}
-      <div className="absolute bottom-10 left-1/2 -translate-x-1/2 z-20 flex items-center gap-4">
+      <div className="absolute bottom-6 md:bottom-10 left-1/2 -translate-x-1/2 z-20 flex items-center gap-2">
         {slides.map((_, idx) => (
           <button
             key={idx}
             onClick={() => setCurrentSlide(idx)}
-            className={`transition-all duration-500 rounded-full ${
-              currentSlide === idx 
-                ? 'w-10 h-1.5 bg-cyan-400 shadow-[0_0_10px_rgba(34,211,238,0.8)]' 
-                : 'w-1.5 h-1.5 bg-white/20 hover:bg-white/40'
-            }`}
+            className={`transition-all duration-500 rounded-full min-w-[44px] min-h-[44px] flex items-center justify-center`}
             aria-label={`Ir a slide ${idx + 1}`}
-          />
+          >
+            <span className={`block rounded-full transition-all duration-500 ${
+              currentSlide === idx
+                ? 'w-10 h-1.5 bg-cyan-400 shadow-[0_0_10px_rgba(34,211,238,0.8)]'
+                : 'w-2 h-2 bg-white/20 hover:bg-white/40'
+            }`} />
+          </button>
         ))}
       </div>
 

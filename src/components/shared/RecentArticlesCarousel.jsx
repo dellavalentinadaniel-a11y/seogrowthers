@@ -18,7 +18,13 @@ const RecentArticlesCarousel = ({ title = "Últimas Publicaciones", subtitle = "
       const { data, error } = await supabase
         .from('articles')
         .select(`
-          *,
+          id,
+          title,
+          summary,
+          featured_image,
+          category,
+          slug,
+          created_at,
           author:profiles!author_id (
             username,
             full_name,
@@ -125,7 +131,7 @@ const RecentArticlesCarousel = ({ title = "Últimas Publicaciones", subtitle = "
                 <div className="flex items-center gap-2">
                   <div className="w-6 h-6 rounded-full overflow-hidden border border-white/10 bg-surface">
                     <img 
-                      src={articles[currentIndex].author?.avatar_url || "/images/iconos/guiaspersonaje.png"} 
+                      src={articles[currentIndex].author?.avatar_url || "/images/iconos/guiaspersonaje.webp"} 
                       alt="Author" 
                       className="w-full h-full object-cover"
                     />

@@ -61,12 +61,14 @@ const generateSitemap = async () => {
     // 1. Blog Articles (from 'articles' table)
     const { data: articles, error: articlesError } = await supabase
       .from('articles')
-      .select('slug, updated_at');
+      .select('slug, updated_at, category, status')
+      .eq('status', 'published');
 
     // 2. News (from 'blog_news' table)
     const { data: news, error: newsError } = await supabase
       .from('blog_news')
-      .select('slug, updated_at');
+      .select('slug, updated_at, status')
+      .eq('status', 'published');
 
     // 3. Resources
     const { data: resources, error: resourcesError } = await supabase
@@ -101,9 +103,19 @@ const generateSitemap = async () => {
       if (data) {
         data.forEach(item => {
           const lastMod = item.updated_at ? new Date(item.updated_at).toISOString().split('T')[0] : new Date().toISOString().split('T')[0];
+          
+          // Build URL based on prefix
+          let urlPath = `/${prefix}/${item.slug}`;
+          
+          if (prefix === 'blog' && item.category) {
+            // Normalizar categoría a slug (minúsculas y guiones) para SEO
+            const categorySlug = item.category.toLowerCase().replace(/\s+/g, '-');
+            urlPath = `/blog/${categorySlug}/${item.slug}`;
+          }
+
           sitemap += `
   <url>
-    <loc>${BASE_URL}/${prefix}/${item.slug}</loc>
+    <loc>${BASE_URL}${urlPath}</loc>
     <lastmod>${lastMod}</lastmod>
     <changefreq>monthly</changefreq>
     <priority>${priority}</priority>

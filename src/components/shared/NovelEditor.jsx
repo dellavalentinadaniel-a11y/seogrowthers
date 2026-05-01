@@ -18,12 +18,12 @@ import {
   handleCommandNavigation
 } from 'novel';
 import TextAlign from '@tiptap/extension-text-align';
-import { 
-  Bold, Italic, Underline, Strikethrough, Code, 
-  Heading1, Heading2, Heading3, 
-  List, ListOrdered, Quote, ImageIcon, 
+import {
+  Bold, Italic, Underline, Strikethrough, Code,
+  Heading1, Heading2, Heading3,
+  List, ListOrdered, Quote, ImageIcon,
   AlignLeft, AlignCenter, AlignRight, AlignJustify,
-  Undo, Redo, Link as LinkIcon, Unlink
+  Undo, Redo, Link as LinkIcon, Unlink, Table, Trash2, Plus, HelpCircle
 } from 'lucide-react';
 import { 
   Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter, DialogDescription 
@@ -41,6 +41,33 @@ const suggestionItems = [
     icon: <div className="p-1 border border-slate-700 bg-slate-800 rounded"><span className="text-gray-400">T</span></div>,
     command: ({ editor, range }) => {
       editor.chain().focus().deleteRange(range).setNode('paragraph').run();
+    },
+  },
+  {
+    title: 'Tabla',
+    description: 'Inserta una tabla con filas y columnas.',
+    searchTerms: ['table', 'grid'],
+    icon: <Table size={18} className="text-gray-400" />,
+    command: ({ editor, range }) => {
+      window.dispatchEvent(new CustomEvent('novelTableDialog'));
+    },
+  },
+  {
+    title: 'HTML Personalizado',
+    description: 'Inserta y visualiza código HTML personalizado.',
+    searchTerms: ['html', 'code', 'embed'],
+    icon: <Code size={18} className="text-gray-400" />,
+    command: ({ editor, range }) => {
+      window.dispatchEvent(new CustomEvent('novelHTMLDialog'));
+    },
+  },
+  {
+    title: 'Preguntas Frecuentes',
+    description: 'Inserta una sección de FAQ con acordeón interactivo.',
+    searchTerms: ['faq', 'frecuentes', 'preguntas', 'accordion'],
+    icon: <HelpCircle size={18} className="text-gray-400" />,
+    command: ({ editor, range }) => {
+      window.dispatchEvent(new CustomEvent('novelFAQDialog'));
     },
   },
   {
@@ -224,7 +251,7 @@ const Toolbar = ({ editor }) => {
       </div>
 
       {/* Media & Links */}
-      <div className="flex items-center">
+      <div className="flex items-center border-r border-slate-700 pr-2 mr-1">
         <ToolbarButton onClick={addLink} isActive={editor.isActive('link')} title="Añadir enlace">
           <LinkIcon size={16} />
         </ToolbarButton>
@@ -235,7 +262,156 @@ const Toolbar = ({ editor }) => {
           <ImageIcon size={16} />
         </ToolbarButton>
       </div>
+
+      {/* Advanced Elements */}
+      <div className="flex items-center">
+        <ToolbarButton onClick={() => window.dispatchEvent(new CustomEvent('novelTableDialog'))} title="Insertar tabla">
+          <Table size={16} />
+        </ToolbarButton>
+        <ToolbarButton onClick={() => window.dispatchEvent(new CustomEvent('novelHTMLDialog'))} title="HTML personalizado">
+          <Code size={16} />
+        </ToolbarButton>
+        <ToolbarButton onClick={() => window.dispatchEvent(new CustomEvent('novelFAQDialog'))} title="Insertar FAQ">
+          <HelpCircle size={16} />
+        </ToolbarButton>
+      </div>
     </div>
+  );
+};
+
+// Table Dialog
+const NovelTableDialog = ({ editor }) => {
+  const [open, setOpen] = useState(false);
+  const [rows, setRows] = useState(3);
+  const [cols, setCols] = useState(3);
+
+  React.useEffect(() => {
+    const handleOpen = () => setOpen(true);
+    window.addEventListener('novelTableDialog', handleOpen);
+    return () => window.removeEventListener('novelTableDialog', handleOpen);
+  }, []);
+
+  const insertTable = () => {
+    if (!editor || rows < 1 || cols < 1) return;
+    editor.chain().focus().insertTable({ rows, cols, withHeaderRow: true }).run();
+    setOpen(false);
+  };
+
+  return (
+    <Dialog open={open} onOpenChange={setOpen}>
+      <DialogContent className="sm:max-w-[425px] bg-slate-900 border border-slate-800 text-white">
+        <DialogHeader>
+          <DialogTitle>Insertar Tabla</DialogTitle>
+          <DialogDescription className="text-slate-400">
+            Define el número de filas y columnas para tu tabla.
+          </DialogDescription>
+        </DialogHeader>
+        <div className="grid gap-6 py-4">
+          <div className="grid grid-cols-2 gap-4">
+            <div>
+              <Label className="text-sm mb-2 block">Filas</Label>
+              <Input
+                type="number"
+                min="1"
+                max="20"
+                value={rows}
+                onChange={e => setRows(Math.max(1, parseInt(e.target.value) || 1))}
+                className="bg-slate-800 border-slate-700"
+              />
+            </div>
+            <div>
+              <Label className="text-sm mb-2 block">Columnas</Label>
+              <Input
+                type="number"
+                min="1"
+                max="20"
+                value={cols}
+                onChange={e => setCols(Math.max(1, parseInt(e.target.value) || 1))}
+                className="bg-slate-800 border-slate-700"
+              />
+            </div>
+          </div>
+          <div className="bg-slate-800 p-3 rounded border border-slate-700 text-sm text-gray-300">
+            Se creará una tabla de <span className="text-cyan-400 font-bold">{rows}×{cols}</span> con encabezados.
+          </div>
+        </div>
+        <DialogFooter>
+          <Button variant="outline" onClick={() => setOpen(false)} className="bg-slate-800 border-slate-700 hover:bg-slate-700 text-white">
+            Cancelar
+          </Button>
+          <Button onClick={insertTable} className="bg-cyan-600 hover:bg-cyan-700 text-white">
+            Insertar Tabla
+          </Button>
+        </DialogFooter>
+      </DialogContent>
+    </Dialog>
+  );
+};
+
+// HTML Dialog
+const NovelHTMLDialog = ({ editor }) => {
+  const [open, setOpen] = useState(false);
+  const [htmlCode, setHtmlCode] = useState('');
+  const [preview, setPreview] = useState(false);
+
+  React.useEffect(() => {
+    const handleOpen = () => setOpen(true);
+    window.addEventListener('novelHTMLDialog', handleOpen);
+    return () => window.removeEventListener('novelHTMLDialog', handleOpen);
+  }, []);
+
+  const insertHTML = () => {
+    if (!editor || !htmlCode.trim()) return;
+    editor.chain().focus().insertContent(`<div class="custom-html-block border-l-4 border-yellow-500 pl-4 py-2 my-4 bg-yellow-500/5">${htmlCode}</div>`).run();
+    setOpen(false);
+    setHtmlCode('');
+  };
+
+  return (
+    <Dialog open={open} onOpenChange={setOpen}>
+      <DialogContent className="sm:max-w-[600px] bg-slate-900 border border-slate-800 text-white max-h-[90vh] overflow-y-auto">
+        <DialogHeader>
+          <DialogTitle>Insertar HTML Personalizado</DialogTitle>
+          <DialogDescription className="text-slate-400">
+            Pega tu código HTML y visualiza cómo se verá en el contenido.
+          </DialogDescription>
+        </DialogHeader>
+        <div className="grid gap-4 py-4">
+          <div>
+            <Label className="text-sm mb-2 block">Código HTML</Label>
+            <textarea
+              value={htmlCode}
+              onChange={e => setHtmlCode(e.target.value)}
+              placeholder="<div>Contenido HTML aquí</div>"
+              className="w-full h-32 bg-slate-800 border border-slate-700 rounded px-3 py-2 text-sm font-mono text-gray-200 focus:border-cyan-500 outline-none resize-none"
+            />
+          </div>
+          {preview && htmlCode && (
+            <div>
+              <Label className="text-sm mb-2 block text-cyan-400">Vista Previa</Label>
+              <div className="w-full bg-slate-800 border border-slate-700 rounded p-4 text-sm overflow-auto max-h-48">
+                <div dangerouslySetInnerHTML={{ __html: htmlCode }} />
+              </div>
+            </div>
+          )}
+        </div>
+        <DialogFooter className="gap-2 flex-wrap">
+          <Button
+            variant="outline"
+            onClick={() => setPreview(!preview)}
+            className="bg-slate-800 border-slate-700 hover:bg-slate-700 text-white"
+          >
+            {preview ? 'Ocultar' : 'Vista Previa'}
+          </Button>
+          <Button variant="outline" onClick={() => setOpen(false)} className="bg-slate-800 border-slate-700 hover:bg-slate-700 text-white">
+            Cancelar
+          </Button>
+          <Button onClick={insertHTML} disabled={!htmlCode.trim()} className="bg-cyan-600 hover:bg-cyan-700 text-white disabled:opacity-50">
+            Insertar HTML
+          </Button>
+        </DialogFooter>
+      </DialogContent>
+    </Dialog>
   );
 };
 
@@ -318,6 +494,162 @@ const NovelImageDialog = ({ editor }) => {
   );
 };
 
+// FAQ Dialog
+const NovelFAQDialog = ({ editor }) => {
+  const [open, setOpen] = useState(false);
+  const [faqItems, setFaqItems] = useState([
+    { id: '1', question: '¿Pregunta frecuente?', answer: 'Respuesta a la pregunta.' },
+    { id: '2', question: '¿Otra pregunta?', answer: 'Respuesta adicional.' },
+  ]);
+  const [selectedVariant, setSelectedVariant] = useState('default');
+
+  React.useEffect(() => {
+    const handleOpen = () => setOpen(true);
+    window.addEventListener('novelFAQDialog', handleOpen);
+    return () => window.removeEventListener('novelFAQDialog', handleOpen);
+  }, []);
+
+  const addFaqItem = () => {
+    setFaqItems([
+      ...faqItems,
+      { id: Date.now().toString(), question: 'Nueva pregunta', answer: 'Nueva respuesta' }
+    ]);
+  };
+
+  const removeFaqItem = (id) => {
+    setFaqItems(faqItems.filter(item => item.id !== id));
+  };
+
+  const updateFaqItem = (id, field, value) => {
+    setFaqItems(faqItems.map(item =>
+      item.id === id ? { ...item, [field]: value } : item
+    ));
+  };
+
+  const insertFAQ = () => {
+    if (!editor || faqItems.length === 0) return;
+
+    const faqHtml = `
+      <div class="faq-block my-6" data-variant="${selectedVariant}">
+        <div class="faq-items">
+          ${faqItems.map((item, idx) => `
+            <div class="faq-item">
+              <div class="faq-question font-semibold text-on-surface cursor-pointer hover:text-primary transition-colors p-3 border border-outline-variant/20 rounded-lg" data-faq-idx="${idx}">
+                ${item.question}
+              </div>
+              <div class="faq-answer text-on-surface-variant p-3 bg-surface-container-low rounded-b-lg hidden" data-faq-idx="${idx}" style="max-height: 0; overflow: hidden; transition: max-height 0.3s ease;">
+                ${item.answer}
+              </div>
+            </div>
+          `).join('')}
+        </div>
+      </div>
+      <script>
+        (function() {
+          const faqBlock = document.currentScript.previousElementSibling;
+          const questions = faqBlock.querySelectorAll('.faq-question');
+
+          questions.forEach(question => {
+            question.addEventListener('click', function() {
+              const idx = this.getAttribute('data-faq-idx');
+              const answer = faqBlock.querySelector('.faq-answer[data-faq-idx="' + idx + '"]');
+              const isHidden = answer.classList.contains('hidden');
+
+              // Close all answers
+              faqBlock.querySelectorAll('.faq-answer').forEach(a => {
+                a.classList.add('hidden');
+                a.style.maxHeight = '0';
+              });
+
+              // Open selected answer
+              if (isHidden) {
+                answer.classList.remove('hidden');
+                answer.style.maxHeight = answer.scrollHeight + 'px';
+              }
+            });
+          });
+        })();
+      </script>
+    `;
+
+    editor.chain().focus().insertContent(faqHtml).run();
+    setOpen(false);
+  };
+
+  return (
+    <Dialog open={open} onOpenChange={setOpen}>
+      <DialogContent className="sm:max-w-[600px] bg-slate-900 border border-slate-800 text-white max-h-[90vh] overflow-y-auto">
+        <DialogHeader>
+          <DialogTitle>Insertar Preguntas Frecuentes</DialogTitle>
+          <DialogDescription className="text-slate-400">
+            Crea una sección de FAQ con acordeón interactivo. Edita las preguntas y respuestas.
+          </DialogDescription>
+        </DialogHeader>
+        <div className="grid gap-4 py-4">
+          <div>
+            <Label className="text-sm mb-2 block">Estilo</Label>
+            <select
+              value={selectedVariant}
+              onChange={e => setSelectedVariant(e.target.value)}
+              className="w-full bg-slate-800 border border-slate-700 rounded px-3 py-2 text-sm text-gray-200 focus:border-cyan-500 outline-none"
+            >
+              <option value="default">Predeterminado (Caja)</option>
+              <option value="minimal">Minimalista</option>
+              <option value="bordered">Con borde lateral</option>
+            </select>
+          </div>
+
+          <div className="space-y-3 max-h-64 overflow-y-auto">
+            {faqItems.map((item, idx) => (
+              <div key={item.id} className="border border-slate-700 rounded p-3 bg-slate-800">
+                <div className="flex items-start justify-between mb-2">
+                  <span className="text-xs text-slate-400">Ítem {idx + 1}</span>
+                  <button
+                    onClick={() => removeFaqItem(item.id)}
+                    className="text-red-400 hover:text-red-300 text-xs"
+                  >
+                    Eliminar
+                  </button>
+                </div>
+                <input
+                  type="text"
+                  value={item.question}
+                  onChange={e => updateFaqItem(item.id, 'question', e.target.value)}
+                  placeholder="Pregunta"
+                  className="w-full bg-slate-700 border border-slate-600 rounded px-2 py-1 text-sm mb-2 focus:border-cyan-500 outline-none"
+                />
+                <textarea
+                  value={item.answer}
+                  onChange={e => updateFaqItem(item.id, 'answer', e.target.value)}
+                  placeholder="Respuesta"
+                  className="w-full bg-slate-700 border border-slate-600 rounded px-2 py-1 text-sm h-16 focus:border-cyan-500 outline-none resize-none"
+                />
+              </div>
+            ))}
+          </div>
+
+          <Button
+            onClick={addFaqItem}
+            variant="outline"
+            className="w-full bg-slate-800 border-slate-700 hover:bg-slate-700 text-white text-sm"
+          >
+            <Plus size={16} className="mr-2" />
+            Agregar pregunta
+          </Button>
+        </div>
+        <DialogFooter>
+          <Button variant="outline" onClick={() => setOpen(false)} className="bg-slate-800 border-slate-700 hover:bg-slate-700 text-white">
+            Cancelar
+          </Button>
+          <Button onClick={insertFAQ} disabled={faqItems.length === 0} className="bg-cyan-600 hover:bg-cyan-700 text-white disabled:opacity-50">
+            Insertar FAQ
+          </Button>
+        </DialogFooter>
+      </DialogContent>
+    </Dialog>
+  );
+};
+
 const EditorUpdater = ({ content, editor }) => {
   React.useEffect(() => {
     if (editor && content && editor.getHTML() !== content) {
@@ -344,6 +676,10 @@ const DEFAULT_EXTENSIONS = [
     codeBlock: { HTMLAttributes: { class: "rounded-sm bg-slate-800 p-4 font-mono font-medium text-gray-200" } },
     code: { HTMLAttributes: { class: "rounded-md bg-slate-800 px-1.5 py-1 font-mono font-medium text-gray-200" } },
     horizontalRule: { HTMLAttributes: { class: "border-t border-slate-700 my-8" } },
+    table: { HTMLAttributes: { class: "border-collapse border border-slate-700 w-full my-4" } },
+    tableRow: { HTMLAttributes: { class: "border-slate-700" } },
+    tableHeader: { HTMLAttributes: { class: "border border-slate-700 bg-slate-800 p-2 text-left font-bold text-cyan-400" } },
+    tableCell: { HTMLAttributes: { class: "border border-slate-700 p-2" } },
     dropcursor: { color: "#06b6d4", width: 2 },
   }),
   TiptapLink.configure({
@@ -376,6 +712,9 @@ const NovelEditor = ({ content, onChange, placeholder = 'Presiona "/" para ver c
     <div className="relative w-full min-h-[400px] border border-slate-800 bg-slate-900/50 rounded-lg shadow-inner text-white focus-within:border-cyan-500/50 transition-all font-sans flex flex-col">
       <Toolbar editor={editorInstance} />
       <NovelImageDialog editor={editorInstance} />
+      <NovelTableDialog editor={editorInstance} />
+      <NovelHTMLDialog editor={editorInstance} />
+      <NovelFAQDialog editor={editorInstance} />
       <EditorRoot>
         <EditorContent
           className="min-h-[350px] outline-none prose prose-invert prose-headings:text-cyan-400 max-w-none px-4 pb-4 flex-1"

@@ -3,7 +3,7 @@ import React, { useEffect, useState, useCallback } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { supabase } from '@/lib/customSupabaseClient';
 import ArticleCard from '@/components/article/ArticleCard';
-import SEOHead from '@/components/shared/SEOHead';
+import { Helmet } from 'react-helmet-async';
 import Breadcrumbs from '@/components/layout/Breadcrumbs';
 import { Input } from '@/components/ui/input';
 import { Search, Loader2, Plus, PenSquare, MessageSquare } from 'lucide-react';
@@ -50,13 +50,15 @@ const BlogPage = () => {
     try {
       let query = supabase
         .from('articles')
-        .select('id, title, summary, content, content_html, featured_image, slug, category, created_at, status', { count: 'exact' })
+        .select('id, title, summary, featured_image, slug, category, created_at, status', { count: 'exact' })
         .eq('status', 'published')
-        .neq('category', 'news') // Exclude news from blog
         .order('created_at', { ascending: false });
 
       if (category) {
-        query = query.ilike('category', `%${category}%`); 
+        // Encontrar el nombre real de la categoría basado en el slug (parámetro de URL)
+        const matchedCategory = categories.find(c => c.slug === category);
+        const categorySearch = matchedCategory ? matchedCategory.name : category;
+        query = query.ilike('category', `%${categorySearch}%`); 
       }
 
       if (searchTerm) {
@@ -87,7 +89,7 @@ const BlogPage = () => {
 
     setArticles(dbArticles);
     setLoading(false);
-  }, [category, searchTerm, currentPage]);
+  }, [category, searchTerm, currentPage, categories]);
 
   // Reset page when filtering changes
   useEffect(() => {
@@ -100,20 +102,80 @@ const BlogPage = () => {
   }, [currentPage]);
 
   useEffect(() => {
-    fetchCategories();
-    fetchArticles();
-  }, [category, fetchCategories, fetchArticles]);
+    const init = async () => {
+      await fetchCategories();
+    };
+    init();
+  }, [fetchCategories]);
+
+  useEffect(() => {
+    // Solo ejecutamos fetchArticles si no hay categoría o si ya tenemos las categorías cargadas
+    if (!category || (categories && categories.length > 0)) {
+       fetchArticles();
+    }
+  }, [category, categories, fetchArticles]);
 
   // Logic moved to fetchArticles for server-side search and pagination
   const filteredArticles = articles;
 
   return (
     <>
-      <SEOHead 
-        title={category ? `Blog de ${category} - Artículos y Guías` : "Blog de Tecnología y Desarrollo - Agency CMS"}
-        description="Explora nuestros artículos sobre desarrollo web, inteligencia artificial, y estrategias digitales para potenciar tu negocio."
-        type="blog"
-      />
+      <Helmet>
+        <title>{category ? `Blog de ${category} - Artículos y Guías | SEO Growthers` : "Blog de SEO, Marketing Digital y Desarrollo Web | SEO Growthers"}</title>
+        <meta name="description" content={category ? `Artículos y guías sobre ${category}. Estrategias digitales para potenciar tu negocio.` : "Explora nuestros artículos sobre SEO, marketing digital, desarrollo web e inteligencia artificial para potenciar tu negocio."} />
+        <link rel="canonical" href={category ? `https://seogrowthers.com/blog/${category}` : "https://seogrowthers.com/blog"} />
+        {currentPage > 1 && (
+          <link rel="prev" href={`https://seogrowthers.com${category ? `/blog/${category}` : '/blog'}?page=${currentPage - 1}`} />
+        )}
+        {currentPage * PAGE_SIZE < totalCount && (
+          <link rel="next" href={`https://seogrowthers.com${category ? `/blog/${category}` : '/blog'}?page=${currentPage + 1}`} />
+        )}
+
+        {/* Open Graph */}
+        <meta property="og:title" content={category ? `Blog de ${category} | SEO Growthers` : "Blog | SEO Growthers"} />
+        <meta property="og:description" content={category ? `Artículos y guías sobre ${category}. Estrategias digitales para potenciar tu negocio.` : "Artículos sobre SEO, desarrollo web, IA y estrategias digitales para hacer crecer tu negocio."} />
+        <meta property="og:url" content={category ? `https://seogrowthers.com/blog/${category}` : "https://seogrowthers.com/blog"} />
+        <meta property="og:type" content="website" />
+        <meta property="og:site_name" content="SEO Growthers" />
+        <meta property="og:locale" content="es_AR" />
+        <meta property="og:image" content="https://seogrowthers.com/logo.webp" />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
+
+        {/* Twitter Card */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:site" content="@SEOGrowthers" />
+        <meta name="twitter:title" content={category ? `Blog de ${category} | SEO Growthers` : "Blog | SEO Growthers"} />
+        <meta name="twitter:description" content={category ? `Artículos y guías sobre ${category}.` : "Artículos sobre SEO, desarrollo web, IA y marketing digital."} />
+        <meta name="twitter:image" content="https://seogrowthers.com/logo.webp" />
+
+        {/* CollectionPage schema */}
+        <script type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "CollectionPage",
+            "name": category ? `Blog de ${category} | SEO Growthers` : "Blog | SEO Growthers",
+            "description": category
+              ? `Artículos y guías sobre ${category}. Estrategias digitales para potenciar tu negocio.`
+              : "Artículos sobre SEO, marketing digital, desarrollo web e inteligencia artificial.",
+            "url": category ? `https://seogrowthers.com/blog/${category}` : "https://seogrowthers.com/blog",
+            "publisher": {
+              "@type": "Organization",
+              "name": "SEO Growthers",
+              "logo": { "@type": "ImageObject", "url": "https://seogrowthers.com/logo.webp" }
+            },
+            "inLanguage": "es-AR",
+            "breadcrumb": {
+              "@type": "BreadcrumbList",
+              "itemListElement": [
+                { "@type": "ListItem", "position": 1, "name": "Inicio", "item": "https://seogrowthers.com/" },
+                { "@type": "ListItem", "position": 2, "name": "Blog", "item": "https://seogrowthers.com/blog" },
+                ...(category ? [{ "@type": "ListItem", "position": 3, "name": category, "item": `https://seogrowthers.com/blog/${category}` }] : [])
+              ]
+            }
+          })}
+        </script>
+      </Helmet>
       
       <div className="min-h-screen pt-24 pb-12 px-6">
         <div className="container mx-auto max-w-7xl">
@@ -125,7 +187,7 @@ const BlogPage = () => {
           )}
 
           <div className="text-center mb-16">
-            <h1 className="text-4xl md:text-6xl font-bold text-white mb-6">
+            <h1 className="text-3xl sm:text-4xl md:text-6xl font-bold text-white mb-6">
               Nuestro <span className="text-cyan-400">Blog</span>
             </h1>
             

@@ -16,7 +16,7 @@ export const aiStudioGuideData = [
     ],
     infographic: {
       title: "Flujo del Paradigma 2026",
-      imageUrl: "/images/guia/1.png",
+      imageUrl: "/images/guia/1.webp",
       alt: "Esquema visual mostrando el paso de IDEs tradicionales con cierre de Firebase Studio en 2027 hacia el ecosistema centralizado de Google AI Studio, empleando Vibe Coding y el motor Antigravity."
     },
     quiz: {
@@ -45,7 +45,7 @@ export const aiStudioGuideData = [
     ],
     infographic: {
       title: "Pipeline de Generación Stitch",
-      imageUrl: "/images/guia/2.png",
+      imageUrl: "/images/guia/2.webp",
       alt: "Infografía del diseño generativo con Google Stitch y agentes de IA: Evolución desde el conceptualizado con Voice Picker hasta transcompilación automática hacia despliegues modulares en React/Tailwind."
     },
     quiz: {
@@ -74,7 +74,7 @@ export const aiStudioGuideData = [
     ],
     infographic: {
       title: "Arquitectura Full-Stack Segura",
-      imageUrl: "/images/guia/3.png",
+      imageUrl: "/images/guia/3.webp",
       alt: "Diagrama del aprovisionamiento Full-Stack seguro en Google AI Studio separando frontend (React 19) del backend (Node.js) con gestión y solicitud proactiva de credenciales inviolable."
     },
     quiz: {
@@ -104,7 +104,7 @@ export const aiStudioGuideData = [
     ],
     infographic: {
       title: "Modelo Tool Layer Seguro",
-      imageUrl: "/images/guia/4.png",
+      imageUrl: "/images/guia/4.webp",
       alt: "Infografía técnica comparando la vía automatizada default (Firebase NoSQL) contra la arquitectura relacional (Supabase PostgreSQL) mediada por una estricta Capa de Herramientas para evitar alucinaciones SQl."
     },
     quiz: {
@@ -132,7 +132,7 @@ export const aiStudioGuideData = [
     ],
     infographic: {
       title: "Rutas de Despliegue de Código",
-      imageUrl: "/images/guia/5.png",
+      imageUrl: "/images/guia/5.webp",
       alt: "Esquema ilustrativo de publicación automatizada para aplicaciones de agentes: Ruta 1-clic de Cloud Run de alta disponibilidad VS Exportación perimetral a Vercel y Alojamiento proxy local."
     },
     quiz: {
@@ -161,7 +161,7 @@ export const aiStudioGuideData = [
     ],
     infographic: {
       title: "Selección del Modelo IA",
-      imageUrl: "/images/guia/6.png",
+      imageUrl: "/images/guia/6.webp",
       alt: "Diagrama evolutivo del Modelo Gemini 3.1 detallando la cadena de desarrollo equilibrando tokens, velocidad y coste computacional: Mente Pro, interactivo Flash, y gran escala analítica Flash-Lite."
     },
     quiz: {

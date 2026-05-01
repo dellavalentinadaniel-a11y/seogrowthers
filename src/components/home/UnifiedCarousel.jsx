@@ -19,7 +19,7 @@ const UnifiedCarousel = () => {
         // Fetch success cases
         const { data: casesData } = await supabase
           .from('success_cases')
-          .select('*')
+          .select('id, title, description, image, result, industry, slug, category')
           .order('created_at', { ascending: false });
 
         // Add the manual Aluvalle case if it's not in DB yet (as we did before)
@@ -28,7 +28,7 @@ const UnifiedCarousel = () => {
           type: 'case',
           title: 'Aluvalle: Transformación Digital e Impacto SEO',
           description: 'Implementamos una arquitectura digital escalable y una estrategia de contenidos avanzada, logrando resultados extraordinarios en visibilidad y tasa de conversión.',
-          image: '/images/aluvalle-premium.png',
+          image: '/images/aluvalle-premium.webp',
           result: '+300% Tráfico Orgánico',
           industry: 'Retail / Construcción',
           slug: 'aluvalle-transformacion-digital',
@@ -51,7 +51,6 @@ const UnifiedCarousel = () => {
           .from('articles')
           .select('id, title, summary, featured_image, slug, category, created_at, status')
           .eq('status', 'published')
-          .neq('category', 'news')
           .order('created_at', { ascending: false })
           .limit(5);
 

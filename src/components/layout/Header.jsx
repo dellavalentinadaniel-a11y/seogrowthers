@@ -94,26 +94,26 @@ const Header = () => {
 
   return (
     <header className="fixed top-0 w-full z-50 bg-[#0a0b14]/80 backdrop-blur-xl border-b border-white/10 shadow-[0_4px_20px_rgba(0,0,0,0.5)]">
-      <div className="flex justify-between items-center px-6 md:px-8 h-20 w-full max-w-[1600px] mx-auto">
-        
+      <div className="flex justify-between items-center px-4 md:px-8 h-16 md:h-20 w-full max-w-[1600px] mx-auto">
+
         {/* Brand */}
         <div className="flex items-center h-full">
           <LogoComponent size="md" />
         </div>
-        
+
         {/* Desktop Nav */}
         <nav className="hidden md:flex items-center gap-8">
           {navLinks.map((link) => {
-            const isActive = location.pathname === link.href || 
+            const isActive = location.pathname === link.href ||
                              (link.href !== '/' && location.pathname.startsWith(link.href));
-            
+
             return (
               <Link
                 key={link.name}
                 to={link.href}
                 className={`font-headline tracking-tight transition-colors ${
-                  isActive 
-                    ? 'text-[#c3f5ff] border-b-2 border-[#00e5ff] pb-1' 
+                  isActive
+                    ? 'text-[#c3f5ff] border-b-2 border-[#00e5ff] pb-1'
                     : 'text-slate-400 hover:text-white'
                 }`}
               >
@@ -121,17 +121,31 @@ const Header = () => {
               </Link>
             );
           })}
+          <Link
+            to="/auditoria-seo-gratis"
+            className="ml-2 px-4 py-2.5 bg-primary text-on-primary text-xs font-headline font-bold uppercase tracking-wider rounded-lg hover:shadow-[0_0_15px_rgba(0,229,255,0.3)] transition-all whitespace-nowrap"
+          >
+            Auditoría Gratis
+          </Link>
         </nav>
-        
-        {/* User / Profile Area */}
-        <div className="flex items-center gap-4 relative" ref={dropdownRef}>
+
+        {/* Mobile: CTA + User area */}
+        <div className="flex items-center gap-2 md:gap-4 relative" ref={dropdownRef}>
+          {/* Mobile CTA button */}
+          <Link
+            to="/auditoria-seo-gratis"
+            className="md:hidden px-3 py-2 bg-primary text-on-primary text-[10px] font-headline font-bold uppercase tracking-wider rounded-lg whitespace-nowrap min-h-[36px] flex items-center"
+          >
+            Auditoría Gratis
+          </Link>
+
           {session ? (
             <>
-              <button 
+              <button
                 onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-                className="h-10 w-10 rounded-full border border-primary/30 overflow-hidden block hover:border-primary transition-colors focus:outline-none focus:ring-2 focus:ring-primary/50"
+                className="h-11 w-11 rounded-full border border-primary/30 overflow-hidden flex items-center justify-center hover:border-primary transition-colors focus:outline-none focus:ring-2 focus:ring-primary/50 flex-shrink-0"
               >
-                <img alt="User profile avatar" className="w-full h-full object-cover" src={profile?.avatar_url || "/images/iconos/guiaspersonaje.png"}/>
+                <img alt="User profile avatar" className="w-full h-full object-cover" src={profile?.avatar_url || "/images/iconos/guiaspersonaje.webp"}/>
               </button>
 
               <AnimatePresence>
@@ -148,18 +162,18 @@ const Header = () => {
                       <p className="text-xs font-bold text-on-surface truncate">{session.user.email}</p>
                     </div>
 
-                    <Link 
+                    <Link
                       to="/profile"
                       onClick={() => setIsDropdownOpen(false)}
-                      className="flex items-center gap-3 px-3 py-2 rounded-xl text-slate-400 hover:text-white hover:bg-white/5 transition-colors group"
+                      className="flex items-center gap-3 px-3 py-3 rounded-xl text-slate-400 hover:text-white hover:bg-white/5 transition-colors group"
                     >
                       <span className="material-symbols-outlined text-xl group-hover:text-primary transition-colors">person</span>
                       <span className="font-headline text-sm">Mi Perfil</span>
                     </Link>
 
-                    <button 
+                    <button
                       onClick={handleLogout}
-                      className="w-full flex items-center gap-3 px-3 py-2 rounded-xl text-red-400 hover:text-red-300 hover:bg-red-500/10 transition-colors group"
+                      className="w-full flex items-center gap-3 px-3 py-3 rounded-xl text-red-400 hover:text-red-300 hover:bg-red-500/10 transition-colors group"
                     >
                       <span className="material-symbols-outlined text-xl group-hover:animate-pulse">logout</span>
                       <span className="font-headline text-sm">Cerrar Sesión</span>
@@ -170,9 +184,9 @@ const Header = () => {
             </>
           ) : (
             !['/login', '/register'].includes(location.pathname) && (
-              <Link 
-                to="/login" 
-                className="px-6 py-2 bg-primary-container/10 border border-primary/20 text-primary-container rounded-full font-headline text-xs uppercase tracking-widest hover:bg-primary-container/20 transition-all shadow-[0_0_15px_rgba(0,229,255,0.1)]"
+              <Link
+                to="/login"
+                className="hidden md:flex px-6 py-2.5 bg-primary-container/10 border border-primary/20 text-primary-container rounded-full font-headline text-xs uppercase tracking-widest hover:bg-primary-container/20 transition-all shadow-[0_0_15px_rgba(0,229,255,0.1)] items-center"
               >
                 Acceder
               </Link>

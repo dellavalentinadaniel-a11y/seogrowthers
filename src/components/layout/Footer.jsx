@@ -4,6 +4,7 @@ import { Github, Twitter, Linkedin, Instagram, Facebook, Youtube } from 'lucide-
 import { toast } from "@/components/ui/use-toast";
 import { useNavigate } from 'react-router-dom';
 import LogoComponent from '@/components/shared/LogoComponent';
+import NewsletterForm from '@/components/shared/NewsletterForm';
 
 const Footer = () => {
     const navigate = useNavigate();
@@ -52,9 +53,9 @@ const Footer = () => {
         {
             title: 'Nosotros',
             links: [
-                { name: 'Quiénes somos', href: '#' },
-                { name: 'Misión y visión', href: '#' },
-                { name: 'Equipo', href: '#' },
+                { name: 'Quiénes somos', href: '/about' },
+                { name: 'Auditoría SEO Gratis', href: '/auditoria-seo-gratis' },
+                { name: 'Casos de Éxito', href: '/services/success-cases/aluvalle-transformacion-digital' },
                 { name: 'Blog', href: '/blog' },
             ],
         },
@@ -107,15 +108,20 @@ const Footer = () => {
                     ))}
 
                     <div>
+                        <p className="font-semibold text-white mb-6">Newsletter</p>
+                        <NewsletterForm variant="inline" source="footer" className="flex-col gap-3" />
+                    </div>
+
+                    <div>
                         <p className="font-semibold text-white mb-6">Síguenos</p>
-                        <div className="flex space-x-4">
+                        <div className="flex flex-wrap gap-2">
                             {socialLinks.map((social) => (
                                 <a
                                     key={social.name}
                                     href={social.href}
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    className="text-gray-400 hover:text-cyan-400 transition-colors duration-300"
+                                    className="w-11 h-11 flex items-center justify-center rounded-xl text-gray-400 hover:text-cyan-400 hover:bg-white/5 transition-colors duration-300"
                                 >
                                     {social.icon}
                                 </a>

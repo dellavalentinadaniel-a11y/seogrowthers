@@ -5,23 +5,43 @@ import {
   LayoutDashboard, FileText, Settings, LogOut, ExternalLink, 
   Megaphone, BarChart, Newspaper, Wrench, Library, Tags 
 } from 'lucide-react';
-import { Button } from '@/components/ui/button';
+import { useToast } from '@/components/ui/use-toast';
 import { Toaster } from '@/components/ui/toaster';
 
 const AdminLayout = () => {
   const navigate = useNavigate();
   const location = useLocation();
+  const { toast } = useToast();
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const checkAuth = async () => {
       const { data: { session } } = await supabase.auth.getSession();
+      
       if (!session) {
-        navigate('/admin/login');
-      } else {
-        setIsAuthenticated(true);
+        navigate('/login?redirect=admin');
+        return;
       }
+
+      // Check if user has admin role in profiles table
+      const { data: profile, error } = await supabase
+        .from('profiles')
+        .select('role')
+        .eq('id', session.user.id)
+        .single();
+
+      if (error || profile?.role !== 'admin') {
+        toast({
+          variant: "destructive",
+          title: "Acceso Denegado",
+          description: "No tienes permisos para acceder al panel de administración.",
+        });
+        navigate('/login');
+        return;
+      }
+
+      setIsAuthenticated(true);
       setIsLoading(false);
     };
     checkAuth();
@@ -29,7 +49,7 @@ const AdminLayout = () => {
 
   const handleLogout = async () => {
     await supabase.auth.signOut();
-    navigate('/admin/login');
+    navigate('/login');
   };
 
   if (isLoading) return <div className="min-h-screen bg-[#0C0D0D] flex items-center justify-center text-cyan-400">Cargando panel...</div>;

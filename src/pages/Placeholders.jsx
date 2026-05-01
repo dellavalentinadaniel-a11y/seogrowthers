@@ -1,23 +1,24 @@
 
 import React from 'react';
-import SEOHead from '@/components/shared/SEOHead';
-import { useParams } from 'react-router-dom';
+import { Helmet } from 'react-helmet-async';
+import { useParams, Link } from 'react-router-dom';
 
-// Placeholder components to prevent route errors for requested pages
-// These can be fleshed out later individually
-
+// Placeholder components — noindex to prevent Google from indexing thin content
 const PlaceholderPage = ({ title, type }) => {
   const params = useParams();
   const displayTitle = params.slug ? `${title}: ${params.slug}` : title;
-  
+
   return (
     <>
-      <SEOHead title={displayTitle} description={`Página de ${displayTitle}`} />
+      <Helmet>
+        <title>{displayTitle} | SEO Growthers</title>
+        <meta name="robots" content="noindex, nofollow" />
+      </Helmet>
       <div className="min-h-screen pt-32 px-6 flex items-center justify-center text-center">
         <div>
           <h1 className="text-4xl font-bold text-white mb-4">{displayTitle}</h1>
-          <p className="text-gray-400 text-xl">Esta página está en construcción 🚧</p>
-          <p className="text-gray-600 mt-4 text-sm font-mono">Route Type: {type}</p>
+          <p className="text-gray-400 text-xl mb-8">Estamos preparando algo increible para ti.</p>
+          <Link to="/" className="text-cyan-400 hover:text-cyan-300 underline">Volver al inicio</Link>
         </div>
       </div>
     </>

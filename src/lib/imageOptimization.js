@@ -1,29 +1,19 @@
 
-export const generateSrcSet = (url, variants = [320, 640, 768, 1024, 1280]) => {
+export const generateSrcSet = (url, variants = [320, 640, 768, 1024, 1280, 1920]) => {
   if (!url) return '';
-  // Check if it's a URL we can transform (e.g., Supabase, Cloudinary)
-  // For now, we assume a query param based transformation service is available 
-  // or return the original if not scalable.
   
-  // Implementation note: Supabase Storage Image Transformation requires specific URL construction
-  // This is a generic implementation pattern.
-  
-  // Supabase Image Transformation is a paid feature. 
-  // If your plan doesn't support it, this will cause a 400 error.
-  /*
-  if (url.includes('supabase')) {
-     return variants
-      .map(width => `${url}?width=${width}&format=webp ${width}w`)
-      .join(', ');
-  }
-  */
-
   // Handle Unsplash images
   if (url.includes('images.unsplash.com')) {
-    // Check if the URL already has query parameters
-    const separator = url.includes('?') ? '&' : '?';
+    const baseUrl = url.split('?')[0];
     return variants
-      .map(width => `${url}${separator}w=${width}&auto=format&fit=crop&q=80 ${width}w`)
+      .map(width => `${baseUrl}?w=${width}&auto=format,compress&q=75&fit=crop ${width}w`)
+      .join(', ');
+  }
+
+  // Handle Supabase images (if transformation is available)
+  if (url.includes('supabase.co/storage/v1/object/public')) {
+    return variants
+      .map(width => `${url}?width=${width}&format=webp&quality=75 ${width}w`)
       .join(', ');
   }
   

@@ -45,19 +45,44 @@ const ImageOptimized = ({
 
   const srcSet = generateSrcSet(src);
 
+  // For priority (LCP) images: render immediately, no lazy wrapper
+  if (priority) {
+    return (
+      <div
+        className={cn("relative overflow-hidden bg-slate-900/20", className)}
+        style={{ aspectRatio: aspectRatio || (width && height ? `${width}/${height}` : 'auto') }}
+      >
+        <img
+          ref={imgRef}
+          src={src}
+          srcSet={srcSet}
+          sizes="100vw"
+          alt={alt || ''}
+          width={width}
+          height={height}
+          loading="eager"
+          fetchPriority="high"
+          decoding="sync"
+          onLoad={() => setIsLoaded(true)}
+          className="w-full h-full object-cover"
+        />
+      </div>
+    );
+  }
+
   return (
-    <div 
+    <div
       ref={containerRef}
       className={cn("relative overflow-hidden bg-slate-900/20", className)}
       style={{ aspectRatio: aspectRatio || (width && height ? `${width}/${height}` : 'auto') }}
     >
       {(!isLoaded || !isInView) && (
-        <div 
+        <div
           className="absolute inset-0 bg-cover bg-center blur-lg scale-110 transition-opacity duration-500"
           style={{ backgroundImage: `url(${getBlurPlaceholder()})` }}
         />
       )}
-      
+
       {isInView && (
         <img
           ref={imgRef}
@@ -67,8 +92,8 @@ const ImageOptimized = ({
           alt={alt || ''}
           width={width}
           height={height}
-          loading={priority ? "eager" : "lazy"}
-          fetchPriority={fetchPriority}
+          loading="lazy"
+          fetchPriority="auto"
           decoding="async"
           onLoad={() => setIsLoaded(true)}
           className={cn(

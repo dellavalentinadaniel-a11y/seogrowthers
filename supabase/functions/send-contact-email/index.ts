@@ -1,10 +1,15 @@
 
+// @ts-ignore
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts"
+// @ts-ignore
 import { createClient } from 'https://esm.sh/@supabase/supabase-js@2'
 import { adminEmailTemplate, userConfirmationTemplate } from './templates.ts'
 
+// @ts-ignore
 const RESEND_API_KEY = Deno.env.get('RESEND_API_KEY')
+// @ts-ignore
 const SUPABASE_URL = Deno.env.get('SUPABASE_URL')
+// @ts-ignore
 const SUPABASE_SERVICE_ROLE_KEY = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')
 
 const corsHeaders = {
@@ -12,7 +17,7 @@ const corsHeaders = {
   'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
 }
 
-serve(async (req) => {
+serve(async (req: Request) => {
   if (req.method === 'OPTIONS') {
     return new Response('ok', { headers: corsHeaders })
   }
@@ -43,7 +48,7 @@ serve(async (req) => {
       },
       body: JSON.stringify({
         from: 'SEO Growthers <notificaciones@seogrowthers.com>',
-        to: 'info@seogrowthers.com',
+        to: ['seogrowthers@gmail.com', 'info@seogrowthers.com', 'servicio@seogrowthers.com'],
         subject: `NUEVA CONSULTA: ${subject}`,
         html: adminEmailTemplate(name, email, phone, subject, message, submission.created_at),
       }),
@@ -76,8 +81,9 @@ serve(async (req) => {
     )
 
   } catch (error) {
+    const err = error as Error;
     return new Response(
-      JSON.stringify({ error: error.message }),
+      JSON.stringify({ error: err.message }),
       { headers: { ...corsHeaders, 'Content-Type': 'application/json' }, status: 400 }
     )
   }

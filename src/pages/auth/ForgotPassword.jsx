@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+﻿import React, { useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { Link } from 'react-router-dom';
 import { supabase } from '@/lib/customSupabaseClient';
@@ -29,7 +29,7 @@ const ForgotPassword = () => {
       toast({
         variant: "destructive",
         title: "Error al solicitar",
-        description: error.message || "No pudimos enviar el correo de recuperación.",
+        description: error.message || "No pudimos enviar el correo de recuperaciÃ³n.",
       });
     } finally {
       setIsLoading(false);
@@ -39,7 +39,7 @@ const ForgotPassword = () => {
   return (
     <div className="text-on-surface font-body neural-bg min-h-screen flex items-center justify-center p-6 selection:bg-primary-container selection:text-on-primary-container overflow-hidden">
       <Helmet>
-        <title>Recuperar Clave | Neural Workspace</title>
+        <title>Recuperar Clave | SEO Growthers</title>
       </Helmet>
 
       <main className="relative w-full max-w-md">
@@ -51,7 +51,7 @@ const ForgotPassword = () => {
           
           <div className="mb-12 text-center">
             <h1 className="text-2xl font-headline font-bold text-white mb-2 uppercase tracking-tighter">Recuperar Acceso</h1>
-            <p className="text-xs text-slate-500 font-label tracking-widest uppercase">Protocolo de Restauración Neural</p>
+            <p className="text-xs text-slate-500 font-label tracking-widest uppercase">Protocolo de RestauraciÃ³n Neural</p>
           </div>
 
           {!isSent ? (
@@ -87,13 +87,13 @@ const ForgotPassword = () => {
               <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto border border-primary/20">
                 <span className="material-symbols-outlined text-primary text-3xl">mark_email_read</span>
               </div>
-              <p className="text-sm text-slate-400">Hemos enviado las instrucciones a tu correo. Revisa también tu carpeta de spam.</p>
+              <p className="text-sm text-slate-400">Hemos enviado las instrucciones a tu correo. Revisa tambiÃ©n tu carpeta de spam.</p>
               <Link to="/login" className="block text-xs font-bold text-primary uppercase tracking-widest hover:text-white transition-colors">Volver al Portal</Link>
             </div>
           )}
 
           <div className="mt-10 pt-8 border-t border-outline-variant/10 text-center">
-            <Link className="font-headline text-[10px] font-bold text-slate-500 hover:text-white transition-colors tracking-[0.2em] uppercase" to="/login">Volver al Inicio de Sesión</Link>
+            <Link className="font-headline text-[10px] font-bold text-slate-500 hover:text-white transition-colors tracking-[0.2em] uppercase" to="/login">Volver al Inicio de SesiÃ³n</Link>
           </div>
         </div>
       </main>
@@ -102,3 +102,4 @@ const ForgotPassword = () => {
 };
 
 export default ForgotPassword;
+

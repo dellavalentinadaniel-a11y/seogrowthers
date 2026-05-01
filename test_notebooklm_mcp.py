@@ -4,8 +4,8 @@ from mcp.client.stdio import stdio_client
 
 async def list_notebooks():
     server_params = StdioServerParameters(
-        command="C:\\Users\\dani\\AppData\\Local\\Packages\\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\\LocalCache\\local-packages\\Python313\\Scripts\\notebooklm-mcp.exe",
-        args=[],
+        command="C:\\Users\\della\\AppData\\Roaming\\Python\\Python314\\Scripts\\notebooklm-mcp.exe",
+        args=["server"],
         env=None
     )
 

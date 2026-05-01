@@ -6,6 +6,7 @@ import Footer from '@/components/layout/Footer';
 import { Toaster } from '@/components/ui/toaster';
 import CustomCursor from '@/components/shared/CustomCursor';
 import BottomTabBar from '@/components/layout/BottomTabBar';
+import WhatsAppFloat from '@/components/shared/WhatsAppFloat';
 import { MobileMenuProvider } from '@/contexts/MobileMenuContext';
 
 const Layout = () => {
@@ -19,6 +20,7 @@ const Layout = () => {
         </main>
         <Footer />
         <BottomTabBar />
+        <WhatsAppFloat />
         <Toaster />
       </div>
     </MobileMenuProvider>

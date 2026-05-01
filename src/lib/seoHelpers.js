@@ -69,6 +69,67 @@ export const injectHeadingIds = (htmlContent) => {
   });
 };
 
+// Returns density % for each keyword in the plain text content.
+export const calculateKeywordDensity = (htmlContent, keywords = []) => {
+  if (!htmlContent || keywords.length === 0) return [];
+  const text = htmlContent.replace(/<[^>]*>/g, ' ').replace(/\s+/g, ' ').trim().toLowerCase();
+  const words = text.split(/\s+/).filter(Boolean);
+  const total = words.length;
+  if (total === 0) return [];
+  return keywords.map((kw) => {
+    const kwLower = kw.toLowerCase();
+    const regex = new RegExp(`\\b${kwLower.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}\\b`, 'g');
+    const matches = (text.match(regex) || []).length;
+    const density = total > 0 ? (matches / total) * 100 : 0;
+    return {
+      keyword: kw,
+      count: matches,
+      density: parseFloat(density.toFixed(2)),
+      status: density === 0 ? 'missing' : density < 0.5 ? 'low' : density <= 2.5 ? 'good' : 'high'
+    };
+  });
+};
+
+// Flesch Reading Ease adapted for Spanish text (approximate).
+// Returns score 0-100 and a label.
+export const calculateReadability = (htmlContent) => {
+  if (!htmlContent) return { score: 0, label: 'Sin contenido', grade: 'F' };
+  const text = htmlContent.replace(/<[^>]*>/g, ' ').replace(/\s+/g, ' ').trim();
+  if (!text) return { score: 0, label: 'Sin contenido', grade: 'F' };
+
+  const sentences = text.split(/[.!?]+/).filter(s => s.trim().length > 0);
+  const words = text.split(/\s+/).filter(Boolean);
+  // Count syllables: vowel groups as approximation for Spanish
+  const countSyllables = (word) => {
+    const vowels = word.toLowerCase().match(/[aeiouáéíóúü]/g);
+    return vowels ? vowels.length : 1;
+  };
+  const totalSyllables = words.reduce((acc, w) => acc + countSyllables(w), 0);
+  const numSentences = Math.max(1, sentences.length);
+  const numWords = Math.max(1, words.length);
+
+  // Flesch formula (Spanish adjustment: slightly lower constant)
+  const score = Math.min(100, Math.max(0,
+    206.835 - 1.015 * (numWords / numSentences) - 84.6 * (totalSyllables / numWords)
+  ));
+
+  let label, grade;
+  if (score >= 70) { label = 'Muy fácil de leer'; grade = 'A'; }
+  else if (score >= 60) { label = 'Fácil de leer'; grade = 'B'; }
+  else if (score >= 50) { label = 'Moderado'; grade = 'C'; }
+  else if (score >= 30) { label = 'Difícil'; grade = 'D'; }
+  else { label = 'Muy difícil'; grade = 'F'; }
+
+  return { score: Math.round(score), label, grade };
+};
+
+// Returns array of img tags missing alt text from HTML content.
+export const getMissingAltImages = (htmlContent) => {
+  if (!htmlContent) return [];
+  const imgTags = htmlContent.match(/<img[^>]+>/g) || [];
+  return imgTags.filter(img => !img.includes('alt=') || /alt=["']\s*["']/.test(img));
+};
+
 export const calculateSeoScore = (article) => {
   let score = 100;
   const breakdown = [];
@@ -119,7 +180,30 @@ export const calculateSeoScore = (article) => {
     breakdown.push({ label: 'Slug URL amigable', passed: true });
   }
 
-  return { score: Math.max(0, score), breakdown };
+  // Keyword density: at least one keyword with good density
+  if (article.keywords && article.keywords.length > 0 && article.content) {
+    const densities = calculateKeywordDensity(article.content, article.keywords);
+    const hasGoodDensity = densities.some(d => d.status === 'good');
+    if (!hasGoodDensity) {
+      score -= 10;
+      breakdown.push({ label: 'Densidad de palabras clave (0.5–2.5%)', passed: false });
+    } else {
+      breakdown.push({ label: 'Densidad de palabras clave (0.5–2.5%)', passed: true });
+    }
+  }
+
+  // Readability
+  if (article.content) {
+    const readability = calculateReadability(article.content);
+    if (readability.score < 50) {
+      score -= 10;
+      breakdown.push({ label: `Legibilidad: ${readability.label}`, passed: false });
+    } else {
+      breakdown.push({ label: `Legibilidad: ${readability.label}`, passed: true });
+    }
+  }
+
+  return { score: Math.max(0, Math.min(100, score)), breakdown };
 };
 
 // --- Existing Exports ---
@@ -241,18 +325,42 @@ export const generateJsonLd = (type, data) => {
   }
 };
 
+const breadcrumbNames = {
+  'blog': 'Blog',
+  'services': 'Servicios',
+  'resources': 'Recursos',
+  'recursos': 'Recursos',
+  'tools': 'Herramientas',
+  'contact': 'Contacto',
+  'about': 'Nosotros',
+  'auditoria-seo-gratis': 'Auditoría SEO Gratis',
+  'forum': 'Foro',
+  'privacy-policy': 'Política de Privacidad',
+  'terms-of-service': 'Términos de Servicio',
+  'login': 'Iniciar Sesión',
+  'register': 'Registro',
+  'profile': 'Perfil',
+  'seo-neuquen': 'SEO en Neuquén',
+  'desarrollo-web-argentina': 'Desarrollo Web',
+  'automatizacion-ia': 'Automatización con IA',
+  'success-cases': 'Casos de Éxito',
+  'project': 'Proyecto',
+  'create': 'Crear',
+  'edit': 'Editar',
+};
+
 export const generateBreadcrumbs = (pathname) => {
   const paths = pathname.split('/').filter(x => x);
   let currentPath = '';
-  
+
   const items = [
-    { name: 'Inicio', url: '/' }
+    { name: 'Inicio', url: 'https://seogrowthers.com/' }
   ];
 
   paths.forEach((path) => {
     currentPath += `/${path}`;
-    const name = path.charAt(0).toUpperCase() + path.slice(1).replace(/-/g, ' ');
-    items.push({ name, url: currentPath });
+    const name = breadcrumbNames[path] || path.charAt(0).toUpperCase() + path.slice(1).replace(/-/g, ' ');
+    items.push({ name, url: `https://seogrowthers.com${currentPath}` });
   });
 
   return items;
@@ -264,6 +372,44 @@ export const optimizeImage = (url, width = 800, format = 'webp') => {
     return url; 
   }
   return url;
+};
+
+// Extracts FAQ pairs from HTML content generated by the NovelEditor FAQ block.
+// Looks for data-faq-block containers with data-faq-question / data-faq-answer attributes.
+export const extractFAQSchema = (htmlContent) => {
+  if (!htmlContent || typeof document === 'undefined') return null;
+  try {
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(htmlContent, 'text/html');
+    const questions = Array.from(doc.querySelectorAll('[data-faq-idx]'));
+    if (questions.length === 0) return null;
+
+    const pairs = [];
+    questions.forEach((q) => {
+      const idx = q.getAttribute('data-faq-idx');
+      const answerEl = doc.querySelector(`[data-faq-answer="${idx}"]`);
+      if (!answerEl) return;
+      const questionText = q.textContent.trim();
+      const answerText = answerEl.textContent.trim();
+      if (questionText && answerText) {
+        pairs.push({ question: questionText, answer: answerText });
+      }
+    });
+
+    if (pairs.length === 0) return null;
+
+    return {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": pairs.map(({ question, answer }) => ({
+        "@type": "Question",
+        "name": question,
+        "acceptedAnswer": { "@type": "Answer", "text": answer }
+      }))
+    };
+  } catch {
+    return null;
+  }
 };
 
 export const generateSitemap = (routes, baseUrl) => {

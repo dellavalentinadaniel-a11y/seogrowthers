@@ -5,8 +5,9 @@ import Layout from '@/components/layout/Layout';
 import ScrollToTop from '@/components/layout/ScrollToTop';
 import CookieBanner from '@/components/layout/CookieBanner';
 import PageLoader from '@/components/shared/PageLoader';
-import { AnimatePresence } from 'framer-motion';
 import { Analytics } from '@vercel/analytics/react';
+
+import { AnimatePresence } from 'framer-motion';
 
 // Lazy Loaded Pages
 const Home = lazy(() => import('@/pages/Home'));
@@ -17,7 +18,13 @@ const Services = lazy(() => import('@/pages/Services'));
 const ResourcesPage = lazy(() => import('@/pages/ResourcesPage'));
 const SeoGuidePage = lazy(() => import('@/pages/SeoGuidePage'));
 const AiStudioGuidePage = lazy(() => import('@/pages/AiStudioGuidePage'));
+const SsdGuidePage = lazy(() => import('@/pages/SsdGuidePage'));
 const ToolsPage = lazy(() => import('@/pages/ToolsPage'));
+const AuditoriaGratisPage = lazy(() => import('@/pages/AuditoriaGratisPage'));
+const AboutPage = lazy(() => import('@/pages/AboutPage'));
+const SeoNeuquenPage = lazy(() => import('@/pages/services/SeoNeuquenPage'));
+const DesarrolloWebPage = lazy(() => import('@/pages/services/DesarrolloWebPage'));
+const AutomatizacionIAPage = lazy(() => import('@/pages/services/AutomatizacionIAPage'));
 const Privacy = lazy(() => import('@/pages/Privacy'));
 const Terms = lazy(() => import('@/pages/Terms'));
 const BlogPage = lazy(() => import('@/pages/BlogPage'));
@@ -34,7 +41,7 @@ const SuccessCaseAluvalle = lazy(() => import('@/pages/SuccessCaseAluvalle'));
 
 // Admin Imports (Lazy Loaded)
 const AdminLayout = lazy(() => import('@/components/admin/AdminLayout'));
-const Login = lazy(() => import('@/pages/admin/Login'));
+// const Login = lazy(() => import('@/pages/admin/Login'));
 const ArticlesList = lazy(() => import('@/pages/admin/ArticlesList'));
 const ArticleForm = lazy(() => import('@/pages/admin/ArticleForm'));
 const ToolsList = lazy(() => import('@/pages/admin/ToolsList'));
@@ -55,8 +62,8 @@ const SuccessCasesPage = lazy(() => import('@/pages/Placeholders').then(module =
 const SuccessCaseDetailPage = lazy(() => import('@/pages/Placeholders').then(module => ({ default: module.SuccessCaseDetailPage })));
 const TestimonialsPage = lazy(() => import('@/pages/Placeholders').then(module => ({ default: module.TestimonialsPage })));
 const ServiceDetailPage = lazy(() => import('@/pages/Placeholders').then(module => ({ default: module.ServiceDetailPage })));
-const ResourceDetailPage = lazy(() => import('@/pages/Placeholders').then(module => ({ default: module.ResourceDetailPage })));
-const ToolDetailPage = lazy(() => import('@/pages/Placeholders').then(module => ({ default: module.ToolDetailPage })));
+const ResourceDetailPage = lazy(() => import('@/pages/ResourceDetailPage'));
+const ToolDetailPage = lazy(() => import('@/pages/ToolDetailPage'));
 
 function App() {
   const location = useLocation();
@@ -84,6 +91,9 @@ function App() {
 
               {/* Services Cluster */}
               <Route path="services" element={<Services />} />
+              <Route path="services/seo-neuquen" element={<SeoNeuquenPage />} />
+              <Route path="services/desarrollo-web-argentina" element={<DesarrolloWebPage />} />
+              <Route path="services/automatizacion-ia" element={<AutomatizacionIAPage />} />
               <Route path="services/:slug" element={<ServiceDetailPage />} />
               <Route path="services/success-cases" element={<SuccessCasesPage />} />
               <Route path="services/success-cases/:slug" element={<SuccessCaseDetailPage />} />
@@ -94,6 +104,7 @@ function App() {
               <Route path="recursos" element={<ResourcesPage />} />
               <Route path="resources/google-seo-fundamentals" element={<SeoGuidePage />} />
               <Route path="resources/google-ai-studio-2026" element={<AiStudioGuidePage />} />
+              <Route path="resources/ssd-ps5-optimization-2026" element={<SsdGuidePage />} />
               <Route path="resources/:slug" element={<ResourceDetailPage />} />
 
               {/* Tools Cluster */}
@@ -101,6 +112,8 @@ function App() {
               <Route path="tools/:slug" element={<ToolDetailPage />} />
 
               {/* Core Pages */}
+              <Route path="auditoria-seo-gratis" element={<AuditoriaGratisPage />} />
+              <Route path="about" element={<AboutPage />} />
               <Route path="contact" element={<ContactPage />} />
               <Route path="project/:projectId" element={<Project />} />
               <Route path="privacy-policy" element={<Privacy />} />
@@ -116,7 +129,7 @@ function App() {
 
 
             {/* Admin Routes */}
-            <Route path="/admin/login" element={<Login />} />
+
             <Route path="/admin" element={<AdminLayout />}>
               <Route index element={<ArticlesList />} />
               <Route path="dashboard" element={<ArticlesList />} />
@@ -153,6 +166,7 @@ function App() {
           </Routes>
         </Suspense>
       </AnimatePresence>
+
     </HelmetProvider>
   );
 }

@@ -4,6 +4,7 @@ import { motion } from 'framer-motion';
 import { Send, Loader2, CheckCircle2, AlertCircle, RefreshCcw } from 'lucide-react';
 import { supabase } from '@/lib/customSupabaseClient';
 import { useToast } from '@/components/ui/use-toast';
+import { trackFormSubmit } from '@/lib/analytics';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
@@ -97,7 +98,8 @@ const ContactForm = () => {
       if (funcError) throw new Error(funcError.message || "Error al procesar el envío.");
       if (funcData && !funcData.success) throw new Error(funcData.error || "Error desconocido del servidor.");
 
-      // Success
+      // Success — track conversion
+      trackFormSubmit('contact_form', { subject: formData.subject });
       setSubmitStatus('success');
       toast({
         title: "¡Mensaje enviado!",

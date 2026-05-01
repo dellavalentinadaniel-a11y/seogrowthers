@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { Link } from 'react-router-dom';
 import ScrollToTop from '@/components/layout/ScrollToTop';
+import Breadcrumbs from '@/components/layout/Breadcrumbs';
 import RecentArticlesCarousel from '@/components/shared/RecentArticlesCarousel';
 
 const ToolsPage = () => {
@@ -12,15 +13,22 @@ const ToolsPage = () => {
   return (
     <div className="text-on-surface font-body selection:bg-primary-container selection:text-on-primary-container min-h-screen overflow-x-hidden">
       <Helmet>
-        <title>Herramientas | Neural Workspace</title>
+        <title>Herramientas Premium para Crecimiento Digital | SEO Growthers</title>
+        <meta name="description" content="Descubre las mejores herramientas de SEO, analytics, marketing digital y desarrollo web recomendadas por SEO Growthers. Compara y elige la ideal para tu negocio." />
+        <link rel="canonical" href="https://seogrowthers.com/tools" />
+        <meta property="og:title" content="Herramientas Premium | SEO Growthers" />
+        <meta property="og:description" content="Las mejores herramientas de SEO, analytics, marketing y desarrollo web curadas por expertos." />
+        <meta property="og:url" content="https://seogrowthers.com/tools" />
+        <meta property="og:type" content="website" />
+        <meta property="og:image" content="https://seogrowthers.com/logo.webp" />
+        <meta name="twitter:card" content="summary_large_image" />
       </Helmet>
-      
+
       <ScrollToTop />
-
-
 
       {/* Main Canvas */}
       <main className="pt-32 pb-32 px-6 md:px-12 lg:px-24 max-w-7xl mx-auto min-h-[calc(100vh-100px)]">
+        <Breadcrumbs className="mb-4" />
         {/* Hero/Section Title */}
         <div className="mb-16">
           <span className="font-label text-primary tracking-[0.2em] text-xs uppercase mb-4 block">Laboratorio de Arquitectura</span>
@@ -35,10 +43,10 @@ const ToolsPage = () => {
         <div className="mb-20">
           <RecentArticlesCarousel title="Documentación & Tutoriales" subtitle="LATEST TOOLS" />
         </div>
-        
+
         {/* Bento Grid Layout */}
         <div className="grid grid-cols-1 md:grid-cols-6 grid-rows-none md:grid-rows-2 gap-6">
-          
+
           {/* Feature Card: Terminal (Large) */}
           <div className="md:col-span-4 md:row-span-2 glass-panel rounded-[2rem] p-8 flex flex-col border border-white/5 relative overflow-hidden group">
             <div className="absolute top-0 right-0 w-64 h-64 bg-primary-container/10 blur-[100px] rounded-full -mr-20 -mt-20"></div>
@@ -58,7 +66,7 @@ const ToolsPage = () => {
                 <div className="w-3 h-3 rounded-full bg-primary-container"></div>
               </div>
             </div>
-            
+
             <div className="flex-grow bg-surface-container-lowest rounded-xl p-6 font-mono text-sm border border-outline-variant/30 relative z-10 flex flex-col">
               <div className="flex gap-2 mb-2">
                 <span className="text-secondary">engine@neural:~$</span>
@@ -72,7 +80,7 @@ const ToolsPage = () => {
                 <span className="text-secondary">engine@neural:~$</span>
                 <span className="text-primary-container">system status: OPTIMAL</span>
               </div>
-              
+
               <div className="h-[200px] w-full mt-auto flex items-end gap-1">
                 <div className="w-full bg-primary-container/20 h-[30%] rounded-t-sm"></div>
                 <div className="w-full bg-primary-container/40 h-[45%] rounded-t-sm"></div>
@@ -84,13 +92,13 @@ const ToolsPage = () => {
               </div>
               <div className="mt-4 animate-pulse inline-block w-2 h-4 bg-primary-container"></div>
             </div>
-            
+
             <button className="mt-6 self-start px-6 py-3 bg-primary-container text-on-primary-container font-bold rounded-xl shadow-[0_0_15px_rgba(0,229,255,0.2)] hover:scale-105 transition-transform flex items-center gap-2 relative z-10">
               <span>Abrir Sesión</span>
               <span className="material-symbols-outlined text-sm">open_in_new</span>
             </button>
           </div>
-          
+
           {/* Feature Card: Code Analyzer (Tall) */}
           <div className="md:col-span-2 glass-panel rounded-[2rem] p-6 border border-white/5 border-t-2 border-t-secondary-container flex flex-col group">
             <div className="mb-6">
@@ -113,7 +121,7 @@ const ToolsPage = () => {
               </button>
             </div>
           </div>
-          
+
           {/* Feature Card: Node Simulator (Small) */}
           <div className="md:col-span-2 glass-panel rounded-[2rem] p-6 border border-white/5 border-t-2 border-t-primary-container flex flex-col group">
             <div className="flex items-start justify-between mb-4">
@@ -132,28 +140,24 @@ const ToolsPage = () => {
             </div>
           </div>
         </div>
-        
+
         {/* Secondary Grid: Quick Tools */}
         <div className="mt-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {/* Tool 1 */}
           <div className="bg-slate-900/80 backdrop-blur-xl p-6 rounded-2xl border border-white/10 hover:border-cyan-500/30 transition-all group cursor-pointer shadow-xl">
             <span className="material-symbols-outlined text-primary-container mb-4">auto_fix_high</span>
             <h4 className="font-headline text-white font-bold mb-1">Refactorizador</h4>
             <p className="text-xs text-slate-500">Optimización instantánea de algoritmos.</p>
           </div>
-          {/* Tool 2 */}
           <div className="bg-slate-900/80 backdrop-blur-xl p-6 rounded-2xl border border-white/10 hover:border-secondary/30 transition-all group cursor-pointer shadow-xl">
             <span className="material-symbols-outlined text-secondary mb-4">security</span>
             <h4 className="font-headline text-white font-bold mb-1">Vault Auditor</h4>
             <p className="text-xs text-slate-500">Seguridad criptográfica integrada.</p>
           </div>
-          {/* Tool 3 */}
           <div className="bg-slate-900/80 backdrop-blur-xl p-6 rounded-2xl border border-white/10 hover:border-tertiary-container/30 transition-all group cursor-pointer shadow-xl">
             <span className="material-symbols-outlined text-tertiary mb-4">database</span>
             <h4 className="font-headline text-white font-bold mb-1">Schema Mapper</h4>
             <p className="text-xs text-slate-500">Visualización de grafos de datos.</p>
           </div>
-          {/* Tool 4 */}
           <div className="bg-slate-900/80 backdrop-blur-xl p-6 rounded-2xl border border-white/10 hover:border-primary/30 transition-all group cursor-pointer shadow-xl">
             <span className="material-symbols-outlined text-primary mb-4">cloud_sync</span>
             <h4 className="font-headline text-white font-bold mb-1">Neural Bridge</h4>
@@ -161,8 +165,6 @@ const ToolsPage = () => {
           </div>
         </div>
       </main>
-
-
 
       {/* Side Decorative Elements */}
       <div className="fixed top-[20%] -right-20 w-80 h-80 bg-secondary-container/5 blur-[120px] rounded-full pointer-events-none"></div>

@@ -1,15 +1,20 @@
+# SEO Growthers
+
+> SEO Growthers es una agencia de marketing digital especializada en Web Development, SEO y Analytics. Ayudamos a empresas a maximizar su crecimiento digital con estrategias basadas en datos.
+
 ## Pages
-- [Archivo de Noticias - Tech & IA](/news): Explora nuestra colección completa de artículos sobre IA, desarrollo web y las noticias más impactantes del Shock Digital.
-- [Contacto - Agency CMS](/contact): Contáctanos para transformar tu negocio digital.
-- [Contacto - Ponte en Contacto con SEO Growthers](/contact): Contáctanos por formulario, teléfono, email o chat. El equipo de SEO Growthers te responderá en 24 horas. Oficinas en Madrid.
-- [Herramientas Esenciales - Diseño, Dev & Productivity](/tools): Descubre las mejores herramientas de software para diseño, desarrollo, productividad y marketing digital.
-- [Herramientas Premium para Crecimiento Digital | SEO Growthers](/tools): Descubre y compara las mejores herramientas de software recomendadas por SEO Growthers: SEO, Analytics, Marketing y más.
-- [Noticias Tech & Growth - SEO Growthers News](/news): Las últimas noticias sobre inteligencia artificial, SaaS, marketing y tecnología curadas por SEO Growthers.
-- [Noticias y Artículos - SEO Growthers](/articleslist): Últimas noticias, análisis y guías sobre videojuegos y tecnología.
-- [Nuestros Servicios - Soluciones Tech & IA](/services): Desarrollo web moderno, consultoría SEO, implementación de IA y mantenimiento profesional. Transformamos ideas en soluciones digitales exitosas.
-- [Política de Privacidad - AGENCY](/privacy): Política de privacidad y protección de datos de AGENCY.
-- [Recursos Gratuitos para Marketing y Growth | SEO Growthers](/resources): Descarga guías, plantillas y herramientas gratuitas de SEO Growthers para potenciar tu estrategia de marketing digital.
-- [Recursos para Desarrolladores - Guías, Docs y Más](/resources): Colección curada de los mejores recursos para desarrolladores web: guías, documentación, librerías y plantillas.
-- [Términos de Servicio - AGENCY](/terms): Términos y condiciones de uso de los servicios de AGENCY.
-- [Comunidad & Blog - SEO Growthers](/blog): Únete a nuestra comunidad, crea tus propias publicaciones y participa en discusiones sobre tecnología y crecimiento.
-- [Detalle de Artículo - Centro de Conocimiento](/articledetail): Visualización detallada de artículos, guías y noticias con soporte para comentarios interactivos.
+
+- [Inicio - SEO Growthers](/): Impulsa tu negocio con SEO Growthers. Expertos en Web Development, SEO y Analytics para maximizar tu crecimiento digital.
+- [Blog - SEO Growthers](/blog): Articulos sobre desarrollo web, SEO, marketing digital, inteligencia artificial y estrategias de crecimiento.
+- [Servicios Premium - SEO Growthers](/services): Desarrollo web moderno, consultoria SEO, implementacion de IA y automatizacion. Transformamos ideas en soluciones digitales exitosas.
+- [Recursos - SEO Growthers](/resources): Guias, plantillas y herramientas gratuitas para potenciar tu estrategia de marketing digital y SEO.
+- [Herramientas - SEO Growthers](/tools): Descubre y compara las mejores herramientas de software recomendadas por SEO Growthers: SEO, Analytics, Marketing y mas.
+- [Sobre Nosotros - SEO Growthers](/about): Conoce al equipo de SEO Growthers. Agencia de SEO, desarrollo web y automatizacion con IA en Neuquen, Argentina. Mision, valores y trayectoria.
+- [Auditoria SEO Gratuita](/auditoria-seo-gratis): Solicita tu auditoria SEO gratuita. Analizamos tu sitio web y te entregamos un reporte profesional con errores tecnicos, oportunidades de keywords y plan de accion en 48 horas.
+- [Contacto - SEO Growthers](/contact): Contactanos por formulario, telefono o email. El equipo de SEO Growthers te respondera en 24 horas.
+- [Caso de Exito: Aluvalle](/services/success-cases/aluvalle-transformacion-digital): Como SEO Growthers transformo la presencia digital de Aluvalle, logrando un aumento del 300% en trafico organico.
+- [SEO en Neuquen](/services/seo-neuquen): Agencia SEO en Neuquen Capital. Posicionamiento web local, Google Maps, keywords locales y reportes mensuales. Auditoria gratis.
+- [Desarrollo Web Argentina](/services/desarrollo-web-argentina): Desarrollo web profesional. Landing pages desde $800 USD, sitios corporativos y tiendas online con SEO incluido y panel de administracion.
+- [Automatizacion con IA](/services/automatizacion-ia): Automatizacion empresarial con inteligencia artificial. Chatbots 24/7, embudos de venta, generacion de contenido y agentes de IA autonomos.
+- [Politica de Privacidad](/privacy): Politica de privacidad y proteccion de datos de SEO Growthers.
+- [Terminos de Servicio](/terms): Terminos y condiciones de uso de los servicios de SEO Growthers.

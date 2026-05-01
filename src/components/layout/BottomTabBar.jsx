@@ -13,7 +13,7 @@ const BottomTabBar = () => {
   ];
 
   return (
-    <nav className="md:hidden fixed bottom-0 left-0 w-full z-[100] flex justify-around items-center px-4 pb-4 pt-2 bg-[#0d0e17]/90 backdrop-blur-2xl rounded-t-3xl border-t border-white/10 shadow-[0_-10px_40px_rgba(0,0,0,0.5)]">
+    <nav className="md:hidden fixed bottom-0 left-0 w-full z-[100] flex justify-around items-center px-4 pt-2 pb-[max(1rem,env(safe-area-inset-bottom))] bg-[#0d0e17]/90 backdrop-blur-2xl rounded-t-3xl border-t border-white/10 shadow-[0_-10px_40px_rgba(0,0,0,0.5)]">
       {navItems.map((item) => {
         const isActive = location.pathname === item.path || 
                          (item.path !== '/' && location.pathname.startsWith(item.path));

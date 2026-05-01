@@ -12,7 +12,7 @@ import {
   Clock, 
   TrendingUp, 
   Verified, 
-  LayoutGrid,
+  Layout,
   Zap,
   Trash2,
   Hash
@@ -340,7 +340,7 @@ const ForumPage = () => {
                   INICIAR DEBATE
                 </button>
               </div>
-              <LayoutGrid className="absolute -right-8 -bottom-8 opacity-10 text-[120px] rotate-12 group-hover:rotate-0 transition-transform duration-700" size={140} />
+              <Layout className="absolute -right-8 -bottom-8 opacity-10 text-[120px] rotate-12 group-hover:rotate-0 transition-transform duration-700" size={140} />
             </div>
           </aside>
         </section>

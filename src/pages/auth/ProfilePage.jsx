@@ -38,12 +38,30 @@ const ProfilePage = () => {
         setUser(user);
 
         // Fetch profile from profiles table
-        const { data: profileData } = await supabase
+        let { data: profileData, error: profileError } = await supabase
           .from('profiles')
           .select('*')
           .eq('id', user.id)
           .single();
           
+        if (profileError && profileError.code === 'PGRST116') {
+          // Profile doesn't exist, create it
+          const { data: newProfile, error: createError } = await supabase
+            .from('profiles')
+            .insert([
+              { 
+                id: user.id, 
+                full_name: user.user_metadata?.full_name || '',
+                avatar_url: user.user_metadata?.avatar_url || '/images/iconos/guiaspersonaje.webp',
+                updated_at: new Date().toISOString()
+              }
+            ])
+            .select()
+            .single();
+          
+          if (!createError) profileData = newProfile;
+        }
+
         const resolvedProfile = profileData || { id: user.id };
 
         // 1. Fetch real article count (author_id = user.id)
@@ -77,7 +95,7 @@ const ProfilePage = () => {
           .eq('user_id', user.id);
 
         setProfile(resolvedProfile);
-        setSelectedAvatar(resolvedProfile.avatar_url || '/images/iconos/guiaspersonaje.png');
+        setSelectedAvatar(resolvedProfile.avatar_url || '/images/iconos/guiaspersonaje.webp');
         setSelectedBanner(resolvedProfile.banner_url || '');
         setProfileSkills(resolvedProfile.skills_tags || []);
         setAchievements(achievementsData || []);
@@ -322,7 +340,7 @@ const ProfilePage = () => {
                       <img
                         className="w-full h-full object-cover scale-[1.35]"
                         alt={displayName}
-                        src={profile?.avatar_url || "/images/iconos/guiaspersonaje.png"}
+                        src={profile?.avatar_url || "/images/iconos/guiaspersonaje.webp"}
                       />
                   </div>
                   <Dialog open={isAvatarDialogOpen} onOpenChange={setIsAvatarDialogOpen}>

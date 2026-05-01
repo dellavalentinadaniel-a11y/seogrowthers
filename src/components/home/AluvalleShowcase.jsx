@@ -87,7 +87,7 @@ const AluvalleShowcase = () => {
           >
             <div className="absolute inset-0 bg-cyan-500/20 blur-3xl rounded-full opacity-20"></div>
             <img 
-              src="/images/aluvalle-screens.png" 
+              src="/images/aluvalle-screens.webp" 
               alt="Aluvalle Mobile Screens" 
               className="relative rounded-[2.5rem] border border-white/10 shadow-[0_40px_80px_rgba(0,0,0,0.6)] w-full h-auto hover:scale-[1.02] transition-transform duration-700"
             />

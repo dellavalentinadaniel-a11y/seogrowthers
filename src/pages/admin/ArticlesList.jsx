@@ -20,7 +20,7 @@ const ArticlesList = () => {
   ];
 
   return (
-    <GenericList 
+    <GenericList
       title="Artículos del Blog"
       description="Gestiona los artículos de contenido principal."
       tableName="articles"
