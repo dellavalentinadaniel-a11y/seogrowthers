@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { Link } from 'react-router-dom';
 import ScrollToTop from '@/components/layout/ScrollToTop';
+import Breadcrumbs from '@/components/layout/Breadcrumbs';
 import { supabase } from '@/lib/customSupabaseClient';
 import { toast } from '@/components/ui/use-toast';
 
@@ -107,7 +108,7 @@ const AuditoriaGratisPage = () => {
             "@type": "ProfessionalService",
             "name": "SEO Growthers",
             "url": "https://seogrowthers.com",
-            "telephone": "+54 9 299 608-7387"
+            "telephone": "+54 9 2995504783"
           },
           "areaServed": [
             { "@type": "Country", "name": "Argentina" },
@@ -135,6 +136,7 @@ const AuditoriaGratisPage = () => {
       <ScrollToTop />
 
       <main className="pt-32 pb-32 px-6 md:px-12 lg:px-24 max-w-7xl mx-auto">
+        <Breadcrumbs className="mb-4" />
         {/* Hero */}
         <section className="mb-20 text-center">
           <span className="font-label text-xs tracking-[0.2em] text-primary uppercase mb-4 block">Sin compromiso · 100% gratis</span>
@@ -296,7 +298,7 @@ const AuditoriaGratisPage = () => {
           <p className="text-on-surface-variant text-lg mb-4">¿Preferís hablar directamente con un especialista?</p>
           <div className="flex flex-wrap justify-center gap-4">
             <a
-              href="https://wa.me/5492996087387?text=Hola%2C%20quiero%20solicitar%20una%20auditor%C3%ADa%20SEO%20gratuita"
+              href="https://wa.me/5492995504783?text=Hola%2C%20quiero%20solicitar%20una%20auditor%C3%ADa%20SEO%20gratuita"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 px-6 py-3 bg-[#25D366] text-white font-bold rounded-xl hover:bg-[#20bd5a] transition-colors text-sm"

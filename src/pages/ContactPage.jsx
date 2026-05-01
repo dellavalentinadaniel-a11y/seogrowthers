@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { Link } from 'react-router-dom';
 import ScrollToTop from '@/components/layout/ScrollToTop';
+import Breadcrumbs from '@/components/layout/Breadcrumbs';
 import ContactForm from '@/components/contact/ContactForm';
 
 const ContactPage = () => {
@@ -25,7 +26,7 @@ const ContactPage = () => {
           "@type": "LocalBusiness",
           "name": "SEO Growthers",
           "url": "https://seogrowthers.com",
-          "telephone": "+54 9 299 608-7387",
+          "telephone": "+54 9 2995504783",
           "email": "seogrowthers@gmail.com",
           "address": { "@type": "PostalAddress", "addressLocality": "Neuquén Capital", "addressCountry": "AR" },
           "priceRange": "$$"
@@ -36,6 +37,7 @@ const ContactPage = () => {
 
 
       <main className="pt-32 pb-24 px-6 md:px-12 lg:px-24 max-w-7xl mx-auto">
+        <Breadcrumbs className="mb-4" />
         {/* Hero Section */}
         <section className="mb-20 text-center">
           <h1 className="font-headline text-5xl md:text-7xl font-bold tracking-tighter text-on-surface mb-6">
@@ -80,33 +82,33 @@ const ContactPage = () => {
                   <p className="text-[10px] uppercase tracking-widest text-gray-500 font-bold mb-2">
                     ADMINISTRACIÓN
                   </p>
-                  <a 
-                    href="mailto:info@seogrowthers.com" 
+                  <a
+                    href="mailto:seogrowthers@gmail.com"
                     className="text-gray-300 hover:text-primary transition-colors block"
                   >
-                    info@seogrowthers.com
+                    seogrowthers@gmail.com
                   </a>
                 </div>
                 <div>
                   <p className="text-[10px] uppercase tracking-widest text-gray-500 font-bold mb-2">
                     SOPORTE TÉCNICO
                   </p>
-                  <a 
-                    href="mailto:servicio@seogrowthers.com" 
+                  <a
+                    href="mailto:seogrowthers@gmail.com"
                     className="text-gray-300 hover:text-primary transition-colors block"
                   >
-                    servicio@seogrowthers.com
+                    seogrowthers@gmail.com
                   </a>
                 </div>
                 <div>
                   <p className="text-[10px] uppercase tracking-widest text-gray-500 font-bold mb-2">
                     OTRAS CONSULTAS
                   </p>
-                  <a 
-                    href="mailto:seogrowthers@outlook.es" 
+                  <a
+                    href="mailto:seogrowthers@gmail.com"
                     className="text-gray-300 hover:text-primary transition-colors block"
                   >
-                    seogrowthers@outlook.es
+                    seogrowthers@gmail.com
                   </a>
                 </div>
               </div>
@@ -153,7 +155,7 @@ const ContactPage = () => {
                     <p className="text-gray-400 text-sm">Argentina Neuquén Capital</p>
                   </div>
                   <div className="text-right md:text-right space-y-1">
-                    <p className="text-primary font-bold text-lg">+54 9 299 608-7387</p>
+                    <p className="text-primary font-bold text-lg">+54 9 2995504783</p>
                     <p className="text-gray-500 text-[10px] uppercase tracking-widest font-bold">
                       LUN A VIE: 8:00 A 17:00 HS
                     </p>

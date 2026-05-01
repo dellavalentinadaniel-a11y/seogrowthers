@@ -17,7 +17,7 @@ const WhatsAppFloat = () => {
 
   return (
     <a
-      href="https://wa.me/5492996087387?text=Hola%2C%20quiero%20consultar%20sobre%20sus%20servicios%20de%20SEO%20y%20desarrollo%20web"
+      href="https://wa.me/5492995504783?text=Hola%2C%20quiero%20consultar%20sobre%20sus%20servicios%20de%20SEO%20y%20desarrollo%20web"
       target="_blank"
       rel="noopener noreferrer"
       aria-label="Contactar por WhatsApp"

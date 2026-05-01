@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { Link } from 'react-router-dom';
 import ScrollToTop from '@/components/layout/ScrollToTop';
+import Breadcrumbs from '@/components/layout/Breadcrumbs';
 import { supabase } from '@/lib/customSupabaseClient';
 import SkeletonLoader from '@/components/shared/SkeletonLoader';
 
@@ -75,6 +76,7 @@ const ResourcesPage = () => {
       <ScrollToTop />
 
       <main className="pt-32 pb-32 px-6 md:px-12 lg:px-24 max-w-7xl mx-auto">
+        <Breadcrumbs className="mb-4" />
         {/* Hero Section & Filters */}
         <section className="mb-16">
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 mb-12">

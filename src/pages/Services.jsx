@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { Link } from 'react-router-dom';
 import ScrollToTop from '@/components/layout/ScrollToTop';
+import Breadcrumbs from '@/components/layout/Breadcrumbs';
 import SuccessCasesHeroCarousel from '@/components/shared/SuccessCasesHeroCarousel';
 
 const FAQItem = ({ faq }) => {
@@ -135,7 +136,7 @@ const Services = () => {
           "name": "SEO Growthers",
           "description": "Agencia de Desarrollo Web, SEO, Marketing Digital y Automatización con IA para empresas en crecimiento.",
           "url": "https://seogrowthers.com/services",
-          "telephone": "+54 9 299 608-7387",
+          "telephone": "+54 9 2995504783",
           "priceRange": "$$",
           "address": {
             "@type": "PostalAddress",
@@ -173,6 +174,9 @@ const Services = () => {
       <ScrollToTop />
 
       <main className="pt-20 pb-32">
+        <div className="px-8 max-w-7xl mx-auto">
+          <Breadcrumbs className="mb-0" />
+        </div>
         {/* Hero Section */}
         <section className="relative px-8 pt-20 pb-16 overflow-hidden">
           <div className="max-w-7xl mx-auto flex flex-col items-center text-center relative z-10">

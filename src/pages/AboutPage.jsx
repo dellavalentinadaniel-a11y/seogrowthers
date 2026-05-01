@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { Link } from 'react-router-dom';
 import ScrollToTop from '@/components/layout/ScrollToTop';
+import Breadcrumbs from '@/components/layout/Breadcrumbs';
 import { motion } from 'framer-motion';
 
 const values = [
@@ -97,6 +98,9 @@ const AboutPage = () => {
       <ScrollToTop />
 
       <main className="pt-32 pb-32">
+        <div className="px-6 md:px-12 lg:px-24 max-w-7xl mx-auto">
+          <Breadcrumbs className="mb-4" />
+        </div>
         {/* Hero */}
         <section className="px-6 md:px-12 lg:px-24 max-w-7xl mx-auto mb-24">
           <motion.div
@@ -280,7 +284,7 @@ const AboutPage = () => {
                   <span className="material-symbols-outlined text-base">arrow_forward</span>
                 </Link>
                 <a
-                  href="https://wa.me/5492996087387?text=Hola%2C%20quiero%20saber%20m%C3%A1s%20sobre%20sus%20servicios"
+                  href="https://wa.me/5492995504783?text=Hola%2C%20quiero%20saber%20m%C3%A1s%20sobre%20sus%20servicios"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="px-8 py-4 bg-[#25D366] text-white font-headline font-bold uppercase tracking-widest text-sm rounded-xl hover:bg-[#20bd5a] transition-all inline-flex items-center justify-center gap-2"

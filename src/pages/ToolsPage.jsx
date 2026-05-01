@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { Link } from 'react-router-dom';
 import ScrollToTop from '@/components/layout/ScrollToTop';
+import Breadcrumbs from '@/components/layout/Breadcrumbs';
 import RecentArticlesCarousel from '@/components/shared/RecentArticlesCarousel';
 
 const ToolsPage = () => {
@@ -27,6 +28,7 @@ const ToolsPage = () => {
 
       {/* Main Canvas */}
       <main className="pt-32 pb-32 px-6 md:px-12 lg:px-24 max-w-7xl mx-auto min-h-[calc(100vh-100px)]">
+        <Breadcrumbs className="mb-4" />
         {/* Hero/Section Title */}
         <div className="mb-16">
           <span className="font-label text-primary tracking-[0.2em] text-xs uppercase mb-4 block">Laboratorio de Arquitectura</span>

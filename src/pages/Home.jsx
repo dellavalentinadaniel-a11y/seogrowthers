@@ -41,12 +41,34 @@ const Home = () => {
     "@type": "Organization",
     "name": "SEO Growthers",
     "url": "https://seogrowthers.com",
-    "logo": "https://horizons-cdn.hostinger.com/4ae51224-e377-439c-9315-7d2c7f7b11c2/85593acc17806560334f2d13123b28a9.png",
-    "description": "Agencia líder en SEO Growthers, especializada en Web Development, SEO y Analytics.",
+    "logo": "https://seogrowthers.com/logo.webp",
+    "description": "Agencia de SEO, Desarrollo Web y Analytics en Neuquén, Argentina. Estrategias basadas en datos para crecimiento digital sostenible.",
+    "sameAs": [
+      "https://www.instagram.com/seogrowthers",
+      "https://www.linkedin.com/company/seogrowthers",
+      "https://github.com/dellavalentinadaniel-a11y"
+    ],
     "contactPoint": {
       "@type": "ContactPoint",
-      "telephone": "+54 9 299 608-7387",
-      "contactType": "customer service"
+      "telephone": "+54 9 2995504783",
+      "contactType": "customer service",
+      "areaServed": "AR",
+      "availableLanguage": "es"
+    }
+  };
+
+  const websiteSchema = {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "SEO Growthers",
+    "url": "https://seogrowthers.com",
+    "potentialAction": {
+      "@type": "SearchAction",
+      "target": {
+        "@type": "EntryPoint",
+        "urlTemplate": "https://seogrowthers.com/blog?q={search_term_string}"
+      },
+      "query-input": "required name=search_term_string"
     }
   };
 
@@ -68,6 +90,9 @@ const Home = () => {
         <meta name="twitter:image" content="https://seogrowthers.com/logo.webp" />
         <script type="application/ld+json">
           {JSON.stringify(structuredData)}
+        </script>
+        <script type="application/ld+json">
+          {JSON.stringify(websiteSchema)}
         </script>
       </Helmet>
 

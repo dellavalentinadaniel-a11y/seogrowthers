@@ -241,18 +241,39 @@ export const generateJsonLd = (type, data) => {
   }
 };
 
+const breadcrumbNames = {
+  'blog': 'Blog',
+  'services': 'Servicios',
+  'resources': 'Recursos',
+  'recursos': 'Recursos',
+  'tools': 'Herramientas',
+  'contact': 'Contacto',
+  'about': 'Nosotros',
+  'auditoria-seo-gratis': 'Auditoría SEO Gratis',
+  'forum': 'Foro',
+  'privacy-policy': 'Política de Privacidad',
+  'terms-of-service': 'Términos de Servicio',
+  'login': 'Iniciar Sesión',
+  'register': 'Registro',
+  'profile': 'Perfil',
+  'success-cases': 'Casos de Éxito',
+  'project': 'Proyecto',
+  'create': 'Crear',
+  'edit': 'Editar',
+};
+
 export const generateBreadcrumbs = (pathname) => {
   const paths = pathname.split('/').filter(x => x);
   let currentPath = '';
-  
+
   const items = [
-    { name: 'Inicio', url: '/' }
+    { name: 'Inicio', url: 'https://seogrowthers.com/' }
   ];
 
   paths.forEach((path) => {
     currentPath += `/${path}`;
-    const name = path.charAt(0).toUpperCase() + path.slice(1).replace(/-/g, ' ');
-    items.push({ name, url: currentPath });
+    const name = breadcrumbNames[path] || path.charAt(0).toUpperCase() + path.slice(1).replace(/-/g, ' ');
+    items.push({ name, url: `https://seogrowthers.com${currentPath}` });
   });
 
   return items;
