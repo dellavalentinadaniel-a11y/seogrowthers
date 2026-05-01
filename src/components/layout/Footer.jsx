@@ -4,6 +4,7 @@ import { Github, Twitter, Linkedin, Instagram, Facebook, Youtube } from 'lucide-
 import { toast } from "@/components/ui/use-toast";
 import { useNavigate } from 'react-router-dom';
 import LogoComponent from '@/components/shared/LogoComponent';
+import NewsletterForm from '@/components/shared/NewsletterForm';
 
 const Footer = () => {
     const navigate = useNavigate();
@@ -105,6 +106,11 @@ const Footer = () => {
                             </ul>
                         </div>
                     ))}
+
+                    <div>
+                        <p className="font-semibold text-white mb-6">Newsletter</p>
+                        <NewsletterForm variant="inline" source="footer" className="flex-col gap-3" />
+                    </div>
 
                     <div>
                         <p className="font-semibold text-white mb-6">Síguenos</p>
