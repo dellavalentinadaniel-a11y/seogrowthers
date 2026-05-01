@@ -5,6 +5,7 @@ import ScrollToTop from '@/components/layout/ScrollToTop';
 import Breadcrumbs from '@/components/layout/Breadcrumbs';
 import { supabase } from '@/lib/customSupabaseClient';
 import SkeletonLoader from '@/components/shared/SkeletonLoader';
+import NewsletterForm from '@/components/shared/NewsletterForm';
 
 const ResourcesPage = () => {
   const [filter, setFilter] = useState('TODOS');
@@ -219,20 +220,8 @@ const ResourcesPage = () => {
           )}
         </section>
 
-        {/* Tonal Divide Section: Newsletter/Access */}
-        <section className="mt-24 p-8 md:p-12 rounded-3xl border border-primary-container/10 relative overflow-hidden" style={{ backgroundImage: 'linear-gradient(to bottom, transparent, rgba(156, 240, 255, 0.03))' }}>
-          <div className="relative z-10 flex flex-col lg:flex-row items-center justify-between gap-12">
-            <div className="max-w-xl text-center lg:text-left">
-              <h3 className="font-headline text-3xl font-bold mb-4">SUSCRÍBETE AL FLUJO DE DATOS</h3>
-              <p className="text-on-surface-variant">Recibe notificaciones inmediatas cuando se liberen nuevos activos de nivel industrial y parches de documentación crítica.</p>
-            </div>
-            <div className="w-full lg:w-auto flex flex-col sm:flex-row gap-4">
-              <input className="bg-surface-container-lowest border border-outline-variant/30 rounded-xl px-6 py-3 text-sm focus:border-primary-container focus:ring-1 focus:ring-primary-container outline-none w-full sm:w-80 font-mono tracking-tighter transition-colors" placeholder="tu@email.com" type="email"/>
-              <button className="bg-white text-background font-bold px-8 py-3 rounded-xl text-sm tracking-widest hover:bg-primary transition-colors whitespace-nowrap">CONECTAR</button>
-            </div>
-          </div>
-          <div className="absolute -right-20 -top-20 w-64 h-64 bg-primary-container/10 blur-[100px] rounded-full pointer-events-none"></div>
-        </section>
+        {/* Newsletter */}
+        <NewsletterForm variant="banner" source="resources_page" className="mt-24" />
       </main>
     </div>
   );
