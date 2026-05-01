@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import ScrollToTop from '@/components/layout/ScrollToTop';
 import Breadcrumbs from '@/components/layout/Breadcrumbs';
 import ContactForm from '@/components/contact/ContactForm';
+import { trackWhatsAppClick } from '@/lib/analytics';
 
 const ContactPage = () => {
   useEffect(() => {
@@ -130,10 +131,11 @@ const ContactPage = () => {
               <p className="text-[#25D366] font-bold text-lg mb-6">
                 +54 9 2995504783
               </p>
-              <a 
-                href="https://wa.me/5492995504783" 
-                target="_blank" 
+              <a
+                href="https://wa.me/5492995504783"
+                target="_blank"
                 rel="noopener noreferrer"
+                onClick={() => trackWhatsAppClick('contact_page')}
                 className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-[#25D366] hover:bg-[#20bd5a] text-white font-bold rounded-xl transition-all w-full"
               >
                 Chatear por WhatsApp

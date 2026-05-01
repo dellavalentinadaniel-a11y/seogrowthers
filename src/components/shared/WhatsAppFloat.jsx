@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { trackWhatsAppClick } from '@/lib/analytics';
 
 const WhatsAppFloat = () => {
   const [visible, setVisible] = useState(false);
@@ -21,6 +22,7 @@ const WhatsAppFloat = () => {
       target="_blank"
       rel="noopener noreferrer"
       aria-label="Contactar por WhatsApp"
+      onClick={() => trackWhatsAppClick('floating_button')}
       className={`fixed bottom-6 right-6 z-50 w-14 h-14 bg-[#25D366] rounded-full flex items-center justify-center shadow-[0_4px_20px_rgba(37,211,102,0.4)] hover:shadow-[0_4px_30px_rgba(37,211,102,0.6)] hover:scale-110 transition-all duration-300 group ${pulse ? 'animate-bounce' : ''}`}
     >
       <svg viewBox="0 0 24 24" className="w-7 h-7 fill-white" xmlns="http://www.w3.org/2000/svg">

@@ -5,6 +5,7 @@ import ScrollToTop from '@/components/layout/ScrollToTop';
 import Breadcrumbs from '@/components/layout/Breadcrumbs';
 import { supabase } from '@/lib/customSupabaseClient';
 import { toast } from '@/components/ui/use-toast';
+import { trackAuditRequest, trackWhatsAppClick } from '@/lib/analytics';
 
 const benefits = [
   { icon: "search_insights", title: "Análisis SEO Técnico", desc: "Revisamos indexación, meta tags, canonical URLs, robots.txt y sitemap de tu sitio." },
@@ -78,6 +79,7 @@ const AuditoriaGratisPage = () => {
       if (error) throw error;
 
       setSubmitted(true);
+      trackAuditRequest(formData.website);
       toast({ title: "¡Solicitud enviada!", description: "Recibirás tu auditoría en menos de 48 horas." });
     } catch (err) {
       toast({ title: "Error", description: "No pudimos enviar tu solicitud. Intentá de nuevo.", variant: "destructive" });
@@ -301,6 +303,7 @@ const AuditoriaGratisPage = () => {
               href="https://wa.me/5492995504783?text=Hola%2C%20quiero%20solicitar%20una%20auditor%C3%ADa%20SEO%20gratuita"
               target="_blank"
               rel="noopener noreferrer"
+              onClick={() => trackWhatsAppClick('auditoria_page')}
               className="inline-flex items-center gap-2 px-6 py-3 bg-[#25D366] text-white font-bold rounded-xl hover:bg-[#20bd5a] transition-colors text-sm"
             >
               <span className="material-symbols-outlined text-base">chat</span>
