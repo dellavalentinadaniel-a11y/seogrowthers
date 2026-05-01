@@ -187,7 +187,7 @@ const BlogPage = () => {
           )}
 
           <div className="text-center mb-16">
-            <h1 className="text-4xl md:text-6xl font-bold text-white mb-6">
+            <h1 className="text-3xl sm:text-4xl md:text-6xl font-bold text-white mb-6">
               Nuestro <span className="text-cyan-400">Blog</span>
             </h1>
             

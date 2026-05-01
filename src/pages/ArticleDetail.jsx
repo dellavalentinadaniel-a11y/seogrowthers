@@ -429,28 +429,28 @@ const ArticleDetail = () => {
                       <a 
                         href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(window.location.href)}&quote=${encodeURIComponent(article.social_meta?.facebook || article.title)}`} 
                         target="_blank" rel="noopener noreferrer"
-                        className="w-9 h-9 flex items-center justify-center rounded-lg bg-white/5 border border-white/10 text-gray-400 hover:text-white hover:bg-[#1877F2] hover:border-[#1877F2] transition-all"
+                        className="w-11 h-11 flex items-center justify-center rounded-lg bg-white/5 border border-white/10 text-gray-400 hover:text-white hover:bg-[#1877F2] hover:border-[#1877F2] transition-all"
                       >
                         <Facebook size={18} />
                       </a>
                       <a 
                         href={`https://twitter.com/intent/tweet?url=${encodeURIComponent(window.location.href)}&text=${encodeURIComponent(article.social_meta?.x || article.title)}`} 
                         target="_blank" rel="noopener noreferrer"
-                        className="w-9 h-9 flex items-center justify-center rounded-lg bg-white/5 border border-white/10 text-gray-400 hover:text-white hover:bg-black hover:border-black transition-all"
+                        className="w-11 h-11 flex items-center justify-center rounded-lg bg-white/5 border border-white/10 text-gray-400 hover:text-white hover:bg-black hover:border-black transition-all"
                       >
                         <Twitter size={18} />
                       </a>
                       <a 
                         href={`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(window.location.href)}`} 
                         target="_blank" rel="noopener noreferrer"
-                        className="w-9 h-9 flex items-center justify-center rounded-lg bg-white/5 border border-white/10 text-gray-400 hover:text-white hover:bg-[#0A66C2] hover:border-[#0A66C2] transition-all"
+                        className="w-11 h-11 flex items-center justify-center rounded-lg bg-white/5 border border-white/10 text-gray-400 hover:text-white hover:bg-[#0A66C2] hover:border-[#0A66C2] transition-all"
                       >
                         <Linkedin size={18} />
                       </a>
                       <a 
                         href={`https://api.whatsapp.com/send?text=${encodeURIComponent((article.social_meta?.whatsapp || article.title) + ' ' + window.location.href)}`} 
                         target="_blank" rel="noopener noreferrer"
-                        className="w-9 h-9 flex items-center justify-center rounded-lg bg-white/5 border border-white/10 text-gray-400 hover:text-white hover:bg-[#25D366] hover:border-[#25D366] transition-all"
+                        className="w-11 h-11 flex items-center justify-center rounded-lg bg-white/5 border border-white/10 text-gray-400 hover:text-white hover:bg-[#25D366] hover:border-[#25D366] transition-all"
                       >
                         <MessageCircle size={18} />
                       </a>
@@ -459,7 +459,7 @@ const ArticleDetail = () => {
                           navigator.clipboard.writeText(window.location.href);
                           toast({ title: "Enlace copiado", description: "Listo para compartir en Instagram" });
                         }}
-                        className="w-9 h-9 flex items-center justify-center rounded-lg bg-white/5 border border-white/10 text-gray-400 hover:text-white hover:bg-gradient-to-tr hover:from-[#f9ce34] hover:via-[#ee2a7b] hover:to-[#6228d7] hover:border-transparent transition-all"
+                        className="w-11 h-11 flex items-center justify-center rounded-lg bg-white/5 border border-white/10 text-gray-400 hover:text-white hover:bg-gradient-to-tr hover:from-[#f9ce34] hover:via-[#ee2a7b] hover:to-[#6228d7] hover:border-transparent transition-all"
                         title="Copiar para Instagram"
                       >
                         <Instagram size={18} />

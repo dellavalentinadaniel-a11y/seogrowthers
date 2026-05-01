@@ -114,14 +114,14 @@ const Footer = () => {
 
                     <div>
                         <p className="font-semibold text-white mb-6">Síguenos</p>
-                        <div className="flex space-x-4">
+                        <div className="flex flex-wrap gap-2">
                             {socialLinks.map((social) => (
                                 <a
                                     key={social.name}
                                     href={social.href}
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    className="text-gray-400 hover:text-cyan-400 transition-colors duration-300"
+                                    className="w-11 h-11 flex items-center justify-center rounded-xl text-gray-400 hover:text-cyan-400 hover:bg-white/5 transition-colors duration-300"
                                 >
                                     {social.icon}
                                 </a>

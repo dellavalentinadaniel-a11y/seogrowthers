@@ -186,7 +186,7 @@ const Services = () => {
             <div className="inline-flex items-center px-4 py-1.5 rounded-full bg-surface-variant/30 border border-outline/30 mb-6 backdrop-blur-sm">
               <span className="text-[10px] font-headline font-bold uppercase tracking-[0.2em] text-on-surface-variant">Soluciones de Próxima Generación</span>
             </div>
-            <h1 className="font-headline text-5xl md:text-8xl font-bold tracking-tight text-on-surface mb-6 max-w-5xl">
+            <h1 className="font-headline text-3xl sm:text-5xl md:text-7xl lg:text-8xl font-bold tracking-tight text-on-surface mb-6 max-w-5xl">
               Dominio <span className="bg-gradient-to-r from-primary via-secondary to-tertiary bg-clip-text text-transparent">Digital</span> de Vanguardia
             </h1>
             <p className="text-on-surface-variant text-lg md:text-2xl max-w-3xl leading-relaxed font-light">

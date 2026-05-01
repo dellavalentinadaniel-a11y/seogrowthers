@@ -61,8 +61,8 @@ const SuccessCasesPage = lazy(() => import('@/pages/Placeholders').then(module =
 const SuccessCaseDetailPage = lazy(() => import('@/pages/Placeholders').then(module => ({ default: module.SuccessCaseDetailPage })));
 const TestimonialsPage = lazy(() => import('@/pages/Placeholders').then(module => ({ default: module.TestimonialsPage })));
 const ServiceDetailPage = lazy(() => import('@/pages/Placeholders').then(module => ({ default: module.ServiceDetailPage })));
-const ResourceDetailPage = lazy(() => import('@/pages/Placeholders').then(module => ({ default: module.ResourceDetailPage })));
-const ToolDetailPage = lazy(() => import('@/pages/Placeholders').then(module => ({ default: module.ToolDetailPage })));
+const ResourceDetailPage = lazy(() => import('@/pages/ResourceDetailPage'));
+const ToolDetailPage = lazy(() => import('@/pages/ToolDetailPage'));
 
 function App() {
   const location = useLocation();

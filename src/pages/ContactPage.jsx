@@ -87,7 +87,7 @@ const ContactPage = () => {
         <Breadcrumbs className="mb-4" />
         {/* Hero Section */}
         <section className="mb-20 text-center">
-          <h1 className="font-headline text-5xl md:text-7xl font-bold tracking-tighter text-on-surface mb-6">
+          <h1 className="font-headline text-3xl sm:text-5xl md:text-7xl font-bold tracking-tighter text-on-surface mb-6">
             Sincroniza con el <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary-container to-secondary-container">Nodo Central</span>
           </h1>
           <p className="max-w-2xl mx-auto text-on-surface-variant text-lg leading-relaxed">

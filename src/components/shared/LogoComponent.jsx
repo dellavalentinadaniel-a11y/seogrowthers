@@ -14,14 +14,18 @@ const LogoComponent = ({ className, size = 'md', isLink = true }) => {
 
   const Content = (
     <div className="flex items-center gap-3">
-      <img 
-        src="/images/iconos/logo3sinfondo.webp" 
-        alt="SEO Growthers Icon" 
+      <img
+        src="/images/iconos/logo3sinfondo.webp"
+        alt="SEO Growthers Icon"
+        width="48"
+        height="48"
         className={cn(sizeClasses[size] || sizeClasses.md, "w-auto object-contain")}
       />
-      <img 
-        src="/images/iconos/logoletrassinfondo.webp" 
-        alt="SEO Growthers Name" 
+      <img
+        src="/images/iconos/logoletrassinfondo.webp"
+        alt="SEO Growthers"
+        width="160"
+        height="48"
         className={cn(sizeClasses[size] || sizeClasses.md, "w-auto object-contain hidden xs:block")}
       />
     </div>
