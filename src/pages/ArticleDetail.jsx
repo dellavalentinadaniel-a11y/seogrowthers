@@ -3,7 +3,7 @@ import React, { useEffect, useState, useCallback } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import { supabase } from '@/lib/customSupabaseClient';
 import { Helmet } from 'react-helmet-async';
-import { extractHeadings, injectHeadingIds } from '@/lib/seoHelpers';
+import { extractHeadings, injectHeadingIds, extractFAQSchema } from '@/lib/seoHelpers';
 import { Calendar, User, Clock, Tag, Edit, Trash2, Share2, Facebook, Twitter, Linkedin, MessageCircle, Instagram, ArrowLeft, Heart, Sparkles, List, MessageSquare, ArrowRight } from 'lucide-react';
 import { toast } from '@/components/ui/use-toast';
 import { Button } from '@/components/ui/button';
@@ -209,41 +209,67 @@ const ArticleDetail = () => {
         <meta name="description" content={article.seo_description || article.summary} />
         {article.keywords && article.keywords.length > 0 && <meta name="keywords" content={article.keywords.join(', ')} />}
         <link rel="canonical" href={article.canonical_url || `https://seogrowthers.com/blog/${article.slug}`} />
+
+        {/* Open Graph */}
         <meta property="og:title" content={article.seo_title || article.title} />
         <meta property="og:description" content={article.seo_description || article.summary} />
         <meta property="og:url" content={`https://seogrowthers.com/blog/${article.slug}`} />
         <meta property="og:type" content="article" />
+        <meta property="og:site_name" content="SEO Growthers" />
+        <meta property="og:locale" content="es_AR" />
         {article.featured_image && <meta property="og:image" content={article.featured_image} />}
+        {article.featured_image && <meta property="og:image:width" content="1200" />}
+        {article.featured_image && <meta property="og:image:height" content="630" />}
+        {article.featured_image && <meta property="og:image:type" content="image/webp" />}
+
+        {/* Twitter Card */}
         <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:site" content="@SEOGrowthers" />
+        {article.author?.twitter_url && (
+          <meta name="twitter:creator" content={`@${article.author.twitter_url.split('/').pop()}`} />
+        )}
         <meta name="twitter:title" content={article.seo_title || article.title} />
         <meta name="twitter:description" content={article.seo_description || article.summary} />
         {article.featured_image && <meta name="twitter:image" content={article.featured_image} />}
+
+        {/* Article metadata */}
         {article.created_at && <meta property="article:published_time" content={new Date(article.created_at).toISOString()} />}
         {article.updated_at && <meta property="article:modified_time" content={new Date(article.updated_at).toISOString()} />}
         {article.category && <meta property="article:section" content={article.category} />}
+        <meta property="article:author" content={article.author?.full_name || article.author?.username || "Equipo Editorial SEO Growthers"} />
         {article.keywords && article.keywords.length > 0 && article.keywords.map((kw, i) => (
           <meta key={i} property="article:tag" content={kw} />
         ))}
+
+        {/* BlogPosting schema */}
         <script type="application/ld+json">
           {JSON.stringify({
             "@context": "https://schema.org",
             "@type": "BlogPosting",
             "headline": article.seo_title || article.title,
             "description": article.seo_description || article.summary,
-            "image": article.featured_image || "https://seogrowthers.com/logo.webp",
+            "image": {
+              "@type": "ImageObject",
+              "url": article.featured_image || "https://seogrowthers.com/logo.webp",
+              "width": 1200,
+              "height": 630
+            },
             "datePublished": article.created_at ? new Date(article.created_at).toISOString() : undefined,
             "dateModified": article.updated_at ? new Date(article.updated_at).toISOString() : (article.created_at ? new Date(article.created_at).toISOString() : undefined),
             "author": {
               "@type": "Person",
               "name": article.author?.full_name || article.author?.username || "Equipo Editorial SEO Growthers",
-              "url": article.author?.website || "https://seogrowthers.com"
+              "url": article.author?.website || "https://seogrowthers.com",
+              ...(article.author?.twitter_url ? { "sameAs": [article.author.twitter_url] } : {})
             },
             "publisher": {
               "@type": "Organization",
               "name": "SEO Growthers",
               "logo": {
                 "@type": "ImageObject",
-                "url": "https://seogrowthers.com/logo.webp"
+                "url": "https://seogrowthers.com/logo.webp",
+                "width": 600,
+                "height": 60
               }
             },
             "mainEntityOfPage": {
@@ -251,10 +277,34 @@ const ArticleDetail = () => {
               "@id": `https://seogrowthers.com/blog/${article.slug}`
             },
             "url": `https://seogrowthers.com/blog/${article.slug}`,
+            "articleBody": article.content ? article.content.replace(/<[^>]*>/g, ' ').replace(/\s+/g, ' ').trim().substring(0, 5000) : undefined,
+            "wordCount": article.content ? article.content.replace(/<[^>]*>/g, '').split(/\s+/).filter(Boolean).length : undefined,
             ...(article.keywords && article.keywords.length > 0 ? { "keywords": article.keywords.join(", ") } : {}),
             ...(article.category ? { "articleSection": article.category } : {})
           })}
         </script>
+
+        {/* BreadcrumbList schema */}
+        <script type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            "itemListElement": [
+              { "@type": "ListItem", "position": 1, "name": "Inicio", "item": "https://seogrowthers.com/" },
+              { "@type": "ListItem", "position": 2, "name": "Blog", "item": "https://seogrowthers.com/blog" },
+              ...(article.category ? [{ "@type": "ListItem", "position": 3, "name": article.category, "item": `https://seogrowthers.com/blog/${article.category.toLowerCase().replace(/\s+/g, '-')}` }] : []),
+              { "@type": "ListItem", "position": article.category ? 4 : 3, "name": article.seo_title || article.title, "item": `https://seogrowthers.com/blog/${article.slug}` }
+            ]
+          })}
+        </script>
+
+        {/* FAQPage schema — auto-detected from FAQ blocks in content */}
+        {(() => {
+          const faqSchema = extractFAQSchema(article.content);
+          return faqSchema ? (
+            <script type="application/ld+json">{JSON.stringify(faqSchema)}</script>
+          ) : null;
+        })()}
       </Helmet>
 
       <div className="min-h-screen pt-32 pb-20">

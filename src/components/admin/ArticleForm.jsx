@@ -9,7 +9,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { Switch } from '@/components/ui/switch';
 import { toast } from '@/components/ui/use-toast';
 import { useNavigate } from 'react-router-dom';
-import { AlertCircle, Save, ArrowLeft, Layout } from 'lucide-react';
+import { AlertCircle, Save, ArrowLeft, Layout, Share2 } from 'lucide-react';
 import {
   generateSlug,
   validateSeoTitle,
@@ -33,6 +33,9 @@ const ArticleForm = ({ initialData, isEditing = false }) => {
     featured_image_alt: '',
     published: false,
     featured_image: '',
+    social_facebook: '',
+    social_x: '',
+    social_whatsapp: '',
   });
 
   const [keywordInput, setKeywordInput] = useState('');
@@ -47,14 +50,17 @@ const ArticleForm = ({ initialData, isEditing = false }) => {
       setFormData({
         title: initialData.title || '',
         slug: initialData.slug || '',
-        content: initialData.content_html || '', // Editor expects HTML string
+        content: initialData.content_html || '',
         seo_title: meta.seo_title || initialData.title || '',
-        seo_description: initialData.summary || '', // summary column maps to description
+        seo_description: initialData.summary || '',
         keywords: meta.keywords || [],
         canonical_url: meta.canonical_url || '',
         featured_image_alt: meta.featured_image_alt || '',
         published: initialData.status === 'published',
         featured_image: initialData.featured_image || '',
+        social_facebook: initialData.social_meta?.facebook || '',
+        social_x: initialData.social_meta?.x || '',
+        social_whatsapp: initialData.social_meta?.whatsapp || '',
       });
       
       // Run validations on loaded data
@@ -129,21 +135,24 @@ const ArticleForm = ({ initialData, isEditing = false }) => {
         return;
       }
 
-      // Prepare payload for 'articles' table
       const payload = {
         title: formData.title,
         slug: formData.slug,
-        content_html: formData.content, // Store HTML content
-        summary: formData.seo_description, // Store description in summary
+        content_html: formData.content,
+        summary: formData.seo_description,
         status: formData.published ? 'published' : 'draft',
         featured_image: formData.featured_image,
         updated_at: new Date().toISOString(),
-        // Store extra metadata in the jsonb 'content' column
         content: {
           seo_title: formData.seo_title || formData.title,
           keywords: formData.keywords,
           canonical_url: formData.canonical_url,
           featured_image_alt: formData.featured_image_alt
+        },
+        social_meta: {
+          facebook: formData.social_facebook || formData.title,
+          x: formData.social_x || formData.title,
+          whatsapp: formData.social_whatsapp || formData.title,
         }
       };
 
@@ -329,7 +338,7 @@ const ArticleForm = ({ initialData, isEditing = false }) => {
 
            <div className="bg-slate-900 border border-slate-800 rounded-xl p-6">
             <h3 className="text-lg font-semibold text-white mb-4">Imagen Destacada</h3>
-             <Input 
+             <Input
                 value={formData.featured_image}
                 onChange={(e) => handleInputChange('featured_image', e.target.value)}
                 placeholder="URL de imagen..."
@@ -337,12 +346,46 @@ const ArticleForm = ({ initialData, isEditing = false }) => {
               />
             <div>
               <Label className="text-white">Texto Alternativo (Alt Text)</Label>
-              <Input 
+              <Input
                 value={formData.featured_image_alt}
                 onChange={(e) => handleInputChange('featured_image_alt', e.target.value)}
                 className="bg-slate-800 border-slate-700 text-white mt-1"
                 placeholder="Descripción de la imagen destacada"
-                required={!!formData.featured_image} 
+                required={!!formData.featured_image}
+              />
+            </div>
+          </div>
+
+          <div className="bg-slate-900 border border-slate-800 rounded-xl p-6 space-y-4">
+            <h3 className="text-lg font-semibold text-white flex items-center gap-2">
+              <Share2 size={18} className="text-blue-400" /> Texto para Redes Sociales
+            </h3>
+            <p className="text-xs text-gray-500">Personaliza el texto al compartir. Si queda vacío, se usa el título del artículo.</p>
+            <div>
+              <Label className="text-gray-300 text-sm">Facebook</Label>
+              <Textarea
+                value={formData.social_facebook}
+                onChange={(e) => handleInputChange('social_facebook', e.target.value)}
+                className="bg-slate-800 border-slate-700 text-white mt-1 h-16 text-sm"
+                placeholder={formData.title || 'Texto para compartir en Facebook...'}
+              />
+            </div>
+            <div>
+              <Label className="text-gray-300 text-sm">X / Twitter</Label>
+              <Textarea
+                value={formData.social_x}
+                onChange={(e) => handleInputChange('social_x', e.target.value)}
+                className="bg-slate-800 border-slate-700 text-white mt-1 h-16 text-sm"
+                placeholder={formData.title || 'Texto para compartir en X...'}
+              />
+            </div>
+            <div>
+              <Label className="text-gray-300 text-sm">WhatsApp</Label>
+              <Textarea
+                value={formData.social_whatsapp}
+                onChange={(e) => handleInputChange('social_whatsapp', e.target.value)}
+                className="bg-slate-800 border-slate-700 text-white mt-1 h-16 text-sm"
+                placeholder={formData.title || 'Texto para compartir en WhatsApp...'}
               />
             </div>
           </div>

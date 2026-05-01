@@ -124,12 +124,57 @@ const BlogPage = () => {
         <title>{category ? `Blog de ${category} - Artículos y Guías | SEO Growthers` : "Blog de SEO, Marketing Digital y Desarrollo Web | SEO Growthers"}</title>
         <meta name="description" content={category ? `Artículos y guías sobre ${category}. Estrategias digitales para potenciar tu negocio.` : "Explora nuestros artículos sobre SEO, marketing digital, desarrollo web e inteligencia artificial para potenciar tu negocio."} />
         <link rel="canonical" href={category ? `https://seogrowthers.com/blog/${category}` : "https://seogrowthers.com/blog"} />
+        {currentPage > 1 && (
+          <link rel="prev" href={`https://seogrowthers.com${category ? `/blog/${category}` : '/blog'}?page=${currentPage - 1}`} />
+        )}
+        {currentPage * PAGE_SIZE < totalCount && (
+          <link rel="next" href={`https://seogrowthers.com${category ? `/blog/${category}` : '/blog'}?page=${currentPage + 1}`} />
+        )}
+
+        {/* Open Graph */}
         <meta property="og:title" content={category ? `Blog de ${category} | SEO Growthers` : "Blog | SEO Growthers"} />
-        <meta property="og:description" content="Artículos sobre SEO, desarrollo web, IA y estrategias digitales para hacer crecer tu negocio." />
+        <meta property="og:description" content={category ? `Artículos y guías sobre ${category}. Estrategias digitales para potenciar tu negocio.` : "Artículos sobre SEO, desarrollo web, IA y estrategias digitales para hacer crecer tu negocio."} />
         <meta property="og:url" content={category ? `https://seogrowthers.com/blog/${category}` : "https://seogrowthers.com/blog"} />
-        <meta property="og:type" content="blog" />
+        <meta property="og:type" content="website" />
+        <meta property="og:site_name" content="SEO Growthers" />
+        <meta property="og:locale" content="es_AR" />
         <meta property="og:image" content="https://seogrowthers.com/logo.webp" />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
+
+        {/* Twitter Card */}
         <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:site" content="@SEOGrowthers" />
+        <meta name="twitter:title" content={category ? `Blog de ${category} | SEO Growthers` : "Blog | SEO Growthers"} />
+        <meta name="twitter:description" content={category ? `Artículos y guías sobre ${category}.` : "Artículos sobre SEO, desarrollo web, IA y marketing digital."} />
+        <meta name="twitter:image" content="https://seogrowthers.com/logo.webp" />
+
+        {/* CollectionPage schema */}
+        <script type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "CollectionPage",
+            "name": category ? `Blog de ${category} | SEO Growthers` : "Blog | SEO Growthers",
+            "description": category
+              ? `Artículos y guías sobre ${category}. Estrategias digitales para potenciar tu negocio.`
+              : "Artículos sobre SEO, marketing digital, desarrollo web e inteligencia artificial.",
+            "url": category ? `https://seogrowthers.com/blog/${category}` : "https://seogrowthers.com/blog",
+            "publisher": {
+              "@type": "Organization",
+              "name": "SEO Growthers",
+              "logo": { "@type": "ImageObject", "url": "https://seogrowthers.com/logo.webp" }
+            },
+            "inLanguage": "es-AR",
+            "breadcrumb": {
+              "@type": "BreadcrumbList",
+              "itemListElement": [
+                { "@type": "ListItem", "position": 1, "name": "Inicio", "item": "https://seogrowthers.com/" },
+                { "@type": "ListItem", "position": 2, "name": "Blog", "item": "https://seogrowthers.com/blog" },
+                ...(category ? [{ "@type": "ListItem", "position": 3, "name": category, "item": `https://seogrowthers.com/blog/${category}` }] : [])
+              ]
+            }
+          })}
+        </script>
       </Helmet>
       
       <div className="min-h-screen pt-24 pb-12 px-6">
