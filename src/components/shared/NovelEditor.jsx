@@ -18,12 +18,12 @@ import {
   handleCommandNavigation
 } from 'novel';
 import TextAlign from '@tiptap/extension-text-align';
-import { 
-  Bold, Italic, Underline, Strikethrough, Code, 
-  Heading1, Heading2, Heading3, 
-  List, ListOrdered, Quote, ImageIcon, 
+import {
+  Bold, Italic, Underline, Strikethrough, Code,
+  Heading1, Heading2, Heading3,
+  List, ListOrdered, Quote, ImageIcon,
   AlignLeft, AlignCenter, AlignRight, AlignJustify,
-  Undo, Redo, Link as LinkIcon, Unlink
+  Undo, Redo, Link as LinkIcon, Unlink, Table, Trash2, Plus
 } from 'lucide-react';
 import { 
   Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter, DialogDescription 
@@ -41,6 +41,24 @@ const suggestionItems = [
     icon: <div className="p-1 border border-slate-700 bg-slate-800 rounded"><span className="text-gray-400">T</span></div>,
     command: ({ editor, range }) => {
       editor.chain().focus().deleteRange(range).setNode('paragraph').run();
+    },
+  },
+  {
+    title: 'Tabla',
+    description: 'Inserta una tabla con filas y columnas.',
+    searchTerms: ['table', 'grid'],
+    icon: <Table size={18} className="text-gray-400" />,
+    command: ({ editor, range }) => {
+      window.dispatchEvent(new CustomEvent('novelTableDialog'));
+    },
+  },
+  {
+    title: 'HTML Personalizado',
+    description: 'Inserta y visualiza código HTML personalizado.',
+    searchTerms: ['html', 'code', 'embed'],
+    icon: <Code size={18} className="text-gray-400" />,
+    command: ({ editor, range }) => {
+      window.dispatchEvent(new CustomEvent('novelHTMLDialog'));
     },
   },
   {
@@ -224,7 +242,7 @@ const Toolbar = ({ editor }) => {
       </div>
 
       {/* Media & Links */}
-      <div className="flex items-center">
+      <div className="flex items-center border-r border-slate-700 pr-2 mr-1">
         <ToolbarButton onClick={addLink} isActive={editor.isActive('link')} title="Añadir enlace">
           <LinkIcon size={16} />
         </ToolbarButton>
@@ -235,7 +253,153 @@ const Toolbar = ({ editor }) => {
           <ImageIcon size={16} />
         </ToolbarButton>
       </div>
+
+      {/* Advanced Elements */}
+      <div className="flex items-center">
+        <ToolbarButton onClick={() => window.dispatchEvent(new CustomEvent('novelTableDialog'))} title="Insertar tabla">
+          <Table size={16} />
+        </ToolbarButton>
+        <ToolbarButton onClick={() => window.dispatchEvent(new CustomEvent('novelHTMLDialog'))} title="HTML personalizado">
+          <Code size={16} />
+        </ToolbarButton>
+      </div>
     </div>
+  );
+};
+
+// Table Dialog
+const NovelTableDialog = ({ editor }) => {
+  const [open, setOpen] = useState(false);
+  const [rows, setRows] = useState(3);
+  const [cols, setCols] = useState(3);
+
+  React.useEffect(() => {
+    const handleOpen = () => setOpen(true);
+    window.addEventListener('novelTableDialog', handleOpen);
+    return () => window.removeEventListener('novelTableDialog', handleOpen);
+  }, []);
+
+  const insertTable = () => {
+    if (!editor || rows < 1 || cols < 1) return;
+    editor.chain().focus().insertTable({ rows, cols, withHeaderRow: true }).run();
+    setOpen(false);
+  };
+
+  return (
+    <Dialog open={open} onOpenChange={setOpen}>
+      <DialogContent className="sm:max-w-[425px] bg-slate-900 border border-slate-800 text-white">
+        <DialogHeader>
+          <DialogTitle>Insertar Tabla</DialogTitle>
+          <DialogDescription className="text-slate-400">
+            Define el número de filas y columnas para tu tabla.
+          </DialogDescription>
+        </DialogHeader>
+        <div className="grid gap-6 py-4">
+          <div className="grid grid-cols-2 gap-4">
+            <div>
+              <Label className="text-sm mb-2 block">Filas</Label>
+              <Input
+                type="number"
+                min="1"
+                max="20"
+                value={rows}
+                onChange={e => setRows(Math.max(1, parseInt(e.target.value) || 1))}
+                className="bg-slate-800 border-slate-700"
+              />
+            </div>
+            <div>
+              <Label className="text-sm mb-2 block">Columnas</Label>
+              <Input
+                type="number"
+                min="1"
+                max="20"
+                value={cols}
+                onChange={e => setCols(Math.max(1, parseInt(e.target.value) || 1))}
+                className="bg-slate-800 border-slate-700"
+              />
+            </div>
+          </div>
+          <div className="bg-slate-800 p-3 rounded border border-slate-700 text-sm text-gray-300">
+            Se creará una tabla de <span className="text-cyan-400 font-bold">{rows}×{cols}</span> con encabezados.
+          </div>
+        </div>
+        <DialogFooter>
+          <Button variant="outline" onClick={() => setOpen(false)} className="bg-slate-800 border-slate-700 hover:bg-slate-700 text-white">
+            Cancelar
+          </Button>
+          <Button onClick={insertTable} className="bg-cyan-600 hover:bg-cyan-700 text-white">
+            Insertar Tabla
+          </Button>
+        </DialogFooter>
+      </DialogContent>
+    </Dialog>
+  );
+};
+
+// HTML Dialog
+const NovelHTMLDialog = ({ editor }) => {
+  const [open, setOpen] = useState(false);
+  const [htmlCode, setHtmlCode] = useState('');
+  const [preview, setPreview] = useState(false);
+
+  React.useEffect(() => {
+    const handleOpen = () => setOpen(true);
+    window.addEventListener('novelHTMLDialog', handleOpen);
+    return () => window.removeEventListener('novelHTMLDialog', handleOpen);
+  }, []);
+
+  const insertHTML = () => {
+    if (!editor || !htmlCode.trim()) return;
+    editor.chain().focus().insertContent(`<div class="custom-html-block border-l-4 border-yellow-500 pl-4 py-2 my-4 bg-yellow-500/5">${htmlCode}</div>`).run();
+    setOpen(false);
+    setHtmlCode('');
+  };
+
+  return (
+    <Dialog open={open} onOpenChange={setOpen}>
+      <DialogContent className="sm:max-w-[600px] bg-slate-900 border border-slate-800 text-white max-h-[90vh] overflow-y-auto">
+        <DialogHeader>
+          <DialogTitle>Insertar HTML Personalizado</DialogTitle>
+          <DialogDescription className="text-slate-400">
+            Pega tu código HTML y visualiza cómo se verá en el contenido.
+          </DialogDescription>
+        </DialogHeader>
+        <div className="grid gap-4 py-4">
+          <div>
+            <Label className="text-sm mb-2 block">Código HTML</Label>
+            <textarea
+              value={htmlCode}
+              onChange={e => setHtmlCode(e.target.value)}
+              placeholder="<div>Contenido HTML aquí</div>"
+              className="w-full h-32 bg-slate-800 border border-slate-700 rounded px-3 py-2 text-sm font-mono text-gray-200 focus:border-cyan-500 outline-none resize-none"
+            />
+          </div>
+          {preview && htmlCode && (
+            <div>
+              <Label className="text-sm mb-2 block text-cyan-400">Vista Previa</Label>
+              <div className="w-full bg-slate-800 border border-slate-700 rounded p-4 text-sm overflow-auto max-h-48">
+                <div dangerouslySetInnerHTML={{ __html: htmlCode }} />
+              </div>
+            </div>
+          )}
+        </div>
+        <DialogFooter className="gap-2 flex-wrap">
+          <Button
+            variant="outline"
+            onClick={() => setPreview(!preview)}
+            className="bg-slate-800 border-slate-700 hover:bg-slate-700 text-white"
+          >
+            {preview ? 'Ocultar' : 'Vista Previa'}
+          </Button>
+          <Button variant="outline" onClick={() => setOpen(false)} className="bg-slate-800 border-slate-700 hover:bg-slate-700 text-white">
+            Cancelar
+          </Button>
+          <Button onClick={insertHTML} disabled={!htmlCode.trim()} className="bg-cyan-600 hover:bg-cyan-700 text-white disabled:opacity-50">
+            Insertar HTML
+          </Button>
+        </DialogFooter>
+      </DialogContent>
+    </Dialog>
   );
 };
 
@@ -344,6 +508,10 @@ const DEFAULT_EXTENSIONS = [
     codeBlock: { HTMLAttributes: { class: "rounded-sm bg-slate-800 p-4 font-mono font-medium text-gray-200" } },
     code: { HTMLAttributes: { class: "rounded-md bg-slate-800 px-1.5 py-1 font-mono font-medium text-gray-200" } },
     horizontalRule: { HTMLAttributes: { class: "border-t border-slate-700 my-8" } },
+    table: { HTMLAttributes: { class: "border-collapse border border-slate-700 w-full my-4" } },
+    tableRow: { HTMLAttributes: { class: "border-slate-700" } },
+    tableHeader: { HTMLAttributes: { class: "border border-slate-700 bg-slate-800 p-2 text-left font-bold text-cyan-400" } },
+    tableCell: { HTMLAttributes: { class: "border border-slate-700 p-2" } },
     dropcursor: { color: "#06b6d4", width: 2 },
   }),
   TiptapLink.configure({
@@ -376,6 +544,8 @@ const NovelEditor = ({ content, onChange, placeholder = 'Presiona "/" para ver c
     <div className="relative w-full min-h-[400px] border border-slate-800 bg-slate-900/50 rounded-lg shadow-inner text-white focus-within:border-cyan-500/50 transition-all font-sans flex flex-col">
       <Toolbar editor={editorInstance} />
       <NovelImageDialog editor={editorInstance} />
+      <NovelTableDialog editor={editorInstance} />
+      <NovelHTMLDialog editor={editorInstance} />
       <EditorRoot>
         <EditorContent
           className="min-h-[350px] outline-none prose prose-invert prose-headings:text-cyan-400 max-w-none px-4 pb-4 flex-1"
