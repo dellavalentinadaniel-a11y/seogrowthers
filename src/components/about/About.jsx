@@ -17,8 +17,8 @@ const About = () => {
               Impulsamos el <span className="text-cyan-400">futuro digital</span> de tu negocio
             </h2>
             <p className="text-gray-400 text-lg mb-8 leading-relaxed">
-              En AGENCY, combinamos estrategia, diseño y tecnología para crear productos digitales 
-              excepcionales que conectan marcas con sus audiencias. No somos solo desarrolladores, 
+              En SEO Growthers, combinamos estrategia, diseño y tecnología para crear productos digitales
+              excepcionales que conectan marcas con sus audiencias. No somos solo desarrolladores,
               somos socios en tu crecimiento.
             </p>
             
