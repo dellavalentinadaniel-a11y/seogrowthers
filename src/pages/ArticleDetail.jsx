@@ -13,6 +13,7 @@ import MarkdownRenderer from '@/components/shared/MarkdownRenderer';
 import BlogCommentsSection from '@/components/blog/BlogCommentsSection';
 import InteractionBar from '@/components/article/InteractionBar';
 import AuthorBox from '@/components/article/AuthorBox';
+import InternalLinkingCTA, { RelatedServicesBlock } from '@/components/shared/InternalLinkingCTA';
 import ArticleCard from '@/components/article/ArticleCard';
 
 
@@ -501,6 +502,10 @@ const ArticleDetail = () => {
                   </div>
                 </div>
               )}
+
+              {/* Internal Linking — Servicios relacionados */}
+              <InternalLinkingCTA variant="audit" />
+              <RelatedServicesBlock currentPath={`/blog/${category}/${slug}`} />
             </main>
 
             <aside className="lg:col-span-4 space-y-8">

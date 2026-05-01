@@ -69,6 +69,7 @@ const serviceCategories = [
     borderColor: "border-primary/30",
     textColor: "text-primary",
     gradient: "from-primary/20 to-transparent",
+    landingUrl: "/services/desarrollo-web-argentina",
     services: [
       { name: "Landing Page", desc: "Páginas de alta conversión optimizadas milimétricamente para campañas publicitarias y captura de leads.", icon: "web" },
       { name: "Sitio Web Corporativo", desc: "Presencia digital premium y profesional que proyecta la autoridad y los valores de tu empresa.", icon: "domain" },
@@ -87,6 +88,7 @@ const serviceCategories = [
     borderColor: "border-secondary/30",
     textColor: "text-secondary",
     gradient: "from-secondary/20 to-transparent",
+    landingUrl: "/services/seo-neuquen",
     services: [
       { name: "SEO", desc: "Posicionamiento orgánico de élite en motores de búsqueda para asegurar tráfico sostenible a largo plazo.", icon: "search_insights" },
       { name: "SEM (Ads)", desc: "Campañas publicitarias hiper-segmentadas en Google y redes sociales enfocadas en ROI positivo.", icon: "ads_click" },
@@ -105,6 +107,7 @@ const serviceCategories = [
     borderColor: "border-tertiary/30",
     textColor: "text-tertiary",
     gradient: "from-tertiary/20 to-transparent",
+    landingUrl: "/services/automatizacion-ia",
     services: [
       { name: "Marketing y Ventas", desc: "Embudos automatizados que cualifican prospectos y cierran ventas de forma autónoma 24/7.", icon: "trending_up" },
       { name: "RPA (Bots)", desc: "Bots de software que imitan acciones humanas para eliminar el trabajo administrativo monótono.", icon: "precision_manufacturing" },
@@ -260,15 +263,13 @@ const Services = () => {
                       </div>
 
                       <div className="mt-12">
-                        <a 
-                          href="https://studioseogrowthers.vercel.app/" 
-                          target="_blank" 
-                          rel="noopener noreferrer" 
+                        <Link
+                          to={category.landingUrl}
                           className={`inline-flex items-center gap-3 px-8 py-4 rounded-xl ${category.bgColor} border ${category.borderColor} ${category.textColor} font-headline font-bold uppercase tracking-widest text-xs hover:bg-opacity-20 transition-all shadow-lg`}
                         >
                           Explorar {category.title}
                           <span className="material-symbols-outlined text-sm">arrow_forward</span>
-                        </a>
+                        </Link>
                       </div>
                     </div>
                   </div>

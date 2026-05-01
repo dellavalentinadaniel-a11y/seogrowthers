@@ -21,6 +21,9 @@ const SsdGuidePage = lazy(() => import('@/pages/SsdGuidePage'));
 const ToolsPage = lazy(() => import('@/pages/ToolsPage'));
 const AuditoriaGratisPage = lazy(() => import('@/pages/AuditoriaGratisPage'));
 const AboutPage = lazy(() => import('@/pages/AboutPage'));
+const SeoNeuquenPage = lazy(() => import('@/pages/services/SeoNeuquenPage'));
+const DesarrolloWebPage = lazy(() => import('@/pages/services/DesarrolloWebPage'));
+const AutomatizacionIAPage = lazy(() => import('@/pages/services/AutomatizacionIAPage'));
 const Privacy = lazy(() => import('@/pages/Privacy'));
 const Terms = lazy(() => import('@/pages/Terms'));
 const BlogPage = lazy(() => import('@/pages/BlogPage'));
@@ -87,6 +90,9 @@ function App() {
 
               {/* Services Cluster */}
               <Route path="services" element={<Services />} />
+              <Route path="services/seo-neuquen" element={<SeoNeuquenPage />} />
+              <Route path="services/desarrollo-web-argentina" element={<DesarrolloWebPage />} />
+              <Route path="services/automatizacion-ia" element={<AutomatizacionIAPage />} />
               <Route path="services/:slug" element={<ServiceDetailPage />} />
               <Route path="services/success-cases" element={<SuccessCasesPage />} />
               <Route path="services/success-cases/:slug" element={<SuccessCaseDetailPage />} />
