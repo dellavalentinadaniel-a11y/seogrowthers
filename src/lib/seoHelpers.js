@@ -69,6 +69,67 @@ export const injectHeadingIds = (htmlContent) => {
   });
 };
 
+// Returns density % for each keyword in the plain text content.
+export const calculateKeywordDensity = (htmlContent, keywords = []) => {
+  if (!htmlContent || keywords.length === 0) return [];
+  const text = htmlContent.replace(/<[^>]*>/g, ' ').replace(/\s+/g, ' ').trim().toLowerCase();
+  const words = text.split(/\s+/).filter(Boolean);
+  const total = words.length;
+  if (total === 0) return [];
+  return keywords.map((kw) => {
+    const kwLower = kw.toLowerCase();
+    const regex = new RegExp(`\\b${kwLower.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}\\b`, 'g');
+    const matches = (text.match(regex) || []).length;
+    const density = total > 0 ? (matches / total) * 100 : 0;
+    return {
+      keyword: kw,
+      count: matches,
+      density: parseFloat(density.toFixed(2)),
+      status: density === 0 ? 'missing' : density < 0.5 ? 'low' : density <= 2.5 ? 'good' : 'high'
+    };
+  });
+};
+
+// Flesch Reading Ease adapted for Spanish text (approximate).
+// Returns score 0-100 and a label.
+export const calculateReadability = (htmlContent) => {
+  if (!htmlContent) return { score: 0, label: 'Sin contenido', grade: 'F' };
+  const text = htmlContent.replace(/<[^>]*>/g, ' ').replace(/\s+/g, ' ').trim();
+  if (!text) return { score: 0, label: 'Sin contenido', grade: 'F' };
+
+  const sentences = text.split(/[.!?]+/).filter(s => s.trim().length > 0);
+  const words = text.split(/\s+/).filter(Boolean);
+  // Count syllables: vowel groups as approximation for Spanish
+  const countSyllables = (word) => {
+    const vowels = word.toLowerCase().match(/[aeiouáéíóúü]/g);
+    return vowels ? vowels.length : 1;
+  };
+  const totalSyllables = words.reduce((acc, w) => acc + countSyllables(w), 0);
+  const numSentences = Math.max(1, sentences.length);
+  const numWords = Math.max(1, words.length);
+
+  // Flesch formula (Spanish adjustment: slightly lower constant)
+  const score = Math.min(100, Math.max(0,
+    206.835 - 1.015 * (numWords / numSentences) - 84.6 * (totalSyllables / numWords)
+  ));
+
+  let label, grade;
+  if (score >= 70) { label = 'Muy fácil de leer'; grade = 'A'; }
+  else if (score >= 60) { label = 'Fácil de leer'; grade = 'B'; }
+  else if (score >= 50) { label = 'Moderado'; grade = 'C'; }
+  else if (score >= 30) { label = 'Difícil'; grade = 'D'; }
+  else { label = 'Muy difícil'; grade = 'F'; }
+
+  return { score: Math.round(score), label, grade };
+};
+
+// Returns array of img tags missing alt text from HTML content.
+export const getMissingAltImages = (htmlContent) => {
+  if (!htmlContent) return [];
+  const imgTags = htmlContent.match(/<img[^>]+>/g) || [];
+  return imgTags.filter(img => !img.includes('alt=') || /alt=["']\s*["']/.test(img));
+};
+
 export const calculateSeoScore = (article) => {
   let score = 100;
   const breakdown = [];
@@ -119,7 +180,30 @@ export const calculateSeoScore = (article) => {
     breakdown.push({ label: 'Slug URL amigable', passed: true });
   }
 
-  return { score: Math.max(0, score), breakdown };
+  // Keyword density: at least one keyword with good density
+  if (article.keywords && article.keywords.length > 0 && article.content) {
+    const densities = calculateKeywordDensity(article.content, article.keywords);
+    const hasGoodDensity = densities.some(d => d.status === 'good');
+    if (!hasGoodDensity) {
+      score -= 10;
+      breakdown.push({ label: 'Densidad de palabras clave (0.5–2.5%)', passed: false });
+    } else {
+      breakdown.push({ label: 'Densidad de palabras clave (0.5–2.5%)', passed: true });
+    }
+  }
+
+  // Readability
+  if (article.content) {
+    const readability = calculateReadability(article.content);
+    if (readability.score < 50) {
+      score -= 10;
+      breakdown.push({ label: `Legibilidad: ${readability.label}`, passed: false });
+    } else {
+      breakdown.push({ label: `Legibilidad: ${readability.label}`, passed: true });
+    }
+  }
+
+  return { score: Math.max(0, Math.min(100, score)), breakdown };
 };
 
 // --- Existing Exports ---

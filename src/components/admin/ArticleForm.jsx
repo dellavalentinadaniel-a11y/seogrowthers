@@ -9,13 +9,16 @@ import { Textarea } from '@/components/ui/textarea';
 import { Switch } from '@/components/ui/switch';
 import { toast } from '@/components/ui/use-toast';
 import { useNavigate } from 'react-router-dom';
-import { AlertCircle, Save, ArrowLeft, Layout, Share2, Search, CheckCircle2, XCircle, Clock, FileText } from 'lucide-react';
+import { AlertCircle, Save, ArrowLeft, Layout, Share2, Search, CheckCircle2, XCircle, Clock, FileText, ImageOff, BarChart2, BookOpen } from 'lucide-react';
 import {
   generateSlug,
   validateSeoTitle,
   validateSeoDescription,
   validateImageAlt,
-  calculateSeoScore
+  calculateSeoScore,
+  calculateKeywordDensity,
+  calculateReadability,
+  getMissingAltImages
 } from '@/lib/seoHelpers';
 
 const ArticleForm = ({ initialData, isEditing = false }) => {
@@ -403,6 +406,97 @@ const ArticleForm = ({ initialData, isEditing = false }) => {
                   <span className="flex items-center gap-1"><FileText size={11} /> {wordCount} palabras</span>
                   <span className="flex items-center gap-1"><Clock size={11} /> ~{readingTime} min lectura</span>
                 </div>
+              </div>
+            );
+          })()}
+
+          {/* Keyword Density + Readability + Image Alt alerts */}
+          {(() => {
+            const densities = calculateKeywordDensity(formData.content, formData.keywords);
+            const readability = calculateReadability(formData.content);
+            const missingAlts = getMissingAltImages(formData.content);
+            const hasContent = formData.content && formData.content.replace(/<[^>]*>/g, '').trim().length > 0;
+            if (!hasContent && formData.keywords.length === 0) return null;
+            const gradeColor = { A: 'text-green-400', B: 'text-cyan-400', C: 'text-yellow-400', D: 'text-orange-400', F: 'text-red-400' };
+            const densityBadge = { good: 'bg-green-500/10 text-green-400 border-green-500/20', low: 'bg-yellow-500/10 text-yellow-400 border-yellow-500/20', high: 'bg-red-500/10 text-red-400 border-red-500/20', missing: 'bg-slate-700 text-gray-500 border-slate-600' };
+            return (
+              <div className="bg-slate-900 border border-slate-800 rounded-xl p-6 space-y-5">
+                <h3 className="text-lg font-semibold text-white flex items-center gap-2">
+                  <BarChart2 size={18} className="text-cyan-400" /> Análisis de Contenido
+                </h3>
+
+                {/* Readability */}
+                {hasContent && (
+                  <div>
+                    <p className="text-xs font-semibold text-gray-400 uppercase tracking-widest mb-2 flex items-center gap-1.5">
+                      <BookOpen size={12} /> Legibilidad
+                    </p>
+                    <div className="flex items-center gap-3">
+                      <span className={`text-3xl font-black ${gradeColor[readability.grade] || 'text-gray-400'}`}>
+                        {readability.grade}
+                      </span>
+                      <div className="flex-1">
+                        <div className="h-1.5 bg-slate-700 rounded-full overflow-hidden mb-1">
+                          <div
+                            className={`h-full rounded-full transition-all duration-500 ${readability.score >= 60 ? 'bg-green-500' : readability.score >= 40 ? 'bg-yellow-500' : 'bg-red-500'}`}
+                            style={{ width: `${readability.score}%` }}
+                          />
+                        </div>
+                        <p className="text-xs text-gray-400">{readability.label} <span className="text-gray-600">({readability.score}/100)</span></p>
+                      </div>
+                    </div>
+                    {readability.score < 50 && (
+                      <p className="text-xs text-yellow-500 mt-2 flex items-center gap-1">
+                        <AlertCircle size={10} /> Simplifica las oraciones para mejorar la lectura.
+                      </p>
+                    )}
+                  </div>
+                )}
+
+                {/* Keyword Density */}
+                {densities.length > 0 && (
+                  <div>
+                    <p className="text-xs font-semibold text-gray-400 uppercase tracking-widest mb-2 flex items-center gap-1.5">
+                      <BarChart2 size={12} /> Densidad de palabras clave
+                    </p>
+                    <div className="space-y-2">
+                      {densities.map((d) => (
+                        <div key={d.keyword} className="flex items-center justify-between gap-2">
+                          <span className="text-xs text-gray-300 truncate flex-1">{d.keyword}</span>
+                          <div className="flex items-center gap-2">
+                            <div className="w-20 h-1.5 bg-slate-700 rounded-full overflow-hidden">
+                              <div
+                                className={`h-full rounded-full ${d.status === 'good' ? 'bg-green-500' : d.status === 'low' ? 'bg-yellow-500' : d.status === 'high' ? 'bg-red-500' : 'bg-slate-600'}`}
+                                style={{ width: `${Math.min(100, d.density * 40)}%` }}
+                              />
+                            </div>
+                            <span className={`text-[10px] font-bold px-1.5 py-0.5 rounded border ${densityBadge[d.status]}`}>
+                              {d.density}%
+                            </span>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                    <p className="text-[10px] text-gray-600 mt-2">Óptimo: 0.5% – 2.5%</p>
+                  </div>
+                )}
+
+                {/* Missing alt text alerts */}
+                {missingAlts.length > 0 && (
+                  <div className="border border-orange-500/20 bg-orange-500/5 rounded-lg p-3">
+                    <p className="text-xs font-semibold text-orange-400 flex items-center gap-1.5 mb-1">
+                      <ImageOff size={12} /> {missingAlts.length} imagen{missingAlts.length > 1 ? 'es' : ''} sin texto alternativo
+                    </p>
+                    <p className="text-[10px] text-orange-300/70">
+                      Las imágenes sin alt text perjudican accesibilidad y SEO. Editalas en el contenido.
+                    </p>
+                  </div>
+                )}
+                {hasContent && missingAlts.length === 0 && formData.content.includes('<img') && (
+                  <p className="text-xs text-green-400 flex items-center gap-1.5">
+                    <CheckCircle2 size={12} /> Todas las imágenes tienen texto alternativo
+                  </p>
+                )}
               </div>
             );
           })()}
