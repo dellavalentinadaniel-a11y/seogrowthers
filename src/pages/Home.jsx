@@ -41,12 +41,18 @@ const Home = () => {
     "@type": "Organization",
     "name": "SEO Growthers",
     "url": "https://seogrowthers.com",
-    "logo": "https://seogrowthers.com/logo.webp",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://seogrowthers.com/logo.webp",
+      "width": 600,
+      "height": 60
+    },
     "description": "Agencia de SEO, Desarrollo Web y Analytics en Neuquén, Argentina. Estrategias basadas en datos para crecimiento digital sostenible.",
     "sameAs": [
-      "https://www.instagram.com/seogrowthers",
+      "https://x.com/SEOGrowthers",
+      "https://www.instagram.com/seogrowthers/",
       "https://www.linkedin.com/company/seogrowthers",
-      "https://github.com/dellavalentinadaniel-a11y"
+      "https://www.youtube.com/@seogrowthers-s4r"
     ],
     "contactPoint": {
       "@type": "ContactPoint",
@@ -55,6 +61,39 @@ const Home = () => {
       "areaServed": "AR",
       "availableLanguage": "es"
     }
+  };
+
+  const localBusinessSchema = {
+    "@context": "https://schema.org",
+    "@type": "ProfessionalService",
+    "name": "SEO Growthers",
+    "url": "https://seogrowthers.com",
+    "logo": "https://seogrowthers.com/logo.webp",
+    "description": "Agencia de SEO, Desarrollo Web y Analytics en Neuquén, Argentina.",
+    "telephone": "+54 9 2995504783",
+    "email": "seogrowthers@gmail.com",
+    "priceRange": "$$",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Neuquén",
+      "addressRegion": "Neuquén",
+      "addressCountry": "AR"
+    },
+    "geo": {
+      "@type": "GeoCoordinates",
+      "latitude": -38.9516,
+      "longitude": -68.0591
+    },
+    "areaServed": [
+      { "@type": "Country", "name": "Argentina" },
+      { "@type": "AdministrativeArea", "name": "Neuquén" }
+    ],
+    "sameAs": [
+      "https://x.com/SEOGrowthers",
+      "https://www.instagram.com/seogrowthers/",
+      "https://www.linkedin.com/company/seogrowthers",
+      "https://www.youtube.com/@seogrowthers-s4r"
+    ]
   };
 
   const websiteSchema = {
@@ -85,14 +124,20 @@ const Home = () => {
         <meta property="og:image" content="https://seogrowthers.com/logo.webp" />
         <meta property="og:locale" content="es_AR" />
         <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:site" content="@SEOGrowthers" />
         <meta name="twitter:title" content="SEO Growthers - Web Development, SEO & Analytics" />
         <meta name="twitter:description" content="Agencia experta en Web Development, SEO y Analytics para potenciar tu crecimiento digital." />
         <meta name="twitter:image" content="https://seogrowthers.com/logo.webp" />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
         <script type="application/ld+json">
           {JSON.stringify(structuredData)}
         </script>
         <script type="application/ld+json">
           {JSON.stringify(websiteSchema)}
+        </script>
+        <script type="application/ld+json">
+          {JSON.stringify(localBusinessSchema)}
         </script>
       </Helmet>
 

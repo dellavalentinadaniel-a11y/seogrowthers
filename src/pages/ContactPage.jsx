@@ -22,15 +22,61 @@ const ContactPage = () => {
         <meta property="og:url" content="https://seogrowthers.com/contact" />
         <meta property="og:type" content="website" />
         <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:site" content="@SEOGrowthers" />
+        <meta property="og:image" content="https://seogrowthers.com/logo.webp" />
         <script type="application/ld+json">{JSON.stringify({
           "@context": "https://schema.org",
-          "@type": "LocalBusiness",
+          "@type": "ProfessionalService",
           "name": "SEO Growthers",
           "url": "https://seogrowthers.com",
+          "logo": "https://seogrowthers.com/logo.webp",
+          "image": "https://seogrowthers.com/logo.webp",
+          "description": "Agencia de SEO, Desarrollo Web y Analytics en Neuquén, Argentina. Estrategias basadas en datos para crecimiento digital sostenible.",
           "telephone": "+54 9 2995504783",
           "email": "seogrowthers@gmail.com",
-          "address": { "@type": "PostalAddress", "addressLocality": "Neuquén Capital", "addressCountry": "AR" },
-          "priceRange": "$$"
+          "priceRange": "$$",
+          "currenciesAccepted": "ARS, USD",
+          "paymentAccepted": "Transferencia bancaria, PayPal",
+          "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "Neuquén Capital",
+            "addressLocality": "Neuquén",
+            "addressRegion": "Neuquén",
+            "addressCountry": "AR"
+          },
+          "geo": {
+            "@type": "GeoCoordinates",
+            "latitude": -38.9516,
+            "longitude": -68.0591
+          },
+          "areaServed": [
+            { "@type": "Country", "name": "Argentina" },
+            { "@type": "AdministrativeArea", "name": "Neuquén" }
+          ],
+          "hasOfferCatalog": {
+            "@type": "OfferCatalog",
+            "name": "Servicios Digitales",
+            "itemListElement": [
+              { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "SEO Orgánico" } },
+              { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Desarrollo Web" } },
+              { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Analytics y Medición" } },
+              { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Automatización con IA" } }
+            ]
+          },
+          "sameAs": [
+            "https://x.com/SEOGrowthers",
+            "https://www.linkedin.com/company/seogrowthers",
+            "https://www.instagram.com/seogrowthers/",
+            "https://www.youtube.com/@seogrowthers-s4r"
+          ],
+          "openingHoursSpecification": [
+            {
+              "@type": "OpeningHoursSpecification",
+              "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday"],
+              "opens": "09:00",
+              "closes": "18:00"
+            }
+          ]
         })}</script>
       </Helmet>
       

@@ -9,12 +9,13 @@ import { Textarea } from '@/components/ui/textarea';
 import { Switch } from '@/components/ui/switch';
 import { toast } from '@/components/ui/use-toast';
 import { useNavigate } from 'react-router-dom';
-import { AlertCircle, Save, ArrowLeft, Layout, Share2 } from 'lucide-react';
+import { AlertCircle, Save, ArrowLeft, Layout, Share2, Search, CheckCircle2, XCircle, Clock, FileText } from 'lucide-react';
 import {
   generateSlug,
   validateSeoTitle,
   validateSeoDescription,
-  validateImageAlt
+  validateImageAlt,
+  calculateSeoScore
 } from '@/lib/seoHelpers';
 
 const ArticleForm = ({ initialData, isEditing = false }) => {
@@ -40,6 +41,7 @@ const ArticleForm = ({ initialData, isEditing = false }) => {
 
   const [keywordInput, setKeywordInput] = useState('');
   const [validations, setValidations] = useState({});
+  const [slugError, setSlugError] = useState('');
 
   useEffect(() => {
     if (initialData) {
@@ -99,6 +101,14 @@ const ArticleForm = ({ initialData, isEditing = false }) => {
     runValidations(newData);
   };
 
+  const checkSlugUnique = async (slug) => {
+    if (!slug) return;
+    let query = supabase.from('articles').select('id').eq('slug', slug);
+    if (isEditing && initialData?.id) query = query.neq('id', initialData.id);
+    const { data } = await query.maybeSingle();
+    setSlugError(data ? 'Este slug ya está en uso por otro artículo.' : '');
+  };
+
   const handleKeywordAdd = (e) => {
     if (e.key === 'Enter' || e.key === ',') {
       e.preventDefault();
@@ -131,6 +141,11 @@ const ArticleForm = ({ initialData, isEditing = false }) => {
           description: "Por favor corrige los campos marcados antes de guardar.",
           variant: "destructive"
         });
+        setLoading(false);
+        return;
+      }
+      if (slugError) {
+        toast({ title: "Slug duplicado", description: slugError, variant: "destructive" });
         setLoading(false);
         return;
       }
@@ -275,14 +290,18 @@ const ArticleForm = ({ initialData, isEditing = false }) => {
                 <Label className="text-white">Slug (URL)</Label>
                 <div className="flex items-center mt-1">
                   <span className="bg-slate-800 border border-r-0 border-slate-700 px-3 py-2 text-gray-500 text-sm rounded-l-md">
-                    /news/
+                    /blog/
                   </span>
-                  <Input 
+                  <Input
                     value={formData.slug}
                     onChange={(e) => handleInputChange('slug', e.target.value)}
-                    className="bg-slate-800 border-slate-700 text-white rounded-l-none"
+                    onBlur={(e) => checkSlugUnique(e.target.value)}
+                    className={`bg-slate-800 text-white rounded-l-none ${slugError ? 'border-red-500' : 'border-slate-700'}`}
                   />
                 </div>
+                {slugError && (
+                  <p className="text-xs text-red-400 mt-1 flex items-center gap-1"><AlertCircle size={10} /> {slugError}</p>
+                )}
               </div>
 
               <div>
@@ -299,6 +318,95 @@ const ArticleForm = ({ initialData, isEditing = false }) => {
         </div>
 
         <div className="space-y-6">
+
+          {/* SERP Preview */}
+          <div className="bg-slate-900 border border-slate-800 rounded-xl p-6">
+            <h3 className="text-lg font-semibold text-white mb-4 flex items-center gap-2">
+              <Search size={18} className="text-cyan-400" /> Vista previa en Google
+            </h3>
+            <div className="bg-white rounded-lg p-4 space-y-1 font-sans">
+              <div className="flex items-center gap-2 mb-2">
+                <div className="w-5 h-5 rounded-full bg-gray-200 flex items-center justify-center overflow-hidden">
+                  <img src="https://seogrowthers.com/favicon.ico" alt="" className="w-full h-full" onError={(e) => { e.target.style.display='none'; }} />
+                </div>
+                <div>
+                  <p className="text-xs text-gray-600 leading-none">seogrowthers.com</p>
+                  <p className="text-[10px] text-gray-400 leading-none">
+                    https://seogrowthers.com/blog/{formData.slug || 'tu-slug'}
+                  </p>
+                </div>
+              </div>
+              <p className={`text-base font-medium leading-snug truncate ${
+                formData.seo_title.length > 60 ? 'text-red-600' : 'text-blue-700'
+              }`}>
+                {formData.seo_title || formData.title || 'Título del artículo | SEO Growthers'}
+              </p>
+              <p className={`text-sm leading-snug line-clamp-2 ${
+                formData.seo_description.length > 160 ? 'text-red-500' : 'text-gray-600'
+              }`}>
+                {formData.seo_description || 'La meta descripción aparecerá aquí. Escribe entre 120 y 160 caracteres para el mejor resultado.'}
+              </p>
+            </div>
+            <div className="flex gap-4 mt-3 text-xs text-gray-500">
+              <span className={formData.seo_title.length >= 30 && formData.seo_title.length <= 60 ? 'text-green-400' : 'text-yellow-500'}>
+                Título: {formData.seo_title.length}/60
+              </span>
+              <span className={formData.seo_description.length >= 120 && formData.seo_description.length <= 160 ? 'text-green-400' : 'text-yellow-500'}>
+                Desc: {formData.seo_description.length}/160
+              </span>
+            </div>
+          </div>
+
+          {/* SEO Score */}
+          {(() => {
+            const wordCount = formData.content
+              ? formData.content.replace(/<[^>]*>/g, '').split(/\s+/).filter(Boolean).length
+              : 0;
+            const readingTime = Math.max(1, Math.ceil(wordCount / 200));
+            const seoData = {
+              seo_title: formData.seo_title || formData.title,
+              seo_description: formData.seo_description,
+              keywords: formData.keywords,
+              content: formData.content,
+              slug: formData.slug,
+            };
+            const { score, breakdown } = calculateSeoScore(seoData);
+            const scoreColor = score >= 80 ? 'text-green-400' : score >= 50 ? 'text-yellow-400' : 'text-red-400';
+            const barColor = score >= 80 ? 'bg-green-500' : score >= 50 ? 'bg-yellow-500' : 'bg-red-500';
+            return (
+              <div className="bg-slate-900 border border-slate-800 rounded-xl p-6">
+                <h3 className="text-lg font-semibold text-white mb-4 flex items-center gap-2">
+                  <FileText size={18} className="text-purple-400" /> Análisis SEO
+                </h3>
+                <div className="flex items-center gap-4 mb-5">
+                  <div className={`text-4xl font-black ${scoreColor}`}>{score}</div>
+                  <div className="flex-1">
+                    <div className="h-2 bg-slate-700 rounded-full overflow-hidden">
+                      <div className={`h-full ${barColor} transition-all duration-500`} style={{ width: `${score}%` }} />
+                    </div>
+                    <p className={`text-xs mt-1 font-semibold ${scoreColor}`}>
+                      {score >= 80 ? 'Excelente' : score >= 60 ? 'Bien' : score >= 40 ? 'Mejorable' : 'Necesita trabajo'}
+                    </p>
+                  </div>
+                </div>
+                <ul className="space-y-2 mb-4">
+                  {breakdown.map((item, i) => (
+                    <li key={i} className="flex items-center gap-2 text-xs">
+                      {item.passed
+                        ? <CheckCircle2 size={14} className="text-green-400 shrink-0" />
+                        : <XCircle size={14} className="text-red-400 shrink-0" />}
+                      <span className={item.passed ? 'text-gray-300' : 'text-gray-500'}>{item.label}</span>
+                    </li>
+                  ))}
+                </ul>
+                <div className="flex items-center gap-3 pt-3 border-t border-slate-800 text-xs text-gray-400">
+                  <span className="flex items-center gap-1"><FileText size={11} /> {wordCount} palabras</span>
+                  <span className="flex items-center gap-1"><Clock size={11} /> ~{readingTime} min lectura</span>
+                </div>
+              </div>
+            );
+          })()}
+
           <div className="bg-slate-900 border border-slate-800 rounded-xl p-6">
             <h3 className="text-lg font-semibold text-white mb-4">Publicación</h3>
             <div className="flex items-center justify-between mb-4">

@@ -394,7 +394,7 @@ const ArticleDetail = () => {
                       </div>
                       <div className="flex items-center gap-4 text-xs text-gray-400 mt-1">
                         <span className="flex items-center gap-1.5"><Calendar size={12} className="text-cyan-500/50" /> {new Date(article.created_at).toLocaleDateString()}</span>
-                        <span className="flex items-center gap-1.5"><Clock size={12} className="text-cyan-500/50" /> 5 min lectura</span>
+                        <span className="flex items-center gap-1.5"><Clock size={12} className="text-cyan-500/50" /> {Math.max(1, Math.ceil((article.content || '').replace(/<[^>]*>/g, '').split(/\s+/).filter(Boolean).length / 200))} min lectura</span>
                       </div>
                     </div>
                   </div>
