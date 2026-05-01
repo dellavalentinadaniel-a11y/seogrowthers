@@ -121,8 +121,14 @@ const Header = () => {
               </Link>
             );
           })}
+          <Link
+            to="/auditoria-seo-gratis"
+            className="ml-2 px-4 py-2 bg-primary text-on-primary text-xs font-headline font-bold uppercase tracking-wider rounded-lg hover:shadow-[0_0_15px_rgba(0,229,255,0.3)] transition-all whitespace-nowrap"
+          >
+            Auditoría Gratis
+          </Link>
         </nav>
-        
+
         {/* User / Profile Area */}
         <div className="flex items-center gap-4 relative" ref={dropdownRef}>
           {session ? (

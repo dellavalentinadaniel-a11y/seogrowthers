@@ -19,6 +19,7 @@ const SeoGuidePage = lazy(() => import('@/pages/SeoGuidePage'));
 const AiStudioGuidePage = lazy(() => import('@/pages/AiStudioGuidePage'));
 const SsdGuidePage = lazy(() => import('@/pages/SsdGuidePage'));
 const ToolsPage = lazy(() => import('@/pages/ToolsPage'));
+const AuditoriaGratisPage = lazy(() => import('@/pages/AuditoriaGratisPage'));
 const Privacy = lazy(() => import('@/pages/Privacy'));
 const Terms = lazy(() => import('@/pages/Terms'));
 const BlogPage = lazy(() => import('@/pages/BlogPage'));
@@ -103,6 +104,7 @@ function App() {
               <Route path="tools/:slug" element={<ToolDetailPage />} />
 
               {/* Core Pages */}
+              <Route path="auditoria-seo-gratis" element={<AuditoriaGratisPage />} />
               <Route path="contact" element={<ContactPage />} />
               <Route path="project/:projectId" element={<Project />} />
               <Route path="privacy-policy" element={<Privacy />} />

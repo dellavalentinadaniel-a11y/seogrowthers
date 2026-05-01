@@ -1,7 +1,59 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
+import { Link } from 'react-router-dom';
 import ScrollToTop from '@/components/layout/ScrollToTop';
 import SuccessCasesHeroCarousel from '@/components/shared/SuccessCasesHeroCarousel';
+
+const FAQItem = ({ faq }) => {
+  const [isOpen, setIsOpen] = useState(false);
+  return (
+    <div className="rounded-2xl border border-outline/10 bg-surface-variant/10 backdrop-blur-md overflow-hidden transition-all">
+      <button
+        onClick={() => setIsOpen(!isOpen)}
+        className="w-full flex items-center justify-between p-6 text-left group"
+      >
+        <h3 className="font-headline text-base md:text-lg font-bold text-on-surface group-hover:text-primary transition-colors pr-4">
+          {faq.question}
+        </h3>
+        <span className={`material-symbols-outlined text-on-surface-variant transition-transform duration-300 flex-shrink-0 ${isOpen ? 'rotate-180' : ''}`}>
+          expand_more
+        </span>
+      </button>
+      <div className={`overflow-hidden transition-all duration-300 ${isOpen ? 'max-h-96 pb-6' : 'max-h-0'}`}>
+        <p className="px-6 text-on-surface-variant leading-relaxed">
+          {faq.answer}
+        </p>
+      </div>
+    </div>
+  );
+};
+
+const serviceFaqs = [
+  {
+    question: "¿Cuánto cuesta un sitio web profesional?",
+    answer: "Nuestros proyectos de desarrollo web comienzan desde $800 USD para landing pages de alta conversión. Sitios corporativos desde $1,500 USD y tiendas online desde $2,500 USD. Cada presupuesto incluye diseño responsive, optimización SEO básica y soporte post-lanzamiento."
+  },
+  {
+    question: "¿Cuánto tiempo tarda en posicionarse mi sitio en Google?",
+    answer: "Los resultados de SEO técnico (correcciones, velocidad, indexación) se ven en 2-4 semanas. El posicionamiento orgánico por keywords competitivas toma entre 3 y 6 meses. Nuestros clientes en Argentina suelen ver un aumento de tráfico del 150-300% en el primer semestre."
+  },
+  {
+    question: "¿Qué incluye el servicio de Marketing Digital?",
+    answer: "Incluye estrategia SEO completa, gestión de campañas SEM (Google Ads), community management en redes sociales, email marketing automatizado y reportes mensuales con métricas de rendimiento. Todo personalizado según tu industria y objetivos de negocio."
+  },
+  {
+    question: "¿Qué es la automatización con IA y cómo beneficia a mi empresa?",
+    answer: "La automatización con IA permite delegar tareas repetitivas a sistemas inteligentes: desde embudos de venta automáticos y chatbots, hasta integración de herramientas y agentes de IA autónomos. Reduce costos operativos hasta un 60% y permite escalar sin contratar proporcionalmente."
+  },
+  {
+    question: "¿Trabajan con empresas fuera de Argentina?",
+    answer: "Sí, trabajamos con empresas de toda Latinoamérica y España. Nuestro equipo opera de forma remota y nos adaptamos a diferentes zonas horarias. Facturamos en USD y aceptamos transferencias internacionales y criptomonedas."
+  },
+  {
+    question: "¿Ofrecen auditoría SEO gratuita?",
+    answer: "Sí, realizamos una auditoría preliminar gratuita de tu sitio web que incluye análisis técnico básico, revisión de meta tags, velocidad de carga y oportunidades de mejora inmediatas. Podés solicitarla desde nuestra página de contacto."
+  }
+];
 
 // Datos de los servicios basados en las categorías solicitadas
 const serviceCategories = [
@@ -79,12 +131,42 @@ const Services = () => {
         <meta name="twitter:card" content="summary_large_image" />
         <script type="application/ld+json">{JSON.stringify({
           "@context": "https://schema.org",
-          "@type": "Service",
-          "name": "Servicios Digitales de SEO Growthers",
-          "provider": { "@type": "Organization", "name": "SEO Growthers", "url": "https://seogrowthers.com" },
-          "description": "Web Development, Marketing Digital y Automatización con IA para empresas en crecimiento.",
+          "@type": "ProfessionalService",
+          "name": "SEO Growthers",
+          "description": "Agencia de Desarrollo Web, SEO, Marketing Digital y Automatización con IA para empresas en crecimiento.",
           "url": "https://seogrowthers.com/services",
-          "areaServed": { "@type": "Country", "name": "Argentina" }
+          "telephone": "+54 9 299 608-7387",
+          "priceRange": "$$",
+          "address": {
+            "@type": "PostalAddress",
+            "addressCountry": "AR",
+            "addressLocality": "Neuquén"
+          },
+          "areaServed": [
+            { "@type": "Country", "name": "Argentina" },
+            { "@type": "Country", "name": "España" }
+          ],
+          "hasOfferCatalog": {
+            "@type": "OfferCatalog",
+            "name": "Servicios Digitales",
+            "itemListElement": [
+              { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Desarrollo Web", "description": "Landing pages, sitios corporativos, e-commerce y portafolios de alto rendimiento." }},
+              { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Marketing Digital y SEO", "description": "Posicionamiento orgánico, campañas SEM, redes sociales y email marketing." }},
+              { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Automatización con IA", "description": "Embudos automatizados, RPA, integraciones no-code y agentes de IA autónomos." }}
+            ]
+          }
+        })}</script>
+        <script type="application/ld+json">{JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "FAQPage",
+          "mainEntity": serviceFaqs.map(faq => ({
+            "@type": "Question",
+            "name": faq.question,
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": faq.answer
+            }
+          }))
         })}</script>
       </Helmet>
       
@@ -191,6 +273,30 @@ const Services = () => {
             </section>
           ))}
         </div>
+
+        {/* FAQ Section */}
+        <section className="mt-32 px-8 max-w-4xl mx-auto">
+          <div className="text-center mb-12">
+            <span className="text-[10px] font-headline font-bold uppercase tracking-[0.2em] text-on-surface-variant mb-4 block">Resolvemos tus dudas</span>
+            <h2 className="font-headline text-4xl md:text-5xl font-bold text-on-surface tracking-tight">
+              Preguntas <span className="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">Frecuentes</span>
+            </h2>
+          </div>
+          <div className="space-y-4">
+            {serviceFaqs.map((faq, index) => (
+              <FAQItem key={index} faq={faq} />
+            ))}
+          </div>
+          <div className="text-center mt-8">
+            <Link
+              to="/contact"
+              className="text-primary text-sm font-bold tracking-widest hover:text-secondary transition-colors inline-flex items-center gap-2"
+            >
+              ¿Tenés otra pregunta? Contactanos
+              <span className="material-symbols-outlined text-sm">arrow_forward</span>
+            </Link>
+          </div>
+        </section>
 
         {/* Global CTA Section */}
         <section className="mt-32 px-8 max-w-5xl mx-auto">
