@@ -5,8 +5,9 @@ import Layout from '@/components/layout/Layout';
 import ScrollToTop from '@/components/layout/ScrollToTop';
 import CookieBanner from '@/components/layout/CookieBanner';
 import PageLoader from '@/components/shared/PageLoader';
-import { AnimatePresence } from 'framer-motion';
 import { Analytics } from '@vercel/analytics/react';
+
+import { AnimatePresence } from 'framer-motion';
 
 // Lazy Loaded Pages
 const Home = lazy(() => import('@/pages/Home'));
@@ -165,6 +166,7 @@ function App() {
           </Routes>
         </Suspense>
       </AnimatePresence>
+
     </HelmetProvider>
   );
 }

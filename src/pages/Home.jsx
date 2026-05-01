@@ -1,17 +1,19 @@
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, lazy, Suspense } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { useInView } from 'react-intersection-observer';
 import HomeHero from '@/components/home/HomeHero';
-import ServicesSection from '@/components/home/ServicesSection';
-import UnifiedCarousel from '@/components/home/UnifiedCarousel';
-import StatsSection from '@/components/home/StatsSection';
-import TestimonialsCarousel from '@/components/home/TestimonialsCarousel';
-import ToolsSection from '@/components/home/ToolsSection';
-import CTA from '@/components/home/CTA';
-import FAQSection from '@/components/home/FAQSection';
 import SectionAnimator from '@/components/home/SectionAnimator';
-import AluvalleShowcase from '@/components/home/AluvalleShowcase';
+
+// Below-fold sections: lazy-loaded after scroll to reduce initial JS parse cost
+const UnifiedCarousel = lazy(() => import('@/components/home/UnifiedCarousel'));
+const AluvalleShowcase = lazy(() => import('@/components/home/AluvalleShowcase'));
+const ServicesSection = lazy(() => import('@/components/home/ServicesSection'));
+const StatsSection = lazy(() => import('@/components/home/StatsSection'));
+const TestimonialsCarousel = lazy(() => import('@/components/home/TestimonialsCarousel'));
+const ToolsSection = lazy(() => import('@/components/home/ToolsSection'));
+const CTA = lazy(() => import('@/components/home/CTA'));
+const FAQSection = lazy(() => import('@/components/home/FAQSection'));
 
 const Home = () => {
   // Scroll to top on mount
@@ -144,43 +146,45 @@ const Home = () => {
       <main className="min-h-screen">
         <HomeHero />
 
-        <SectionAnimator>
-          <UnifiedCarousel />
-        </SectionAnimator>
+        <Suspense fallback={null}>
+          <SectionAnimator>
+            <UnifiedCarousel />
+          </SectionAnimator>
 
-        <SectionAnimator>
-          <AluvalleShowcase />
-        </SectionAnimator>
+          <SectionAnimator>
+            <AluvalleShowcase />
+          </SectionAnimator>
 
-        <SectionAnimator>
-          <ServicesSection />
-        </SectionAnimator>
+          <SectionAnimator>
+            <ServicesSection />
+          </SectionAnimator>
 
-        <SectionAnimator>
-          <StatsSection />
-        </SectionAnimator>
+          <SectionAnimator>
+            <StatsSection />
+          </SectionAnimator>
 
-        {(hasScrolled || footerInView) && (
-          <>
-            <SectionAnimator>
-              <TestimonialsCarousel />
-            </SectionAnimator>
-
-            <SectionAnimator>
-              <ToolsSection />
-            </SectionAnimator>
-
-            <SectionAnimator>
-              <CTA />
-            </SectionAnimator>
-
-            <div ref={footerRef}>
+          {(hasScrolled || footerInView) && (
+            <>
               <SectionAnimator>
-                <FAQSection />
+                <TestimonialsCarousel />
               </SectionAnimator>
-            </div>
-          </>
-        )}
+
+              <SectionAnimator>
+                <ToolsSection />
+              </SectionAnimator>
+
+              <SectionAnimator>
+                <CTA />
+              </SectionAnimator>
+
+              <div ref={footerRef}>
+                <SectionAnimator>
+                  <FAQSection />
+                </SectionAnimator>
+              </div>
+            </>
+          )}
+        </Suspense>
       </main>
     </>
   );

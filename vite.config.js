@@ -268,6 +268,9 @@ export default defineConfig({
 		},
 	},
 	build: {
+		target: ['es2020', 'edge88', 'firefox78', 'chrome87', 'safari14'],
+		cssCodeSplit: true,
+		reportCompressedSize: false,
 		rollupOptions: {
 			external: [
 				'@babel/parser',
@@ -276,13 +279,33 @@ export default defineConfig({
 				'@babel/types'
 			],
 			output: {
-				manualChunks: {
-					'react-vendor': ['react', 'react-dom', 'react-router-dom'],
-					'ui-vendor': ['@radix-ui/react-dialog', '@radix-ui/react-dropdown-menu', '@radix-ui/react-popover', '@radix-ui/react-select', 'lucide-react', 'tailwind-merge', 'clsx', 'date-fns'],
-					'animation-vendor': ['framer-motion'],
-					'supabase-vendor': ['@supabase/supabase-js'],
-					'editor-vendor': ['novel', '@tiptap/react', '@tiptap/starter-kit', 'dompurify'],
-					'markdown-vendor': ['react-markdown', 'rehype-raw', 'rehype-slug', 'remark-gfm']
+				manualChunks(id) {
+					if (id.includes('node_modules')) {
+						// Editor tools: only loaded on admin routes
+						if (id.includes('novel') || id.includes('@tiptap') || id.includes('dompurify')) {
+							return 'editor-vendor';
+						}
+						// Markdown rendering
+						if (id.includes('react-markdown') || id.includes('rehype') || id.includes('remark')) {
+							return 'markdown-vendor';
+						}
+						// Supabase: keep separate so public pages don't bundle it
+						if (id.includes('@supabase')) {
+							return 'supabase-vendor';
+						}
+						// Animations: separate so initial bundle skips it
+						if (id.includes('framer-motion')) {
+							return 'animation-vendor';
+						}
+						// Radix + utils
+						if (id.includes('@radix-ui') || id.includes('lucide-react') || id.includes('tailwind-merge') || id.includes('clsx') || id.includes('date-fns')) {
+							return 'ui-vendor';
+						}
+						// Core React
+						if (id.includes('react') || id.includes('react-dom') || id.includes('react-router-dom')) {
+							return 'react-vendor';
+						}
+					}
 				}
 			}
 		}

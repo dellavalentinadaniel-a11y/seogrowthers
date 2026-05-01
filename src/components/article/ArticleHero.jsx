@@ -35,10 +35,14 @@ const ArticleHero = ({ article }) => {
     <section className="relative w-full min-h-[85vh] flex items-end pb-20 overflow-hidden bg-[#0a0e27]">
       {/* Background Image with Gradient Overlay */}
       <div className="absolute inset-0 z-0">
-        <img 
-          src={article.featured_image} 
+        <img
+          src={article.featured_image}
           alt={article.title}
           className="w-full h-full object-cover opacity-80"
+          width="1280"
+          height="720"
+          fetchpriority="high"
+          decoding="async"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-[#0a0e27] via-[#0a0e27]/80 to-transparent"></div>
         <div className="absolute inset-0 bg-gradient-to-r from-[#0a0e27]/90 via-transparent to-transparent"></div>
@@ -87,10 +91,14 @@ const ArticleHero = ({ article }) => {
           >
             <div className="flex items-center gap-4">
               <div className="w-12 h-12 rounded-full overflow-hidden border-2 border-[#00d9ff] shadow-[0_0_15px_rgba(0,217,255,0.3)]">
-                <img 
-                   src={`https://ui-avatars.com/api/?name=${article.author_name || 'Admin'}&background=0a0e27&color=00d9ff`} 
-                   alt={article.author_name} 
-                   className="w-full h-full object-cover"
+                <img
+                  src={`https://ui-avatars.com/api/?name=${article.author_name || 'Admin'}&background=0a0e27&color=00d9ff&size=48`}
+                  alt={article.author_name}
+                  className="w-full h-full object-cover"
+                  width="48"
+                  height="48"
+                  loading="lazy"
+                  decoding="async"
                 />
               </div>
               <div>

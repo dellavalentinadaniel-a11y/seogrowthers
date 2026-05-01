@@ -70,16 +70,20 @@
   }
   body {
     @apply text-foreground min-h-screen;
+    background-color: #0C0D0D;
+    position: relative;
+  }
+  /* Parallax background via fixed pseudo-element — avoids per-scroll GPU repaint */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    z-index: -1;
     background-image: linear-gradient(rgba(12, 13, 13, 0.88), rgba(12, 13, 13, 0.88)), url('/images/fondo/site-background.webp');
     background-size: cover;
     background-position: center;
-    background-attachment: fixed;
     background-repeat: no-repeat;
-    background-color: #0C0D0D;
-    /* Optimización de rendimiento */
-    -webkit-backface-visibility: hidden;
-    backface-visibility: hidden;
-    image-rendering: -webkit-optimize-contrast;
+    will-change: transform;
   }
 }
 
