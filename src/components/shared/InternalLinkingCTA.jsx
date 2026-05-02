@@ -49,6 +49,22 @@ const variants = {
     icon: 'code',
     color: 'primary',
   },
+  automation: {
+    title: '¿Querés automatizar tu operación?',
+    description: 'RPA, integraciones no-code y agentes de IA autónomos para eliminar tareas repetitivas.',
+    cta: 'Ver Automatización',
+    link: '/services/automatizacion-ia',
+    icon: 'smart_toy',
+    color: 'secondary',
+  },
+  cases: {
+    title: '¿Querés ver resultados reales?',
+    description: '+300% tráfico orgánico, +358% conversión. Casos de éxito con métricas verificables.',
+    cta: 'Ver Casos de Éxito',
+    link: '/services/success-cases',
+    icon: 'emoji_events',
+    color: 'tertiary',
+  },
 };
 
 const InternalLinkingCTA = ({ variant = 'audit', className = '' }) => {
@@ -86,6 +102,10 @@ export const RelatedServicesBlock = ({ currentPath = '' }) => {
     { title: 'SEO en Neuquén', desc: 'Posicionamiento local para tu negocio', to: '/services/seo-neuquen', icon: 'location_on' },
     { title: 'Desarrollo Web', desc: 'Sitios rápidos y optimizados', to: '/services/desarrollo-web-argentina', icon: 'code' },
     { title: 'Automatización con IA', desc: 'Escala sin contratar', to: '/services/automatizacion-ia', icon: 'smart_toy' },
+    { title: 'RPA (Bots)', desc: 'Bots 24/7 para tareas repetitivas', to: '/services/rpa-automatizacion', icon: 'precision_manufacturing' },
+    { title: 'Integraciones No-Code', desc: 'Conectá tus apps sin programar', to: '/services/integraciones-no-code', icon: 'cable' },
+    { title: 'Agentes de IA', desc: 'IA autónoma que razona y actúa', to: '/services/ia-agentica-agentes', icon: 'psychology' },
+    { title: 'Casos de Éxito', desc: 'Resultados reales y medibles', to: '/services/success-cases', icon: 'emoji_events' },
     { title: 'Auditoría SEO Gratis', desc: 'Análisis completo en 48hs', to: '/auditoria-seo-gratis', icon: 'search_insights' },
   ].filter(l => l.to !== currentPath);
 

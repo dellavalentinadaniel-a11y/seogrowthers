@@ -43,6 +43,7 @@ const ProfilePage = lazy(() => import('@/pages/auth/ProfilePage'));
 const ForgotPassword = lazy(() => import('@/pages/auth/ForgotPassword'));
 const ResetPassword = lazy(() => import('@/pages/auth/ResetPassword'));
 const SuccessCaseAluvalle = lazy(() => import('@/pages/SuccessCaseAluvalle'));
+const NotFoundPage = lazy(() => import('@/pages/NotFoundPage'));
 const SuccessCaseInmoFuture = lazy(() => import('@/pages/SuccessCaseInmoFuture'));
 const RpaAutomatizacionPage = lazy(() => import('@/pages/services/RpaAutomatizacionPage'));
 const NoCodePage = lazy(() => import('@/pages/services/NoCodePage'));
@@ -67,7 +68,7 @@ const ArticlesPreview = lazy(() => import('@/pages/admin/ArticlesPreview'));
 const Placeholders = lazy(() => import('@/pages/Placeholders'));
 
 // Temporary components to handle named exports from lazy loaded modules
-const SuccessCasesPage = lazy(() => import('@/pages/Placeholders').then(module => ({ default: module.SuccessCasesPage })));
+const SuccessCasesPage = lazy(() => import('@/pages/SuccessCasesPage'));
 const SuccessCaseDetailPage = lazy(() => import('@/pages/Placeholders').then(module => ({ default: module.SuccessCaseDetailPage })));
 const TestimonialsPage = lazy(() => import('@/pages/Placeholders').then(module => ({ default: module.TestimonialsPage })));
 const ServiceDetailPage = lazy(() => import('@/pages/Placeholders').then(module => ({ default: module.ServiceDetailPage })));
@@ -144,6 +145,7 @@ function App() {
               <Route path="services/ia-agentica-agentes" element={<IaAgenticaPage />} />
               <Route path="services/success-cases/aluvalle-transformacion-digital" element={<SuccessCaseAluvalle />} />
               <Route path="services/success-cases/inmofuture-plataforma-inmobiliaria" element={<SuccessCaseInmoFuture />} />
+              <Route path="*" element={<NotFoundPage />} />
             </Route>
 
 
