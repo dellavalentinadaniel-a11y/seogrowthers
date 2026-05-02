@@ -17,7 +17,7 @@ const FeaturedResources = () => {
     try {
       const { data, error } = await supabase
         .from('resources')
-        .select('*')
+        .select('id, title, description, image, category, link, featured, status')
         .eq('featured', true)
         .eq('status', 'published')
         .limit(3);

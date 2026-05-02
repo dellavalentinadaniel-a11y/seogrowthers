@@ -11,7 +11,7 @@ const IntegrationsCarousel = () => {
 
   useEffect(() => {
     const fetchIntegrations = async () => {
-      const { data } = await supabase.from('integrations').select('*').eq('featured', true).order('tool_count', { ascending: false });
+      const { data } = await supabase.from('integrations').select('id, name, description, tool_count').eq('featured', true).order('tool_count', { ascending: false });
       if (data) setIntegrations(data);
     };
     fetchIntegrations();

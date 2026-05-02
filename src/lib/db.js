@@ -54,11 +54,12 @@ export const db = {
     list: async () => {
       const { data, error } = await supabase
         .from('articles')
-        .select('*')
+        .select('id, title, summary, featured_image, slug, category, created_at, status, author')
+        .eq('status', 'published')
         .order('created_at', { ascending: false });
-      
+
       if (error) {
-        console.error('Supabase fetch error:', error);
+        if (import.meta.env.DEV) console.error('Supabase fetch error:', error);
         return [];
       }
       return data;
@@ -71,15 +72,15 @@ export const db = {
       // Intenta detectar si es un UUID o un slug normal
       const isUuid = /^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(idOrSlug);
       const queryField = isUuid ? 'id' : 'slug';
-      
+
       const { data, error } = await supabase
         .from('articles')
-        .select('*')
+        .select('id, title, summary, content, content_html, featured_image, slug, category, created_at, updated_at, status, author, meta_title, meta_description, canonical_url')
         .eq(queryField, idOrSlug)
         .maybeSingle();
 
       if (error) {
-        console.error(`Error fetching article [${idOrSlug}]:`, error);
+        if (import.meta.env.DEV) console.error(`Error fetching article [${idOrSlug}]:`, error);
         return null;
       }
       return data;

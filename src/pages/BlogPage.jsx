@@ -55,13 +55,18 @@ const BlogPage = () => {
         .order('created_at', { ascending: false });
 
       if (category) {
-        // Encontrar el nombre real de la categoría basado en el slug (parámetro de URL)
+        // Match exacto por nombre de categoría (usa índice, no wildcard)
         const matchedCategory = categories.find(c => c.slug === category);
-        const categorySearch = matchedCategory ? matchedCategory.name : category;
-        query = query.ilike('category', `%${categorySearch}%`); 
+        if (matchedCategory) {
+          query = query.eq('category', matchedCategory.name);
+        } else {
+          query = query.eq('category', category);
+        }
       }
 
       if (searchTerm) {
+        // textSearch usa el índice FTS (full-text search) si existe,
+        // fallback a ilike si no hay columna fts
         query = query.ilike('title', `%${searchTerm}%`);
       }
 

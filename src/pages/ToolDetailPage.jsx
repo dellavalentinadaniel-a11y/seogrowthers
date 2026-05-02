@@ -48,7 +48,7 @@ const ToolDetailPage = () => {
     if (isUuid) {
       const { data: byId } = await supabase
         .from('tools')
-        .select('*')
+        .select('id, name, slug, description, image, category, price, rating, users_count, link, features, featured, status, created_at')
         .eq('id', slug)
         .single();
       data = byId;
@@ -57,7 +57,7 @@ const ToolDetailPage = () => {
     if (!data) {
       const { data: byLink } = await supabase
         .from('tools')
-        .select('*')
+        .select('id, name, slug, description, image, category, price, rating, users_count, link, features, featured, status, created_at')
         .ilike('link', `%${slug}`)
         .limit(1);
       if (byLink && byLink.length > 0) data = byLink[0];
@@ -65,7 +65,7 @@ const ToolDetailPage = () => {
 
     if (!data) {
       // Try by name slug match
-      const { data: all } = await supabase.from('tools').select('*');
+      const { data: all } = await supabase.from('tools').select('id, name, slug, description, image, category, price, rating, users_count, link, features, featured, status, created_at');
       if (all) {
         const normalized = slug.toLowerCase().replace(/-/g, ' ');
         data = all.find(t => t.name?.toLowerCase() === normalized) || null;

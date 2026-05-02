@@ -17,7 +17,7 @@ const ResourcesSidebar = ({ onSearch, onCategorySelect }) => {
     const fetchTop = async () => {
       const { data } = await supabase
         .from('resources')
-        .select('*')
+        .select('id, title, downloads, link')
         .eq('status', 'published')
         .order('downloads', { ascending: false })
         .limit(5);

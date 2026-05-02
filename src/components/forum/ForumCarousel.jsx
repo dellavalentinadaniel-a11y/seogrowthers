@@ -18,7 +18,7 @@ const ForumCarousel = () => {
     try {
       const { data, error } = await supabase
         .from('articles')
-        .select('*')
+        .select('id, title, slug, featured_image, category, created_at')
         .eq('category', 'Debates')
         .eq('status', 'published')
         .order('created_at', { ascending: false })

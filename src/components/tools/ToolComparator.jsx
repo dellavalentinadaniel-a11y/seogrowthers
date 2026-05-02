@@ -17,7 +17,7 @@ const ToolComparator = () => {
 
   useEffect(() => {
     const fetchTools = async () => {
-      const { data } = await supabase.from('tools').select('*').eq('status', 'published');
+      const { data } = await supabase.from('tools').select('id, name, image, price, rating, users_count, features').eq('status', 'published');
       if (data) {
         setAvailableTools(data);
         // Pre-select first 3 if available

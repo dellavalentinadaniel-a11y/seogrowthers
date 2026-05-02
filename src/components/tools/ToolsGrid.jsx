@@ -35,7 +35,7 @@ const ToolsGrid = ({ category, searchTerm }) => {
     try {
       let query = supabase
         .from('tools')
-        .select('*')
+        .select('id, name, slug, description, image, category, price, rating, users_count, link, features, featured, status, created_at')
         .eq('status', 'published')
         .order('created_at', { ascending: false })
         .range(pageIndex * PAGE_SIZE, (pageIndex + 1) * PAGE_SIZE - 1);

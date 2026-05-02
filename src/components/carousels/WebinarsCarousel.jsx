@@ -16,7 +16,7 @@ const WebinarsCarousel = () => {
     const fetchWebinars = async () => {
       const { data } = await supabase
         .from('webinars')
-        .select('*')
+        .select('id, title, description, image, date, instructor_name, instructor_avatar, status')
         .eq('status', 'upcoming')
         .order('date', { ascending: true });
       if (data) setWebinars(data);

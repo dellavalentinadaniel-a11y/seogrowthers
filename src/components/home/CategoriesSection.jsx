@@ -20,7 +20,7 @@ const CategoriesSection = () => {
 
   useEffect(() => {
     const fetchCats = async () => {
-      const { data } = await supabase.from('resource_categories').select('*').order('name');
+      const { data } = await supabase.from('resource_categories').select('id, name, description, icon, count').order('name');
       if (data) setCategories(data);
     };
     fetchCats();

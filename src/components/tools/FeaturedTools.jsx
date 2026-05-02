@@ -13,7 +13,7 @@ const FeaturedTools = () => {
       try {
         const { data } = await supabase
           .from('tools')
-          .select('*')
+          .select('id, name, slug, description, image, category, price, rating, users_count, link, features, featured')
           .eq('featured', true)
           .eq('status', 'published')
           .limit(3);

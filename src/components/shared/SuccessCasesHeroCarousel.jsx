@@ -17,7 +17,7 @@ const SuccessCasesHeroCarousel = () => {
       // 1. Fetch de la base de datos
       const { data, error } = await supabase
         .from('success_cases')
-        .select('*')
+        .select('id, title, description, image, result, industry, slug, created_at')
         .order('created_at', { ascending: false });
 
       if (error) throw error;

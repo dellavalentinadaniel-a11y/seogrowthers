@@ -37,7 +37,7 @@ const ResourcesGrid = ({ category, searchTerm }) => {
     try {
       let query = supabase
         .from('resources')
-        .select('*')
+        .select('id, title, description, image, category, link, featured, status, published_at')
         .eq('status', 'published')
         .order('published_at', { ascending: false })
         .range(pageIndex * PAGE_SIZE, (pageIndex + 1) * PAGE_SIZE - 1);

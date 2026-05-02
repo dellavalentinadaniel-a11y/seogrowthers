@@ -21,7 +21,7 @@ const ResourcesPage = () => {
     setLoading(true);
     const { data, error } = await supabase
       .from('resources')
-      .select('*')
+      .select('id, title, description, image, category, link, featured, status, created_at')
       .order('created_at', { ascending: false });
 
     if (!error && data) {

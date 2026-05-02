@@ -20,7 +20,7 @@ const ContactTestimonials = () => {
       try {
         const { data, error } = await supabase
           .from('testimonials')
-          .select('*')
+          .select('id, author, role, company, content, rating, avatar')
           .eq('approved', true)
           .order('created_at', { ascending: false });
         

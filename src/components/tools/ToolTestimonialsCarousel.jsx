@@ -10,7 +10,7 @@ const ToolTestimonialsCarousel = () => {
 
   useEffect(() => {
     const fetchTestimonials = async () => {
-      const { data } = await supabase.from('tool_testimonials').select('*').eq('approved', true).order('created_at', { ascending: false });
+      const { data } = await supabase.from('tool_testimonials').select('id, author, role, company, content, rating, avatar, tool_name').eq('approved', true).order('created_at', { ascending: false });
       if (data) setTestimonials(data);
     };
     fetchTestimonials();

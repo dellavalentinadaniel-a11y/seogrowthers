@@ -17,7 +17,7 @@ const ToolsSidebar = ({ onSearch, onCategorySelect }) => {
     const fetchTop = async () => {
       const { data } = await supabase
         .from('tools')
-        .select('*')
+        .select('id, name, users_count, rating')
         .eq('status', 'published')
         .order('users_count', { ascending: false })
         .limit(5);

@@ -17,9 +17,9 @@ const SuccessCasesCarousel = () => {
     const fetchCases = async () => {
       const { data, error } = await supabase
         .from('success_cases')
-        .select('*')
+        .select('id, title, description, image, result, industry, slug, created_at')
         .order('created_at', { ascending: false });
-      
+
       if (data) {
         const aluvalleCase = {
           id: 'aluvalle-static',

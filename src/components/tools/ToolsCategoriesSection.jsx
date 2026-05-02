@@ -21,7 +21,7 @@ const ToolsCategoriesSection = () => {
 
   useEffect(() => {
     const fetchCats = async () => {
-      const { data } = await supabase.from('tool_categories').select('*');
+      const { data } = await supabase.from('tool_categories').select('id, name, icon, description, count');
       if (data) setCategories(data);
     };
     fetchCats();

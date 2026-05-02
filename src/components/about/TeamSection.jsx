@@ -59,7 +59,7 @@ const TeamSection = () => {
     try {
       const { data, error } = await supabase
         .from('team_members')
-        .select('*')
+        .select('id, name, role, bio, avatar_url, linkedin_url, twitter_url, email')
         .order('order', { ascending: true });
       
       if (error) throw error;
