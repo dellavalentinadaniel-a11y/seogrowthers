@@ -25,6 +25,11 @@ const AboutPage = lazy(() => import('@/pages/AboutPage'));
 const SeoNeuquenPage = lazy(() => import('@/pages/services/SeoNeuquenPage'));
 const DesarrolloWebPage = lazy(() => import('@/pages/services/DesarrolloWebPage'));
 const AutomatizacionIAPage = lazy(() => import('@/pages/services/AutomatizacionIAPage'));
+const LandingPagesPage = lazy(() => import('@/pages/services/LandingPagesPage'));
+const WebCorporativaPage = lazy(() => import('@/pages/services/WebCorporativaPage'));
+const EcommercePage = lazy(() => import('@/pages/services/EcommercePage'));
+const MarketingDigitalPage = lazy(() => import('@/pages/services/MarketingDigitalPage'));
+const PortfolioPage = lazy(() => import('@/pages/PortfolioPage'));
 const Privacy = lazy(() => import('@/pages/Privacy'));
 const Terms = lazy(() => import('@/pages/Terms'));
 const BlogPage = lazy(() => import('@/pages/BlogPage'));
@@ -94,6 +99,10 @@ function App() {
               <Route path="services/seo-neuquen" element={<SeoNeuquenPage />} />
               <Route path="services/desarrollo-web-argentina" element={<DesarrolloWebPage />} />
               <Route path="services/automatizacion-ia" element={<AutomatizacionIAPage />} />
+              <Route path="services/landing-pages" element={<LandingPagesPage />} />
+              <Route path="services/web-corporativa" element={<WebCorporativaPage />} />
+              <Route path="services/ecommerce" element={<EcommercePage />} />
+              <Route path="services/marketing-digital" element={<MarketingDigitalPage />} />
               <Route path="services/:slug" element={<ServiceDetailPage />} />
               <Route path="services/success-cases" element={<SuccessCasesPage />} />
               <Route path="services/success-cases/:slug" element={<SuccessCaseDetailPage />} />
@@ -110,6 +119,9 @@ function App() {
               {/* Tools Cluster */}
               <Route path="tools" element={<ToolsPage />} />
               <Route path="tools/:slug" element={<ToolDetailPage />} />
+
+              {/* Portfolio */}
+              <Route path="portfolio" element={<PortfolioPage />} />
 
               {/* Core Pages */}
               <Route path="auditoria-seo-gratis" element={<AuditoriaGratisPage />} />

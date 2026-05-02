@@ -71,10 +71,10 @@ const serviceCategories = [
     gradient: "from-primary/20 to-transparent",
     landingUrl: "/services/desarrollo-web-argentina",
     services: [
-      { name: "Landing Page", desc: "Páginas de alta conversión optimizadas milimétricamente para campañas publicitarias y captura de leads.", icon: "web" },
-      { name: "Sitio Web Corporativo", desc: "Presencia digital premium y profesional que proyecta la autoridad y los valores de tu empresa.", icon: "domain" },
-      { name: "Tiendas Online", desc: "E-commerce escalables, seguros y optimizados para ofrecer la mejor experiencia de compra.", icon: "storefront" },
-      { name: "Portafolio", desc: "Muestra tu trabajo al mundo con galerías dinámicas, impactantes y de carga ultrarrápida.", icon: "photo_library" },
+      { name: "Landing Page", desc: "Páginas de alta conversión optimizadas milimétricamente para campañas publicitarias y captura de leads.", icon: "web", link: "/services/landing-pages" },
+      { name: "Sitio Web Corporativo", desc: "Presencia digital premium y profesional que proyecta la autoridad y los valores de tu empresa.", icon: "domain", link: "/services/web-corporativa" },
+      { name: "Tiendas Online", desc: "E-commerce escalables, seguros y optimizados para ofrecer la mejor experiencia de compra.", icon: "storefront", link: "/services/ecommerce" },
+      { name: "Portafolio", desc: "Muestra tu trabajo al mundo con galerías dinámicas, impactantes y de carga ultrarrápida.", icon: "photo_library", link: "/portfolio" },
     ]
   },
   {
@@ -88,12 +88,12 @@ const serviceCategories = [
     borderColor: "border-secondary/30",
     textColor: "text-secondary",
     gradient: "from-secondary/20 to-transparent",
-    landingUrl: "/services/seo-neuquen",
+    landingUrl: "/services/marketing-digital",
     services: [
-      { name: "SEO", desc: "Posicionamiento orgánico de élite en motores de búsqueda para asegurar tráfico sostenible a largo plazo.", icon: "search_insights" },
-      { name: "SEM (Ads)", desc: "Campañas publicitarias hiper-segmentadas en Google y redes sociales enfocadas en ROI positivo.", icon: "ads_click" },
-      { name: "Redes Sociales", desc: "Gestión de comunidad y creación de contenido viral para construir fidelidad y embajadores de marca.", icon: "thumb_up" },
-      { name: "Email Marketing", desc: "Sistemas de automatización de correos para nutrir leads, retener clientes y aumentar el LTV.", icon: "mail" },
+      { name: "SEO", desc: "Posicionamiento orgánico de élite en motores de búsqueda para asegurar tráfico sostenible a largo plazo.", icon: "search_insights", link: "/services/seo-neuquen" },
+      { name: "SEM (Ads)", desc: "Campañas publicitarias hiper-segmentadas en Google y redes sociales enfocadas en ROI positivo.", icon: "ads_click", link: "/services/marketing-digital" },
+      { name: "Redes Sociales", desc: "Gestión de comunidad y creación de contenido viral para construir fidelidad y embajadores de marca.", icon: "thumb_up", link: "/services/marketing-digital" },
+      { name: "Email Marketing", desc: "Sistemas de automatización de correos para nutrir leads, retener clientes y aumentar el LTV.", icon: "mail", link: "/services/marketing-digital" },
     ]
   },
   {
@@ -109,10 +109,10 @@ const serviceCategories = [
     gradient: "from-tertiary/20 to-transparent",
     landingUrl: "/services/automatizacion-ia",
     services: [
-      { name: "Marketing y Ventas", desc: "Embudos automatizados que cualifican prospectos y cierran ventas de forma autónoma 24/7.", icon: "trending_up" },
-      { name: "RPA (Bots)", desc: "Bots de software que imitan acciones humanas para eliminar el trabajo administrativo monótono.", icon: "precision_manufacturing" },
-      { name: "Integraciones No-Code", desc: "Conexión fluida entre tu stack tecnológico para que tus datos fluyan sin fricción.", icon: "cable" },
-      { name: "IA Agéntica", desc: "Despliegue de agentes de inteligencia artificial autónomos que ejecutan flujos complejos.", icon: "psychology" },
+      { name: "Marketing y Ventas", desc: "Embudos automatizados que cualifican prospectos y cierran ventas de forma autónoma 24/7.", icon: "trending_up", link: "/services/automatizacion-ia" },
+      { name: "RPA (Bots)", desc: "Bots de software que imitan acciones humanas para eliminar el trabajo administrativo monótono.", icon: "precision_manufacturing", link: "/services/automatizacion-ia" },
+      { name: "Integraciones No-Code", desc: "Conexión fluida entre tu stack tecnológico para que tus datos fluyan sin fricción.", icon: "cable", link: "/services/automatizacion-ia" },
+      { name: "IA Agéntica", desc: "Despliegue de agentes de inteligencia artificial autónomos que ejecutan flujos complejos.", icon: "psychology", link: "/services/automatizacion-ia" },
     ]
   }
 ];
@@ -242,24 +242,34 @@ const Services = () => {
                       
                       {/* Sub-services Grid */}
                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 w-full">
-                        {category.services.map((service, sIndex) => (
-                          <div 
-                            key={sIndex} 
-                            className="p-6 rounded-2xl bg-surface-variant/20 border border-outline/10 hover:bg-surface-variant/40 transition-all group/card cursor-default"
-                          >
-                            <div className="flex items-start gap-4">
-                              <span className={`material-symbols-outlined text-2xl ${category.textColor} opacity-60 group-hover/card:opacity-100 transition-opacity`}>
-                                {service.icon}
-                              </span>
-                              <div>
-                                <h3 className="font-headline text-base font-bold text-on-surface mb-1">{service.name}</h3>
-                                <p className="text-on-surface-variant text-xs leading-relaxed line-clamp-2">
-                                  {service.desc}
-                                </p>
+                        {category.services.map((service, sIndex) => {
+                          const Wrapper = service.link ? Link : 'div';
+                          const wrapperProps = service.link ? { to: service.link } : {};
+                          return (
+                            <Wrapper
+                              key={sIndex}
+                              {...wrapperProps}
+                              className={`p-6 rounded-2xl bg-surface-variant/20 border border-outline/10 hover:bg-surface-variant/40 transition-all group/card ${service.link ? 'cursor-pointer' : 'cursor-default'}`}
+                            >
+                              <div className="flex items-start gap-4">
+                                <span className={`material-symbols-outlined text-2xl ${category.textColor} opacity-60 group-hover/card:opacity-100 transition-opacity`}>
+                                  {service.icon}
+                                </span>
+                                <div>
+                                  <h3 className="font-headline text-base font-bold text-on-surface mb-1">{service.name}</h3>
+                                  <p className="text-on-surface-variant text-xs leading-relaxed line-clamp-2">
+                                    {service.desc}
+                                  </p>
+                                  {service.link && (
+                                    <span className={`text-[10px] font-bold tracking-widest ${category.textColor} mt-2 inline-flex items-center gap-1`}>
+                                      VER MÁS <span className="material-symbols-outlined text-xs">chevron_right</span>
+                                    </span>
+                                  )}
+                                </div>
                               </div>
-                            </div>
-                          </div>
-                        ))}
+                            </Wrapper>
+                          );
+                        })}
                       </div>
 
                       <div className="mt-12">
