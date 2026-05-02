@@ -43,6 +43,10 @@ const ProfilePage = lazy(() => import('@/pages/auth/ProfilePage'));
 const ForgotPassword = lazy(() => import('@/pages/auth/ForgotPassword'));
 const ResetPassword = lazy(() => import('@/pages/auth/ResetPassword'));
 const SuccessCaseAluvalle = lazy(() => import('@/pages/SuccessCaseAluvalle'));
+const SuccessCaseInmoFuture = lazy(() => import('@/pages/SuccessCaseInmoFuture'));
+const RpaAutomatizacionPage = lazy(() => import('@/pages/services/RpaAutomatizacionPage'));
+const NoCodePage = lazy(() => import('@/pages/services/NoCodePage'));
+const IaAgenticaPage = lazy(() => import('@/pages/services/IaAgenticaPage'));
 
 // Admin Imports (Lazy Loaded)
 const AdminLayout = lazy(() => import('@/components/admin/AdminLayout'));
@@ -135,7 +139,11 @@ function App() {
               <Route path="profile" element={<ProfilePage />} />
               <Route path="auth/forgot-password" element={<ForgotPassword />} />
               <Route path="auth/reset-password" element={<ResetPassword />} />
+              <Route path="services/rpa-automatizacion" element={<RpaAutomatizacionPage />} />
+              <Route path="services/integraciones-no-code" element={<NoCodePage />} />
+              <Route path="services/ia-agentica-agentes" element={<IaAgenticaPage />} />
               <Route path="services/success-cases/aluvalle-transformacion-digital" element={<SuccessCaseAluvalle />} />
+              <Route path="services/success-cases/inmofuture-plataforma-inmobiliaria" element={<SuccessCaseInmoFuture />} />
             </Route>
 
 

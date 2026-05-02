@@ -21,5 +21,9 @@
 - [Tienda Online E-Commerce](/services/ecommerce): Desarrollo de tiendas online con Mercado Pago, gestion de stock, envios automaticos y diseno responsive. Desde $2,500 USD.
 - [Marketing Digital](/services/marketing-digital): Servicios de marketing digital: SEO organico, Google Ads, publicidad en redes sociales, email marketing y analytics. Resultados medibles y ROI garantizado.
 - [Portfolio Web](/portfolio): Galeria de proyectos web realizados: landing pages de alta conversion, sitios corporativos y tiendas online con resultados medibles.
+- [Automatizacion RPA](/services/rpa-automatizacion): Automatizacion RPA para empresas. Bots que eliminan tareas repetitivas, reducen errores humanos y operan 24/7. Conciliacion bancaria, facturas y mas.
+- [Integraciones No-Code](/services/integraciones-no-code): Integraciones no-code para empresas. Conectamos tus apps con Make, Zapier y Airtable. Automatizacion de flujos de trabajo en 48-72 horas sin programar.
+- [Agentes de IA Autonomos](/services/ia-agentica-agentes): Desarrollo de agentes de IA autonomos para empresas. Colaboradores digitales que razonan, usan herramientas y resuelven problemas complejos.
+- [Caso de Exito: InmoFuture](/services/success-cases/inmofuture-plataforma-inmobiliaria): Plataforma inmobiliaria premium con buscador inteligente, CRM integrado. LCP de 4.5s a 1.2s, conversion de 1.2% a 5.5%.
 - [Politica de Privacidad](/privacy): Politica de privacidad y proteccion de datos de SEO Growthers.
 - [Terminos de Servicio](/terms): Terminos y condiciones de uso de los servicios de SEO Growthers.

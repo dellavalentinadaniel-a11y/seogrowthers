@@ -110,9 +110,9 @@ const serviceCategories = [
     landingUrl: "/services/automatizacion-ia",
     services: [
       { name: "Marketing y Ventas", desc: "Embudos automatizados que cualifican prospectos y cierran ventas de forma autónoma 24/7.", icon: "trending_up", link: "/services/automatizacion-ia" },
-      { name: "RPA (Bots)", desc: "Bots de software que imitan acciones humanas para eliminar el trabajo administrativo monótono.", icon: "precision_manufacturing", link: "/services/automatizacion-ia" },
-      { name: "Integraciones No-Code", desc: "Conexión fluida entre tu stack tecnológico para que tus datos fluyan sin fricción.", icon: "cable", link: "/services/automatizacion-ia" },
-      { name: "IA Agéntica", desc: "Despliegue de agentes de inteligencia artificial autónomos que ejecutan flujos complejos.", icon: "psychology", link: "/services/automatizacion-ia" },
+      { name: "RPA (Bots)", desc: "Bots de software que imitan acciones humanas para eliminar el trabajo administrativo monótono.", icon: "precision_manufacturing", link: "/services/rpa-automatizacion" },
+      { name: "Integraciones No-Code", desc: "Conexión fluida entre tu stack tecnológico para que tus datos fluyan sin fricción.", icon: "cable", link: "/services/integraciones-no-code" },
+      { name: "IA Agéntica", desc: "Despliegue de agentes de inteligencia artificial autónomos que ejecutan flujos complejos.", icon: "psychology", link: "/services/ia-agentica-agentes" },
     ]
   }
 ];
