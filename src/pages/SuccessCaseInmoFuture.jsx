@@ -12,6 +12,8 @@ const SuccessCaseInmoFuture = () => {
     "headline": "InmoFuture: Ecosistema Digital para Real Estate",
     "author": { "@type": "Organization", "name": "SEO Growthers" },
     "publisher": { "@type": "Organization", "name": "SEO Growthers", "url": "https://seogrowthers.com" },
+    "datePublished": "2026-05-01",
+    "dateModified": "2026-05-01",
     "description": "Caso de éxito: desarrollo de plataforma inmobiliaria premium con buscador inteligente, CRM integrado y diseño conversivo. +358% en conversión de visitantes."
   };
 

@@ -5,8 +5,20 @@ import { motion } from 'framer-motion';
 import { CheckCircle2, ArrowRight, BarChart3, Globe, Zap, Users, ArrowLeft } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
+import Breadcrumbs from '@/components/layout/Breadcrumbs';
+import { InternalLinkingCTA } from '@/components/shared/InternalLinkingCTA';
 
 const SuccessCaseAluvalle = () => {
+  const articleSchema = {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "Aluvalle: Transformación Digital e Impacto SEO",
+    "author": { "@type": "Organization", "name": "SEO Growthers" },
+    "publisher": { "@type": "Organization", "name": "SEO Growthers", "url": "https://seogrowthers.com" },
+    "datePublished": "2026-04-15",
+    "dateModified": "2026-05-01",
+    "description": "Caso de éxito: transformación digital de Aluvalle con +300% tráfico orgánico, Core Web Vitals optimizados y tasa de conversión de 0.5% a 3.8%."
+  };
   const metrics = [
     { label: 'Core Web Vitals (LCP)', before: '4.2s', after: '1.1s', icon: <Zap className="text-yellow-500" /> },
     { label: 'Tráfico Orgánico', before: '~150', after: '+1,200', icon: <Users className="text-cyan-500" /> },
@@ -27,18 +39,17 @@ const SuccessCaseAluvalle = () => {
         <meta name="description" content={metadata.description} />
         <meta property="og:title" content={metadata.title} />
         <meta property="og:description" content={metadata.description} />
-        <meta property="og:image" content={metadata.image} />
+        <meta property="og:image" content="https://seogrowthers.com/api/og?title=Aluvalle%3A+Transformaci%C3%B3n+Digital&subtitle=%2B300%25+tr%C3%A1fico+org%C3%A1nico&type=case" />
         <meta property="og:url" content={metadata.url} />
+        <meta property="og:type" content="article" />
         <meta name="twitter:card" content="summary_large_image" />
         <link rel="canonical" href={metadata.url} />
+        <script type="application/ld+json">{JSON.stringify(articleSchema)}</script>
       </Helmet>
 
       {/* Hero Section */}
       <section className="container mx-auto px-6 mb-20">
-        <Link to="/" className="inline-flex items-center text-cyan-400 hover:text-cyan-300 mb-8 transition-colors group">
-          <ArrowLeft size={16} className="mr-2 transition-transform group-hover:-translate-x-1" />
-          Volver al Inicio
-        </Link>
+        <Breadcrumbs className="mb-4" />
         
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           <motion.div 
@@ -217,6 +228,7 @@ const SuccessCaseAluvalle = () => {
             </div>
           </motion.div>
         </div>
+        <InternalLinkingCTA variant="services" />
       </section>
     </div>
   );

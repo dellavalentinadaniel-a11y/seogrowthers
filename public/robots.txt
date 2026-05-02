@@ -12,7 +12,8 @@ Disallow: /auth/
 Disallow: /blog/create
 Disallow: /blog/edit/
 
-# Block utility paths
+# Block API and utility paths
+Disallow: /api/
 Disallow: /assets/
 Disallow: /*.json$
 
