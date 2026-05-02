@@ -66,7 +66,7 @@ const AboutPage = () => {
         <meta property="og:description" content="Agencia de SEO, desarrollo web y automatización con IA. Conocé nuestra misión y valores." />
         <meta property="og:url" content="https://seogrowthers.com/about" />
         <meta property="og:type" content="website" />
-        <meta property="og:image" content="https://seogrowthers.com/logo.webp" />
+        <meta property="og:image" content="https://seogrowthers.com/api/og?title=Sobre+Nosotros&subtitle=Agencia+de+SEO+en+Neuqu%C3%A9n" />
         <meta name="twitter:card" content="summary_large_image" />
         <script type="application/ld+json">{JSON.stringify({
           "@context": "https://schema.org",

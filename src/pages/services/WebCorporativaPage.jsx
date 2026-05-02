@@ -65,7 +65,7 @@ const WebCorporativaPage = () => {
         <meta property="og:description" content="Sitios web corporativos que proyectan profesionalismo y solidez. Diseño a medida con SEO integrado." />
         <meta property="og:url" content="https://seogrowthers.com/services/web-corporativa" />
         <meta property="og:type" content="website" />
-        <meta property="og:image" content="https://seogrowthers.com/logo.webp" />
+        <meta property="og:image" content="https://seogrowthers.com/api/og?title=Web+Corporativa&subtitle=Desde+%241500+USD+con+SEO+avanzado&type=service" />
         <meta name="twitter:card" content="summary_large_image" />
         <script type="application/ld+json">{JSON.stringify(structuredData)}</script>
         <script type="application/ld+json">{JSON.stringify(faqSchema)}</script>

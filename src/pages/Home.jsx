@@ -45,7 +45,7 @@ const Home = () => {
     "url": "https://seogrowthers.com",
     "logo": {
       "@type": "ImageObject",
-      "url": "https://seogrowthers.com/logo.webp",
+      "url": "https://seogrowthers.com/api/og?title=SEO+Growthers&subtitle=SEO%2C+Desarrollo+Web+y+Automatizaci%C3%B3n+con+IA",
       "width": 600,
       "height": 60
     },
@@ -70,7 +70,7 @@ const Home = () => {
     "@type": "ProfessionalService",
     "name": "SEO Growthers",
     "url": "https://seogrowthers.com",
-    "logo": "https://seogrowthers.com/logo.webp",
+    "logo": "https://seogrowthers.com/api/og?title=SEO+Growthers&subtitle=SEO%2C+Desarrollo+Web+y+Automatizaci%C3%B3n+con+IA",
     "description": "Agencia de SEO, Desarrollo Web y Analytics en Neuquén, Argentina.",
     "telephone": "+54 9 2995504783",
     "email": "seogrowthers@gmail.com",
@@ -123,13 +123,13 @@ const Home = () => {
         <meta property="og:description" content="Impulsa tu negocio con SEO Growthers. Expertos en Web Development, SEO y Analytics para maximizar tu crecimiento digital." />
         <meta property="og:type" content="website" />
         <meta property="og:url" content="https://seogrowthers.com/" />
-        <meta property="og:image" content="https://seogrowthers.com/logo.webp" />
+        <meta property="og:image" content="https://seogrowthers.com/api/og?title=SEO+Growthers&subtitle=SEO%2C+Desarrollo+Web+y+Automatizaci%C3%B3n+con+IA" />
         <meta property="og:locale" content="es_AR" />
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:site" content="@SEOGrowthers" />
         <meta name="twitter:title" content="SEO Growthers - Web Development, SEO & Analytics" />
         <meta name="twitter:description" content="Agencia experta en Web Development, SEO y Analytics para potenciar tu crecimiento digital." />
-        <meta name="twitter:image" content="https://seogrowthers.com/logo.webp" />
+        <meta name="twitter:image" content="https://seogrowthers.com/api/og?title=SEO+Growthers&subtitle=SEO%2C+Desarrollo+Web+y+Automatizaci%C3%B3n+con+IA" />
         <meta property="og:image:width" content="1200" />
         <meta property="og:image:height" content="630" />
         <script type="application/ld+json">

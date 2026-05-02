@@ -37,7 +37,7 @@ const IaAgenticaPage = () => {
         <meta property="og:description" content="IA que razona y actúa: agentes autónomos para soporte, research, operaciones y más." />
         <meta property="og:url" content="https://seogrowthers.com/services/ia-agentica-agentes" />
         <meta property="og:type" content="website" />
-        <meta property="og:image" content="https://seogrowthers.com/logo.webp" />
+        <meta property="og:image" content="https://seogrowthers.com/api/og?title=Agentes+de+IA+Aut%C3%B3nomos&subtitle=IA+que+razona+y+act%C3%BAa&type=service" />
         <script type="application/ld+json">{JSON.stringify(structuredData)}</script>
         <script type="application/ld+json">{JSON.stringify(faqSchema)}</script>
       </Helmet>

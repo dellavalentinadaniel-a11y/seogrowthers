@@ -96,7 +96,7 @@ const PortfolioPage = () => {
         <meta property="og:description" content="Galería de proyectos web realizados: landing pages, sitios corporativos y e-commerce." />
         <meta property="og:url" content="https://seogrowthers.com/portfolio" />
         <meta property="og:type" content="website" />
-        <meta property="og:image" content="https://seogrowthers.com/logo.webp" />
+        <meta property="og:image" content="https://seogrowthers.com/api/og?title=Portfolio+Web&subtitle=Proyectos+reales+con+resultados&type=case" />
         <meta name="twitter:card" content="summary_large_image" />
         <script type="application/ld+json">{JSON.stringify(structuredData)}</script>
       </Helmet>

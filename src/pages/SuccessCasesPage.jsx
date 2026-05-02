@@ -55,7 +55,7 @@ const SuccessCasesPage = () => {
         <meta property="og:description" content="Proyectos reales con resultados medibles. SEO, desarrollo web y automatización." />
         <meta property="og:url" content="https://seogrowthers.com/services/success-cases" />
         <meta property="og:type" content="website" />
-        <meta property="og:image" content="https://seogrowthers.com/logo.webp" />
+        <meta property="og:image" content="https://seogrowthers.com/api/og?title=Casos+de+%C3%89xito&subtitle=Resultados+reales+y+medibles&type=case" />
         <script type="application/ld+json">{JSON.stringify(structuredData)}</script>
       </Helmet>
 

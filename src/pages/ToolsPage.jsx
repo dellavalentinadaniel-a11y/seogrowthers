@@ -20,7 +20,7 @@ const ToolsPage = () => {
         <meta property="og:description" content="Las mejores herramientas de SEO, analytics, marketing y desarrollo web curadas por expertos." />
         <meta property="og:url" content="https://seogrowthers.com/tools" />
         <meta property="og:type" content="website" />
-        <meta property="og:image" content="https://seogrowthers.com/logo.webp" />
+        <meta property="og:image" content="https://seogrowthers.com/api/og?title=Herramientas&subtitle=Las+mejores+herramientas+de+SEO&type=tool" />
         <meta name="twitter:card" content="summary_large_image" />
       </Helmet>
 

@@ -97,7 +97,7 @@ const AuditoriaGratisPage = () => {
         <meta property="og:description" content="Descubrí los errores que frenan tu posicionamiento en Google. Auditoría SEO profesional gratuita en 48 horas." />
         <meta property="og:url" content="https://seogrowthers.com/auditoria-seo-gratis" />
         <meta property="og:type" content="website" />
-        <meta property="og:image" content="https://seogrowthers.com/logo.webp" />
+        <meta property="og:image" content="https://seogrowthers.com/api/og?title=Auditor%C3%ADa+SEO+Gratis&subtitle=An%C3%A1lisis+completo+en+48hs&type=service" />
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content="Auditoría SEO Gratuita | SEO Growthers" />
         <meta name="twitter:description" content="Analizamos tu web gratis: errores técnicos, velocidad, keywords y plan de acción." />

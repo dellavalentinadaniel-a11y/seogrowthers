@@ -65,7 +65,7 @@ const EcommercePage = () => {
         <meta property="og:description" content="Tiendas online listas para vender en todo el país. Carrito, pagos, stock y logística sincronizados." />
         <meta property="og:url" content="https://seogrowthers.com/services/ecommerce" />
         <meta property="og:type" content="website" />
-        <meta property="og:image" content="https://seogrowthers.com/logo.webp" />
+        <meta property="og:image" content="https://seogrowthers.com/api/og?title=E-Commerce&subtitle=Tienda+online+desde+%242500+USD&type=service" />
         <meta name="twitter:card" content="summary_large_image" />
         <script type="application/ld+json">{JSON.stringify(structuredData)}</script>
         <script type="application/ld+json">{JSON.stringify(faqSchema)}</script>

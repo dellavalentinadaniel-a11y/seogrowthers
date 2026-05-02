@@ -138,7 +138,7 @@ const BlogPage = () => {
         <meta property="og:type" content="website" />
         <meta property="og:site_name" content="SEO Growthers" />
         <meta property="og:locale" content="es_AR" />
-        <meta property="og:image" content="https://seogrowthers.com/logo.webp" />
+        <meta property="og:image" content="https://seogrowthers.com/api/og?title=Blog&subtitle=SEO%2C+marketing+digital+e+IA&type=blog" />
         <meta property="og:image:width" content="1200" />
         <meta property="og:image:height" content="630" />
 
@@ -147,7 +147,7 @@ const BlogPage = () => {
         <meta name="twitter:site" content="@SEOGrowthers" />
         <meta name="twitter:title" content={category ? `Blog de ${category} | SEO Growthers` : "Blog | SEO Growthers"} />
         <meta name="twitter:description" content={category ? `Artículos y guías sobre ${category}.` : "Artículos sobre SEO, desarrollo web, IA y marketing digital."} />
-        <meta name="twitter:image" content="https://seogrowthers.com/logo.webp" />
+        <meta name="twitter:image" content="https://seogrowthers.com/api/og?title=Blog&subtitle=SEO%2C+marketing+digital+e+IA&type=blog" />
 
         {/* CollectionPage schema */}
         <script type="application/ld+json">
@@ -162,7 +162,7 @@ const BlogPage = () => {
             "publisher": {
               "@type": "Organization",
               "name": "SEO Growthers",
-              "logo": { "@type": "ImageObject", "url": "https://seogrowthers.com/logo.webp" }
+              "logo": { "@type": "ImageObject", "url": "https://seogrowthers.com/api/og?title=Blog&subtitle=SEO%2C+marketing+digital+e+IA&type=blog" }
             },
             "inLanguage": "es-AR",
             "breadcrumb": {

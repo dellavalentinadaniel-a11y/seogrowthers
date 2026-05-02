@@ -25,7 +25,7 @@ const SuccessCaseInmoFuture = () => {
         <meta property="og:description" content="Plataforma inmobiliaria premium: +358% en conversión, LCP 1.2s, CRM integrado." />
         <meta property="og:url" content="https://seogrowthers.com/services/success-cases/inmofuture-plataforma-inmobiliaria" />
         <meta property="og:type" content="article" />
-        <meta property="og:image" content="https://seogrowthers.com/logo.webp" />
+        <meta property="og:image" content="https://seogrowthers.com/api/og?title=InmoFuture%3A+Ecosistema+Digital&subtitle=%2B358%25+conversi%C3%B3n&type=case" />
         <script type="application/ld+json">{JSON.stringify(structuredData)}</script>
       </Helmet>
 

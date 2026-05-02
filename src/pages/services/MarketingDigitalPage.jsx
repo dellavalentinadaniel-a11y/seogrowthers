@@ -73,7 +73,7 @@ const MarketingDigitalPage = () => {
         <meta property="og:description" content="Estrategias de marketing digital orientadas a resultados. SEO, SEM, Social Ads y Analytics." />
         <meta property="og:url" content="https://seogrowthers.com/services/marketing-digital" />
         <meta property="og:type" content="website" />
-        <meta property="og:image" content="https://seogrowthers.com/logo.webp" />
+        <meta property="og:image" content="https://seogrowthers.com/api/og?title=Marketing+Digital&subtitle=SEO%2C+Google+Ads%2C+redes+sociales&type=service" />
         <meta name="twitter:card" content="summary_large_image" />
         <script type="application/ld+json">{JSON.stringify(structuredData)}</script>
         <script type="application/ld+json">{JSON.stringify(faqSchema)}</script>

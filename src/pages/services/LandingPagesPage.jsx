@@ -76,7 +76,7 @@ const LandingPagesPage = () => {
         <meta property="og:description" content="Landing pages optimizadas para convertir visitantes en clientes. Diseño responsive, SEO y carga rápida." />
         <meta property="og:url" content="https://seogrowthers.com/services/landing-pages" />
         <meta property="og:type" content="website" />
-        <meta property="og:image" content="https://seogrowthers.com/logo.webp" />
+        <meta property="og:image" content="https://seogrowthers.com/api/og?title=Landing+Pages&subtitle=Desde+%24800+USD+alta+conversi%C3%B3n&type=service" />
         <meta name="twitter:card" content="summary_large_image" />
         <script type="application/ld+json">{JSON.stringify(structuredData)}</script>
         <script type="application/ld+json">{JSON.stringify(faqSchema)}</script>

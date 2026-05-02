@@ -42,7 +42,7 @@ const NoCodePage = () => {
         <meta property="og:description" content="Conectamos tus aplicaciones para que la información fluya sin intervención manual. Make, Zapier, Airtable." />
         <meta property="og:url" content="https://seogrowthers.com/services/integraciones-no-code" />
         <meta property="og:type" content="website" />
-        <meta property="og:image" content="https://seogrowthers.com/logo.webp" />
+        <meta property="og:image" content="https://seogrowthers.com/api/og?title=Integraciones+No-Code&subtitle=Make%2C+Zapier%2C+Airtable&type=service" />
         <script type="application/ld+json">{JSON.stringify(structuredData)}</script>
         <script type="application/ld+json">{JSON.stringify(faqSchema)}</script>
       </Helmet>

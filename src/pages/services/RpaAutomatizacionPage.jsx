@@ -38,7 +38,7 @@ const RpaAutomatizacionPage = () => {
         <meta property="og:description" content="Bots RPA que automatizan procesos empresariales: conciliación bancaria, facturas, reportes. 24/7 sin errores." />
         <meta property="og:url" content="https://seogrowthers.com/services/rpa-automatizacion" />
         <meta property="og:type" content="website" />
-        <meta property="og:image" content="https://seogrowthers.com/logo.webp" />
+        <meta property="og:image" content="https://seogrowthers.com/api/og?title=Automatizaci%C3%B3n+RPA&subtitle=Bots+24%2F7+sin+errores&type=service" />
         <script type="application/ld+json">{JSON.stringify(structuredData)}</script>
         <script type="application/ld+json">{JSON.stringify(faqSchema)}</script>
       </Helmet>

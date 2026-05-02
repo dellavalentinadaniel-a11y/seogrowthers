@@ -23,14 +23,14 @@ const ContactPage = () => {
         <meta property="og:type" content="website" />
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:site" content="@SEOGrowthers" />
-        <meta property="og:image" content="https://seogrowthers.com/logo.webp" />
+        <meta property="og:image" content="https://seogrowthers.com/api/og?title=Contacto&subtitle=Respuesta+en+menos+de+24+horas" />
         <script type="application/ld+json">{JSON.stringify({
           "@context": "https://schema.org",
           "@type": "ProfessionalService",
           "name": "SEO Growthers",
           "url": "https://seogrowthers.com",
-          "logo": "https://seogrowthers.com/logo.webp",
-          "image": "https://seogrowthers.com/logo.webp",
+          "logo": "https://seogrowthers.com/api/og?title=Contacto&subtitle=Respuesta+en+menos+de+24+horas",
+          "image": "https://seogrowthers.com/api/og?title=Contacto&subtitle=Respuesta+en+menos+de+24+horas",
           "description": "Agencia de SEO, Desarrollo Web y Analytics en Neuquén, Argentina. Estrategias basadas en datos para crecimiento digital sostenible.",
           "telephone": "+54 9 2995504783",
           "email": "seogrowthers@gmail.com",
