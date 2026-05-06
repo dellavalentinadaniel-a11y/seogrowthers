@@ -96,7 +96,7 @@ const HomeHero = () => {
       <AnimatePresence mode="wait">
         <motion.div
           key={activeSlide.id}
-          initial={{ opacity: 0 }}
+          initial={currentSlide === 0 ? false : { opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 1.2, ease: "easeInOut" }}

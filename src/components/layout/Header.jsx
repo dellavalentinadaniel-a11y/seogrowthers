@@ -93,7 +93,7 @@ const Header = () => {
 
 
   return (
-    <header className="fixed top-0 w-full z-50 bg-[#0a0b14]/80 backdrop-blur-xl border-b border-white/10 shadow-[0_4px_20px_rgba(0,0,0,0.5)]">
+    <header className="fixed top-0 w-full z-50 bg-[#0a0b14]/90 backdrop-blur-md border-b border-white/10 shadow-[0_4px_20px_rgba(0,0,0,0.5)]">
       <div className="flex justify-between items-center px-4 md:px-8 h-16 md:h-20 w-full max-w-[1600px] mx-auto">
 
         {/* Brand */}
@@ -131,10 +131,10 @@ const Header = () => {
 
         {/* Mobile: CTA + User area */}
         <div className="flex items-center gap-2 md:gap-4 relative" ref={dropdownRef}>
-          {/* Mobile CTA button */}
+          {/* Mobile CTA button - Oculto para simplificar la vista móvil y evitar colisiones visuales */}
           <Link
             to="/auditoria-seo-gratis"
-            className="md:hidden px-3 py-2 bg-primary text-on-primary text-[10px] font-headline font-bold uppercase tracking-wider rounded-lg whitespace-nowrap min-h-[36px] flex items-center"
+            className="hidden md:hidden px-3 py-2 bg-primary text-on-primary text-[10px] font-headline font-bold uppercase tracking-wider rounded-lg whitespace-nowrap min-h-[36px] items-center"
           >
             Auditoría Gratis
           </Link>
@@ -155,7 +155,7 @@ const Header = () => {
                     animate={{ opacity: 1, y: 0, scale: 1 }}
                     exit={{ opacity: 0, y: 10, scale: 0.95 }}
                     transition={{ duration: 0.2, ease: "easeOut" }}
-                    className="absolute right-0 top-full mt-3 w-56 p-2 bg-[#0d0e17]/95 backdrop-blur-2xl border border-white/10 rounded-2xl shadow-[0_10px_40px_rgba(0,0,0,0.5)] z-[100]"
+                    className="absolute right-0 top-full mt-3 w-56 p-2 bg-[#0d0e17]/95 backdrop-blur-md border border-white/10 rounded-2xl shadow-[0_10px_40px_rgba(0,0,0,0.5)] z-[100]"
                   >
                     <div className="px-3 py-2 border-b border-white/5 mb-2">
                       <p className="text-[10px] font-label uppercase tracking-widest text-slate-500">Nodo Activo</p>

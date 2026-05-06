@@ -73,7 +73,7 @@
     background-color: #0C0D0D;
     position: relative;
   }
-  /* Parallax background via fixed pseudo-element — avoids per-scroll GPU repaint */
+  /* Background fix for LCP: avoid huge pseudo-element with will-change if possible */
   body::before {
     content: '';
     position: fixed;
@@ -83,7 +83,6 @@
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-    will-change: transform;
   }
 }
 
