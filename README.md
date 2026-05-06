@@ -58,4 +58,28 @@ A continuación se detalla el control de fases, errores hallados, soluciones apl
 - **Objetivo**: Asegurar de que ningún otro error `ReferenceError` fantasma provocase cierres en vivo. 
 - **Solución**: Se forzó una corrida completa del motor de paquetes (`npm run build`) validando con éxito toda la aplicación. Posteriormente, se consolidaron los cambios (`git commit`) argumentando la corrección de errores de interfaz y se empujó a la rama productiva de GitHub (`git push`).
 
-**Tiempo total estimado de la jornada:** ~2 horas.
+### Jornada de Estabilización y UX Móvil: 6 de Mayo de 2026
+
+En esta sesión se resolvieron bugs críticos de enrutamiento y se implementó una mejora sustancial en la experiencia de usuario móvil (UX) y SEO.
+
+#### Fase 1: Corrección de Enrutamiento Crítico (Bug de Wildcards)
+- **Problema**: Las páginas de Casos de Éxito y Testimonios eran inaccesibles debido a que la ruta dinámica `services/:slug` estaba declarada antes que las rutas específicas, capturando todo el tráfico de `/services/*`.
+- **Solución**: Se reordenó el clúster de rutas en `App.jsx`, moviendo las rutas específicas (`success-cases`, `testimonials`) antes de la ruta dinámica.
+
+#### Fase 2: Implementación de Menú Móvil y UI Fixes
+- **Problema**: El botón de "Auditoría Gratis" estaba oculto en móviles y no existía un menú de navegación lateral (hamburger menu), limitando la navegación en dispositivos táctiles.
+- **Solución**:
+  - Se creó el componente `MobileMenu.jsx` con animaciones suaves mediante Framer Motion.
+  - Se integró el menú en el `Layout` principal utilizando el contexto `MobileMenuContext`.
+  - Se habilitó el toggle del menú y se restauró la visibilidad del botón de acción (CTA) en el `Header.jsx`.
+
+#### Fase 3: Optimización SEO y Sitemap
+- **Problema**: El esquema JSON-LD de servicios apuntaba erróneamente a España como área de servicio. El `sitemap.xml` contenía URLs incorrectas (`/privacy`, `/terms`) y faltaba el foro.
+- **Solución**:
+  - Se actualizó `seoHelpers.js` para establecer **Argentina** como `areaServed` por defecto.
+  - Se corrigieron las rutas en el sitemap a `/privacy-policy` y `/terms-of-service`.
+  - Se añadió la entrada del Foro y se ajustaron las prioridades de indexación.
+
+**Estado**: Todos los cambios han sido verificados y subidos a la rama `main` de producción.
+
+**Tiempo total estimado de la jornada:** ~1.5 horas.
