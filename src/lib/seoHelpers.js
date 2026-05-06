@@ -285,7 +285,7 @@ export const generateJsonLd = (type, data) => {
         },
         areaServed: {
           '@type': 'Country',
-          name: data.areaServed || 'Spain'
+          name: data.areaServed || 'Argentina'
         },
         hasOfferCatalog: {
           '@type': 'OfferCatalog',

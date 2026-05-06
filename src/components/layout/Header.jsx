@@ -4,6 +4,7 @@ import LogoComponent from '@/components/shared/LogoComponent';
 import { supabase } from '@/lib/customSupabaseClient';
 import { motion, AnimatePresence } from 'framer-motion';
 import { toast } from '@/components/ui/use-toast';
+import { useMobileMenu } from '@/contexts/MobileMenuContext';
 
 
 
@@ -24,6 +25,7 @@ const Header = () => {
   const [profile, setProfile] = useState(null);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const dropdownRef = useRef(null);
+  const { toggleMenu, isMenuOpen } = useMobileMenu();
 
   useEffect(() => {
     const fetchProfile = async (userId) => {
@@ -129,12 +131,12 @@ const Header = () => {
           </Link>
         </nav>
 
-        {/* Mobile: CTA + User area */}
+        {/* Mobile Action Area */}
         <div className="flex items-center gap-2 md:gap-4 relative" ref={dropdownRef}>
-          {/* Mobile CTA button - Oculto para simplificar la vista móvil y evitar colisiones visuales */}
+          {/* Mobile CTA button */}
           <Link
             to="/auditoria-seo-gratis"
-            className="hidden md:hidden px-3 py-2 bg-primary text-on-primary text-[10px] font-headline font-bold uppercase tracking-wider rounded-lg whitespace-nowrap min-h-[36px] items-center"
+            className="flex md:hidden px-3 py-2 bg-primary text-on-primary text-[10px] font-headline font-bold uppercase tracking-wider rounded-lg whitespace-nowrap min-h-[36px] items-center"
           >
             Auditoría Gratis
           </Link>
@@ -143,7 +145,7 @@ const Header = () => {
             <>
               <button
                 onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-                className="h-11 w-11 rounded-full border border-primary/30 overflow-hidden flex items-center justify-center hover:border-primary transition-colors focus:outline-none focus:ring-2 focus:ring-primary/50 flex-shrink-0"
+                className="h-10 w-10 md:h-11 md:w-11 rounded-full border border-primary/30 overflow-hidden flex items-center justify-center hover:border-primary transition-colors focus:outline-none focus:ring-2 focus:ring-primary/50 flex-shrink-0"
               >
                 <img alt="User profile avatar" className="w-full h-full object-cover" src={profile?.avatar_url || "/images/iconos/guiaspersonaje.webp"}/>
               </button>
@@ -192,6 +194,17 @@ const Header = () => {
               </Link>
             )
           )}
+
+          {/* Hamburger Menu Toggle (Mobile only) */}
+          <button
+            onClick={toggleMenu}
+            className="flex md:hidden h-10 w-10 items-center justify-center rounded-lg bg-white/5 border border-white/10 text-white hover:bg-white/10 transition-colors"
+            aria-label="Menú principal"
+          >
+            <span className="material-symbols-outlined">
+              {isMenuOpen ? 'close' : 'menu'}
+            </span>
+          </button>
         </div>
 
 

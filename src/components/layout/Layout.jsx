@@ -8,11 +8,13 @@ import CustomCursor from '@/components/shared/CustomCursor';
 import BottomTabBar from '@/components/layout/BottomTabBar';
 import WhatsAppFloat from '@/components/shared/WhatsAppFloat';
 import { MobileMenuProvider } from '@/contexts/MobileMenuContext';
+import MobileMenu from '@/components/layout/MobileMenu';
 
 const Layout = () => {
   return (
     <MobileMenuProvider>
       <CustomCursor />
+      <MobileMenu />
       <div className="min-h-screen text-white overflow-x-hidden flex flex-col pb-16 md:pb-0">
         <Header />
         <main className="flex-grow">

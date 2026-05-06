@@ -108,10 +108,10 @@ function App() {
               <Route path="services/web-corporativa" element={<WebCorporativaPage />} />
               <Route path="services/ecommerce" element={<EcommercePage />} />
               <Route path="services/marketing-digital" element={<MarketingDigitalPage />} />
-              <Route path="services/:slug" element={<ServiceDetailPage />} />
               <Route path="services/success-cases" element={<SuccessCasesPage />} />
               <Route path="services/success-cases/:slug" element={<SuccessCaseDetailPage />} />
               <Route path="services/testimonials" element={<TestimonialsPage />} />
+              <Route path="services/:slug" element={<ServiceDetailPage />} />
 
               {/* Resources Cluster */}
               <Route path="resources" element={<ResourcesPage />} />
