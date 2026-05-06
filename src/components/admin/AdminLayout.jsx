@@ -7,6 +7,7 @@ import {
 } from 'lucide-react';
 import { useToast } from '@/components/ui/use-toast';
 import { Toaster } from '@/components/ui/toaster';
+import { Button } from '@/components/ui/button';
 
 const AdminLayout = () => {
   const navigate = useNavigate();

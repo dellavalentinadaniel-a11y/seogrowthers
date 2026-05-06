@@ -2,7 +2,7 @@ import React from 'react';
 import { Helmet } from 'react-helmet-async';
 import { Link } from 'react-router-dom';
 import Breadcrumbs from '@/components/layout/Breadcrumbs';
-import { InternalLinkingCTA } from '@/components/shared/InternalLinkingCTA';
+import InternalLinkingCTA from '@/components/shared/InternalLinkingCTA';
 import { trackWhatsAppClick, trackCTAClick } from '@/lib/analytics';
 
 const channels = [

@@ -6,7 +6,7 @@ import { CheckCircle2, ArrowRight, BarChart3, Globe, Zap, Users, ArrowLeft } fro
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import Breadcrumbs from '@/components/layout/Breadcrumbs';
-import { InternalLinkingCTA } from '@/components/shared/InternalLinkingCTA';
+import InternalLinkingCTA from '@/components/shared/InternalLinkingCTA';
 
 const SuccessCaseAluvalle = () => {
   const articleSchema = {
