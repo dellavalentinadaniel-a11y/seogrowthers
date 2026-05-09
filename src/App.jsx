@@ -63,6 +63,7 @@ const CategoryForm = lazy(() => import('@/pages/admin/CategoryForm'));
 const AdsManagement = lazy(() => import('@/pages/admin/AdsManagement'));
 const SeoAudit = lazy(() => import('@/pages/admin/SeoAudit'));
 const ArticlesPreview = lazy(() => import('@/pages/admin/ArticlesPreview'));
+const AdminDashboard = lazy(() => import('@/pages/admin/Dashboard'));
 
 // Placeholders (Lazy Loaded)
 const Placeholders = lazy(() => import('@/pages/Placeholders'));
@@ -153,8 +154,8 @@ function App() {
             {/* Admin Routes */}
 
             <Route path="/admin" element={<AdminLayout />}>
-              <Route index element={<ArticlesList />} />
-              <Route path="dashboard" element={<ArticlesList />} />
+              <Route index element={<AdminDashboard />} />
+              <Route path="dashboard" element={<AdminDashboard />} />
 
               {/* Articles */}
               <Route path="articles" element={<ArticlesList />} />
