@@ -1,0 +1,42 @@
+{
+  "permissions": {
+    "allow": [
+      "WebFetch(domain:seogrowthers.com)",
+      "Bash(curl -sI -o /dev/null -w \"HTTP_CODE:%{http_code}|TIME_TOTAL:%{time_total}s|TIME_CONNECT:%{time_connect}s|SIZE_DOWNLOAD:%{size_download}|REDIRECT_URL:%{redirect_url}\" https://seogrowthers.com/)",
+      "Bash(curl -sI https://seogrowthers.com/)",
+      "Bash(curl -s https://seogrowthers.com/)",
+      "Bash(curl -sI https://seogrowthers.com/favicon.ico)",
+      "Bash(curl -sI https://seogrowthers.com/favicon.svg)",
+      "Bash(curl -sI http://seogrowthers.com/)",
+      "Bash(curl -sI https://www.seogrowthers.com/)",
+      "Bash(start \"\" \"c:\\\\Users\\\\della\\\\OneDrive\\\\Escritorio\\\\seogrowthers\\\\Nueva carpeta\\\\Nueva carpeta\\\\horizons-export-4ae51224-e377-439c-9315-7d2c7f7b11c2\\\\auditoria-seo-seogrowthers.html\")",
+      "Bash(vercel --version)",
+      "Bash(npm run *)",
+      "Bash(vercel --prod --yes)",
+      "mcp__claude_ai_Supabase__list_projects",
+      "mcp__claude_ai_Supabase__execute_sql",
+      "Bash(start \"\" \"c:\\\\Users\\\\della\\\\OneDrive\\\\Escritorio\\\\seogrowthers\\\\Nueva carpeta\\\\Nueva carpeta\\\\horizons-export-4ae51224-e377-439c-9315-7d2c7f7b11c2\\\\auditoria-seo-blog.html\")",
+      "Bash(git pull *)",
+      "Bash(git add *)",
+      "Bash(git commit -m ' *)",
+      "Bash(git push *)",
+      "Bash(vercel --prod)",
+      "Bash(npx vercel *)",
+      "Bash(git commit *)",
+      "Bash(curl -s http://localhost:3000)",
+      "mcp__claude_ai_Supabase__list_tables",
+      "Bash(curl -s http://localhost:3000/resources -I)",
+      "Bash(curl -s -X POST https://kejitvcoalooiwbcwelt.supabase.co/rest/v1/newsletter_subscribers -H 'apikey: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imtlaml0dmNvYWxvb2l3YmN3ZWx0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjY4OTU3MzgsImV4cCI6MjA4MjQ3MTczOH0.FSoSs5Kpm48MVo1gziNlm_BiULhzJ1DN-fhSOMPSzmc' -H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imtlaml0dmNvYWxvb2l3YmN3ZWx0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjY4OTU3MzgsImV4cCI6MjA4MjQ3MTczOH0.FSoSs5Kpm48MVo1gziNlm_BiULhzJ1DN-fhSOMPSzmc' -H 'Content-Type: application/json' -d '{\"email\":\"test-__CMDSUB_OUTPUT__@example.com\",\"status\":\"active\",\"source\":\"cli_test\"}')",
+      "mcp__claude_ai_Vercel__deploy_to_vercel",
+      "mcp__claude_ai_Vercel__list_projects",
+      "mcp__claude_ai_Vercel__list_teams",
+      "mcp__claude_ai_Vercel__list_deployments",
+      "Bash(curl -s https://horizons-export-4ae51224-e377-439c-9315-7d2c7f7b11c2.vercel.app/resources -I)",
+      "Bash(npm install *)",
+      "Bash(curl -s http://localhost:5173)",
+      "Bash(curl -s http://localhost:3004/editor)",
+      "Bash(vercel deploy *)",
+      "Bash(curl -s \"https://horizons-export-4ae51224-e377-439c.vercel.app/editor\")"
+    ]
+  }
+}
