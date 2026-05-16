@@ -297,13 +297,13 @@ export default defineConfig({
 						if (id.includes('framer-motion')) {
 							return 'animation-vendor';
 						}
+						// Core React (must come before ui-vendor since Radix depends on React)
+						if (id.includes('react') || id.includes('react-dom') || id.includes('react-router-dom')) {
+							return 'react-vendor';
+						}
 						// Radix + utils
 						if (id.includes('@radix-ui') || id.includes('lucide-react') || id.includes('tailwind-merge') || id.includes('clsx') || id.includes('date-fns')) {
 							return 'ui-vendor';
-						}
-						// Core React
-						if (id.includes('react') || id.includes('react-dom') || id.includes('react-router-dom')) {
-							return 'react-vendor';
 						}
 					}
 				}
