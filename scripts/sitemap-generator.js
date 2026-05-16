@@ -61,29 +61,29 @@ const generateSitemap = async () => {
     // 1. Blog Articles (from 'articles' table)
     const { data: articles, error: articlesError } = await supabase
       .from('articles')
-      .select('slug, updated_at, category, status')
+      .select('slug, updated_at, created_at, category, status')
       .eq('status', 'published');
 
     // 2. News (from 'blog_news' table)
     const { data: news, error: newsError } = await supabase
       .from('blog_news')
-      .select('slug, updated_at, status')
+      .select('*')
       .eq('status', 'published');
 
     // 3. Resources
     const { data: resources, error: resourcesError } = await supabase
       .from('resources')
-      .select('slug, updated_at');
+      .select('*');
 
     // 4. Tools
     const { data: tools, error: toolsError } = await supabase
       .from('tools')
-      .select('slug, updated_at');
+      .select('*');
 
-    if (articlesError) console.warn('Articles error:', articlesError);
-    if (newsError) console.warn('News error:', newsError);
-    if (resourcesError) console.warn('Resources error:', resourcesError);
-    if (toolsError) console.warn('Tools error:', toolsError);
+    if (articlesError) console.warn('Articles error:', articlesError.message);
+    if (newsError) console.warn('News error:', newsError.message);
+    if (resourcesError) console.warn('Resources error:', resourcesError.message);
+    if (toolsError) console.warn('Tools error:', toolsError.message);
 
     let sitemap = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">`;
@@ -100,9 +100,12 @@ const generateSitemap = async () => {
     });
 
     const addRoutes = (data, prefix, priority = '0.6') => {
-      if (data) {
+      if (data && Array.isArray(data)) {
         data.forEach(item => {
-          const lastMod = item.updated_at ? new Date(item.updated_at).toISOString().split('T')[0] : new Date().toISOString().split('T')[0];
+          if (!item.slug) return; // Skip if no slug
+
+          const lastModDate = item.updated_at || item.created_at || item.published_at || new Date().toISOString();
+          const lastMod = new Date(lastModDate).toISOString().split('T')[0];
           
           // Build URL based on prefix
           let urlPath = `/${prefix}/${item.slug}`;
