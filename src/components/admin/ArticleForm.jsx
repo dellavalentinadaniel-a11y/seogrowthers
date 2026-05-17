@@ -9,7 +9,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { Switch } from '@/components/ui/switch';
 import { toast } from '@/components/ui/use-toast';
 import { useNavigate } from 'react-router-dom';
-import { AlertCircle, Save, ArrowLeft, Layout, Share2, Search, CheckCircle2, XCircle, Clock, FileText, ImageOff, BarChart2, BookOpen } from 'lucide-react';
+import { AlertCircle, Save, ArrowLeft, Layout, Share2, Search, CheckCircle2, XCircle, Clock, FileText, ImageOff, BarChart2, BookOpen, UploadCloud } from 'lucide-react';
 import {
   generateSlug,
   validateSeoTitle,
@@ -38,9 +38,14 @@ const ArticleForm = ({ initialData, isEditing = false }) => {
     published: false,
     featured_image: '',
     social_facebook: '',
-    social_x: '',
     social_whatsapp: '',
+    section: 'blog',
+    category: '',
   });
+
+  const [blogCategories, setBlogCategories] = useState([]);
+  const [newCategoryName, setNewCategoryName] = useState('');
+  const [isCreatingCategory, setIsCreatingCategory] = useState(false);
 
   const [keywordInput, setKeywordInput] = useState('');
   const [validations, setValidations] = useState({});
@@ -60,12 +65,13 @@ const ArticleForm = ({ initialData, isEditing = false }) => {
         seo_description: initialData.summary || '',
         keywords: meta.keywords || [],
         canonical_url: meta.canonical_url || '',
-        featured_image_alt: meta.featured_image_alt || '',
+        featured_image_alt: initialData.featured_image_alt || meta.featured_image_alt || '',
         published: initialData.status === 'published',
         featured_image: initialData.featured_image || '',
         social_facebook: initialData.social_meta?.facebook || '',
-        social_x: initialData.social_meta?.x || '',
         social_whatsapp: initialData.social_meta?.whatsapp || '',
+        section: initialData.section || 'blog',
+        category: initialData.category || '',
       });
       
       // Run validations on loaded data
@@ -75,7 +81,42 @@ const ArticleForm = ({ initialData, isEditing = false }) => {
         content: initialData.content_html || ''
       });
     }
+
+    const fetchCategories = async () => {
+      const { data } = await supabase.from('blog_categories').select('*').in('type', ['article', 'recurso']);
+      setBlogCategories(data || []);
+      if (data && data.length > 0 && !initialData?.category) {
+        setFormData(prev => ({ ...prev, category: data[0].name }));
+      }
+    };
+    fetchCategories();
   }, [initialData]);
+
+  const handleCreateCategory = async () => {
+    if (!newCategoryName.trim()) return;
+    setIsCreatingCategory(true);
+    const slug = generateSlug(newCategoryName);
+    const catType = formData.section === 'recursos' ? 'recurso' : 'article';
+    try {
+        const { error } = await supabase.from('blog_categories').insert([{
+            name: newCategoryName.trim(),
+            slug: slug,
+            type: catType
+        }]);
+        if (error) throw error;
+        
+        const { data } = await supabase.from('blog_categories').select('*').in('type', ['article', 'recurso']);
+        setBlogCategories(data || []);
+        setFormData(prev => ({ ...prev, category: newCategoryName.trim() }));
+        setNewCategoryName('');
+        toast({ title: 'Éxito', description: 'Categoría creada correctamente.' });
+    } catch (err) {
+        console.error('Error creating category:', err);
+        toast({ title: 'Error', description: 'No se pudo crear la categoría.', variant: 'destructive' });
+    } finally {
+        setIsCreatingCategory(false);
+    }
+  };
 
   const runValidations = (data) => {
     const titleVal = validateSeoTitle(data.seo_title);
@@ -132,6 +173,28 @@ const ArticleForm = ({ initialData, isEditing = false }) => {
     }));
   };
 
+  const handleFeaturedImageUpload = async (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+    
+    setLoading(true);
+    try {
+      const fileExt = file.name.split('.').pop();
+      const fileName = `${Math.random().toString(36).substring(2, 15)}_${Date.now()}.${fileExt}`;
+      const { error: uploadError } = await supabase.storage.from('blog-images').upload(fileName, file);
+      if (uploadError) throw uploadError;
+
+      const { data: { publicUrl } } = supabase.storage.from('blog-images').getPublicUrl(fileName);
+      handleInputChange('featured_image', publicUrl);
+      toast({ title: "Imagen subida", description: "La imagen destacada se ha cargado correctamente." });
+    } catch (err) {
+      console.error(err);
+      toast({ title: "Error al subir imagen", description: err.message, variant: "destructive" });
+    } finally {
+      setLoading(false);
+    }
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
@@ -159,7 +222,10 @@ const ArticleForm = ({ initialData, isEditing = false }) => {
         content_html: formData.content,
         summary: formData.seo_description,
         status: formData.published ? 'published' : 'draft',
+        section: formData.section,
+        category: formData.category,
         featured_image: formData.featured_image,
+        featured_image_alt: formData.featured_image_alt,
         updated_at: new Date().toISOString(),
         content: {
           seo_title: formData.seo_title || formData.title,
@@ -306,6 +372,59 @@ const ArticleForm = ({ initialData, isEditing = false }) => {
                   <p className="text-xs text-red-400 mt-1 flex items-center gap-1"><AlertCircle size={10} /> {slugError}</p>
                 )}
               </div>
+
+              <div>
+                <Label className="text-white">Sección de Publicación</Label>
+                <select
+                  value={formData.section}
+                  onChange={(e) => {
+                      const sec = e.target.value;
+                      let firstCat = '';
+                      if (sec === 'blog') firstCat = blogCategories.find(c => c.type === 'article')?.name || '';
+                      if (sec === 'recursos') firstCat = blogCategories.find(c => c.type === 'recurso')?.name || '';
+                      setFormData(prev => ({ ...prev, section: sec, category: firstCat || prev.category }));
+                  }}
+                  className="w-full h-10 mt-1 bg-slate-800 border border-slate-700 rounded-md px-3 text-sm text-white focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent"
+                >
+                  <option value="blog">Blog</option>
+                  <option value="foro">Foro</option>
+                  <option value="recursos">Recursos</option>
+                  <option value="herramientas">Herramientas</option>
+                </select>
+                <p className="text-xs text-slate-400 mt-1">Define dónde se publicará el contenido.</p>
+              </div>
+
+              {(formData.section === 'blog' || formData.section === 'recursos') && (
+                <div className="pt-2">
+                  <Label className="text-white">Categoría de {formData.section === 'blog' ? 'Blog' : 'Recursos'}</Label>
+                  <select
+                    value={formData.category}
+                    onChange={(e) => handleInputChange('category', e.target.value)}
+                    className="w-full h-10 mt-1 bg-slate-800 border border-slate-700 rounded-md px-3 text-sm text-white focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent mb-2"
+                  >
+                    {blogCategories.filter(c => c.type === (formData.section === 'recursos' ? 'recurso' : 'article')).map(cat => (
+                      <option key={cat.id} value={cat.name}>{cat.name}</option>
+                    ))}
+                  </select>
+                  <div className="flex gap-2">
+                    <Input 
+                        value={newCategoryName}
+                        onChange={e => setNewCategoryName(e.target.value)}
+                        placeholder="Nueva categoría..."
+                        className="bg-slate-800 border-slate-700 text-white h-9"
+                    />
+                    <Button 
+                        type="button" 
+                        onClick={handleCreateCategory} 
+                        disabled={isCreatingCategory || !newCategoryName.trim()}
+                        className="bg-cyan-600 hover:bg-cyan-700 text-white h-9"
+                        size="sm"
+                    >
+                        {isCreatingCategory ? '...' : 'Añadir'}
+                    </Button>
+                  </div>
+                </div>
+              )}
 
               <div>
                 <Label className="text-white">URL Canónica (Opcional)</Label>
@@ -540,12 +659,30 @@ const ArticleForm = ({ initialData, isEditing = false }) => {
 
            <div className="bg-slate-900 border border-slate-800 rounded-xl p-6">
             <h3 className="text-lg font-semibold text-white mb-4">Imagen Destacada</h3>
-             <Input
-                value={formData.featured_image}
-                onChange={(e) => handleInputChange('featured_image', e.target.value)}
-                placeholder="URL de imagen..."
-                className="bg-slate-800 border-slate-700 text-white mb-4"
-              />
+            
+            <div className="mb-4">
+              {formData.featured_image ? (
+                <div className="relative rounded-lg overflow-hidden border border-slate-700 mb-3 group">
+                  <img src={formData.featured_image} alt="Vista previa" className="w-full h-48 object-cover" />
+                  <div className="absolute inset-0 bg-black/60 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                    <Button type="button" variant="destructive" onClick={() => handleInputChange('featured_image', '')}>
+                      Quitar Imagen
+                    </Button>
+                  </div>
+                </div>
+              ) : (
+                <div className="border-2 border-dashed border-slate-700 rounded-lg p-8 text-center flex flex-col items-center justify-center mb-3 bg-slate-800/50 hover:bg-slate-800 transition-colors">
+                  <UploadCloud className="w-10 h-10 text-slate-500 mb-2" />
+                  <p className="text-sm text-slate-400 mb-4">Sube la portada del artículo</p>
+                  <Input
+                    type="file"
+                    accept="image/*"
+                    onChange={handleFeaturedImageUpload}
+                    className="max-w-xs cursor-pointer"
+                  />
+                </div>
+              )}
+            </div>
             <div>
               <Label className="text-white">Texto Alternativo (Alt Text)</Label>
               <Input

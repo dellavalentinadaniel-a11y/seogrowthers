@@ -40,10 +40,13 @@ const CreatePostPage = () => {
     const [showSuccessModal, setShowSuccessModal] = useState(false);
     const [publishedUrl, setPublishedUrl] = useState('');
     const [publishedTitle, setPublishedTitle] = useState('');
+    const [newCategoryName, setNewCategoryName] = useState('');
+    const [isCreatingCategory, setIsCreatingCategory] = useState(false);
     const [formData, setFormData] = useState({
         title: '',
         content: '',
         excerpt: '',
+        section: forumMode ? 'Foro' : 'Blog',
         category: initialCategory,
         featured_image: '',
         meta_title: '',
@@ -97,7 +100,7 @@ const CreatePostPage = () => {
             const { data } = await supabase
                 .from('blog_categories')
                 .select('*')
-                .eq('type', 'article');
+                .in('type', ['article', 'recurso']);
             setCategories(data || []);
             if (data && data.length > 0 && !initialCategory) {
                 setFormData(prev => ({ ...prev, category: data[0].name }));
@@ -113,6 +116,7 @@ const CreatePostPage = () => {
                         title: data.title || '',
                         content: data.content_html || data.content || '',
                         excerpt: data.summary || '',
+                        section: data.section || (forumMode ? 'Foro' : 'Blog'),
                         category: data.category || '',
                         featured_image: data.featured_image || '',
                         meta_title: data.meta_title || '',
@@ -145,6 +149,33 @@ const CreatePostPage = () => {
         setFormData(prev => ({ ...prev, content: html }));
     };
 
+    const handleCreateCategory = async () => {
+        if (!newCategoryName.trim()) return;
+        setIsCreatingCategory(true);
+        const slug = generateSlug(newCategoryName);
+        const catType = formData.section === 'Recursos' ? 'recurso' : 'article';
+        try {
+            const { error } = await supabase.from('blog_categories').insert([{
+                name: newCategoryName.trim(),
+                slug: slug,
+                type: catType
+            }]);
+            if (error) throw error;
+            
+            // Reload categories
+            const { data } = await supabase.from('blog_categories').select('*').in('type', ['article', 'recurso']);
+            setCategories(data || []);
+            setFormData(prev => ({ ...prev, category: newCategoryName.trim() }));
+            setNewCategoryName('');
+            toast({ title: 'Éxito', description: 'Categoría creada correctamente.' });
+        } catch (err) {
+            console.error('Error creating category:', err);
+            toast({ title: 'Error', description: 'No se pudo crear la categoría.', variant: 'destructive' });
+        } finally {
+            setIsCreatingCategory(false);
+        }
+    };
+
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -168,6 +199,7 @@ const CreatePostPage = () => {
                 slug: slug,
                 content_html: formData.content,
                 summary: formData.excerpt || formData.content.substring(0, 150) + '...',
+                section: formData.section,
                 category: formData.category || 'Comunidad',
                 featured_image: formData.featured_image,
                 meta_title: formData.meta_title,
@@ -339,24 +371,69 @@ const CreatePostPage = () => {
 
                                             <div>
                                                 <label className="text-[10px] font-bold text-gray-500 uppercase tracking-widest flex items-center gap-2 mb-2">
-                                                    <Tag size={12} /> Categoría
+                                                    <Tag size={12} /> Sección de Publicación
                                                 </label>
                                                 <div className="flex flex-wrap gap-2">
-                                                    {['Debates', 'Preguntas', 'Showcase'].map((cat) => (
+                                                    {['Blog', 'Foro', 'Recursos', 'Herramientas'].map((sec) => (
                                                         <button
-                                                            key={cat} type="button"
-                                                            onClick={() => setFormData(prev => ({ ...prev, category: cat }))}
+                                                            key={sec} type="button"
+                                                            onClick={() => {
+                                                                let firstCat = '';
+                                                                if (sec === 'Blog') firstCat = categories.find(c => c.type === 'article')?.name || '';
+                                                                if (sec === 'Recursos') firstCat = categories.find(c => c.type === 'recurso')?.name || '';
+                                                                setFormData(prev => ({ ...prev, section: sec, category: firstCat || prev.category }));
+                                                            }}
                                                             className={`px-3 py-1.5 rounded-lg border text-[10px] font-bold transition-all ${
-                                                                formData.category === cat
+                                                                formData.section === sec
                                                                 ? 'bg-cyan-500 border-cyan-400 text-[#0C0D0D]'
                                                                 : 'bg-slate-800 border-slate-700 text-slate-400 hover:border-slate-600'
                                                             }`}
                                                         >
-                                                            {cat}
+                                                            {sec}
                                                         </button>
                                                     ))}
                                                 </div>
                                             </div>
+
+                                            {(formData.section === 'Blog' || formData.section === 'Recursos') && (
+                                                <div>
+                                                    <label className="text-[10px] font-bold text-gray-500 uppercase tracking-widest flex items-center gap-2 mb-2">
+                                                        <Tag size={12} /> Categoría de {formData.section}
+                                                    </label>
+                                                    <div className="flex flex-wrap gap-2 mb-3">
+                                                        {categories.filter(c => c.type === (formData.section === 'Recursos' ? 'recurso' : 'article')).map((cat) => (
+                                                            <button
+                                                                key={cat.id} type="button"
+                                                                onClick={() => setFormData(prev => ({ ...prev, category: cat.name }))}
+                                                                className={`px-3 py-1.5 rounded-lg border text-[10px] font-bold transition-all ${
+                                                                    formData.category === cat.name
+                                                                    ? 'bg-cyan-500 border-cyan-400 text-[#0C0D0D]'
+                                                                    : 'bg-slate-800 border-slate-700 text-slate-400 hover:border-slate-600'
+                                                                }`}
+                                                            >
+                                                                {cat.name}
+                                                            </button>
+                                                        ))}
+                                                    </div>
+                                                    <div className="flex gap-2">
+                                                        <Input 
+                                                            value={newCategoryName}
+                                                            onChange={e => setNewCategoryName(e.target.value)}
+                                                            placeholder="Nueva categoría..."
+                                                            className="bg-slate-950 border-slate-800 focus:border-cyan-500/50 text-white text-xs"
+                                                        />
+                                                        <Button 
+                                                            type="button" 
+                                                            onClick={handleCreateCategory} 
+                                                            disabled={isCreatingCategory || !newCategoryName.trim()}
+                                                            className="bg-cyan-600 hover:bg-cyan-700 text-white"
+                                                            size="sm"
+                                                        >
+                                                            {isCreatingCategory ? <Loader2 className="w-4 h-4 animate-spin" /> : 'Añadir'}
+                                                        </Button>
+                                                    </div>
+                                                </div>
+                                            )}
                                         </div>
                                     </div>
                                 </TabsContent>
