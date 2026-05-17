@@ -20,6 +20,9 @@ import {
 import TextAlign from '@tiptap/extension-text-align';
 import Highlight from '@tiptap/extension-highlight';
 import FontFamily from '@tiptap/extension-font-family';
+import CodeBlockLowlight from '@tiptap/extension-code-block';
+import { ReactNodeViewRenderer } from '@tiptap/react';
+import CodeBlockNodeView from './CodeBlockNodeView';
 import {
   Bold, Italic, Underline, Strikethrough, Code,
   Heading1, Heading2, Heading3,
@@ -988,13 +991,19 @@ const EditorUpdater = ({ content, editor }) => {
   return null;
 };
 
+const CustomCodeBlock = CodeBlockLowlight.extend({
+  addNodeView() {
+    return ReactNodeViewRenderer(CodeBlockNodeView);
+  },
+});
+
 const DEFAULT_EXTENSIONS = [
   StarterKit.configure({
     bulletList: { HTMLAttributes: { class: "list-disc list-outside leading-3 -mt-2" } },
     orderedList: { HTMLAttributes: { class: "list-decimal list-outside leading-3 -mt-2" } },
     listItem: { HTMLAttributes: { class: "leading-normal -mb-2" } },
     blockquote: { HTMLAttributes: { class: "border-l-4 border-cyan-500 pl-4 py-2 italic text-gray-300" } },
-    codeBlock: { HTMLAttributes: { class: "rounded-sm bg-slate-800 p-4 font-mono font-medium text-gray-200" } },
+    codeBlock: false, // Disabling default to use our CustomCodeBlock
     code: { HTMLAttributes: { class: "rounded-md bg-slate-800 px-1.5 py-1 font-mono font-medium text-gray-200" } },
     horizontalRule: { HTMLAttributes: { class: "border-t border-slate-700 my-8" } },
     table: { HTMLAttributes: { class: "border-collapse border border-slate-700 w-full my-4" } },
@@ -1003,6 +1012,7 @@ const DEFAULT_EXTENSIONS = [
     tableCell: { HTMLAttributes: { class: "border border-slate-700 p-2" } },
     dropcursor: { color: "#06b6d4", width: 2 },
   }),
+  CustomCodeBlock,
   TiptapLink.configure({
     HTMLAttributes: { class: "text-cyan-500 underline underline-offset-4 cursor-pointer hover:text-cyan-400" },
   }),

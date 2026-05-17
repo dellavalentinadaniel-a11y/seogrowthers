@@ -267,18 +267,13 @@ export default defineConfig({
 			'@': path.resolve(__dirname, './src'),
 		},
 	},
+	esbuild: {
+		drop: ['console', 'debugger'],
+	},
 	build: {
 		target: ['es2020', 'edge88', 'firefox78', 'chrome87', 'safari14'],
 		cssCodeSplit: true,
-		reportCompressedSize: true,
-		minify: 'terser',
-		terserOptions: {
-			compress: {
-				drop_console: true,
-				drop_debugger: true,
-				pure_funcs: ['console.log', 'console.info', 'console.debug'],
-			},
-		},
+		reportCompressedSize: false,
 		rollupOptions: {
 			external: [
 				'@babel/parser',
