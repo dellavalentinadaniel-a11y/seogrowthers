@@ -5,7 +5,7 @@ import Layout from '@/components/layout/Layout';
 import ScrollToTop from '@/components/layout/ScrollToTop';
 import CookieBanner from '@/components/layout/CookieBanner';
 import PageLoader from '@/components/shared/PageLoader';
-import { Analytics } from '@vercel/analytics/react';
+
 
 import { AnimatePresence } from 'framer-motion';
 
@@ -80,7 +80,7 @@ function App() {
   const location = useLocation();
   return (
     <HelmetProvider>
-      <Analytics />
+
       <ScrollToTop />
       <CookieBanner />
       <AnimatePresence mode="wait">
