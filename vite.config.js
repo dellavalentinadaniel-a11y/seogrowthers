@@ -275,12 +275,6 @@ export default defineConfig({
 		cssCodeSplit: true,
 		reportCompressedSize: false,
 		rollupOptions: {
-			external: [
-				'@babel/parser',
-				'@babel/traverse',
-				'@babel/generator',
-				'@babel/types'
-			],
 			output: {
 				manualChunks(id) {
 					if (id.includes('node_modules')) {
@@ -308,10 +302,7 @@ export default defineConfig({
 						if (id.includes('framer-motion')) {
 							return 'animation-vendor';
 						}
-						// Core React (must come before ui-vendor since Radix depends on React)
-						if (id.includes('react-dom')) {
-							return 'react-dom-vendor';
-						}
+						// React and React-DOM must be in same chunk to share instance
 						if (id.includes('react') || id.includes('react-router-dom') || id.includes('scheduler')) {
 							return 'react-vendor';
 						}
