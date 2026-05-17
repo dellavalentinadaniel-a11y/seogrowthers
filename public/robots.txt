@@ -14,15 +14,12 @@ Disallow: /blog/edit/
 
 # Block API and utility paths
 Disallow: /api/
-Disallow: /assets/
-Disallow: /*.json$
 
 # Crawl-delay for polite crawling
 Crawl-delay: 1
 
 # Sitemaps
 Sitemap: https://seogrowthers.com/sitemap.xml
-Sitemap: https://kejitvcoalooiwbcwelt.supabase.co/functions/v1/sitemap
 
 # AI crawlers - allow for AI SEO (AEO)
 User-agent: GPTBot
@@ -37,5 +34,18 @@ Allow: /
 User-agent: PerplexityBot
 Allow: /
 
+User-agent: Googlebot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+# Block malicious crawlers
 User-agent: Bytespider
 Disallow: /
+
+User-agent: AhrefsBot
+Crawl-delay: 10
+
+User-agent: SemrushBot
+Crawl-delay: 10
