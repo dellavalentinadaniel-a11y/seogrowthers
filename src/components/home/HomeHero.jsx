@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { m, AnimatePresence } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { ChevronRight, ArrowRight, BookOpen } from 'lucide-react';
@@ -15,7 +15,7 @@ const HomeHero = () => {
       type: 'welcome',
       title: 'Bienvenido a SEO Growthers',
       subtitle: 'Soluciones expertas en Web Development, SEO & Analytics para escalar tus resultados digitales.',
-      image: '/images/fondo/site-background.webp',
+      image: '/images/fondo/professional-banner.jpg',
       link: '/services',
       cta: 'Solicitar Auditoría Gratuita'
     },
@@ -35,7 +35,13 @@ const HomeHero = () => {
 
   const fetchCarouselData = useCallback(async () => {
     try {
-
+      // Fetch latest 3 published blog articles
+      const { data: articlesData } = await supabase
+        .from('articles')
+        .select('id, title, summary, featured_image, slug, category, status')
+        .eq('status', 'published')
+        .order('created_at', { ascending: false })
+        .limit(3);
 
       // Fetch latest 2 resources
       const { data: resourcesData } = await supabase
@@ -45,8 +51,22 @@ const HomeHero = () => {
         .limit(2);
 
       const dynamicSlides = [];
+      const dynamicArticles = [];
 
-
+      if (articlesData) {
+        articlesData.forEach(article => {
+          dynamicArticles.push({
+            id: `article-${article.id}`,
+            type: 'article',
+            title: article.title,
+            subtitle: article.summary || 'Descubre nuestras últimas guías estratégicas y análisis del sector.',
+            image: article.featured_image || 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1200&q=80',
+            link: `/blog/${article.category || 'general'}/${article.slug}`,
+            cta: 'Leer Artículo',
+            badge: `Blog: ${article.category || 'Estrategia'}`
+          });
+        });
+      }
 
       if (resourcesData) {
         resourcesData.forEach(resource => {
@@ -55,7 +75,7 @@ const HomeHero = () => {
             type: 'resource',
             title: resource.title,
             subtitle: resource.description || 'Explora nuestra biblioteca técnica avanzada.',
-            image: resource.image || 'https://images.unsplash.com/photo-1451187580459-43490279c0fa',
+            image: resource.image || 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=1200&q=80',
             link: resource.link || '/resources',
             cta: 'Ver Recurso',
             badge: 'Recursos Exclusivos'
@@ -63,7 +83,10 @@ const HomeHero = () => {
         });
       }
 
-      setSlides(prev => [prev[0], ...dynamicSlides]);
+      setSlides(prev => {
+        const baseSlides = prev.filter(slide => slide.id === 'welcome' || slide.id === 'aluvalle-hero');
+        return [...baseSlides, ...dynamicArticles, ...dynamicSlides];
+      });
     } catch (error) {
       console.error('Error fetching carousel data:', error);
     } finally {
@@ -75,13 +98,13 @@ const HomeHero = () => {
     fetchCarouselData();
   }, [fetchCarouselData]);
 
-  // Auto-advance logic
+  // Auto-advance logic - Speed reduced to 10 seconds (10000ms) for comfortable reading
   useEffect(() => {
     if (slides.length <= 1) return;
 
     const interval = setInterval(() => {
       setCurrentSlide((prev) => (prev + 1) % slides.length);
-    }, 7000); // 7 seconds per slide
+    }, 10000); // 10 seconds per slide
 
     return () => clearInterval(interval);
   }, [slides.length]);
@@ -92,9 +115,10 @@ const HomeHero = () => {
   const activeSlide = slides[currentSlide];
 
   return (
-    <section className="relative w-full h-[520px] sm:h-[600px] md:h-[750px] flex items-center justify-center overflow-hidden">
+    <section className="relative w-full h-[520px] sm:h-[600px] md:h-[750px] flex items-center justify-center overflow-hidden pt-16 md:pt-20">
+      {/* Professional Background with Image */}
       <AnimatePresence mode="wait">
-        <motion.div
+        <m.div
           key={activeSlide.id}
           initial={currentSlide === 0 ? false : { opacity: 0 }}
           animate={{ opacity: 1 }}
@@ -103,75 +127,89 @@ const HomeHero = () => {
           className="absolute inset-0 z-0 h-full w-full"
         >
           <div className="relative w-full h-full">
-            <ImageOptimized
-              src={activeSlide.image}
-              alt={activeSlide.title}
-              className="w-full h-full object-cover"
-              priority={currentSlide === 0}
-              fetchPriority={currentSlide === 0 ? "high" : "auto"}
-              width={1920}
-              height={1080}
-            />
-            {/* Multi-layered overlay for depth and "Neural" feel */}
-            <div className="absolute inset-0 bg-gradient-to-b from-[#0a0e27]/80 via-[#0a0e27]/40 to-transparent pointer-events-none"></div>
-            <div className="absolute inset-0 bg-cyan-950/20 mix-blend-color pointer-events-none"></div>
-            
-            {/* Animated particles or grain could go here */}
-            <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/asfalt-dark.png')] opacity-10 pointer-events-none"></div>
+            {currentSlide === 0 ? (
+              <div className="w-full h-full bg-gradient-to-br from-[#0a1219] via-[#0d1b28] to-[#0a2235] overflow-hidden">
+                {/* Decorative grid background */}
+                <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(6,182,212,0.1),rgba(6,182,212,0))] pointer-events-none" />
+                <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_80%_at_100%_0%,rgba(30,144,255,0.05),transparent)] pointer-events-none" />
+
+                {/* Professional background image as overlay */}
+                <img
+                  src="/images/fondo/professional-banner.jpg"
+                  alt="Professional Banner"
+                  className="absolute inset-0 w-full h-full object-cover opacity-75"
+                />
+
+                {/* Sophisticated overlay gradients */}
+                <div className="absolute inset-0 bg-gradient-to-r from-[#0a1219]/90 via-[#0d1b28]/40 to-transparent pointer-events-none" />
+                <div className="absolute inset-0 bg-gradient-to-b from-[#0a1219]/60 via-transparent to-[#0d1b28]/80 pointer-events-none" />
+              </div>
+            ) : (
+              <>
+                <ImageOptimized
+                  src={activeSlide.image}
+                  alt={activeSlide.title}
+                  className="w-full h-full object-cover"
+                  priority={currentSlide === 0}
+                  fetchPriority="auto"
+                  width={1920}
+                  height={1080}
+                />
+                <div className="absolute inset-0 bg-gradient-to-b from-[#0a0e27]/80 via-[#0a0e27]/40 to-transparent pointer-events-none"></div>
+              </>
+            )}
           </div>
-        </motion.div>
+        </m.div>
       </AnimatePresence>
 
       <div className="container mx-auto px-6 relative z-10">
-        <div className="max-w-4xl">
+        <div className="max-w-5xl">
           <AnimatePresence mode="wait">
-            <motion.div
+            <m.div
               key={`content-${activeSlide.id}`}
-              initial={{ opacity: 0, x: -20 }}
-              animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: 20 }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-              className="flex flex-col items-start"
+              initial={{ opacity: 0, x: -30, y: 10 }}
+              animate={{ opacity: 1, x: 0, y: 0 }}
+              exit={{ opacity: 0, x: 30, y: -10 }}
+              transition={{ duration: 0.7, delay: 0.1 }}
+              className="flex flex-col items-start gap-4"
             >
-              {/* Badge */}
-              <div className="flex items-center gap-3 mb-6">
-                <span className="w-8 h-[1px] bg-cyan-500/50"></span>
-                <span className="text-[10px] md:text-xs font-bold tracking-[0.3em] text-cyan-400 uppercase">
-                  {activeSlide.badge || 'Sistema Neural Operativo'}
-                </span>
-              </div>
+              {/* Premium Accent Line */}
+              {activeSlide.type !== 'welcome' && (
+                <div className="h-1 w-16 bg-gradient-to-r from-cyan-400 to-cyan-500 rounded-full" />
+              )}
 
-              {activeSlide.type === 'welcome' && (
-                <div className="mb-8 p-3 rounded-2xl bg-white/5 backdrop-blur-xl border border-white/10 shadow-2xl animate-float">
-                  <LogoComponent size="large" variant="icon-only" isLink={false} />
+              {/* Badge */}
+              {activeSlide.badge && (
+                <div className="flex items-center gap-3">
+                  <span className="text-[11px] md:text-xs font-bold tracking-[0.3em] text-cyan-300 uppercase bg-cyan-500/10 px-4 py-1.5 rounded-full border border-cyan-500/30">
+                    {activeSlide.badge}
+                  </span>
                 </div>
               )}
 
-              <h1 className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-extrabold text-white mb-4 md:mb-6 leading-[1.1] tracking-tight">
-                {activeSlide.type === 'welcome' ? (
-                  <>
-                    Bienvenido a <br/>
-                    <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-blue-400 to-cyan-500 animate-gradient-x">
-                      SEO Growthers
-                    </span>
-                  </>
-                ) : (
+              {/* Main Heading */}
+              {activeSlide.type !== 'welcome' && (
+                <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black text-white mb-2 md:mb-4 leading-[1.15] tracking-tighter">
                   <span className="line-clamp-2 md:line-clamp-none">{activeSlide.title}</span>
-                )}
-              </h1>
+                </h1>
+              )}
 
-              <p className="text-base md:text-xl text-gray-300 mb-6 md:mb-10 max-w-2xl font-body font-light leading-relaxed">
-                {activeSlide.subtitle}
-              </p>
+              {/* Subtitle */}
+              {activeSlide.type !== 'welcome' && (
+                <p className="text-base md:text-lg text-gray-200 mb-6 md:mb-8 max-w-3xl font-body leading-relaxed">
+                  {activeSlide.subtitle}
+                </p>
+              )}
 
-              <div className="flex flex-wrap gap-4 items-center">
+              {/* CTA Buttons */}
+              <div className={`flex flex-col sm:flex-row flex-wrap gap-4 items-start ${activeSlide.type === 'welcome' ? 'mt-[160px] sm:mt-[220px] md:mt-[280px]' : ''}`}>
                 <Link to={activeSlide.link}>
                   <Button
                     size="lg"
-                    className="group bg-cyan-500 hover:bg-cyan-400 text-black font-bold text-sm md:text-base px-6 md:px-10 py-5 md:py-7 rounded-2xl shadow-[0_0_30px_rgba(6,182,212,0.3)] hover:shadow-[0_0_50px_rgba(6,182,212,0.5)] transition-all duration-500 hover:scale-[1.02] active:scale-[0.98]"
+                    className="group bg-gradient-to-r from-cyan-500 to-cyan-600 hover:from-cyan-400 hover:to-cyan-500 text-black font-black text-sm md:text-base px-8 md:px-12 py-6 md:py-8 rounded-xl shadow-[0_0_30px_rgba(6,182,212,0.3)] hover:shadow-[0_0_50px_rgba(6,182,212,0.5)] transition-all duration-500 hover:scale-105 active:scale-95"
                   >
                     {activeSlide.cta}
-                    <ArrowRight className="ml-3 w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                    <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
                   </Button>
                 </Link>
 
@@ -180,14 +218,14 @@ const HomeHero = () => {
                     <Button
                       variant="outline"
                       size="lg"
-                      className="bg-[#0a0e27]/40 backdrop-blur-md border border-white/10 text-white hover:bg-white/10 font-semibold text-sm md:text-base px-6 md:px-8 py-5 md:py-7 rounded-2xl transition-all duration-300"
+                      className="bg-white/5 backdrop-blur-md border border-cyan-400/30 text-white hover:bg-cyan-500/10 hover:border-cyan-400/50 font-semibold text-sm md:text-base px-8 md:px-10 py-6 md:py-8 rounded-xl transition-all duration-300 hover:translate-y-[-2px]"
                     >
                       Casos de Éxito
                     </Button>
                   </Link>
                 )}
               </div>
-            </motion.div>
+            </m.div>
           </AnimatePresence>
         </div>
       </div>

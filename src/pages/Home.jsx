@@ -4,6 +4,7 @@ import { Helmet } from 'react-helmet-async';
 import { useInView } from 'react-intersection-observer';
 import HomeHero from '@/components/home/HomeHero';
 import SectionAnimator from '@/components/home/SectionAnimator';
+import TechMarquee from '@/components/shared/TechMarquee';
 
 // Below-fold sections: lazy-loaded after scroll to reduce initial JS parse cost
 const UnifiedCarousel = lazy(() => import('@/components/home/UnifiedCarousel'));
@@ -145,6 +146,12 @@ const Home = () => {
 
       <main className="min-h-screen">
         <HomeHero />
+
+        <SectionAnimator>
+          <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-24 mb-16">
+            <TechMarquee />
+          </div>
+        </SectionAnimator>
 
         <Suspense fallback={null}>
           <SectionAnimator>

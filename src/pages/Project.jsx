@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
-import { motion } from 'framer-motion';
+import { m } from 'framer-motion';
 import Stats from '@/components/home/Stats';
 import SectionAnimator from '@/components/home/SectionAnimator';
 import { Button } from '@/components/ui/button';
@@ -189,7 +189,7 @@ const Project = () => {
     window.scrollTo(0, 0);
   }, [projectId]);
 
-  return <motion.div initial="initial" animate="in" exit="out" variants={pageVariants} transition={pageTransition} className="text-white">
+  return <m.div initial="initial" animate="in" exit="out" variants={pageVariants} transition={pageTransition} className="text-white">
       <Helmet>
         <title>{project.title} - Project Showcase</title>
         <meta name="description" content={`Details of the ${project.title} project, showcasing our creative solutions and results.`} />
@@ -276,6 +276,6 @@ const Project = () => {
         </SectionAnimator>
 
       </main>
-    </motion.div>;
+    </m.div>;
 };
 export default Project;

@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { Helmet } from 'react-helmet-async';
-import { motion } from 'framer-motion';
+import { m } from 'framer-motion';
 import { CheckCircle2, ArrowRight, BarChart3, Globe, Zap, Users, ArrowLeft } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
@@ -52,7 +52,7 @@ const SuccessCaseAluvalle = () => {
         <Breadcrumbs className="mb-4" />
         
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-          <motion.div 
+          <m.div
             initial={{ opacity: 0, x: -30 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8 }}
@@ -83,9 +83,9 @@ const SuccessCaseAluvalle = () => {
               Ver sitio web en vivo
               <ArrowRight size={16} className="ml-1 transition-transform group-hover:translate-x-1" />
             </a>
-          </motion.div>
-          
-          <motion.div 
+          </m.div>
+
+          <m.div
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.8 }}
@@ -97,7 +97,7 @@ const SuccessCaseAluvalle = () => {
               alt="Aluvalle Preview" 
               className="relative rounded-3xl border border-white/10 shadow-2xl w-full h-auto"
             />
-          </motion.div>
+          </m.div>
         </div>
       </section>
 
@@ -106,7 +106,7 @@ const SuccessCaseAluvalle = () => {
         <div className="container mx-auto px-6">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {metrics.map((metric, idx) => (
-              <motion.div 
+              <m.div
                 key={idx}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -123,7 +123,7 @@ const SuccessCaseAluvalle = () => {
                   <ArrowRight size={16} className="text-cyan-500" />
                   <span className="text-3xl font-bold text-white">{metric.after}</span>
                 </div>
-              </motion.div>
+              </m.div>
             ))}
           </div>
         </div>
@@ -133,7 +133,7 @@ const SuccessCaseAluvalle = () => {
       <section className="container mx-auto px-6 max-w-4xl">
         <div className="space-y-16">
           {/* El Desafío */}
-          <motion.div 
+          <m.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -157,10 +157,10 @@ const SuccessCaseAluvalle = () => {
                 </li>
               ))}
             </ul>
-          </motion.div>
+          </m.div>
 
           {/* Nuestra Solución */}
-          <motion.div 
+          <m.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -195,10 +195,10 @@ const SuccessCaseAluvalle = () => {
                 />
               </div>
             </div>
-          </motion.div>
+          </m.div>
 
           {/* Conclusión */}
-          <motion.div 
+          <m.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -226,7 +226,7 @@ const SuccessCaseAluvalle = () => {
                 Explorar aluvalle.store
               </a>
             </div>
-          </motion.div>
+          </m.div>
         </div>
         <InternalLinkingCTA variant="services" />
       </section>

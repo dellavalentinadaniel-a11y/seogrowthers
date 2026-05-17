@@ -29,6 +29,12 @@ const ToolsPage = () => {
       {/* Main Canvas */}
       <main className="pt-32 pb-32 px-6 md:px-12 lg:px-24 max-w-7xl mx-auto min-h-[calc(100vh-100px)]">
         <Breadcrumbs className="mb-4" />
+        
+        {/* Recent Articles Hero Carousel */}
+        <div className="mb-16">
+          <RecentArticlesCarousel title="Destacados del Blog" subtitle="EXPLORA LO ÚLTIMO" />
+        </div>
+
         {/* Hero/Section Title */}
         <div className="mb-16">
           <span className="font-label text-primary tracking-[0.2em] text-xs uppercase mb-4 block">Laboratorio de Arquitectura</span>
@@ -38,10 +44,6 @@ const ToolsPage = () => {
           <p className="max-w-2xl text-on-surface-variant text-lg leading-relaxed">
             Accede a utilidades de alto rendimiento diseñadas para el flujo de trabajo del ingeniero de 2026. Analizadores neuronales, simulación de nodos y terminales de baja latencia.
           </p>
-        </div>
-
-        <div className="mb-20">
-          <RecentArticlesCarousel title="Documentación & Tutoriales" subtitle="LATEST TOOLS" />
         </div>
 
         {/* Bento Grid Layout */}

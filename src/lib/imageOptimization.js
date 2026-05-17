@@ -2,7 +2,7 @@
 export const generateSrcSet = (url, variants = [320, 640, 768, 1024, 1280, 1920]) => {
   if (!url) return '';
   
-  // Handle Unsplash images
+  // Handle Unsplash images (native resizing support)
   if (url.includes('images.unsplash.com')) {
     const baseUrl = url.split('?')[0];
     return variants
@@ -10,13 +10,14 @@ export const generateSrcSet = (url, variants = [320, 640, 768, 1024, 1280, 1920]
       .join(', ');
   }
 
-  // Handle Supabase images (if transformation is available)
+  // Supabase Image Transformation requires a paid add-on.
+  // For now, return empty string to let the browser use the plain src directly.
+  // To enable srcSet, activate "Image Transformations" in your Supabase project settings.
   if (url.includes('supabase.co/storage/v1/object/public')) {
-    return variants
-      .map(width => `${url}?width=${width}&format=webp&quality=75 ${width}w`)
-      .join(', ');
+    return '';
   }
   
+  // Relative paths (local /images/blog/...) — just return empty, src works fine
   return '';
 };
 

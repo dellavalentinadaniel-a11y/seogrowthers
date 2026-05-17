@@ -1,0 +1,18 @@
+#! web-app-expose.yaml
+# Generated code, do not edit
+apiVersion: v1
+kind: Service
+metadata:
+    name: web-app
+    namespace: horizons-export-4ae51224-e377-439c-9315-7d2c7f7b11c2
+    labels:
+        com.docker.compose.project: horizons-export-4ae51224-e377-439c-9315-7d2c7f7b11c2
+        com.docker.compose.service: web-app
+spec:
+    selector:
+        com.docker.compose.project: horizons-export-4ae51224-e377-439c-9315-7d2c7f7b11c2
+        com.docker.compose.service: web-app
+    ports:
+        - name: web-app-80
+          port: 80
+          targetPort: web-app-80

@@ -1,0 +1,33 @@
+#! web-app-deployment.yaml
+# Generated code, do not edit
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+    name: web-app
+    namespace: horizons-export-4ae51224-e377-439c-9315-7d2c7f7b11c2
+    labels:
+        com.docker.compose.project: horizons-export-4ae51224-e377-439c-9315-7d2c7f7b11c2
+        com.docker.compose.service: web-app
+spec:
+    replicas: 1
+    selector:
+        matchLabels:
+            com.docker.compose.project: horizons-export-4ae51224-e377-439c-9315-7d2c7f7b11c2
+            com.docker.compose.service: web-app
+    strategy:
+        type: Recreate
+    template:
+        metadata:
+            labels:
+                com.docker.compose.project: horizons-export-4ae51224-e377-439c-9315-7d2c7f7b11c2
+                com.docker.compose.service: web-app
+                com.docker.compose.network.app-network: "true"
+        spec:
+            restartPolicy: Always
+            containers:
+                - name: web-app
+                  image: horizons-export-4ae51224-e377-439c-9315-7d2c7f7b11c2-web-app
+                  imagePullPolicy: IfNotPresent
+                  ports:
+                    - name: web-app-80
+                      containerPort: 80

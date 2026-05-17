@@ -1,6 +1,6 @@
 import React from 'react';
 import { Helmet } from 'react-helmet-async';
-import { motion } from 'framer-motion';
+import { m } from 'framer-motion';
 import { Shield, Lock, Eye, FileText, Database } from 'lucide-react';
 
 const pageVariants = {
@@ -25,7 +25,7 @@ const Section = ({ icon: Icon, title, children }) => (
 
 const Privacy = () => {
   return (
-    <motion.div 
+    <m.div 
       initial="initial" 
       animate="in" 
       exit="out" 
@@ -111,7 +111,7 @@ const Privacy = () => {
           </a>
         </div>
       </div>
-    </motion.div>
+    </m.div>
   );
 };
 

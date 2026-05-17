@@ -73,7 +73,7 @@ const MobileMenu = () => {
               <Link
                 to="/auditoria-seo-gratis"
                 onClick={closeMenu}
-                className="mt-4 px-6 py-4 bg-primary text-on-primary text-center font-headline font-bold uppercase tracking-wider rounded-xl shadow-[0_0_20px_rgba(0,229,255,0.2)]"
+                className="mt-4 px-6 py-4 premium-btn-glow text-white text-center font-headline font-bold uppercase tracking-wider rounded-xl transition-all"
               >
                 Auditoría Gratis
               </Link>

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Helmet } from 'react-helmet-async';
-import { motion } from 'framer-motion';
+import { m } from 'framer-motion';
 import { HardDrive } from 'lucide-react';
 import InteractiveGuide from '@/components/resources/InteractiveGuide';
 import { ssdGuideData, ssdFaqs } from '@/data/ssdGuideData';
@@ -16,7 +16,7 @@ const SsdGuidePage = () => {
 
       {/* Hero Section */}
       <section className="container mx-auto px-6 mb-16 max-w-5xl text-center">
-        <motion.div
+        <m.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
@@ -38,7 +38,7 @@ const SsdGuidePage = () => {
             Aprende a elegir el SSD perfecto sin gastar de más. Desde la anatomía del disipador hasta la gestión de firmware para maximizar los 7,000 MB/s.
           </p>
           
-          <motion.div
+          <m.div
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.8, delay: 0.3 }}
@@ -49,8 +49,8 @@ const SsdGuidePage = () => {
               alt="Mascota Guías Hardware" 
               className="w-48 h-48 md:w-64 md:h-64 object-contain mx-auto drop-shadow-[0_15px_35px_rgba(59,130,246,0.5)] transition-transform duration-700 hover:scale-110 hover:-translate-y-4"
             />
-          </motion.div>
-        </motion.div>
+          </m.div>
+        </m.div>
       </section>
 
       {/* Interfaz de Guía Interactiva */}

@@ -18,7 +18,7 @@ import {
   Hash
 } from 'lucide-react';
 import ImageOptimized from '@/components/shared/ImageOptimized';
-import ForumCarousel from '@/components/forum/ForumCarousel';
+import RecentArticlesCarousel from '@/components/shared/RecentArticlesCarousel';
 import { format } from 'date-fns';
 import { es } from 'date-fns/locale';
 
@@ -123,7 +123,7 @@ const ForumPage = () => {
 
       <main className="pt-24 pb-32 px-4 md:px-8 max-w-7xl mx-auto">
         {/* Hero Forum Carousel Section */}
-        <ForumCarousel />
+        <RecentArticlesCarousel title="Destacados del Blog" subtitle="EXPLORA LO ÚLTIMO" />
 
         {/* Categories & Filters */}
         <section className="mb-10 animate-in fade-in slide-in-from-bottom-4 delay-150 duration-700">

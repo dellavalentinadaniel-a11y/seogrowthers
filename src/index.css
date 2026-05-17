@@ -86,7 +86,7 @@
   }
 }
 
-body {
+html, body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
@@ -94,6 +94,7 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
+  max-width: 100%;
 }
 
 code {
@@ -170,4 +171,115 @@ input:-webkit-autofill:active{
     -webkit-box-shadow: 0 0 0 30px #0a0b14 inset !important;
     -webkit-text-fill-color: white !important;
     transition: background-color 5000s ease-in-out 0s;
+}
+
+/* Premium Button Glow & Shimmer Animation System */
+@keyframes premium-light-sweep {
+  0% {
+    transform: translateX(-150%) skewX(-25deg);
+  }
+  100% {
+    transform: translateX(150%) skewX(-25deg);
+  }
+}
+
+@keyframes premium-neon-pulse {
+  0%, 100% {
+    box-shadow: 0 0 15px rgba(0, 229, 255, 0.45), 0 0 30px rgba(0, 229, 255, 0.2), inset 0 0 4px rgba(255, 255, 255, 0.2);
+  }
+  50% {
+    box-shadow: 0 0 25px rgba(0, 229, 255, 0.75), 0 0 45px rgba(0, 229, 255, 0.45), inset 0 0 8px rgba(255, 255, 255, 0.4);
+  }
+}
+
+@keyframes premium-neon-pulse-green {
+  0%, 100% {
+    box-shadow: 0 0 15px rgba(37, 211, 102, 0.45), 0 0 30px rgba(37, 211, 102, 0.2), inset 0 0 4px rgba(255, 255, 255, 0.2);
+  }
+  50% {
+    box-shadow: 0 0 25px rgba(37, 211, 102, 0.75), 0 0 45px rgba(37, 211, 102, 0.45), inset 0 0 8px rgba(255, 255, 255, 0.4);
+  }
+}
+
+.premium-btn-glow {
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(135deg, #00e5ff 0%, #00b0ff 50%, #0083ff 100%);
+  background-size: 200% auto;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  animation: premium-neon-pulse 3s infinite ease-in-out;
+}
+
+.premium-btn-glow::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 200%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.1) 20%,
+    rgba(255, 255, 255, 0.6) 40%,
+    rgba(255, 255, 255, 0.8) 50%,
+    rgba(255, 255, 255, 0.6) 60%,
+    rgba(255, 255, 255, 0.1) 80%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  transform: translateX(-150%) skewX(-25deg);
+  transition: none;
+  pointer-events: none;
+}
+
+.premium-btn-glow:hover::after {
+  animation: premium-light-sweep 1.2s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+.premium-btn-glow:hover {
+  background-position: right center;
+  transform: translateY(-2px) scale(1.03);
+  box-shadow: 0 0 30px rgba(0, 229, 255, 0.95), 0 0 60px rgba(0, 229, 255, 0.6) !important;
+}
+
+/* Green Glow WhatsApp Button */
+.premium-btn-glow-green {
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);
+  background-size: 200% auto;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  animation: premium-neon-pulse-green 3s infinite ease-in-out;
+}
+
+.premium-btn-glow-green::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 200%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.1) 20%,
+    rgba(255, 255, 255, 0.6) 40%,
+    rgba(255, 255, 255, 0.8) 50%,
+    rgba(255, 255, 255, 0.6) 60%,
+    rgba(255, 255, 255, 0.1) 80%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  transform: translateX(-150%) skewX(-25deg);
+  transition: none;
+  pointer-events: none;
+}
+
+.premium-btn-glow-green:hover::after {
+  animation: premium-light-sweep 1.2s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+.premium-btn-glow-green:hover {
+  background-position: right center;
+  transform: translateY(-2px) scale(1.03);
+  box-shadow: 0 0 30px rgba(37, 211, 102, 0.95), 0 0 60px rgba(37, 211, 102, 0.6) !important;
 }

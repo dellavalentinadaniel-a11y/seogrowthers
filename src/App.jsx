@@ -84,7 +84,7 @@ function App() {
 
       <ScrollToTop />
       <CookieBanner />
-      <LazyMotion features={loadFeatures} strict>
+      <LazyMotion features={loadFeatures}>
       <AnimatePresence mode="wait">
         <Suspense fallback={<PageLoader />}>
           <Routes location={location} key={location.pathname}>

@@ -1,7 +1,7 @@
-﻿import React, { useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { Link } from 'react-router-dom';
-import { motion } from 'framer-motion';
+import { m } from 'framer-motion';
 import InteractiveGuide from '@/components/resources/InteractiveGuide';
 import CustomAudioPlayer from '@/components/shared/CustomAudioPlayer';
 import CompleteGuideButton from '@/components/resources/CompleteGuideButton';
@@ -27,7 +27,7 @@ const AiStudioGuidePage = () => {
       <main className="relative pt-32 pb-32 px-8 max-w-7xl mx-auto">
         {/* Hero Section */}
         <header className="mb-24 text-center">
-          <motion.div
+          <m.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
@@ -50,13 +50,13 @@ const AiStudioGuidePage = () => {
                     <span className="material-symbols-outlined">rocket_launch</span>
                 </button>
             </div>
-          </motion.div>
+          </m.div>
         </header>
 
         {/* Bento Grid Laboratory */}
         <section className="grid grid-cols-1 md:grid-cols-12 gap-6 mb-24">
           {/* Main Terminal Card */}
-          <motion.div 
+          <m.div 
             initial={{ opacity: 0, x: -30 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
@@ -95,10 +95,10 @@ const AiStudioGuidePage = () => {
                     <div className="text-3xl font-headline font-bold text-secondary">1,024</div>
                 </div>
             </div>
-          </motion.div>
+          </m.div>
 
           {/* Side Card: Models */}
-          <motion.div 
+          <m.div 
             initial={{ opacity: 0, x: 30 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
@@ -126,7 +126,7 @@ const AiStudioGuidePage = () => {
             <div className="mt-8">
                 <img alt="Neural AI Visualization" className="w-full h-32 object-cover rounded-2xl opacity-50 grayscale hover:grayscale-0 transition-all duration-700" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBg5n88XqJWrLLSSH4RssHhhPjQnEG1fsDPlwGUuuKoRfNkD11ztY0l7M63mpx5hT3xOvmW_osbAFCZTqxIWIJioZSraxztZIftLLs_GeqURsOuG0YFhpfmPqXycvluL8VO_rx8qk6wTwbDjwwwOCeXnHnSu9_pTOlgmABwprLeW8i14jJnl-ng48HTlcsDp-4OP0mdExMHE1tfu6DMBkZSSbzTB2vnCGnET3a5hdH10BQIPWLztrbJ0YB_4F302kuZG7gg6eFseEs"/>
             </div>
-          </motion.div>
+          </m.div>
         </section>
 
         {/* Informational Section */}

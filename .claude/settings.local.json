@@ -36,7 +36,8 @@
       "Bash(curl -s http://localhost:5173)",
       "Bash(curl -s http://localhost:3004/editor)",
       "Bash(vercel deploy *)",
-      "Bash(curl -s \"https://horizons-export-4ae51224-e377-439c.vercel.app/editor\")"
+      "Bash(curl -s \"https://horizons-export-4ae51224-e377-439c.vercel.app/editor\")",
+      "mcp__claude_ai_Supabase__apply_migration"
     ]
   }
 }

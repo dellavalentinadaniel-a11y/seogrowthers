@@ -1,6 +1,6 @@
 
 import React, { useEffect, useState, useCallback } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { m, AnimatePresence } from 'framer-motion';
 import { supabase } from '@/lib/customSupabaseClient';
 import { ChevronRight, ArrowRight, BookOpen, Star } from 'lucide-react';
 import { Link } from 'react-router-dom';
@@ -128,7 +128,7 @@ const UnifiedCarousel = () => {
           onMouseLeave={() => setIsPaused(false)}
         >
           <AnimatePresence mode="wait">
-            <motion.div
+            <m.div
               key={currentIndex}
               initial={{ opacity: 0, scale: 1.05 }}
               animate={{ opacity: 1, scale: 1 }}
@@ -147,7 +147,7 @@ const UnifiedCarousel = () => {
               
               <div className="absolute inset-0 p-8 md:p-16 flex flex-col justify-end z-10">
                 <div className="max-w-3xl">
-                  <motion.div 
+                  <m.div
                     initial={{ y: 20, opacity: 0 }}
                     animate={{ y: 0, opacity: 1 }}
                     transition={{ delay: 0.2 }}
@@ -162,18 +162,18 @@ const UnifiedCarousel = () => {
                     </span>
                     <span className="text-white/30 text-xs">•</span>
                     <span className="text-white/60 text-xs font-medium uppercase tracking-widest">{items[currentIndex].tag}</span>
-                  </motion.div>
-                  
-                  <motion.h3 
+                  </m.div>
+
+                  <m.h3
                     initial={{ y: 20, opacity: 0 }}
                     animate={{ y: 0, opacity: 1 }}
                     transition={{ delay: 0.3 }}
                     className="text-3xl md:text-6xl font-bold text-white mb-4 leading-tight"
                   >
                     {items[currentIndex].title}
-                  </motion.h3>
+                  </m.h3>
 
-                  <motion.div 
+                  <m.div
                     initial={{ y: 20, opacity: 0 }}
                     animate={{ y: 0, opacity: 1 }}
                     transition={{ delay: 0.4 }}
@@ -190,18 +190,18 @@ const UnifiedCarousel = () => {
                         <span className="text-xl font-medium tracking-tight">Artículo de Interés</span>
                       </div>
                     )}
-                  </motion.div>
-                  
-                  <motion.p 
+                  </m.div>
+
+                  <m.p
                     initial={{ y: 20, opacity: 0 }}
                     animate={{ y: 0, opacity: 1 }}
                     transition={{ delay: 0.5 }}
                     className="text-gray-300 text-lg md:text-xl line-clamp-2 md:line-clamp-none max-w-2xl mb-10 font-light leading-relaxed"
                   >
                     {items[currentIndex].description}
-                  </motion.p>
+                  </m.p>
 
-                  <motion.div
+                  <m.div
                     initial={{ y: 20, opacity: 0 }}
                     animate={{ y: 0, opacity: 1 }}
                     transition={{ delay: 0.6 }}
@@ -212,10 +212,10 @@ const UnifiedCarousel = () => {
                         <ArrowRight className="ml-2 transition-transform group-hover/btn:translate-x-1" size={20} />
                       </Button>
                     </Link>
-                  </motion.div>
+                  </m.div>
                 </div>
               </div>
-            </motion.div>
+            </m.div>
           </AnimatePresence>
 
           {/* Controls */}

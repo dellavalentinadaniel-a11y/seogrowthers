@@ -17,3 +17,9 @@ yarn-error.log*
 Dockerfile
 docker-compose.yml
 README.md
+*.zip
+*.log
+.agent*
+.antigravity
+.gemini
+.claude*

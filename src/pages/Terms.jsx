@@ -1,6 +1,6 @@
 import React from 'react';
 import { Helmet } from 'react-helmet-async';
-import { motion } from 'framer-motion';
+import { m } from 'framer-motion';
 import { Scale, AlertCircle, Copyright, UserCheck, HelpCircle } from 'lucide-react';
 
 const pageVariants = {
@@ -25,10 +25,10 @@ const Section = ({ icon: Icon, title, children }) => (
 
 const Terms = () => {
   return (
-    <motion.div 
-      initial="initial" 
-      animate="in" 
-      exit="out" 
+    <m.div
+      initial="initial"
+      animate="in"
+      exit="out"
       variants={pageVariants}
       className="min-h-screen pt-32 pb-20"
     >
@@ -107,7 +107,7 @@ const Terms = () => {
           </a>
         </div>
       </div>
-    </motion.div>
+    </m.div>
   );
 };
 

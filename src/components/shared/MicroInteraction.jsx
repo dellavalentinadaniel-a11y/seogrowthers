@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { motion } from 'framer-motion';
+import { m } from 'framer-motion';
 
 // Ripple Effect Wrapper
 export const Ripple = ({ children, className }) => {
@@ -13,18 +13,18 @@ export const Ripple = ({ children, className }) => {
 
 // Pulse Animation for CTAs
 export const Pulse = ({ children, className }) => (
-  <motion.div
+  <m.div
     className={className}
     animate={{ scale: [1, 1.05, 1] }}
     transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
   >
     {children}
-  </motion.div>
+  </m.div>
 );
 
 // Fade In on Scroll
 export const FadeIn = ({ children, delay = 0, className }) => (
-  <motion.div
+  <m.div
     className={className}
     initial={{ opacity: 0 }}
     whileInView={{ opacity: 1 }}
@@ -32,12 +32,12 @@ export const FadeIn = ({ children, delay = 0, className }) => (
     transition={{ duration: 0.5, delay }}
   >
     {children}
-  </motion.div>
+  </m.div>
 );
 
 // Slide Up on Scroll
 export const SlideUp = ({ children, delay = 0, className }) => (
-  <motion.div
+  <m.div
     className={className}
     initial={{ opacity: 0, y: 30 }}
     whileInView={{ opacity: 1, y: 0 }}
@@ -45,24 +45,24 @@ export const SlideUp = ({ children, delay = 0, className }) => (
     transition={{ duration: 0.5, delay, ease: "easeOut" }}
   >
     {children}
-  </motion.div>
+  </m.div>
 );
 
 // Bounce Effect
 export const Bounce = ({ children, className }) => (
-  <motion.div
+  <m.div
     className={className}
     whileHover={{ scale: 1.1 }}
     whileTap={{ scale: 0.9 }}
     transition={{ type: "spring", stiffness: 400, damping: 10 }}
   >
     {children}
-  </motion.div>
+  </m.div>
 );
 
 // Stagger Container
 export const StaggerContainer = ({ children, className, staggerDelay = 0.1 }) => (
-  <motion.div
+  <m.div
     className={className}
     initial="hidden"
     whileInView="show"
@@ -78,11 +78,11 @@ export const StaggerContainer = ({ children, className, staggerDelay = 0.1 }) =>
     }}
   >
     {children}
-  </motion.div>
+  </m.div>
 );
 
 export const StaggerItem = ({ children, className }) => (
-  <motion.div
+  <m.div
     className={className}
     variants={{
       hidden: { opacity: 0, y: 20 },
@@ -90,7 +90,7 @@ export const StaggerItem = ({ children, className }) => (
     }}
   >
     {children}
-  </motion.div>
+  </m.div>
 );
 
 const MicroInteraction = {

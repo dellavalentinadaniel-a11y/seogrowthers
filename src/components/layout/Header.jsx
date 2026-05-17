@@ -1,22 +1,11 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import LogoComponent from '@/components/shared/LogoComponent';
+import NavigationMenu from '@/components/layout/NavigationMenu';
 import { supabase } from '@/lib/customSupabaseClient';
-import { motion, AnimatePresence } from 'framer-motion';
+import { m, AnimatePresence } from 'framer-motion';
 import { toast } from '@/components/ui/use-toast';
 import { useMobileMenu } from '@/contexts/MobileMenuContext';
-
-
-
-const navLinks = [
-  { name: 'Inicio', href: '/' },
-  { name: 'Blog', href: '/blog' },
-  { name: 'Foro', href: '/forum' },
-  { name: 'Recursos', href: '/resources' },
-  { name: 'Servicios', href: '/services' },
-  { name: 'Herramientas', href: '/tools' },
-  { name: 'Contacto', href: '/contact' },
-];
 
 const Header = () => {
   const location = useLocation();
@@ -95,7 +84,7 @@ const Header = () => {
 
 
   return (
-    <header className="fixed top-0 w-full z-50 bg-[#0a0b14]/90 backdrop-blur-md border-b border-white/10 shadow-[0_4px_20px_rgba(0,0,0,0.5)]">
+    <header className="fixed top-0 w-full z-50 bg-gradient-to-b from-[#0a0e27]/95 to-[#0c0f1f]/90 backdrop-blur-lg border-b border-cyan-500/10 shadow-[0_8px_32px_rgba(0,0,0,0.6)]">
       <div className="flex justify-between items-center px-4 md:px-8 h-16 md:h-20 w-full max-w-[1600px] mx-auto">
 
         {/* Brand */}
@@ -104,39 +93,22 @@ const Header = () => {
         </div>
 
         {/* Desktop Nav */}
-        <nav className="hidden md:flex items-center gap-8">
-          {navLinks.map((link) => {
-            const isActive = location.pathname === link.href ||
-                             (link.href !== '/' && location.pathname.startsWith(link.href));
-
-            return (
-              <Link
-                key={link.name}
-                to={link.href}
-                className={`font-headline tracking-tight transition-colors ${
-                  isActive
-                    ? 'text-[#c3f5ff] border-b-2 border-[#00e5ff] pb-1'
-                    : 'text-slate-400 hover:text-white'
-                }`}
-              >
-                {link.name}
-              </Link>
-            );
-          })}
+        <div className="hidden md:flex items-center gap-8">
+          <NavigationMenu variant="horizontal" />
           <Link
             to="/auditoria-seo-gratis"
-            className="ml-2 px-4 py-2.5 bg-primary text-on-primary text-xs font-headline font-bold uppercase tracking-wider rounded-lg hover:shadow-[0_0_15px_rgba(0,229,255,0.3)] transition-all whitespace-nowrap"
+            className="ml-4 px-5 py-2.5 premium-btn-glow text-white text-xs font-headline font-bold uppercase tracking-wider rounded-lg transition-all whitespace-nowrap"
           >
             Auditoría Gratis
           </Link>
-        </nav>
+        </div>
 
         {/* Mobile Action Area */}
         <div className="flex items-center gap-2 md:gap-4 relative" ref={dropdownRef}>
           {/* Mobile CTA button */}
           <Link
             to="/auditoria-seo-gratis"
-            className="flex md:hidden px-3 py-2 bg-primary text-on-primary text-[10px] font-headline font-bold uppercase tracking-wider rounded-lg whitespace-nowrap min-h-[36px] items-center"
+            className="flex md:hidden px-3 py-2 premium-btn-glow text-white text-[10px] font-headline font-bold uppercase tracking-wider rounded-lg whitespace-nowrap min-h-[36px] items-center"
           >
             Auditoría Gratis
           </Link>
@@ -152,7 +124,7 @@ const Header = () => {
 
               <AnimatePresence>
                 {isDropdownOpen && (
-                  <motion.div
+                  <m.div
                     initial={{ opacity: 0, y: 10, scale: 0.95 }}
                     animate={{ opacity: 1, y: 0, scale: 1 }}
                     exit={{ opacity: 0, y: 10, scale: 0.95 }}
@@ -180,7 +152,7 @@ const Header = () => {
                       <span className="material-symbols-outlined text-xl group-hover:animate-pulse">logout</span>
                       <span className="font-headline text-sm">Cerrar Sesión</span>
                     </button>
-                  </motion.div>
+                  </m.div>
                 )}
               </AnimatePresence>
             </>

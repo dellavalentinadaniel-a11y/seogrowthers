@@ -1,6 +1,6 @@
 import React from 'react';
 import { Helmet } from 'react-helmet-async';
-import { motion } from 'framer-motion';
+import { m } from 'framer-motion';
 import { BookOpen } from 'lucide-react';
 import InteractiveGuide from '@/components/resources/InteractiveGuide';
 import { seoGuideData, seoFaqs } from '@/data/seoGuideData';
@@ -16,7 +16,7 @@ const SeoGuidePage = () => {
 
       {/* Hero Section */}
       <section className="container mx-auto px-6 mb-16 max-w-5xl text-center">
-        <motion.div
+        <m.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
@@ -39,7 +39,7 @@ const SeoGuidePage = () => {
           </p>
           
           {/* Mascot Branding */}
-          <motion.div
+          <m.div
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.8, delay: 0.3 }}
@@ -50,8 +50,8 @@ const SeoGuidePage = () => {
               alt="Mascota Oficial de las Guías SEO Growth" 
               className="w-48 h-48 md:w-64 md:h-64 object-contain mx-auto drop-shadow-[0_15px_35px_rgba(34,211,238,0.5)] transition-transform duration-700 hover:scale-110 hover:-translate-y-4"
             />
-          </motion.div>
-        </motion.div>
+          </m.div>
+        </m.div>
       </section>
 
       {/* Interfaz de Guía Interactiva */}

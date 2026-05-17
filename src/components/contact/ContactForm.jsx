@@ -65,10 +65,14 @@ const ContactForm = () => {
     setErrorMessage('');
 
     try {
+      // Generamos un ID de registro único en el cliente para evitar políticas de lectura RLS
+      const recordId = crypto.randomUUID();
+
       // 1. Insert into Supabase (Pending state)
-      const { data: insertData, error: insertError } = await supabase
+      const { error: insertError } = await supabase
         .from('contact_submissions')
         .insert([{
+          id: recordId,
           name: formData.name,
           email: formData.email,
           phone: formData.phone,
@@ -76,16 +80,14 @@ const ContactForm = () => {
           message: formData.message,
           status: 'pending',
           user_agent: navigator.userAgent
-        }])
-        .select()
-        .single();
+        }]);
 
       if (insertError) throw new Error("Error al guardar el mensaje. Inténtalo de nuevo.");
 
       // 2. Call Edge Function
       const { data: funcData, error: funcError } = await supabase.functions.invoke('send-contact-email', {
         body: { 
-            record_id: insertData.id,
+            record_id: recordId,
             name: formData.name,
             email: formData.email,
             phone: formData.phone,
@@ -284,7 +286,7 @@ const ContactForm = () => {
           className={`group relative w-full md:w-auto px-10 py-5 rounded-2xl font-headline font-bold text-xs uppercase tracking-[0.3em] overflow-hidden transition-all shadow-xl active:scale-95 disabled:opacity-50 disabled:active:scale-100 ${
             submitStatus === 'success' 
               ? 'bg-green-500 text-white' 
-              : 'bg-primary-container text-on-primary-container hover:shadow-[0_0_30px_rgba(0,229,255,0.4)]'
+              : 'premium-btn-glow text-white'
           }`}
         >
           <div className="relative z-10 flex items-center justify-center gap-3">

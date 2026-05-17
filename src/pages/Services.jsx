@@ -1,14 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { Link } from 'react-router-dom';
+import { m } from 'framer-motion';
 import ScrollToTop from '@/components/layout/ScrollToTop';
 import Breadcrumbs from '@/components/layout/Breadcrumbs';
-import SuccessCasesHeroCarousel from '@/components/shared/SuccessCasesHeroCarousel';
+import RecentArticlesCarousel from '@/components/shared/RecentArticlesCarousel';
 
 const FAQItem = ({ faq }) => {
   const [isOpen, setIsOpen] = useState(false);
   return (
-    <div className="rounded-2xl border border-outline/10 bg-surface-variant/10 backdrop-blur-md overflow-hidden transition-all">
+    <div className="rounded-2xl border border-white/10 bg-surface/50 backdrop-blur-md overflow-hidden hover:border-primary/40 hover:shadow-[0_0_25px_rgba(0,229,255,0.08)] transition-all duration-300">
       <button
         onClick={() => setIsOpen(!isOpen)}
         className="w-full flex items-center justify-between p-6 text-left group"
@@ -16,12 +17,12 @@ const FAQItem = ({ faq }) => {
         <h3 className="font-headline text-base md:text-lg font-bold text-on-surface group-hover:text-primary transition-colors pr-4">
           {faq.question}
         </h3>
-        <span className={`material-symbols-outlined text-on-surface-variant transition-transform duration-300 flex-shrink-0 ${isOpen ? 'rotate-180' : ''}`}>
+        <span className={`material-symbols-outlined text-on-surface-variant transition-transform duration-300 flex-shrink-0 ${isOpen ? 'rotate-180 text-primary' : ''}`}>
           expand_more
         </span>
       </button>
       <div className={`overflow-hidden transition-all duration-300 ${isOpen ? 'max-h-96 pb-6' : 'max-h-0'}`}>
-        <p className="px-6 text-on-surface-variant leading-relaxed">
+        <p className="px-6 text-on-surface-variant leading-relaxed font-light">
           {faq.answer}
         </p>
       </div>
@@ -65,10 +66,11 @@ const serviceCategories = [
     icon: "code",
     image: "/images/services/web-dev.webp",
     color: "primary",
-    bgColor: "bg-primary-container/10",
-    borderColor: "border-primary/30",
-    textColor: "text-primary",
-    gradient: "from-primary/20 to-transparent",
+    bgColor: "bg-[#00e5ff]/10",
+    borderColor: "border-[#00e5ff]/35",
+    textColor: "text-[#00e5ff]",
+    glowColor: "rgba(0,229,255,0.15)",
+    gradient: "from-[#00e5ff]/20 to-transparent",
     landingUrl: "/services/desarrollo-web-argentina",
     services: [
       { name: "Landing Page", desc: "Páginas de alta conversión optimizadas milimétricamente para campañas publicitarias y captura de leads.", icon: "web", link: "/services/landing-pages" },
@@ -84,10 +86,11 @@ const serviceCategories = [
     icon: "campaign",
     image: "/images/services/marketing.webp",
     color: "secondary",
-    bgColor: "bg-secondary-container/10",
-    borderColor: "border-secondary/30",
-    textColor: "text-secondary",
-    gradient: "from-secondary/20 to-transparent",
+    bgColor: "bg-[#9372FF]/10",
+    borderColor: "border-[#9372FF]/35",
+    textColor: "text-[#9372FF]",
+    glowColor: "rgba(147,114,255,0.15)",
+    gradient: "from-[#9372FF]/20 to-transparent",
     landingUrl: "/services/marketing-digital",
     services: [
       { name: "SEO", desc: "Posicionamiento orgánico de élite en motores de búsqueda para asegurar tráfico sostenible a largo plazo.", icon: "search_insights", link: "/services/seo-neuquen" },
@@ -103,10 +106,11 @@ const serviceCategories = [
     icon: "smart_toy",
     image: "/images/services/automation.webp",
     color: "tertiary",
-    bgColor: "bg-tertiary-container/10",
-    borderColor: "border-tertiary/30",
-    textColor: "text-tertiary",
-    gradient: "from-tertiary/20 to-transparent",
+    bgColor: "bg-[#00e676]/10",
+    borderColor: "border-[#00e676]/35",
+    textColor: "text-[#00e676]",
+    glowColor: "rgba(0,230,118,0.15)",
+    gradient: "from-[#00e676]/20 to-transparent",
     landingUrl: "/services/automatizacion-ia",
     services: [
       { name: "Marketing y Ventas", desc: "Embudos automatizados que cualifican prospectos y cierran ventas de forma autónoma 24/7.", icon: "trending_up", link: "/services/automatizacion-ia" },
@@ -117,13 +121,54 @@ const serviceCategories = [
   }
 ];
 
+const CardWithGlow = ({ children, className, hoverColor = "rgba(0,229,255,0.15)", ...props }) => {
+  const [coords, setCoords] = useState({ x: 0, y: 0 });
+  const [isHovered, setIsHovered] = useState(false);
+
+  const handleMouseMove = (e) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    setCoords({
+      x: e.clientX - rect.left,
+      y: e.clientY - rect.top
+    });
+  };
+
+  return (
+    <div
+      onMouseMove={handleMouseMove}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+      className={`relative overflow-hidden transition-all duration-300 ${className}`}
+      {...props}
+    >
+      {isHovered && (
+        <div
+          className="absolute pointer-events-none transition-all duration-300"
+          style={{
+            width: '350px',
+            height: '350px',
+            background: `radial-gradient(circle, ${hoverColor} 0%, transparent 70%)`,
+            left: `${coords.x - 175}px`,
+            top: `${coords.y - 175}px`,
+            mixBlendMode: 'screen',
+            zIndex: 0,
+          }}
+        />
+      )}
+      <div className="relative z-10 w-full h-full">
+        {children}
+      </div>
+    </div>
+  );
+};
+
 const Services = () => {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
 
   return (
-    <div className="text-on-surface font-body selection:bg-primary-container selection:text-on-primary-container min-h-screen">
+    <div className="text-on-surface font-body selection:bg-cyan-500/30 selection:text-white min-h-screen relative overflow-hidden bg-transparent">
       <Helmet>
         <title>Servicios de SEO, Desarrollo Web y Automatización | SEO Growthers</title>
         <meta name="description" content="Descubre nuestros servicios premium: Desarrollo Web de alto rendimiento, Marketing Digital con ROI real y Automatización con IA. Crece con SEO Growthers." />
@@ -176,121 +221,337 @@ const Services = () => {
       
       <ScrollToTop />
 
-      <main className="pt-20 pb-32">
+      {/* Global Background Image matching entire site design */}
+      <div className="absolute inset-0 bg-[url('/images/fondo/site-background.webp')] bg-cover bg-center opacity-15 mix-blend-screen pointer-events-none -z-20"></div>
+      <div className="absolute inset-0 bg-gradient-to-b from-[#0c0d14]/30 via-[#0c0d14]/70 to-[#0c0d14] pointer-events-none -z-10"></div>
+
+      {/* Floating Glowing Neon Spotlights */}
+      <div className="absolute top-[8%] left-[-15%] w-[600px] h-[600px] bg-[#00e5ff]/12 rounded-full blur-[160px] -z-10 pointer-events-none animate-pulse duration-[8s]"></div>
+      <div className="absolute top-[35%] right-[-15%] w-[700px] h-[700px] bg-[#9372FF]/10 rounded-full blur-[180px] -z-10 pointer-events-none animate-pulse duration-[10s]"></div>
+      <div className="absolute top-[70%] left-[10%] w-[650px] h-[650px] bg-[#00e676]/12 rounded-full blur-[160px] -z-10 pointer-events-none animate-pulse duration-[12s]"></div>
+
+      <main className="pt-20 pb-32 relative z-10">
         <div className="px-8 max-w-7xl mx-auto">
           <Breadcrumbs className="mb-0" />
         </div>
+
+        {/* Success cases carousel */}
+        <section className="px-8 max-w-7xl mx-auto mt-8 mb-16 relative z-10">
+          <RecentArticlesCarousel title="Casos de Éxito & Actualizaciones" subtitle="EXPLORA LO ÚLTIMO" />
+        </section>
+
         {/* Hero Section */}
-        <section className="relative px-8 pt-20 pb-16 overflow-hidden">
+        <section className="relative px-8 pt-8 pb-12 overflow-hidden">
           <div className="max-w-7xl mx-auto flex flex-col items-center text-center relative z-10">
-            <div className="inline-flex items-center px-4 py-1.5 rounded-full bg-surface-variant/30 border border-outline/30 mb-6 backdrop-blur-sm">
-              <span className="text-[10px] font-headline font-bold uppercase tracking-[0.2em] text-on-surface-variant">Soluciones de Próxima Generación</span>
+            <div className="inline-flex items-center px-4 py-1.5 rounded-full bg-cyan-950/40 border border-[#00e5ff]/20 mb-8 backdrop-blur-md">
+              <span className="text-[10px] font-headline font-bold uppercase tracking-[0.2em] text-[#00e5ff]">Soluciones de Próxima Generación</span>
             </div>
-            <h1 className="font-headline text-3xl sm:text-5xl md:text-7xl lg:text-8xl font-bold tracking-tight text-on-surface mb-6 max-w-5xl">
-              Dominio <span className="bg-gradient-to-r from-primary via-secondary to-tertiary bg-clip-text text-transparent">Digital</span> de Vanguardia
+            <h1 className="font-headline text-4xl sm:text-5xl md:text-7xl lg:text-8.5xl font-black tracking-tight text-white mb-6 max-w-5xl leading-[1.05] sm:leading-[1.02]">
+              Dominio <span className="bg-gradient-to-r from-[#00e5ff] via-[#9372FF] to-[#00e5ff] bg-clip-text text-transparent">Digital</span> de Vanguardia
             </h1>
-            <p className="text-on-surface-variant text-lg md:text-2xl max-w-3xl leading-relaxed font-light">
-              Ingeniería, marketing y automatización fusionados en una única fuerza impulsora para tu negocio.
+            <p className="text-slate-300 text-lg md:text-xl max-w-3xl leading-relaxed font-light mt-4 tracking-wide">
+              Ingeniería de vanguardia, marketing de precisión y automatizaciones avanzadas fusionadas en un ecosistema digital de alta conversión diseñado para hacer despegar tus resultados.
             </p>
           </div>
           
-          {/* Background Decorative Blur */}
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full max-w-6xl aspect-square bg-primary/5 rounded-full blur-[180px] pointer-events-none animate-pulse"></div>
-        </section>
-
-        <section className="px-8 max-w-7xl mx-auto mb-32 relative z-10">
-          <div className="p-1 rounded-[2.5rem] bg-gradient-to-br from-outline/20 via-transparent to-outline/20">
-            <div className="rounded-[2.4rem] overflow-hidden bg-surface/50 backdrop-blur-xl border border-white/5 shadow-2xl">
-              <SuccessCasesHeroCarousel />
-            </div>
-          </div>
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full max-w-6xl aspect-square bg-[#00e5ff]/5 rounded-full blur-[180px] pointer-events-none animate-pulse"></div>
         </section>
 
         {/* Services Categories */}
-        <div className="space-y-48">
-          {serviceCategories.map((category, index) => (
-            <section key={category.id} id={category.id} className="relative px-8 group/section">
-              <div className="max-w-7xl mx-auto">
-                <div className={`flex flex-col lg:flex-row gap-16 items-center ${index % 2 === 0 ? '' : 'lg:flex-row-reverse'}`}>
-                  {/* Image/Visual Part */}
-                  <div className="w-full lg:w-1/2 relative">
-                    <div className="relative aspect-[16/10] rounded-[2.5rem] overflow-hidden shadow-2xl border border-white/10">
-                      <img 
-                        src={category.image} 
-                        alt={category.title} 
-                        className="w-full h-full object-cover scale-105 group-hover/section:scale-100 transition-transform duration-1000"
-                      />
-                      <div className={`absolute inset-0 bg-gradient-to-br ${category.gradient} mix-blend-overlay opacity-40`}></div>
-                      <div className="absolute inset-0 shadow-[inset_0_0_100px_rgba(0,0,0,0.5)]"></div>
+        <div className="space-y-64 pt-16">
+          
+          {/* SECTION 1: DESARROLLO WEB (ZIGZAG 1) */}
+          {(() => {
+            const devWeb = serviceCategories[0];
+            const imgGlow = "from-[#00e5ff]/30 via-transparent to-transparent";
+            const btnClass = "bg-gradient-to-r from-[#00e5ff] to-blue-600 text-[#0d0e17] font-black hover:shadow-[0_0_35px_rgba(0,229,255,0.45)] hover:scale-105 transition-all duration-300";
+            return (
+              <section id={devWeb.id} className="relative px-8 group/section">
+                <div className="max-w-7xl mx-auto">
+                  <div className="flex flex-col lg:flex-row gap-16 items-center">
+                    
+                    {/* Image/Visual Part (Left) */}
+                    <div className="w-full lg:w-1/2 relative">
+                      <div className="relative aspect-[16/10] rounded-3xl overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.5)] border border-white/15">
+                        <img 
+                          src={devWeb.image} 
+                          alt={devWeb.title} 
+                          className="w-full h-full object-cover scale-105 group-hover/section:scale-100 transition-transform duration-1000"
+                        />
+                        {/* Immersive Holographic Fade Overlay */}
+                        <div className="absolute inset-0 pointer-events-none bg-gradient-to-tr from-[#0c0d12]/90 via-[#0c0d12]/10 to-[#0c0d12]/85 mix-blend-multiply"></div>
+                        <div className="absolute inset-0 pointer-events-none shadow-[inset_0_0_40px_rgba(0,0,0,0.85)] rounded-3xl"></div>
+                        <div className="absolute inset-0 bg-gradient-to-br from-[#00e5ff]/10 to-transparent mix-blend-overlay opacity-40"></div>
+                      </div>
+                      <div className={`absolute -inset-4 bg-gradient-to-br ${imgGlow} blur-3xl opacity-30 -z-10 animate-pulse duration-[5s]`}></div>
                     </div>
-                    {/* Decorative element behind image */}
-                    <div className={`absolute -inset-4 bg-gradient-to-br ${category.gradient} blur-3xl opacity-20 -z-10 animate-pulse`}></div>
+
+                    {/* Content Part (Right) */}
+                    <div className="w-full lg:w-1/2">
+                      <div className="flex flex-col items-start">
+                        <div className={`w-14 h-14 rounded-2xl ${devWeb.bgColor} flex items-center justify-center border ${devWeb.borderColor} mb-8 shadow-xl backdrop-blur-md`}>
+                          <span className={`material-symbols-outlined text-3xl ${devWeb.textColor}`}>{devWeb.icon}</span>
+                        </div>
+                        <h2 className="font-headline text-4xl md:text-6xl font-bold text-white mb-8 tracking-tight">
+                          {devWeb.title}
+                        </h2>
+                        <p className="text-slate-300 text-lg md:text-xl leading-relaxed mb-12 font-light">
+                          {devWeb.description}
+                        </p>
+                        
+                        {/* Sub-services Grid (2x2) */}
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 w-full">
+                          {devWeb.services.map((service, sIndex) => {
+                            const Wrapper = service.link ? Link : 'div';
+                            const wrapperProps = service.link ? { to: service.link } : {};
+                            
+                            return (
+                              <CardWithGlow
+                                key={sIndex}
+                                hoverColor={devWeb.glowColor}
+                                className="rounded-3xl bg-[#1e2030]/80 backdrop-blur-xl border border-white/15 transition-all duration-300 group/card hover:border-[#00e5ff]/50 hover:bg-[#25283c]/90 hover:-translate-y-1 cursor-pointer"
+                              >
+                                <Wrapper
+                                  {...wrapperProps}
+                                  className="p-6 block w-full h-full"
+                                >
+                                  <div className="flex items-start gap-4">
+                                    <span className={`material-symbols-outlined text-3xl ${devWeb.textColor} opacity-80 group-hover/card:opacity-100 group-hover/card:scale-110 transition-all duration-300`}>
+                                      {service.icon}
+                                    </span>
+                                    <div className="text-left">
+                                      <h3 className="font-headline text-base font-bold text-white mb-1">{service.name}</h3>
+                                      <p className="text-slate-300 text-xs leading-relaxed line-clamp-2">
+                                        {service.desc}
+                                      </p>
+                                      {service.link && (
+                                        <span className={`text-[10px] font-bold tracking-widest ${devWeb.textColor} mt-3 inline-flex items-center gap-1`}>
+                                          VER MÁS <span className="material-symbols-outlined text-xs">chevron_right</span>
+                                        </span>
+                                      )}
+                                    </div>
+                                  </div>
+                                </Wrapper>
+                              </CardWithGlow>
+                            );
+                          })}
+                        </div>
+
+                        <div className="mt-12">
+                          <Link
+                            to={devWeb.landingUrl}
+                            className={`inline-flex items-center gap-3 px-8 py-4.5 rounded-xl ${btnClass} font-headline font-bold uppercase tracking-widest text-xs transition-all duration-300 shadow-lg group/btn`}
+                          >
+                            <span>Explorar {devWeb.title}</span>
+                            <span className="material-symbols-outlined text-sm group-hover/btn:translate-x-1 transition-transform duration-300">arrow_forward</span>
+                          </Link>
+                        </div>
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+              </section>
+            );
+          })()}
+
+          {/* SECTION 2: MARKETING DIGITAL (MONOTONY BREAKER - CENTERED TOP WITH WIDE SIDE-BY-SIDE SPLIT BELOW) */}
+          {(() => {
+            const mktCat = serviceCategories[1];
+            const imgGlow = "from-[#9372FF]/30 via-transparent to-transparent";
+            const btnClass = "bg-gradient-to-r from-[#9372FF] to-fuchsia-600 text-white font-black hover:shadow-[0_0_35px_rgba(147,114,255,0.45)] hover:scale-105 transition-all duration-300";
+            return (
+              <section id={mktCat.id} className="relative px-8 group/section">
+                <div className="max-w-7xl mx-auto">
+                  
+                  {/* Rompiendo el Zigzag: Encabezado Superior Totalmente Centrado */}
+                  <div className="flex flex-col items-center text-center max-w-4xl mx-auto mb-20">
+                    <div className={`w-14 h-14 rounded-2xl ${mktCat.bgColor} flex items-center justify-center border ${mktCat.borderColor} mb-6 shadow-xl backdrop-blur-md`}>
+                      <span className={`material-symbols-outlined text-3xl ${mktCat.textColor}`}>{mktCat.icon}</span>
+                    </div>
+                    <h2 className="font-headline text-4xl md:text-6xl font-bold text-white mb-6 tracking-tight">
+                      {mktCat.title}
+                    </h2>
+                    <p className="text-slate-350 text-lg md:text-xl leading-relaxed font-light">
+                      {mktCat.description}
+                    </p>
                   </div>
 
-                  {/* Content Part */}
-                  <div className="w-full lg:w-1/2">
-                    <div className={`flex flex-col ${index % 2 === 0 ? 'items-start' : 'items-start lg:items-end lg:text-right'}`}>
-                      <div className={`w-14 h-14 rounded-2xl ${category.bgColor} flex items-center justify-center border ${category.borderColor} mb-8 shadow-xl backdrop-blur-md`}>
-                        <span className={`material-symbols-outlined text-3xl ${category.textColor}`}>{category.icon}</span>
+                  {/* Layout Inferior: Grid de 2 Columnas Simétricas */}
+                  <div className="flex flex-col lg:flex-row gap-12 items-stretch">
+                    
+                    {/* Tarjeta Holográfica Vertical del Banner (Left) */}
+                    <div className="w-full lg:w-5/12 relative">
+                      <div className="relative h-full min-h-[350px] rounded-3xl overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.5)] border border-white/15">
+                        <img 
+                          src={mktCat.image} 
+                          alt={mktCat.title} 
+                          className="w-full h-full object-cover scale-105 group-hover/section:scale-100 transition-transform duration-1000"
+                        />
+                        {/* Immersive Holographic Fade Overlay */}
+                        <div className="absolute inset-0 pointer-events-none bg-gradient-to-tr from-[#0c0d12]/90 via-[#0c0d12]/10 to-[#0c0d12]/85 mix-blend-multiply"></div>
+                        <div className="absolute inset-0 pointer-events-none shadow-[inset_0_0_40px_rgba(0,0,0,0.85)] rounded-3xl"></div>
+                        <div className="absolute inset-0 bg-gradient-to-br from-[#9372FF]/10 to-transparent mix-blend-overlay opacity-40"></div>
                       </div>
-                      <h2 className="font-headline text-4xl md:text-6xl font-bold text-on-surface mb-8 tracking-tight">
-                        {category.title}
-                      </h2>
-                      <p className="text-on-surface-variant text-lg md:text-xl leading-relaxed mb-12 font-light">
-                        {category.description}
-                      </p>
-                      
-                      {/* Sub-services Grid */}
+                      <div className={`absolute -inset-4 bg-gradient-to-br ${imgGlow} blur-3xl opacity-35 -z-10 animate-pulse duration-[5s]`}></div>
+                    </div>
+
+                    {/* Sub-servicios Grid (Right) */}
+                    <div className="w-full lg:w-7/12 flex flex-col justify-between">
                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 w-full">
-                        {category.services.map((service, sIndex) => {
+                        {mktCat.services.map((service, sIndex) => {
                           const Wrapper = service.link ? Link : 'div';
                           const wrapperProps = service.link ? { to: service.link } : {};
+                          
                           return (
-                            <Wrapper
+                            <CardWithGlow
                               key={sIndex}
-                              {...wrapperProps}
-                              className={`p-6 rounded-2xl bg-surface-variant/20 border border-outline/10 hover:bg-surface-variant/40 transition-all group/card ${service.link ? 'cursor-pointer' : 'cursor-default'}`}
+                              hoverColor={mktCat.glowColor}
+                              className="rounded-3xl bg-[#1e2030]/80 backdrop-blur-xl border border-white/15 transition-all duration-300 group/card hover:border-[#9372FF]/50 hover:bg-[#25283c]/90 hover:-translate-y-1 cursor-pointer"
                             >
-                              <div className="flex items-start gap-4">
-                                <span className={`material-symbols-outlined text-2xl ${category.textColor} opacity-60 group-hover/card:opacity-100 transition-opacity`}>
-                                  {service.icon}
-                                </span>
-                                <div>
-                                  <h3 className="font-headline text-base font-bold text-on-surface mb-1">{service.name}</h3>
-                                  <p className="text-on-surface-variant text-xs leading-relaxed line-clamp-2">
-                                    {service.desc}
-                                  </p>
-                                  {service.link && (
-                                    <span className={`text-[10px] font-bold tracking-widest ${category.textColor} mt-2 inline-flex items-center gap-1`}>
-                                      VER MÁS <span className="material-symbols-outlined text-xs">chevron_right</span>
-                                    </span>
-                                  )}
+                              <Wrapper
+                                {...wrapperProps}
+                                className="p-6 block w-full h-full"
+                              >
+                                <div className="flex items-start gap-4">
+                                  <span className={`material-symbols-outlined text-3xl ${mktCat.textColor} opacity-80 group-hover/card:opacity-100 group-hover/card:scale-110 transition-all duration-300`}>
+                                    {service.icon}
+                                  </span>
+                                  <div className="text-left">
+                                    <h3 className="font-headline text-base font-bold text-white mb-1">{service.name}</h3>
+                                    <p className="text-slate-300 text-xs leading-relaxed line-clamp-2">
+                                      {service.desc}
+                                    </p>
+                                    {service.link && (
+                                      <span className={`text-[10px] font-bold tracking-widest ${mktCat.textColor} mt-3 inline-flex items-center gap-1`}>
+                                        VER MÁS <span className="material-symbols-outlined text-xs">chevron_right</span>
+                                      </span>
+                                    )}
+                                  </div>
                                 </div>
-                              </div>
-                            </Wrapper>
+                              </Wrapper>
+                            </CardWithGlow>
                           );
                         })}
                       </div>
 
-                      <div className="mt-12">
+                      {/* CTA Centrado en el bloque */}
+                      <div className="mt-8 flex justify-start lg:justify-end">
                         <Link
-                          to={category.landingUrl}
-                          className={`inline-flex items-center gap-3 px-8 py-4 rounded-xl ${category.bgColor} border ${category.borderColor} ${category.textColor} font-headline font-bold uppercase tracking-widest text-xs hover:bg-opacity-20 transition-all shadow-lg`}
+                          to={mktCat.landingUrl}
+                          className={`inline-flex items-center gap-3 px-8 py-4.5 rounded-xl ${btnClass} font-headline font-bold uppercase tracking-widest text-xs transition-all duration-300 shadow-lg group/btn`}
                         >
-                          Explorar {category.title}
-                          <span className="material-symbols-outlined text-sm">arrow_forward</span>
+                          <span>Explorar {mktCat.title}</span>
+                          <span className="material-symbols-outlined text-sm group-hover/btn:translate-x-1 transition-transform duration-300">arrow_forward</span>
                         </Link>
                       </div>
                     </div>
+
                   </div>
                 </div>
-              </div>
-            </section>
-          ))}
+              </section>
+            );
+          })()}
+
+          {/* SECTION 3: AUTOMATIZACION (ZIGZAG 3) */}
+          {(() => {
+            const autoCat = serviceCategories[2];
+            const imgGlow = "from-[#00e676]/30 via-transparent to-transparent";
+            const btnClass = "bg-gradient-to-r from-[#00e676] to-emerald-600 text-[#0d0e17] font-black hover:shadow-[0_0_35px_rgba(0,230,118,0.45)] hover:scale-105 transition-all duration-300";
+            return (
+              <section id={autoCat.id} className="relative px-8 group/section">
+                <div className="max-w-7xl mx-auto">
+                  <div className="flex flex-col lg:flex-row-reverse gap-16 items-center">
+                    
+                    {/* Image/Visual Part (Right) */}
+                    <div className="w-full lg:w-1/2 relative">
+                      <div className="relative aspect-[16/10] rounded-3xl overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.5)] border border-white/15">
+                        <img 
+                          src={autoCat.image} 
+                          alt={autoCat.title} 
+                          className="w-full h-full object-cover scale-105 group-hover/section:scale-100 transition-transform duration-1000"
+                        />
+                        {/* Immersive Holographic Fade Overlay */}
+                        <div className="absolute inset-0 pointer-events-none bg-gradient-to-tr from-[#0c0d12]/90 via-[#0c0d12]/10 to-[#0c0d12]/85 mix-blend-multiply"></div>
+                        <div className="absolute inset-0 pointer-events-none shadow-[inset_0_0_40px_rgba(0,0,0,0.85)] rounded-3xl"></div>
+                        <div className="absolute inset-0 bg-gradient-to-br from-[#00e676]/10 to-transparent mix-blend-overlay opacity-40"></div>
+                      </div>
+                      <div className={`absolute -inset-4 bg-gradient-to-br ${imgGlow} blur-3xl opacity-30 -z-10 animate-pulse duration-[5s]`}></div>
+                    </div>
+
+                    {/* Content Part (Left) */}
+                    <div className="w-full lg:w-1/2">
+                      <div className="flex flex-col items-start">
+                        <div className={`w-14 h-14 rounded-2xl ${autoCat.bgColor} flex items-center justify-center border ${autoCat.borderColor} mb-8 shadow-xl backdrop-blur-md`}>
+                          <span className={`material-symbols-outlined text-3xl ${autoCat.textColor}`}>{autoCat.icon}</span>
+                        </div>
+                        <h2 className="font-headline text-4xl md:text-6xl font-bold text-white mb-8 tracking-tight">
+                          {autoCat.title}
+                        </h2>
+                        <p className="text-slate-300 text-lg md:text-xl leading-relaxed mb-12 font-light">
+                          {autoCat.description}
+                        </p>
+                        
+                        {/* Sub-services Grid (2x2) */}
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 w-full">
+                          {autoCat.services.map((service, sIndex) => {
+                            const Wrapper = service.link ? Link : 'div';
+                            const wrapperProps = service.link ? { to: service.link } : {};
+                            
+                            return (
+                              <CardWithGlow
+                                key={sIndex}
+                                hoverColor={autoCat.glowColor}
+                                className="rounded-3xl bg-[#1e2030]/80 backdrop-blur-xl border border-white/15 transition-all duration-300 group/card hover:border-[#00e676]/50 hover:bg-[#25283c]/90 hover:-translate-y-1 cursor-pointer"
+                              >
+                                <Wrapper
+                                  {...wrapperProps}
+                                  className="p-6 block w-full h-full"
+                                >
+                                  <div className="flex items-start gap-4">
+                                    <span className={`material-symbols-outlined text-3xl ${autoCat.textColor} opacity-80 group-hover/card:opacity-100 group-hover/card:scale-110 transition-all duration-300`}>
+                                      {service.icon}
+                                    </span>
+                                    <div className="text-left">
+                                      <h3 className="font-headline text-base font-bold text-white mb-1">{service.name}</h3>
+                                      <p className="text-slate-300 text-xs leading-relaxed line-clamp-2">
+                                        {service.desc}
+                                      </p>
+                                      {service.link && (
+                                        <span className={`text-[10px] font-bold tracking-widest ${autoCat.textColor} mt-3 inline-flex items-center gap-1`}>
+                                          VER MÁS <span className="material-symbols-outlined text-xs">chevron_right</span>
+                                        </span>
+                                      )}
+                                    </div>
+                                  </div>
+                                </Wrapper>
+                              </CardWithGlow>
+                            );
+                          })}
+                        </div>
+
+                        <div className="mt-12">
+                          <Link
+                            to={autoCat.landingUrl}
+                            className={`inline-flex items-center gap-3 px-8 py-4.5 rounded-xl ${btnClass} font-headline font-bold uppercase tracking-widest text-xs transition-all duration-300 shadow-lg group/btn`}
+                          >
+                            <span>Explorar {autoCat.title}</span>
+                            <span className="material-symbols-outlined text-sm group-hover/btn:translate-x-1 transition-transform duration-300">arrow_forward</span>
+                          </Link>
+                        </div>
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+              </section>
+            );
+          })()}
+
         </div>
 
         {/* FAQ Section */}
-        <section className="mt-32 px-8 max-w-4xl mx-auto">
+        <section className="mt-48 px-8 max-w-4xl mx-auto relative z-10">
           <div className="text-center mb-12">
             <span className="text-[10px] font-headline font-bold uppercase tracking-[0.2em] text-on-surface-variant mb-4 block">Resolvemos tus dudas</span>
             <h2 className="font-headline text-4xl md:text-5xl font-bold text-on-surface tracking-tight">
@@ -314,12 +575,12 @@ const Services = () => {
         </section>
 
         {/* Global CTA Section */}
-        <section className="mt-32 px-8 max-w-5xl mx-auto">
-          <div className="glass-panel relative rounded-[3rem] p-12 md:p-20 text-center overflow-hidden border border-outline/20 shadow-2xl">
-             <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-surface to-secondary/10 opacity-50"></div>
+        <section className="mt-48 px-8 max-w-5xl mx-auto relative z-10">
+          <div className="glass-panel relative rounded-[3rem] p-12 md:p-20 text-center overflow-hidden border border-white/15 shadow-2xl bg-surface/55 backdrop-blur-xl">
+             <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-transparent to-secondary/10 opacity-30 pointer-events-none"></div>
              
              <div className="relative z-10 flex flex-col items-center">
-                <span className="material-symbols-outlined text-5xl text-primary mb-6">workspace_premium</span>
+                <span className="material-symbols-outlined text-5xl text-primary mb-6 animate-bounce duration-[3s]">workspace_premium</span>
                 <h2 className="font-headline text-4xl md:text-5xl font-bold text-on-surface mb-6">
                   El Futuro es Ahora
                 </h2>
@@ -327,11 +588,11 @@ const Services = () => {
                   No dejes que tu competencia se adelante. Implementa hoy las estrategias digitales que dominarán el mercado de mañana.
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                  <a href="https://studioseogrowthers.vercel.app/" target="_blank" rel="noopener noreferrer" className="px-8 py-4 rounded-xl bg-primary text-on-primary font-headline font-bold uppercase tracking-widest text-sm hover:shadow-[0_0_30px_rgba(0,229,255,0.4)] transition-all flex items-center justify-center gap-2">
+                  <a href="https://studioseogrowthers.vercel.app/" target="_blank" rel="noopener noreferrer" className="px-8 py-4 rounded-xl bg-primary text-on-primary font-headline font-bold uppercase tracking-widest text-sm hover:shadow-[0_0_30px_rgba(0,229,255,0.5)] hover:scale-105 transition-all flex items-center justify-center gap-2">
                     Iniciar Proyecto
                     <span className="material-symbols-outlined text-base">rocket</span>
                   </a>
-                  <a href="https://studioseogrowthers.vercel.app/" target="_blank" rel="noopener noreferrer" className="px-8 py-4 rounded-xl bg-surface-variant border border-outline/30 text-on-surface font-headline font-bold uppercase tracking-widest text-sm hover:bg-surface-variant/80 transition-all flex items-center justify-center gap-2">
+                  <a href="https://studioseogrowthers.vercel.app/" target="_blank" rel="noopener noreferrer" className="px-8 py-4 rounded-xl bg-surface-variant border border-white/10 text-on-surface font-headline font-bold uppercase tracking-widest text-sm hover:bg-surface-variant/80 hover:border-white/20 transition-all flex items-center justify-center gap-2">
                     Agendar Consultoría
                     <span className="material-symbols-outlined text-base">calendar_month</span>
                   </a>

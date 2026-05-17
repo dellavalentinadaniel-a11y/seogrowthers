@@ -4,99 +4,134 @@ import { trackCTAClick } from '@/lib/analytics';
 
 /**
  * Componente de Internal Linking reutilizable.
- * Inserta CTAs contextuales hacia páginas de servicio y conversión.
- * Uso: <InternalLinkingCTA variant="audit" /> o <InternalLinkingCTA variant="services" />
+ * Inserta CTAs contextuales de alta visibilidad hacia páginas de servicio y conversión.
  */
 
 const variants = {
   audit: {
-    title: '¿Tu web no aparece en Google?',
-    description: 'Descubrí los errores invisibles que frenan tu posicionamiento. Auditoría SEO gratuita en 48hs.',
-    cta: 'Solicitar Auditoría Gratis',
+    title: '¿Tu sitio web no aparece en las primeras búsquedas de Google?',
+    description: 'El 90% del tráfico web nunca pasa de la primera página. Descubrí los errores de SEO técnico, velocidad y estructura que están frenando tus ventas. Te entregamos un informe de auditoría completo y accionable gratis en 48hs.',
+    cta: 'Solicitar Auditoría SEO Gratis',
     link: '/auditoria-seo-gratis',
     icon: 'search_insights',
     color: 'primary',
   },
   services: {
-    title: '¿Necesitás más que contenido?',
-    description: 'Desarrollo web, SEO técnico y automatización con IA para escalar tu negocio digital.',
-    cta: 'Ver Servicios',
+    title: '¿Necesitás más que un simple sitio web?',
+    description: 'Desarrollamos ecosistemas digitales completos: SEO de alto impacto, desarrollo a medida y automatizaciones inteligentes para multiplicar tus ventas en piloto automático.',
+    cta: 'Ver Catálogo de Servicios',
     link: '/services',
     icon: 'rocket_launch',
     color: 'secondary',
   },
   seo: {
-    title: 'Posicioná tu negocio en Neuquén',
-    description: 'SEO local + estrategia de contenido para dominar las búsquedas en tu zona.',
-    cta: 'Conocer SEO Local',
+    title: 'Dominá el Mercado Local: Posicioná tu Negocio en Neuquén',
+    description: 'Conectá con miles de clientes calificados en la Patagonia. Diseñamos estrategias de SEO Local de alta precisión para ubicarte en el Top #1 de Google y Google Maps justo cuando te buscan.',
+    cta: 'Potenciar Mi Negocio Local',
     link: '/services/seo-neuquen',
     icon: 'location_on',
     color: 'primary',
   },
   contact: {
-    title: '¿Listo para crecer?',
-    description: 'Hablemos sobre tu proyecto. Respuesta en menos de 24 horas.',
-    cta: 'Contactar Ahora',
+    title: '¿Listo para duplicar tu facturación?',
+    description: 'Hablemos hoy mismo sobre tu proyecto. Analizamos tu modelo de negocio y trazamos una estrategia a medida. Respuesta garantizada en menos de 24 horas.',
+    cta: 'Contactar con un Especialista',
     link: '/contact',
     icon: 'chat',
     color: 'tertiary',
   },
   webdev: {
-    title: '¿Necesitás un sitio web profesional?',
-    description: 'Landing pages, sitios corporativos y tiendas online optimizados para conversión.',
-    cta: 'Ver Desarrollo Web',
+    title: '¿Querés un sitio web rápido y de alta conversión?',
+    description: 'Desde landing pages de captura hasta tiendas online y plataformas corporativas a medida con optimización Core Web Vitals y SEO de base.',
+    cta: 'Cotizar Desarrollo Web',
     link: '/services/desarrollo-web-argentina',
     icon: 'code',
     color: 'primary',
   },
   automation: {
-    title: '¿Querés automatizar tu operación?',
-    description: 'RPA, integraciones no-code y agentes de IA autónomos para eliminar tareas repetitivas.',
-    cta: 'Ver Automatización',
+    title: '¿Querés automatizar tus procesos de negocio?',
+    description: 'Bots de RPA, integraciones de sistemas no-code y agentes inteligentes de Inteligencia Artificial para delegar tus tareas repetitivas.',
+    cta: 'Ver Soluciones de IA',
     link: '/services/automatizacion-ia',
     icon: 'smart_toy',
     color: 'secondary',
   },
   cases: {
-    title: '¿Querés ver resultados reales?',
-    description: '+300% tráfico orgánico, +358% conversión. Casos de éxito con métricas verificables.',
-    cta: 'Ver Casos de Éxito',
+    title: '¿Buscás resultados reales y medibles?',
+    description: '+300% de crecimiento orgánico y +358% en conversión digital de leads. Explorá nuestros casos de éxito con métricas verificables y transparentes.',
+    cta: 'Explorar Casos de Éxito',
     link: '/services/success-cases',
     icon: 'emoji_events',
     color: 'tertiary',
   },
 };
 
+// Mapeo estático explícito de clases de Tailwind CSS para prevenir la purga (Purge) del compilador de Vite en producción
+const colorMap = {
+  primary: {
+    border: 'border-cyan-500/20 hover:border-cyan-500/40',
+    bg: 'bg-[#0d0e17]/80 hover:bg-[#0f111c]/90',
+    glow: 'bg-cyan-500/5',
+    iconBg: 'bg-cyan-500/10',
+    iconText: 'text-cyan-400',
+    btnBg: 'bg-cyan-500 hover:bg-cyan-400 text-[#0d0e17] hover:shadow-[0_0_30px_rgba(6,182,212,0.4)]',
+  },
+  secondary: {
+    border: 'border-blue-500/20 hover:border-blue-500/40',
+    bg: 'bg-[#0a0d18]/80 hover:bg-[#0c0f20]/90',
+    glow: 'bg-blue-500/5',
+    iconBg: 'bg-blue-500/10',
+    iconText: 'text-blue-400',
+    btnBg: 'bg-blue-500 hover:bg-blue-400 text-white hover:shadow-[0_0_30px_rgba(59,130,246,0.4)]',
+  },
+  tertiary: {
+    border: 'border-purple-500/20 hover:border-purple-500/40',
+    bg: 'bg-[#0f0b18]/80 hover:bg-[#120d20]/90',
+    glow: 'bg-purple-500/5',
+    iconBg: 'bg-purple-500/10',
+    iconText: 'text-purple-400',
+    btnBg: 'bg-purple-500 hover:bg-purple-400 text-white hover:shadow-[0_0_30px_rgba(168,85,247,0.4)]',
+  }
+};
+
 const InternalLinkingCTA = ({ variant = 'audit', className = '' }) => {
   const v = variants[variant] || variants.audit;
+  const c = colorMap[v.color] || colorMap.primary;
 
   return (
-    <div className={`my-12 p-6 md:p-8 rounded-2xl border border-${v.color}/20 bg-${v.color}/5 relative overflow-hidden ${className}`}>
-      <div className="relative z-10 flex flex-col md:flex-row items-start md:items-center gap-6">
-        <div className={`p-3 rounded-xl bg-${v.color}/10 flex-shrink-0`}>
-          <span className={`material-symbols-outlined text-${v.color} text-3xl`}>{v.icon}</span>
+    <div className={`my-12 p-8 md:p-10 rounded-[2.5rem] border ${c.border} ${c.bg} shadow-[0_20px_50px_rgba(0,0,0,0.5)] backdrop-blur-2xl relative overflow-hidden transition-all duration-500 group ${className}`}>
+      {/* Background radial glow */}
+      <div className={`absolute -right-20 -bottom-20 w-80 h-80 ${c.glow} rounded-full blur-3xl pointer-events-none transition-all duration-500 group-hover:scale-110`}></div>
+      
+      <div className="relative z-10 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-8">
+        <div className="flex flex-col md:flex-row items-start gap-6 max-w-4xl">
+          <div className={`p-4 rounded-2xl ${c.iconBg} ${c.iconText} flex-shrink-0 shadow-inner group-hover:scale-110 transition-transform duration-500`}>
+            <span className="material-symbols-outlined text-4xl">{v.icon}</span>
+          </div>
+          <div className="space-y-2">
+            <h3 className="font-headline text-xl md:text-2xl font-extrabold text-white tracking-tight leading-snug">
+              {v.title}
+            </h3>
+            <p className="text-slate-400 text-sm md:text-base leading-relaxed font-light">
+              {v.description}
+            </p>
+          </div>
         </div>
-        <div className="flex-grow">
-          <h3 className="font-headline text-lg md:text-xl font-bold text-on-surface mb-1">{v.title}</h3>
-          <p className="text-on-surface-variant text-sm leading-relaxed">{v.description}</p>
-        </div>
+        
+        {/* CTAs explicitly styled to stand out like neon elements */}
         <Link
           to={v.link}
           onClick={() => trackCTAClick(`internal_linking_${variant}`, v.link)}
-          className={`inline-flex items-center gap-2 px-6 py-3 bg-${v.color} text-on-${v.color} font-bold rounded-xl text-sm tracking-wide hover:shadow-lg hover:scale-105 transition-all whitespace-nowrap flex-shrink-0`}
+          className={`w-full lg:w-auto inline-flex items-center justify-center gap-3 px-8 py-5 ${c.btnBg} font-headline font-black rounded-2xl text-xs uppercase tracking-[0.2em] transform active:scale-95 transition-all duration-300 whitespace-nowrap flex-shrink-0`}
         >
-          {v.cta}
-          <span className="material-symbols-outlined text-sm">arrow_forward</span>
+          <span>{v.cta}</span>
+          <span className="material-symbols-outlined text-sm font-bold animate-pulse">arrow_forward</span>
         </Link>
       </div>
-      <div className={`absolute -right-10 -bottom-10 w-40 h-40 bg-${v.color}/5 rounded-full blur-3xl pointer-events-none`}></div>
     </div>
   );
 };
 
-/**
- * Bloque de links relacionados para insertar al final de artículos.
- */
 export const RelatedServicesBlock = ({ currentPath = '' }) => {
   const links = [
     { title: 'SEO en Neuquén', desc: 'Posicionamiento local para tu negocio', to: '/services/seo-neuquen', icon: 'location_on' },
@@ -110,22 +145,22 @@ export const RelatedServicesBlock = ({ currentPath = '' }) => {
   ].filter(l => l.to !== currentPath);
 
   return (
-    <div className="my-16 border-t border-outline-variant/20 pt-10">
-      <h3 className="font-headline text-xl font-bold text-on-surface mb-6 flex items-center gap-2">
-        <span className="material-symbols-outlined text-primary">link</span>
-        Servicios relacionados
+    <div className="my-20 border-t border-white/5 pt-12">
+      <h3 className="font-headline text-2xl font-extrabold text-white mb-8 flex items-center gap-3">
+        <span className="material-symbols-outlined text-cyan-400">link</span>
+        Servicios Relacionados
       </h3>
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         {links.map((link) => (
           <Link
             key={link.to}
             to={link.to}
             onClick={() => trackCTAClick('related_service', link.to)}
-            className="p-5 rounded-xl border border-outline-variant/20 hover:border-primary/30 bg-surface-container-low hover:bg-surface-container transition-all group"
+            className="p-6 rounded-[2rem] border border-white/5 hover:border-cyan-500/30 bg-[#0d0e17]/50 hover:bg-[#0d0e17] transition-all duration-300 group"
           >
-            <span className="material-symbols-outlined text-primary mb-2 block group-hover:scale-110 transition-transform">{link.icon}</span>
-            <h4 className="font-headline font-bold text-on-surface text-sm mb-1">{link.title}</h4>
-            <p className="text-on-surface-variant text-xs">{link.desc}</p>
+            <span className="material-symbols-outlined text-cyan-400 mb-3 block group-hover:scale-110 transition-transform text-3xl">{link.icon}</span>
+            <h4 className="font-headline font-bold text-white text-base mb-1">{link.title}</h4>
+            <p className="text-slate-400 text-xs font-light leading-relaxed">{link.desc}</p>
           </Link>
         ))}
       </div>

@@ -619,6 +619,107 @@ const ArticleDetail = () => {
                       </Link>
                     </div>
                   </div>
+
+                  {/* === ARTÍCULOS SUGERIDOS === */}
+                  {recommendedArticles.length > 0 && (
+                    <div className="hidden lg:block bg-slate-900/50 backdrop-blur-md p-6 rounded-2xl border border-white/5 shadow-xl">
+                      <h3 className="font-bold text-white mb-5 text-sm uppercase tracking-widest flex items-center gap-2">
+                        <Sparkles size={16} className="text-cyan-400" /> Contenido Sugerido
+                      </h3>
+                      <div className="space-y-4">
+                        {recommendedArticles.slice(0, 3).map(rec => (
+                          <Link
+                            key={rec.id}
+                            to={`/blog/${rec.category}/${rec.slug}`}
+                            className="flex gap-3 items-start group/rec"
+                          >
+                            <div className="w-16 h-16 rounded-lg overflow-hidden shrink-0 bg-slate-800 border border-white/5">
+                              {rec.featured_image ? (
+                                <img
+                                  src={rec.featured_image}
+                                  alt={rec.title}
+                                  className="w-full h-full object-cover group-hover/rec:scale-105 transition-transform duration-500"
+                                />
+                              ) : (
+                                <div className="w-full h-full bg-gradient-to-br from-cyan-900/40 to-slate-800 flex items-center justify-center">
+                                  <Sparkles size={18} className="text-cyan-500/40" />
+                                </div>
+                              )}
+                            </div>
+                            <div className="flex-1 min-w-0">
+                              <span className="text-[10px] font-bold text-cyan-500 uppercase tracking-widest block mb-0.5">
+                                {rec.category}
+                              </span>
+                              <h5 className="text-xs font-semibold text-gray-300 group-hover/rec:text-white transition-colors line-clamp-2 leading-snug">
+                                {rec.title}
+                              </h5>
+                            </div>
+                          </Link>
+                        ))}
+                      </div>
+                      <Link
+                        to="/blog"
+                        className="mt-5 flex items-center justify-center gap-2 w-full py-2 bg-white/5 border border-white/10 rounded-xl text-[10px] font-bold uppercase tracking-widest text-gray-400 hover:text-cyan-400 hover:bg-white/10 transition-all"
+                      >
+                        Ver todos los artículos <ArrowRight size={12} />
+                      </Link>
+                    </div>
+                  )}
+
+                  {/* === CTA DE SERVICIOS === */}
+                  <div className="hidden lg:block relative overflow-hidden rounded-2xl border border-cyan-500/20 shadow-[0_0_40px_rgba(6,182,212,0.08)]">
+                    {/* Fondo degradado */}
+                    <div className="absolute inset-0 bg-gradient-to-br from-[#0a1628] via-[#0d1f3c] to-[#06122b]" />
+                    <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,rgba(6,182,212,0.15),transparent_60%)]" />
+                    <div className="absolute top-0 right-0 w-32 h-32 bg-cyan-400/10 blur-3xl rounded-full -mr-10 -mt-10" />
+
+                    <div className="relative z-10 p-6">
+                      {/* Badge */}
+                      <div className="inline-flex items-center gap-1.5 bg-cyan-500/10 border border-cyan-500/20 rounded-full px-3 py-1 mb-4">
+                        <div className="w-1.5 h-1.5 bg-cyan-400 rounded-full animate-pulse" />
+                        <span className="text-[10px] font-black text-cyan-400 uppercase tracking-widest">Agencia SEO</span>
+                      </div>
+
+                      <h4 className="text-white font-black text-lg leading-tight mb-2">
+                        ¿Querés más tráfico orgánico?
+                      </h4>
+                      <p className="text-gray-400 text-xs leading-relaxed mb-5">
+                        Auditamos tu sitio, detectamos oportunidades y ejecutamos una estrategia SEO que te lleva a la primera página de Google.
+                      </p>
+
+                      {/* Métricas rápidas */}
+                      <div className="grid grid-cols-2 gap-2 mb-5">
+                        {[
+                          { value: '+340%', label: 'Tráfico promedio' },
+                          { value: '90 días', label: 'Resultados visibles' },
+                          { value: '15+', label: 'Clientes activos' },
+                          { value: '100%', label: 'White Hat SEO' },
+                        ].map(({ value, label }) => (
+                          <div key={label} className="bg-white/5 border border-white/5 rounded-xl p-2.5 text-center">
+                            <div className="text-cyan-400 font-black text-sm">{value}</div>
+                            <div className="text-gray-500 text-[10px] leading-tight">{label}</div>
+                          </div>
+                        ))}
+                      </div>
+
+                      {/* Botón CTA principal */}
+                      <Link
+                        to="/servicios"
+                        className="block w-full text-center py-3 px-4 bg-cyan-500 hover:bg-cyan-400 text-black font-black text-xs uppercase tracking-widest rounded-xl transition-all shadow-[0_0_20px_rgba(6,182,212,0.3)] hover:shadow-[0_0_30px_rgba(6,182,212,0.5)] hover:scale-[1.02] active:scale-95"
+                      >
+                        Ver nuestros servicios →
+                      </Link>
+
+                      {/* Link secundario */}
+                      <Link
+                        to="/contacto"
+                        className="block w-full text-center py-2 mt-2 text-[11px] text-gray-500 hover:text-cyan-400 transition-colors"
+                      >
+                        Hablar con un especialista gratis
+                      </Link>
+                    </div>
+                  </div>
+
                </div>
             </aside>
           </div>

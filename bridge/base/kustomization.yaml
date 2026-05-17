@@ -1,0 +1,10 @@
+#! kustomization.yaml
+# Generated code, do not edit
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+    - 0-horizons-export-4ae51224-e377-439c-9315-7d2c7f7b11c2-namespace.yaml
+    - app-network-network-policy.yaml
+    - web-app-deployment.yaml
+    - web-app-expose.yaml
+    - web-app-service.yaml

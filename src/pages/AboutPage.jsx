@@ -3,7 +3,7 @@ import { Helmet } from 'react-helmet-async';
 import { Link } from 'react-router-dom';
 import ScrollToTop from '@/components/layout/ScrollToTop';
 import Breadcrumbs from '@/components/layout/Breadcrumbs';
-import { motion } from 'framer-motion';
+import { m } from 'framer-motion';
 
 const values = [
   {
@@ -103,7 +103,7 @@ const AboutPage = () => {
         </div>
         {/* Hero */}
         <section className="px-6 md:px-12 lg:px-24 max-w-7xl mx-auto mb-24">
-          <motion.div
+          <m.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
@@ -118,14 +118,14 @@ const AboutPage = () => {
               estrategia SEO, desarrollo web de alto rendimiento y automatización con inteligencia
               artificial para ayudar a empresas a crecer de forma sostenible.
             </p>
-          </motion.div>
+          </m.div>
         </section>
 
         {/* Stats */}
         <section className="px-6 md:px-12 lg:px-24 max-w-7xl mx-auto mb-24">
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
             {stats.map((stat, i) => (
-              <motion.div
+              <m.div
                 key={i}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -137,7 +137,7 @@ const AboutPage = () => {
                   {stat.number}
                 </span>
                 <p className="text-xs text-on-surface-variant leading-relaxed">{stat.label}</p>
-              </motion.div>
+              </m.div>
             ))}
           </div>
         </section>
@@ -214,7 +214,7 @@ const AboutPage = () => {
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {values.map((value, i) => (
-              <motion.div
+              <m.div
                 key={i}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -225,7 +225,7 @@ const AboutPage = () => {
                 <span className="material-symbols-outlined text-primary text-3xl mb-4 block group-hover:scale-110 transition-transform">{value.icon}</span>
                 <h3 className="font-headline text-lg font-bold text-on-surface mb-2">{value.title}</h3>
                 <p className="text-sm text-on-surface-variant leading-relaxed">{value.desc}</p>
-              </motion.div>
+              </m.div>
             ))}
           </div>
         </section>
@@ -242,7 +242,7 @@ const AboutPage = () => {
             <div className="absolute left-8 top-0 bottom-0 w-px bg-outline/20"></div>
             <div className="space-y-12">
               {timeline.map((item, i) => (
-                <motion.div
+                <m.div
                   key={i}
                   initial={{ opacity: 0, x: -20 }}
                   whileInView={{ opacity: 1, x: 0 }}
@@ -257,7 +257,7 @@ const AboutPage = () => {
                     <h3 className="font-headline text-xl font-bold text-on-surface mb-2">{item.title}</h3>
                     <p className="text-on-surface-variant leading-relaxed">{item.desc}</p>
                   </div>
-                </motion.div>
+                </m.div>
               ))}
             </div>
           </div>
