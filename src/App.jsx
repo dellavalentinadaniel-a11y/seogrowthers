@@ -6,8 +6,9 @@ import ScrollToTop from '@/components/layout/ScrollToTop';
 import CookieBanner from '@/components/layout/CookieBanner';
 import PageLoader from '@/components/shared/PageLoader';
 
+import { LazyMotion, AnimatePresence } from 'framer-motion';
 
-import { AnimatePresence } from 'framer-motion';
+const loadFeatures = () => import('framer-motion').then(mod => mod.domAnimation);
 
 // Lazy Loaded Pages
 const Home = lazy(() => import('@/pages/Home'));
@@ -83,6 +84,7 @@ function App() {
 
       <ScrollToTop />
       <CookieBanner />
+      <LazyMotion features={loadFeatures} strict>
       <AnimatePresence mode="wait">
         <Suspense fallback={<PageLoader />}>
           <Routes location={location} key={location.pathname}>
@@ -189,6 +191,7 @@ function App() {
           </Routes>
         </Suspense>
       </AnimatePresence>
+      </LazyMotion>
 
     </HelmetProvider>
   );

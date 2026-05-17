@@ -270,7 +270,15 @@ export default defineConfig({
 	build: {
 		target: ['es2020', 'edge88', 'firefox78', 'chrome87', 'safari14'],
 		cssCodeSplit: true,
-		reportCompressedSize: false,
+		reportCompressedSize: true,
+		minify: 'terser',
+		terserOptions: {
+			compress: {
+				drop_console: true,
+				drop_debugger: true,
+				pure_funcs: ['console.log', 'console.info', 'console.debug'],
+			},
+		},
 		rollupOptions: {
 			external: [
 				'@babel/parser',
@@ -281,15 +289,23 @@ export default defineConfig({
 			output: {
 				manualChunks(id) {
 					if (id.includes('node_modules')) {
-						// Editor tools: only loaded on admin routes
-						if (id.includes('novel') || id.includes('@tiptap') || id.includes('dompurify')) {
+						// Editor tools: only loaded on admin/create routes
+						if (id.includes('novel') || id.includes('@tiptap') || id.includes('dompurify') || id.includes('tippy') || id.includes('prosemirror')) {
 							return 'editor-vendor';
 						}
+						// Emoji picker: lazy loaded inside editor only
+						if (id.includes('emoji-picker-react')) {
+							return 'emoji-vendor';
+						}
+						// Syntax highlighter: heavy, only for code blocks
+						if (id.includes('react-syntax-highlighter') || id.includes('refractor') || id.includes('prismjs')) {
+							return 'syntax-vendor';
+						}
 						// Markdown rendering
-						if (id.includes('react-markdown') || id.includes('rehype') || id.includes('remark')) {
+						if (id.includes('react-markdown') || id.includes('rehype') || id.includes('remark') || id.includes('html-react-parser')) {
 							return 'markdown-vendor';
 						}
-						// Supabase: keep separate so public pages don't bundle it
+						// Supabase: keep separate so static pages don't bundle it
 						if (id.includes('@supabase')) {
 							return 'supabase-vendor';
 						}
@@ -298,7 +314,10 @@ export default defineConfig({
 							return 'animation-vendor';
 						}
 						// Core React (must come before ui-vendor since Radix depends on React)
-						if (id.includes('react') || id.includes('react-dom') || id.includes('react-router-dom')) {
+						if (id.includes('react-dom')) {
+							return 'react-dom-vendor';
+						}
+						if (id.includes('react') || id.includes('react-router-dom') || id.includes('scheduler')) {
 							return 'react-vendor';
 						}
 						// Radix + utils
