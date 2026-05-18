@@ -18,6 +18,7 @@ const BlogSection = () => {
           .from('articles')
           .select('id, title, summary, featured_image, slug, category, created_at, status')
           .eq('status', 'published')
+          .neq('section', 'Foro')
           .neq('category', 'news')
           .order('created_at', { ascending: false })
           .limit(3);

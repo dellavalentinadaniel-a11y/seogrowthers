@@ -7,6 +7,29 @@ import { Link } from 'react-router-dom';
 import SkeletonLoader from '@/components/shared/SkeletonLoader';
 import { Button } from '@/components/ui/button';
 
+const staticCases = [
+  {
+    id: 'aluvalle-static',
+    title: 'Aluvalle: Transformación Digital y SEO',
+    description: 'Rediseño completo y estrategia SEO para la tienda líder en carpintería de aluminio. Optimización de catálogo y mejora radical de la experiencia de usuario.',
+    image: '/images/aluvalle-case.webp',
+    result: '+300% Tráfico Orgánico',
+    industry: 'Retail / Construcción',
+    slug: 'aluvalle-transformacion-digital',
+    created_at: new Date().toISOString()
+  },
+  {
+    id: 'edv-remolques-static',
+    title: 'EDV Remolques: Soporte Táctico en Ruta',
+    description: 'Landing page táctica de carga móvil instantánea diseñada para conversiones telefónicas rápidas. Optimización extrema de rendimiento y 10/10 de calidad en campañas de Google Ads.',
+    image: '/images/edv-remolques-hero.png',
+    result: 'Carga en Ruta de 0.7 segundos',
+    industry: 'Logística / Asistencia',
+    slug: 'edv-remolques-tactica-logistica',
+    created_at: new Date().toISOString()
+  }
+];
+
 const SuccessCasesCarousel = () => {
   const [cases, setCases] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -15,37 +38,23 @@ const SuccessCasesCarousel = () => {
 
   useEffect(() => {
     const fetchCases = async () => {
-      const { data, error } = await supabase
-        .from('success_cases')
-        .select('id, title, description, image, result, industry, slug, created_at')
-        .order('created_at', { ascending: false });
+      try {
+        const { data, error } = await supabase
+          .from('success_cases')
+          .select('id, title, description, image, result, industry, slug, created_at')
+          .order('created_at', { ascending: false });
 
-      if (data) {
-        const aluvalleCase = {
-          id: 'aluvalle-static',
-          title: 'Aluvalle: Transformación Digital y SEO',
-          description: 'Rediseño completo y estrategia SEO para la tienda líder en carpintería de aluminio. Optimización de catálogo y mejora radical de la experiencia de usuario.',
-          image: '/images/aluvalle-case.webp',
-          result: '+300% Tráfico Orgánico',
-          industry: 'Retail / Construcción',
-          slug: 'aluvalle-transformacion-digital',
-          created_at: new Date().toISOString()
-        };
-        setCases([aluvalleCase, ...data]);
-      } else {
-        const aluvalleCase = {
-          id: 'aluvalle-static',
-          title: 'Aluvalle: Transformación Digital y SEO',
-          description: 'Rediseño completo y estrategia SEO para la tienda líder en carpintería de aluminio. Optimización de catálogo y mejora radical de la experiencia de usuario.',
-          image: '/images/aluvalle-case.webp',
-          result: '+300% Tráfico Orgánico',
-          industry: 'Retail / Construcción',
-          slug: 'aluvalle-transformacion-digital',
-          created_at: new Date().toISOString()
-        };
-        setCases([aluvalleCase]);
+        if (data && data.length > 0) {
+          setCases([...staticCases, ...data]);
+        } else {
+          setCases(staticCases);
+        }
+      } catch (err) {
+        console.error('Error fetching success cases:', err);
+        setCases(staticCases);
+      } finally {
+        setLoading(false);
       }
-      setLoading(false);
     };
 
     fetchCases();

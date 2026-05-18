@@ -21,6 +21,7 @@ import ImageOptimized from '@/components/shared/ImageOptimized';
 import RecentArticlesCarousel from '@/components/shared/RecentArticlesCarousel';
 import { format } from 'date-fns';
 import { es } from 'date-fns/locale';
+import FacebookStyleEditor from '@/components/forum/FacebookStyleEditor';
 
 const ForumPage = () => {
   const navigate = useNavigate();
@@ -28,7 +29,7 @@ const ForumPage = () => {
   const [featuredArticle, setFeaturedArticle] = useState(null);
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState('');
-  const [activeCategory, setActiveCategory] = useState('All Topics');
+  const [activeCategory, setActiveCategory] = useState('Todos');
   const [session, setSession] = useState(null);
   const [userRole, setUserRole] = useState(null);
 
@@ -66,10 +67,12 @@ const ForumPage = () => {
             role,
             xp,
             bio
-          )
+          ),
+          article_likes(id),
+          article_comments(id)
         `)
         .eq('status', 'published')
-        .eq('category', 'Debates')
+        .or('section.eq.Foro,category.eq.Debates')
         .order('created_at', { ascending: false });
 
       if (error) throw error;
@@ -86,6 +89,17 @@ const ForumPage = () => {
   }, [fetchArticles]);
 
   const categories = ['Todos', 'SEO', 'Web Dev', 'Herramientas AI', 'Growth'];
+
+  const filteredArticles = articles.filter(article => {
+    const matchesSearch = searchTerm.trim() === '' || 
+      article.title?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      article.summary?.toLowerCase().includes(searchTerm.toLowerCase());
+
+    const matchesCategory = activeCategory === 'Todos' || 
+      article.category?.toLowerCase() === activeCategory.toLowerCase();
+
+    return matchesSearch && matchesCategory;
+  });
 
   const handleStartThread = () => {
     if (!session) {
@@ -180,13 +194,21 @@ const ForumPage = () => {
         <section className="grid grid-cols-1 md:grid-cols-12 gap-6">
           {/* Main Content Area */}
           <div className="md:col-span-8 space-y-6">
+            {session && (userRole !== 'owner' && userRole !== 'admin' && userRole !== 'editor' && userRole !== 'writer') && (
+              <FacebookStyleEditor onPostCreated={fetchArticles} />
+            )}
+
             {loading ? (
               <div className="space-y-6">
                 {[1, 2, 3].map(n => (
                   <div key={n} className="h-64 bg-surface-container-high rounded-xl animate-pulse" />
                 ))}
               </div>
-            ) : articles.map((article, idx) => (
+            ) : filteredArticles.length === 0 ? (
+              <div className="bg-slate-900/40 border border-white/5 rounded-2xl p-8 text-center text-slate-500 italic">
+                No se encontraron debates para los filtros aplicados.
+              </div>
+            ) : filteredArticles.map((article, idx) => (
               <article key={article.id} className="bg-slate-900/80 backdrop-blur-xl rounded-2xl overflow-hidden hover:bg-white/[0.05] transition-all border border-white/10 hover:border-cyan-500/30 group shadow-lg">
                 <div className="p-6">
                   <div className="flex items-center justify-between mb-4">
@@ -247,20 +269,22 @@ const ForumPage = () => {
                   </p>
                   <div className="flex items-center justify-between pt-4 border-t border-white/5">
                     <div className="flex gap-6">
-                      <button 
+                      <Link 
+                        to={`/blog/${article.category}/${article.slug}`}
                         className="flex items-center gap-2 text-slate-500 hover:text-primary transition-colors"
                         aria-label={`Like article: ${article.title}`}
                       >
                         <ThumbsUp size={18} />
-                        <span className="text-xs font-bold">124</span>
-                      </button>
-                      <button 
+                        <span className="text-xs font-bold">{article.article_likes?.length || 0}</span>
+                      </Link>
+                      <Link 
+                        to={`/blog/${article.category}/${article.slug}#comments`}
                         className="flex items-center gap-2 text-slate-500 hover:text-secondary transition-colors"
                         aria-label={`View comments for article: ${article.title}`}
                       >
                         <MessageSquare size={18} />
-                        <span className="text-xs font-bold">12</span>
-                      </button>
+                        <span className="text-xs font-bold">{article.article_comments?.length || 0}</span>
+                      </Link>
                     </div>
                     <Link to={`/blog/${article.category}/${article.slug}`} className="text-primary text-xs font-bold font-headline flex items-center gap-1 group">
                       READ MORE <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />

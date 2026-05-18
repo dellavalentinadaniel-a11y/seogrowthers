@@ -50,8 +50,9 @@ const BlogPage = () => {
     try {
       let query = supabase
         .from('articles')
-        .select('id, title, summary, featured_image, slug, category, created_at, status', { count: 'exact' })
+        .select('id, title, summary, featured_image, slug, category, created_at, status, section', { count: 'exact' })
         .eq('status', 'published')
+        .neq('section', 'Foro')
         .order('created_at', { ascending: false });
 
       if (category) {

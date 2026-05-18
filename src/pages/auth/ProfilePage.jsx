@@ -5,22 +5,50 @@ import { supabase } from '@/lib/customSupabaseClient';
 import { toast } from '@/components/ui/use-toast';
 import { format } from 'date-fns';
 import { es } from 'date-fns/locale';
-import { Loader2, Edit2, Check, X, User, FileText, Calendar, Link as LinkIcon, Award, Zap, Star, Trophy, Camera, Twitter, Linkedin, Globe } from 'lucide-react';
+import { Loader2, Edit2, Check, X, User, FileText, Calendar, Link as LinkIcon, Award, Zap, Star, Trophy, Camera, Twitter, Linkedin, Globe, Instagram, Youtube, MessageSquare } from 'lucide-react';
 import AvatarSelector from '@/components/profile/AvatarSelector.jsx';
 import BannerSelector from '@/components/profile/BannerSelector.jsx';
 import SkillsPicker from '@/components/profile/SkillsPicker.jsx';
+import FacebookStyleEditor from '@/components/forum/FacebookStyleEditor';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Progress } from "@/components/ui/progress.jsx";
 import { Badge } from '@/components/ui/badge.jsx';
+
+const PRESET_BADGES = [
+  'Novato Neural',
+  'Data Voyager',
+  'Elite Explorer',
+  'Master Pathbreaker',
+  'Gurú del SEO',
+  'Creador Legendario',
+  'Cerebro Algorítmico',
+  'Arquitecto de Sistemas',
+  'Hacker Ético',
+  'Lumina Master',
+  'Colaborador Destacado',
+  'Ganador del Mes'
+];
 
 const ProfilePage = () => {
   const [user, setUser] = useState(null);
   const [profile, setProfile] = useState(null);
   const [stats, setStats] = useState({ articles: 0, comments: 0, shares: 0, guides: 0 });
   const [achievements, setAchievements] = useState([]);
+  const [forumPosts, setForumPosts] = useState([]);
+  const [forumFeed, setForumFeed] = useState([]);
   const [loading, setLoading] = useState(true);
   const [editing, setEditing] = useState(false);
-  const [editForm, setEditForm] = useState({ full_name: '', bio: '', username: '', twitter_url: '', linkedin_url: '', website: '' });
+  const [editForm, setEditForm] = useState({ 
+    full_name: '', 
+    bio: '', 
+    username: '', 
+    twitter_url: '', 
+    linkedin_url: '', 
+    website: '',
+    instagram_url: '',
+    youtube_url: '',
+    custom_badge: ''
+  });
   const [selectedAvatar, setSelectedAvatar] = useState('');
   const [selectedBanner, setSelectedBanner] = useState('');
   const [profileSkills, setProfileSkills] = useState([]);
@@ -94,6 +122,38 @@ const ProfilePage = () => {
           .select('*')
           .eq('user_id', user.id);
 
+        // 5. Fetch forum feed and sidebar posts
+        try {
+          const { data: feedData } = await supabase
+            .from('articles')
+            .select(`
+              id,
+              title,
+              slug,
+              category,
+              created_at,
+              summary,
+              featured_image,
+              views,
+              profiles:author_id (
+                username,
+                full_name,
+                avatar_url,
+                custom_badge
+              )
+            `)
+            .eq('section', 'Foro')
+            .eq('status', 'published')
+            .order('created_at', { ascending: false })
+            .limit(5);
+          
+          const resolvedFeed = feedData || [];
+          setForumFeed(resolvedFeed);
+          setForumPosts(resolvedFeed.slice(0, 3));
+        } catch (e) {
+          console.error("Error fetching forum feed on mount:", e);
+        }
+
         setProfile(resolvedProfile);
         setSelectedAvatar(resolvedProfile.avatar_url || '/images/iconos/guiaspersonaje.webp');
         setSelectedBanner(resolvedProfile.banner_url || '');
@@ -114,6 +174,9 @@ const ProfilePage = () => {
           twitter_url: resolvedProfile.twitter_url || '',
           linkedin_url: resolvedProfile.linkedin_url || '',
           website: resolvedProfile.website || '',
+          instagram_url: resolvedProfile.instagram_url || '',
+          youtube_url: resolvedProfile.youtube_url || '',
+          custom_badge: resolvedProfile.custom_badge || '',
         });
       } catch (error) {
         console.error('Error fetching profile:', error);
@@ -128,16 +191,24 @@ const ProfilePage = () => {
   const handleSaveProfile = async () => {
     setSaving(true);
     try {
+      const updateData = {
+        ...editForm,
+        custom_badge: editForm.custom_badge || null,
+        instagram_url: editForm.instagram_url || null,
+        youtube_url: editForm.youtube_url || null,
+        twitter_url: editForm.twitter_url || null,
+        linkedin_url: editForm.linkedin_url || null,
+        website: editForm.website || null,
+        updated_at: new Date().toISOString(),
+      };
+      
       const { error } = await supabase
         .from('profiles')
-        .update({
-          ...editForm,
-          updated_at: new Date().toISOString(),
-        })
+        .update(updateData)
         .eq('id', user.id);
       
       if (error) throw error;
-      setProfile(prev => ({ ...prev, ...editForm }));
+      setProfile(prev => ({ ...prev, ...updateData }));
       setEditing(false);
       toast({ title: 'Perfil actualizado', description: 'Tus datos han sido guardados correctamente.' });
     } catch (error) {
@@ -258,14 +329,23 @@ const ProfilePage = () => {
   };
 
 
-  const getRankInfo = (xp = 0) => {
-    if (xp >= 2001) return { name: 'Master Pathbreaker', color: 'text-amber-400', border: 'border-amber-500/50', icon: <Trophy className="w-5 h-5" />, next: null };
-    if (xp >= 501) return { name: 'Elite Explorer', color: 'text-fuchsia-400', border: 'border-fuchsia-500/50', icon: <Star className="w-5 h-5" />, next: 2001 };
-    if (xp >= 101) return { name: 'Data Voyager', color: 'text-purple-400', border: 'border-purple-500/50', icon: <Zap className="w-5 h-5" />, next: 501 };
-    return { name: 'Novato Neural', color: 'text-cyan-400', border: 'border-cyan-500/50', icon: <Award className="w-5 h-5" />, next: 101 };
+  const getRankInfo = (xp = 0, customBadge = null) => {
+    if (customBadge) {
+      return { 
+        name: customBadge, 
+        color: 'text-amber-400 animate-pulse', 
+        border: 'border-amber-500/50 shadow-[0_0_12px_rgba(245,158,11,0.25)]', 
+        icon: <Trophy className="w-4 h-4 text-amber-400" />, 
+        next: null 
+      };
+    }
+    if (xp >= 2001) return { name: 'Master Pathbreaker', color: 'text-amber-400', border: 'border-amber-500/50', icon: <Trophy className="w-4 h-4" />, next: null };
+    if (xp >= 501) return { name: 'Elite Explorer', color: 'text-fuchsia-400', border: 'border-fuchsia-500/50', icon: <Star className="w-4 h-4" />, next: 2001 };
+    if (xp >= 101) return { name: 'Data Voyager', color: 'text-purple-400', border: 'border-purple-500/50', icon: <Zap className="w-4 h-4" />, next: 501 };
+    return { name: 'Novato Neural', color: 'text-cyan-400', border: 'border-cyan-500/50', icon: <Award className="w-4 h-4" />, next: 101 };
   };
 
-  const rank = getRankInfo(profile?.xp);
+  const rank = getRankInfo(profile?.xp, profile?.custom_badge);
 
   const handleLogout = async () => {
     try {
@@ -275,6 +355,43 @@ const ProfilePage = () => {
       navigate('/login');
     } catch (error) {
       toast({ variant: 'destructive', title: 'Error al cerrar sesión', description: error.message });
+    }
+  };
+
+  const fetchForumFeed = async () => {
+    try {
+      const { data, error } = await supabase
+        .from('articles')
+        .select(`
+          id,
+          title,
+          slug,
+          category,
+          created_at,
+          summary,
+          featured_image,
+          views,
+          profiles:author_id (
+            username,
+            full_name,
+            avatar_url,
+            custom_badge
+          )
+        `)
+        .eq('section', 'Foro')
+        .eq('status', 'published')
+        .order('created_at', { ascending: false })
+        .limit(5);
+
+      if (error) throw error;
+      setForumFeed(data || []);
+      
+      // Mantener en sincronía la barra lateral de debates
+      if (data) {
+        setForumPosts(data.slice(0, 3));
+      }
+    } catch (err) {
+      console.error('Error fetching forum feed:', err);
     }
   };
 
@@ -351,7 +468,7 @@ const ProfilePage = () => {
                     </DialogTrigger>
                     <DialogContent className="bg-[#12111A] border-white/10 text-white max-w-2xl">
                         <DialogHeader><DialogTitle className="text-xl font-bold text-purple-400">Identidad Virtual</DialogTitle></DialogHeader>
-                        <AvatarSelector currentAvatar={selectedAvatar} onSelect={setSelectedAvatar} onSave={handleUpdateAvatar} isSaving={saving} />
+                        <AvatarSelector currentAvatar={selectedAvatar} onSelect={setSelectedAvatar} onSave={handleUpdateAvatar} isSaving={saving} user={user} />
                     </DialogContent>
                   </Dialog>
                 </div>
@@ -405,18 +522,74 @@ const ProfilePage = () => {
                 <div className="flex flex-wrap justify-center gap-4 mt-6">
                   {editing ? (
                     <div className="w-full space-y-3">
+                      <div className="text-left mb-1.5">
+                        <span className="text-[10px] uppercase font-bold tracking-wider text-purple-400">Redes Sociales & Enlaces</span>
+                      </div>
                       <div className="flex items-center gap-2 bg-white/5 border border-white/10 rounded-lg px-3 py-1.5 group focus-within:border-cyan-500/50 transition-all">
-                        <Twitter className="w-4 h-4 text-cyan-400" />
-                        <input type="text" value={editForm.twitter_url} onChange={e => setEditForm(p => ({ ...p, twitter_url: e.target.value }))} className="bg-transparent border-none text-white text-xs w-full focus:ring-0 placeholder:text-slate-600" placeholder="Twitter URL" />
+                        <Twitter className="w-4 h-4 text-cyan-400 shrink-0" />
+                        <input type="text" value={editForm.twitter_url} onChange={e => setEditForm(p => ({ ...p, twitter_url: e.target.value }))} className="bg-transparent border-none text-white text-xs w-full focus:ring-0 placeholder:text-slate-600 focus:outline-none" placeholder="Twitter URL" />
                       </div>
                       <div className="flex items-center gap-2 bg-white/5 border border-white/10 rounded-lg px-3 py-1.5 group focus-within:border-blue-500/50 transition-all">
-                        <Linkedin className="w-4 h-4 text-blue-500" />
-                        <input type="text" value={editForm.linkedin_url} onChange={e => setEditForm(p => ({ ...p, linkedin_url: e.target.value }))} className="bg-transparent border-none text-white text-xs w-full focus:ring-0 placeholder:text-slate-600" placeholder="LinkedIn URL" />
+                        <Linkedin className="w-4 h-4 text-blue-500 shrink-0" />
+                        <input type="text" value={editForm.linkedin_url} onChange={e => setEditForm(p => ({ ...p, linkedin_url: e.target.value }))} className="bg-transparent border-none text-white text-xs w-full focus:ring-0 placeholder:text-slate-600 focus:outline-none" placeholder="LinkedIn URL" />
+                      </div>
+                      <div className="flex items-center gap-2 bg-white/5 border border-white/10 rounded-lg px-3 py-1.5 group focus-within:border-pink-500/50 transition-all">
+                        <Instagram className="w-4 h-4 text-pink-500 shrink-0" />
+                        <input type="text" value={editForm.instagram_url} onChange={e => setEditForm(p => ({ ...p, instagram_url: e.target.value }))} className="bg-transparent border-none text-white text-xs w-full focus:ring-0 placeholder:text-slate-600 focus:outline-none" placeholder="Instagram URL" />
+                      </div>
+                      <div className="flex items-center gap-2 bg-white/5 border border-white/10 rounded-lg px-3 py-1.5 group focus-within:border-red-500/50 transition-all">
+                        <Youtube className="w-4 h-4 text-red-500 shrink-0" />
+                        <input type="text" value={editForm.youtube_url} onChange={e => setEditForm(p => ({ ...p, youtube_url: e.target.value }))} className="bg-transparent border-none text-white text-xs w-full focus:ring-0 placeholder:text-slate-600 focus:outline-none" placeholder="YouTube URL" />
                       </div>
                       <div className="flex items-center gap-2 bg-white/5 border border-white/10 rounded-lg px-3 py-1.5 group focus-within:border-emerald-500/50 transition-all">
-                        <Globe className="w-4 h-4 text-emerald-400" />
-                        <input type="text" value={editForm.website} onChange={e => setEditForm(p => ({ ...p, website: e.target.value }))} className="bg-transparent border-none text-white text-xs w-full focus:ring-0 placeholder:text-slate-600" placeholder="Website URL" />
+                        <Globe className="w-4 h-4 text-emerald-400 shrink-0" />
+                        <input type="text" value={editForm.website} onChange={e => setEditForm(p => ({ ...p, website: e.target.value }))} className="bg-transparent border-none text-white text-xs w-full focus:ring-0 placeholder:text-slate-600 focus:outline-none" placeholder="Website URL" />
                       </div>
+
+                      {/* Exclusivo Administradores: Mención & Categoría de Premio */}
+                      {profile?.role === 'admin' && (
+                        <div className="mt-4 pt-4 border-t border-white/5 text-left space-y-3">
+                          <div className="flex items-center gap-1.5 text-cyan-400">
+                            <Award className="w-4 h-4" />
+                            <span className="text-[10px] uppercase font-bold tracking-wider">Mención Especial (Admin)</span>
+                          </div>
+                          
+                          <div className="space-y-1">
+                            <label className="text-[9px] text-slate-400 font-semibold uppercase tracking-wider block">Categoría / Rango</label>
+                            <select 
+                              value={PRESET_BADGES.includes(editForm.custom_badge) ? editForm.custom_badge : (editForm.custom_badge ? 'Personalizado' : '')} 
+                              onChange={e => {
+                                const val = e.target.value;
+                                if (val === 'Personalizado') {
+                                  setEditForm(p => ({ ...p, custom_badge: 'Mención Especial' }));
+                                } else {
+                                  setEditForm(p => ({ ...p, custom_badge: val }));
+                                }
+                              }} 
+                              className="w-full bg-[#12111A] border border-white/10 rounded-lg px-2.5 py-1.5 text-white text-xs focus:border-purple-500/50"
+                            >
+                              <option value="">Rango Automático (XP)</option>
+                              {PRESET_BADGES.map(badge => (
+                                <option key={badge} value={badge}>{badge}</option>
+                              ))}
+                              <option value="Personalizado">🏆 Premio Personalizado...</option>
+                            </select>
+                          </div>
+
+                          {(editForm.custom_badge !== '' && !PRESET_BADGES.includes(editForm.custom_badge)) && (
+                            <div className="space-y-1 animate-fadeIn">
+                              <label className="text-[9px] text-slate-400 font-semibold uppercase tracking-wider block">Nombre del Premio</label>
+                              <input 
+                                type="text" 
+                                value={editForm.custom_badge} 
+                                onChange={e => setEditForm(p => ({ ...p, custom_badge: e.target.value }))} 
+                                className="w-full bg-white/5 border border-purple-500/30 rounded-lg px-3 py-1.5 text-white text-xs focus:border-cyan-500/50 focus:outline-none"
+                                placeholder="Escribe el nombre del premio..." 
+                              />
+                            </div>
+                          )}
+                        </div>
+                      )}
                     </div>
                   ) : (
                     <>
@@ -428,6 +601,16 @@ const ProfilePage = () => {
                       {profile?.linkedin_url && (
                         <a href={profile.linkedin_url} target="_blank" rel="noopener noreferrer" className="p-2.5 rounded-xl bg-white/5 border border-white/10 text-slate-400 hover:text-blue-500 hover:border-blue-500/50 hover:bg-blue-500/10 transition-all group">
                           <Linkedin className="w-4 h-4 group-hover:scale-110 transition-transform" />
+                        </a>
+                      )}
+                      {profile?.instagram_url && (
+                        <a href={profile.instagram_url} target="_blank" rel="noopener noreferrer" className="p-2.5 rounded-xl bg-white/5 border border-white/10 text-slate-400 hover:text-pink-500 hover:border-pink-500/50 hover:bg-pink-500/10 transition-all group">
+                          <Instagram className="w-4 h-4 group-hover:scale-110 transition-transform animate-fadeIn" />
+                        </a>
+                      )}
+                      {profile?.youtube_url && (
+                        <a href={profile.youtube_url} target="_blank" rel="noopener noreferrer" className="p-2.5 rounded-xl bg-white/5 border border-white/10 text-slate-400 hover:text-red-500 hover:border-red-500/50 hover:bg-red-500/10 transition-all group">
+                          <Youtube className="w-4 h-4 group-hover:scale-110 transition-transform animate-fadeIn" />
                         </a>
                       )}
                       {profile?.website && (
@@ -480,6 +663,47 @@ const ProfilePage = () => {
                   </Link>
                 ))}
               </nav>
+            </div>
+
+            {/* Foro Recuadro Amarillo Neón */}
+            <div className="bg-[#0e0e15]/90 backdrop-blur border border-yellow-500/30 hover:border-yellow-500/60 shadow-[0_0_15px_rgba(234,179,8,0.03)] hover:shadow-[0_0_20px_rgba(234,179,8,0.1)] rounded-3xl p-5 transition-all duration-300 relative overflow-hidden group">
+              <div className="absolute top-0 right-0 w-24 h-24 bg-yellow-500/5 blur-3xl -mr-12 -mt-12 rounded-full"></div>
+              
+              <div className="flex items-center justify-between mb-4 px-1">
+                <h3 className="text-xs uppercase tracking-[0.2em] text-yellow-500 font-black flex items-center gap-1.5">
+                  <MessageSquare className="w-3.5 h-3.5 text-yellow-500 animate-pulse animate-duration-1000" />
+                  Debates del Foro
+                </h3>
+                <Link to="/forum" className="text-[10px] font-black uppercase text-slate-400 hover:text-yellow-500 transition-colors">
+                  Ver Todo
+                </Link>
+              </div>
+
+              <div className="flex flex-col gap-3">
+                {forumPosts.length === 0 ? (
+                  <p className="text-xs text-slate-500 italic px-2">No hay debates activos.</p>
+                ) : (
+                  forumPosts.map(post => (
+                    <Link 
+                      key={post.id} 
+                      to={`/blog/${post.category}/${post.slug}`}
+                      className="p-3 bg-white/[0.01] border border-white/5 hover:border-yellow-500/20 hover:bg-yellow-500/[0.01] rounded-xl flex flex-col gap-1.5 transition-all group/post"
+                    >
+                      <span className="text-xs font-semibold text-slate-300 group-hover/post:text-yellow-400 transition-colors line-clamp-2 leading-relaxed">
+                        {post.title}
+                      </span>
+                      <div className="flex items-center justify-between mt-1 text-[9px] text-slate-500 font-medium">
+                        <span className="uppercase bg-yellow-500/10 text-yellow-500/80 border border-yellow-500/20 px-1.5 py-0.5 rounded-md font-bold">
+                          {post.category || 'General'}
+                        </span>
+                        <span className="font-semibold uppercase tracking-tighter">
+                          {new Date(post.created_at).toLocaleDateString()}
+                        </span>
+                      </div>
+                    </Link>
+                  ))
+                )}
+              </div>
             </div>
             
             <button onClick={handleLogout} className="w-full py-3 hover:bg-red-500/10 text-slate-500 hover:text-red-400 rounded-xl text-xs font-semibold uppercase tracking-widest transition-all border border-transparent hover:border-red-500/20 flex justify-center items-center gap-2">
@@ -599,6 +823,107 @@ const ProfilePage = () => {
               </div>
 
             </div>
+
+            {/* Editor de Debates estilo Facebook (Rectángulo Amarillo) */}
+            <FacebookStyleEditor onPostCreated={fetchForumFeed} />
+
+            {/* Actividad Reciente del Foro (Rectángulo Verde) */}
+            <div className="mt-6 bg-[#0e0e15]/95 border border-emerald-500/20 hover:border-emerald-500/40 shadow-[0_0_20px_rgba(16,185,129,0.02)] hover:shadow-[0_0_30px_rgba(16,185,129,0.08)] rounded-3xl p-6 transition-all duration-300 relative overflow-hidden">
+              <div className="absolute top-0 right-0 w-32 h-32 bg-emerald-500/5 blur-3xl -mr-16 -mt-16 rounded-full pointer-events-none"></div>
+
+              <div className="flex items-center justify-between mb-6 border-b border-white/5 pb-4">
+                <div className="flex items-center gap-3">
+                  <div className="p-2 rounded-xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-400">
+                    <MessageSquare className="w-5 h-5 animate-pulse" />
+                  </div>
+                  <div>
+                    <h3 className="font-extrabold text-base tracking-tight text-white">Últimos Debates del Foro</h3>
+                    <p className="text-xs text-slate-500">Únete a la conversación con la comunidad.</p>
+                  </div>
+                </div>
+                <Link to="/forum" className="text-xs font-black uppercase tracking-widest text-slate-400 hover:text-emerald-400 transition-colors border border-white/5 hover:border-emerald-500/30 px-4 py-2 rounded-xl bg-white/[0.02]">
+                  Ver Foro Completo
+                </Link>
+              </div>
+
+              <div className="space-y-4">
+                {forumFeed.length === 0 ? (
+                  <div className="text-center py-8 text-slate-500 italic text-sm">
+                    No hay publicaciones recientes en el foro. ¡Sé el primero en iniciar un debate!
+                  </div>
+                ) : (
+                  forumFeed.map(post => {
+                    const authorName = post.profiles?.full_name || post.profiles?.username || 'Growther';
+                    const authorAvatar = post.profiles?.avatar_url || `https://ui-avatars.com/api/?name=${encodeURIComponent(authorName)}&background=10B981&color=fff`;
+                    const categoryColors = {
+                      'SEO': 'bg-cyan-500/10 text-cyan-400 border-cyan-500/20',
+                      'Web Dev': 'bg-purple-500/10 text-purple-400 border-purple-500/20',
+                      'Herramientas AI': 'bg-pink-500/10 text-pink-400 border-pink-500/20',
+                      'Growth': 'bg-amber-500/10 text-amber-400 border-amber-500/20'
+                    };
+                    const pillClass = categoryColors[post.category] || 'bg-slate-500/10 text-slate-400 border-slate-500/20';
+
+                    return (
+                      <div 
+                        key={post.id} 
+                        className="p-5 bg-black/30 border border-white/5 hover:border-emerald-500/30 hover:bg-emerald-500/[0.01] rounded-2xl flex flex-col md:flex-row md:items-center justify-between gap-4 transition-all duration-300 group/feed-item"
+                      >
+                        <div className="flex items-start gap-4 flex-1">
+                          {/* Author Avatar */}
+                          <div className="w-11 h-11 rounded-full overflow-hidden border border-white/10 shrink-0 relative group-hover/feed-item:border-emerald-500/30 transition-colors">
+                            <img src={authorAvatar} alt={authorName} className="w-full h-full object-cover" />
+                          </div>
+                          
+                          {/* Post details */}
+                          <div className="space-y-1">
+                            <div className="flex flex-wrap items-center gap-2">
+                              <span className={`px-2.5 py-0.5 rounded-full text-[10px] font-black uppercase tracking-wider border ${pillClass}`}>
+                                {post.category || 'General'}
+                              </span>
+                              <span className="text-[10px] text-slate-500 font-bold uppercase">
+                                Por <span className="text-slate-400 font-extrabold">{authorName}</span>
+                              </span>
+                              {post.profiles?.custom_badge && (
+                                <span className="text-[9px] font-black uppercase tracking-widest text-amber-400 bg-amber-500/10 border border-amber-500/20 px-2 py-0.5 rounded-md">
+                                  {post.profiles.custom_badge}
+                                </span>
+                              )}
+                            </div>
+                            
+                            <h4 className="font-extrabold text-sm text-white group-hover/feed-item:text-emerald-400 transition-colors leading-snug">
+                              <Link to={`/blog/${post.category}/${post.slug}`}>
+                                {post.title}
+                              </Link>
+                            </h4>
+                            
+                            {post.summary && (
+                              <p className="text-xs text-slate-400 line-clamp-2 leading-relaxed font-light">
+                                {post.summary}
+                              </p>
+                            )}
+                          </div>
+                        </div>
+
+                        {/* Action and Metadata on the right */}
+                        <div className="flex items-center justify-between md:flex-col md:items-end gap-2 shrink-0 pt-3 md:pt-0 border-t border-white/5 md:border-t-0">
+                          <span className="text-[10px] text-slate-500 font-bold uppercase tracking-tight">
+                            {new Date(post.created_at).toLocaleDateString('es-ES', { day: 'numeric', month: 'short', year: 'numeric' })}
+                          </span>
+                          
+                          <Link 
+                            to={`/blog/${post.category}/${post.slug}`} 
+                            className="flex items-center gap-1.5 bg-white/5 hover:bg-emerald-500 hover:text-black border border-white/5 hover:border-transparent px-4 py-2 rounded-xl text-xs font-black uppercase tracking-widest transition-all duration-300 active:scale-95"
+                          >
+                            Unirse
+                          </Link>
+                        </div>
+                      </div>
+                    );
+                  })
+                )}
+              </div>
+            </div>
+
           </div>
 
         </div>

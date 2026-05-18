@@ -45,13 +45,23 @@ const ArticleDetail = () => {
     setLoading(true);
     let current = null;
     
-    // Preparar los términos de búsqueda
+    // Preparar los términos de búsqueda decodificados y limpios
     const searchTerms = [];
-    if (fullSlug) searchTerms.push(`slug.eq."${fullSlug}"`);
-    if (slug) searchTerms.push(`slug.eq."${slug}"`);
-    if (category && !slug) searchTerms.push(`slug.eq."${category}"`);
+    const decodedSlug = slug ? decodeURIComponent(slug) : null;
+    const decodedCategory = category ? decodeURIComponent(category) : null;
+    const decodedFullSlug = fullSlug ? decodeURIComponent(fullSlug) : null;
 
-    const orFilter = searchTerms.join(',');
+    if (decodedFullSlug && !decodedFullSlug.includes(' ')) {
+      searchTerms.push(`slug.eq.${decodedFullSlug}`);
+    }
+    if (decodedSlug && !decodedSlug.includes(' ')) {
+      searchTerms.push(`slug.eq.${decodedSlug}`);
+    }
+    if (decodedCategory && !slug && !decodedCategory.includes(' ')) {
+      searchTerms.push(`slug.eq.${decodedCategory}`);
+    }
+
+    const orFilter = searchTerms.length > 0 ? searchTerms.join(',') : 'slug.eq.none';
 
     try {
         const { data, error } = await supabase
@@ -147,7 +157,7 @@ const ArticleDetail = () => {
 
         // Comments
         const { count: comments } = await supabase
-            .from('blog_comments')
+            .from('article_comments')
             .select('id', { count: 'exact', head: true })
             .eq('article_id', articleId);
         setCommentsCount(comments || 0);

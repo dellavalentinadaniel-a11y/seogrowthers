@@ -34,13 +34,25 @@ const SuccessCasesHeroCarousel = () => {
         url: '/services/success-cases/aluvalle-transformacion-digital'
       };
 
+      // Definir caso EDV Remolques (Estático)
+      const edvCase = {
+        id: 'edv-remolques-static',
+        title: 'EDV Remolques: Soporte Táctico en Ruta',
+        description: 'Desarrollo de landing page táctica y ultra-veloz enfocada en conversiones móviles inmediatas para auxilio mecánico en Neuquén y Alto Valle.',
+        image: '/images/edv-remolques-hero.png',
+        result: 'Carga Móvil de 0.7s',
+        industry: 'Logística / Asistencia',
+        slug: 'edv-remolques-tactica-logistica',
+        url: '/services/success-cases/edv-remolques-tactica-logistica'
+      };
+
       // 3. Combinar y mapear
       const dbCases = (data || []).map(c => ({
         ...c,
         url: `/services/success-cases/${c.slug}`
       }));
 
-      setCases([aluvalleCase, ...dbCases]);
+      setCases([aluvalleCase, edvCase, ...dbCases]);
     } catch (err) {
       console.error('Error fetching success cases for hero:', err);
     } finally {

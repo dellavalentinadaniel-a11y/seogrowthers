@@ -24,6 +24,21 @@ const staticSuccessCases = [
     isSuccessCase: true
   },
   {
+    id: 'case-edvremolques',
+    title: 'EDV Remolques: Soporte Táctico en Ruta y Logística 24/7',
+    summary: 'Despliegue de una landing page táctica ultra-veloz de alto rendimiento. Optimizada para dispositivos móviles bajo situaciones críticas en ruta, maximizando llamadas instantáneas y conversiones directas en Google Ads.',
+    featured_image: '/images/edv-remolques-hero.png',
+    category: 'Caso de Éxito',
+    slug: 'edv-remolques-tactica-logistica',
+    created_at: '2026-05-17T11:30:00Z',
+    author: {
+      username: 'seogrowthers',
+      full_name: 'SEO GROWTHERS',
+      avatar_url: '/images/iconos/guiaspersonaje.webp'
+    },
+    isSuccessCase: true
+  },
+  {
     id: 'case-inmofuture',
     title: 'InmoFuture: Ecosistema Digital para Real Estate y Ventas',
     summary: 'Diseño y desarrollo de una plataforma inmobiliaria premium con buscador inteligente, CRM integrado y UX optimizada de alta conversión para maximizar la captación de leads.',
@@ -65,7 +80,7 @@ const RecentArticlesCarousel = ({ title = "Últimas Publicaciones", subtitle = "
           )
         `)
         .eq('status', 'published')
-        .neq('category', 'Debates') // Usually for blog/services/tools we want articles, not forum threads
+        .neq('section', 'Foro') // Exclude forum debates
         .order('created_at', { ascending: false })
         .limit(5);
 

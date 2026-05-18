@@ -55,7 +55,7 @@ const Footer = () => {
             links: [
                 { name: 'Quiénes somos', href: '/about' },
                 { name: 'Auditoría SEO Gratis', href: '/auditoria-seo-gratis' },
-                { name: 'Casos de Éxito', href: '/services/success-cases/aluvalle-transformacion-digital' },
+                { name: 'Casos de Éxito', href: '/services/success-cases' },
                 { name: 'Blog', href: '/blog' },
             ],
         },
