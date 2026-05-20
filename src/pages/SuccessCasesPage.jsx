@@ -16,7 +16,7 @@ const cases = [
     kpis: ['+300% Tráfico Orgánico', 'Top #1 en Google Maps', 'LCP < 1.5s (Carga Instantánea)'],
     tags: ['SEO Local', 'Desarrollo Web', 'Google Business Profile'],
     icon: <Cpu className="w-5 h-5" />,
-    image: "/images/aluvalle-showcase.png",
+    image: "/images/aluvalle-showcase.webp",
     color: "from-cyan-500/20 to-blue-500/20"
   },
   {
@@ -27,7 +27,7 @@ const cases = [
     kpis: ['Carga móvil en 0.7s', '+150% Conversión Telefónica', '10/10 Google Ads Quality Score'],
     tags: ['Landing Page', 'Logística Táctica', 'CRO Móvil Extremo'],
     icon: <Smartphone className="w-5 h-5" />,
-    image: "/images/edv-remolques-hero.png",
+    image: "/images/edv-remolques-hero.webp",
     color: "from-amber-500/20 to-orange-600/20"
   },
   {
@@ -38,7 +38,7 @@ const cases = [
     kpis: ['+358% Conversión de Leads', 'LCP 1.2s en Escritorio', '+40% Productividad Comercial'],
     tags: ['Plataforma Web', 'CRM Inmobiliario', 'UX/UI de Alta Gama'],
     icon: <TrendingUp className="w-5 h-5" />,
-    image: "/images/inmofuture-showcase.png",
+    image: "/images/inmofuture-showcase.webp",
     color: "from-purple-500/20 to-indigo-600/20"
   },
 ];
@@ -85,7 +85,7 @@ const SuccessCasesPage = () => {
         <meta property="og:description" content="Casos de éxito verídicos con métricas reales de conversión, tráfico y velocidad web." />
         <meta property="og:url" content="https://seogrowthers.com/services/success-cases" />
         <meta property="og:type" content="website" />
-        <meta property="og:image" content="https://seogrowthers.com/images/seo-platform-showcase.png" />
+        <meta property="og:image" content="https://seogrowthers.com/images/seo-platform-showcase.webp" />
         <script type="application/ld+json">{JSON.stringify(structuredData)}</script>
       </Helmet>
 
@@ -135,6 +135,8 @@ const SuccessCasesPage = () => {
                   <img 
                     src={c.image} 
                     alt={c.title} 
+                    loading="lazy"
+                    decoding="async"
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 opacity-90"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-[#0e101f] via-transparent to-transparent pointer-events-none"></div>

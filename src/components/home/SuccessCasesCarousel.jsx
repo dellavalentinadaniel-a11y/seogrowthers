@@ -22,7 +22,7 @@ const staticCases = [
     id: 'edv-remolques-static',
     title: 'EDV Remolques: Soporte Táctico en Ruta',
     description: 'Landing page táctica de carga móvil instantánea diseñada para conversiones telefónicas rápidas. Optimización extrema de rendimiento y 10/10 de calidad en campañas de Google Ads.',
-    image: '/images/edv-remolques-hero.png',
+    image: '/images/edv-remolques-hero.webp',
     result: 'Carga en Ruta de 0.7 segundos',
     industry: 'Logística / Asistencia',
     slug: 'edv-remolques-tactica-logistica',
@@ -110,6 +110,8 @@ const SuccessCasesCarousel = () => {
               <img 
                 src={cases[currentIndex].image} 
                 alt={cases[currentIndex].title}
+                loading="lazy"
+                decoding="async"
                 className="w-full h-full object-cover"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-[#0C0D0D] via-[#0C0D0D]/40 to-transparent opacity-90"></div>

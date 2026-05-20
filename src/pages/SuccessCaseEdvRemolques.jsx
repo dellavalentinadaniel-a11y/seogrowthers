@@ -28,7 +28,7 @@ const SuccessCaseEdvRemolques = () => {
   const metadata = {
     title: "EDV Remolques: Carga Ultra Rápida y Conversión Táctica | SEOGrowthers",
     description: "Conocé cómo transformamos a EDV Remolques en Neuquén. Landing page de alto rendimiento, optimización extrema de conversiones y 10/10 en Google Ads.",
-    image: "/images/edv-remolques-hero.png",
+    image: "/images/edv-remolques-hero.webp",
     url: "https://seogrowthers.com/services/success-cases/edv-remolques-tactica-logistica"
   };
 
@@ -100,8 +100,10 @@ const SuccessCaseEdvRemolques = () => {
           >
             <div className="absolute -inset-4 bg-yellow-400/20 blur-3xl rounded-full opacity-20"></div>
             <img 
-              src="/images/edv-remolques-hero.png" 
+              src="/images/edv-remolques-hero.webp" 
               alt="EDV Remolques Preview" 
+              fetchpriority="high"
+              decoding="async"
               className="relative rounded-3xl border border-white/10 shadow-[0_20px_50px_rgba(0,0,0,0.8)] w-full h-auto object-cover"
             />
           </m.div>

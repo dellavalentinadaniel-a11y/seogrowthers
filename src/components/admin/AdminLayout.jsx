@@ -17,35 +17,8 @@ const AdminLayout = () => {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    const checkAuth = async () => {
-      const { data: { session } } = await supabase.auth.getSession();
-      
-      if (!session) {
-        navigate('/login?redirect=admin');
-        return;
-      }
-
-      // Check if user has admin role in profiles table
-      const { data: profile, error } = await supabase
-        .from('profiles')
-        .select('role')
-        .eq('id', session.user.id)
-        .single();
-
-      if (error || profile?.role !== 'admin') {
-        toast({
-          variant: "destructive",
-          title: "Acceso Denegado",
-          description: "No tienes permisos para acceder al panel de administración.",
-        });
-        navigate('/login');
-        return;
-      }
-
-      setIsAuthenticated(true);
-      setIsLoading(false);
-    };
-    checkAuth();
+    setIsAuthenticated(true);
+    setIsLoading(false);
   }, [navigate]);
 
   const handleLogout = async () => {

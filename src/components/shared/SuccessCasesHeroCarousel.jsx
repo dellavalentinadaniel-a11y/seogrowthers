@@ -39,7 +39,7 @@ const SuccessCasesHeroCarousel = () => {
         id: 'edv-remolques-static',
         title: 'EDV Remolques: Soporte Táctico en Ruta',
         description: 'Desarrollo de landing page táctica y ultra-veloz enfocada en conversiones móviles inmediatas para auxilio mecánico en Neuquén y Alto Valle.',
-        image: '/images/edv-remolques-hero.png',
+        image: '/images/edv-remolques-hero.webp',
         result: 'Carga Móvil de 0.7s',
         industry: 'Logística / Asistencia',
         slug: 'edv-remolques-tactica-logistica',
@@ -105,6 +105,8 @@ const SuccessCasesHeroCarousel = () => {
           <img 
             src={cases[currentIndex].image} 
             alt={cases[currentIndex].title}
+            loading="lazy"
+            decoding="async"
             className="w-full h-full object-cover opacity-60 group-hover:scale-110 transition-transform duration-[15s] ease-out"
           />
           

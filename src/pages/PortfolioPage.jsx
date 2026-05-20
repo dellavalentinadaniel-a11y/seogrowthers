@@ -15,7 +15,7 @@ const projects = [
     desc: "Ecosistema digital completo: Blog, Comunidad, Herramientas SEO y Servicios profesionales con rendimiento estelar.",
     link: "https://seogrowthers.com/",
     tags: ["Platform", "SEO Tools", "Community", "Supabase"],
-    image: "/images/seo-platform-showcase.png"
+    image: "/images/seo-platform-showcase.webp"
   },
   {
     id: 8, 
@@ -24,7 +24,7 @@ const projects = [
     desc: "Catálogo industrial y corporativo líder en aberturas de aluminio, posicionado en el top de Google Maps Neuquén.",
     link: "https://www.aluvalle.store/",
     tags: ["Industrial", "SEO Local", "Catalog", "Premium"],
-    image: "/images/aluvalle-showcase.png"
+    image: "/images/aluvalle-showcase.webp"
   },
   {
     id: 10, 
@@ -33,7 +33,7 @@ const projects = [
     desc: "Portal inmobiliario de gama alta con buscador dinámico, CRM inteligente y diseño premium enfocado en conversiones.",
     link: "https://inmobiliaria-plantilla.vercel.app/",
     tags: ["Real Estate", "React", "Management", "Framer Motion"],
-    image: "/images/inmofuture-showcase.png"
+    image: "/images/inmofuture-showcase.webp"
   },
   {
     id: 11,
@@ -42,7 +42,7 @@ const projects = [
     desc: "Soporte táctico y auxilio mecánico 24hs con optimización mobile-first extrema y sintonización de velocidad perfecta.",
     link: "https://edvremolques.online/",
     tags: ["Landing Page", "Logistics", "Mobile-First", "High Conversion"],
-    image: "/images/edv-remolques-hero.png"
+    image: "/images/edv-remolques-hero.webp"
   },
   {
     id: 7, 
@@ -150,7 +150,7 @@ const PortfolioPage = () => {
         <meta property="og:description" content="Nuestra biblioteca y galería de desarrollos digitales optimizados para velocidad extrema y conversiones de negocio." />
         <meta property="og:url" content="https://seogrowthers.com/portfolio" />
         <meta property="og:type" content="website" />
-        <meta property="og:image" content="https://seogrowthers.com/images/seo-platform-showcase.png" />
+        <meta property="og:image" content="https://seogrowthers.com/images/seo-platform-showcase.webp" />
         <meta name="twitter:card" content="summary_large_image" />
         <script type="application/ld+json">{JSON.stringify(structuredData)}</script>
       </Helmet>
@@ -248,6 +248,8 @@ const PortfolioPage = () => {
                     <img 
                       src={project.image} 
                       alt={project.title} 
+                      loading="lazy"
+                      decoding="async"
                       className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 opacity-80"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-[#111322] via-[#111322]/10 to-transparent pointer-events-none"></div>
