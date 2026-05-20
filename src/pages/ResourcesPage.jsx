@@ -23,12 +23,14 @@ import {
   Filter, 
   HelpCircle,
   ExternalLink,
-  ChevronRight
+  ChevronRight,
+  Terminal,
+  Cpu
 } from 'lucide-react';
 import { format } from 'date-fns';
 import { es } from 'date-fns/locale';
 
-const CATEGORIES = ['Todos', 'Guías', 'Activos', 'Técnicos', 'Vídeos'];
+const CATEGORIES = ['Todos', 'Guías', 'Activos', 'Técnicos', 'Vídeos', 'Skills'];
 
 const ResourcesPage = () => {
   const [activeCategory, setActiveCategory] = useState('Todos');
@@ -65,48 +67,110 @@ const ResourcesPage = () => {
         created_at: new Date().toISOString()
       };
 
+      const multiAgentSkill = {
+        id: 'multi-agente',
+        title: 'Habilidad de Multi-Agente para Antigravity',
+        description: 'Esta habilidad permite a Antigravity coordinar un equipo de agentes inteligentes trabajando en paralelo sobre el mismo proyecto, replicando la funcionalidad de "Agent Teams" de Claude Code.',
+        category: 'SKILLS',
+        link: '/resources/multi-agente',
+        featured: true,
+        image: '/images/seo_pillar.webp',
+        downloads: 742,
+        file_size: '2.4 KB',
+        file_type: 'py',
+        created_at: new Date().toISOString()
+      };
+
+      const kwResearchIa = {
+        id: 'plantilla-keyword-research-ia',
+        title: 'Plantilla de Keyword Research Automatizada con IA',
+        description: 'Plantilla avanzada en Google Sheets conectada a APIs de IA para automatizar la agrupación semántica e intención de búsqueda de palabras clave.',
+        category: 'ACTIVOS',
+        link: '#',
+        featured: false,
+        downloads: 1852,
+        file_size: '1.2 MB',
+        file_type: 'zip',
+        created_at: new Date(Date.now() - 43200000).toISOString()
+      };
+
+      const coreWebVitalsCheck = {
+        id: 'checklist-core-web-vitals',
+        title: 'Checklist Avanzado de Core Web Vitals',
+        description: 'Una guía-lista de control interactiva para optimizar el rendimiento de velocidad de tu sitio y obtener 100/100 en Google PageSpeed Insights.',
+        category: 'TÉCNICOS',
+        link: '#',
+        featured: false,
+        downloads: 2420,
+        file_size: '3.5 MB',
+        file_type: 'pdf',
+        created_at: new Date(Date.now() - 86400000).toISOString()
+      };
+
+      const seoHeadless = {
+        id: 'seo-headless-nextjs-astro',
+        title: 'Ebook: SEO para Aplicaciones Headless & SPAs',
+        description: 'Arquitecturas semánticas de indexación y renderizado dinámico en Next.js, React y Astro para el posicionamiento premium.',
+        category: 'GUÍAS',
+        link: '#',
+        featured: false,
+        downloads: 3105,
+        file_size: '6.8 MB',
+        file_type: 'pdf',
+        created_at: new Date(Date.now() - 129600000).toISOString()
+      };
+
+      const defaultResources = [
+        multiAgentSkill,
+        ssdGuide,
+        kwResearchIa,
+        coreWebVitalsCheck,
+        seoHeadless,
+        {
+          id: 'plantilla-seo-audit-2026',
+          title: 'Plantilla de Auditoría SEO Avanzada',
+          description: 'Un checklist técnico completo y automatizado para auditar cualquier sitio web en cuestión de minutos.',
+          category: 'ACTIVOS',
+          link: '#',
+          featured: false,
+          downloads: 852,
+          file_size: '1.8 MB',
+          file_type: 'zip',
+          created_at: new Date(Date.now() - 86400000).toISOString()
+        },
+        {
+          id: 'guias-vibe-coding-react19',
+          title: 'Guía Definitiva de React 19 y Vibe Coding',
+          description: 'Aprende a integrar componentes de servidor de React 19 y patrones de composición avanzados con Inteligencia Artificial.',
+          category: 'GUÍAS',
+          link: '#',
+          featured: false,
+          downloads: 2105,
+          file_size: '12.5 MB',
+          file_type: 'pdf',
+          created_at: new Date(Date.now() - 172800000).toISOString()
+        },
+        {
+          id: 'video-nextjs-seo-lighthouse',
+          title: 'Video Webinar: Next.js Speed & Core Web Vitals',
+          description: 'Sesión grabada sobre cómo optimizar al 100% las métricas de Lighthouse en arquitecturas headless modernas.',
+          category: 'VÍDEO',
+          link: '#',
+          featured: false,
+          downloads: 412,
+          file_size: 'Webinar',
+          file_type: 'mp4',
+          created_at: new Date(Date.now() - 259200000).toISOString()
+        }
+      ];
+
       if (!error && data) {
-        setResources([ssdGuide, ...data]);
+        // Combinar datos externos con los semillas locales clave
+        const externalIds = new Set(data.map(d => d.id));
+        const nonDuplicateDefaults = defaultResources.filter(r => !externalIds.has(r.id));
+        setResources([...nonDuplicateDefaults, ...data]);
       } else {
-        setResources([
-          ssdGuide,
-          {
-            id: 'plantilla-seo-audit-2026',
-            title: 'Plantilla de Auditoría SEO Avanzada',
-            description: 'Un checklist técnico completo y automatizado para auditar cualquier sitio web en cuestión de minutos.',
-            category: 'ACTIVOS',
-            link: '#',
-            featured: false,
-            downloads: 852,
-            file_size: '1.8 MB',
-            file_type: 'zip',
-            created_at: new Date(Date.now() - 86400000).toISOString()
-          },
-          {
-            id: 'guias-vibe-coding-react19',
-            title: 'Guía Definitiva de React 19 y Vibe Coding',
-            description: 'Aprende a integrar componentes de servidor de React 19 y patrones de composición avanzados con Inteligencia Artificial.',
-            category: 'GUÍAS',
-            link: '#',
-            featured: false,
-            downloads: 2105,
-            file_size: '12.5 MB',
-            file_type: 'pdf',
-            created_at: new Date(Date.now() - 172800000).toISOString()
-          },
-          {
-            id: 'video-nextjs-seo-lighthouse',
-            title: 'Video Webinar: Next.js Speed & Core Web Vitals',
-            description: 'Sesión grabada sobre cómo optimizar al 100% las métricas de Lighthouse en arquitecturas headless modernas.',
-            category: 'VÍDEO',
-            link: '#',
-            featured: false,
-            downloads: 412,
-            file_size: 'Webinar',
-            file_type: 'mp4',
-            created_at: new Date(Date.now() - 259200000).toISOString()
-          }
-        ]);
+        setResources(defaultResources);
       }
     } catch (err) {
       console.error('Error fetching resources:', err);
@@ -129,6 +193,9 @@ const ResourcesPage = () => {
     if (cat.includes('video') || cat.includes('webinar') || cat.includes('multimedia')) {
       return <Video size={20} className="text-rose-400 group-hover:scale-110 transition-transform" />;
     }
+    if (cat.includes('skill')) {
+      return <Terminal size={20} className="text-fuchsia-400 group-hover:scale-110 transition-transform" />;
+    }
     return <FileText size={20} className="text-blue-400 group-hover:scale-110 transition-transform" />;
   };
 
@@ -138,6 +205,7 @@ const ResourcesPage = () => {
     if (cat.includes('plantilla') || cat.includes('asset')) return 'border-purple-500/30 text-purple-400 bg-purple-950/20';
     if (cat.includes('tecnico') || cat.includes('herramienta')) return 'border-emerald-500/30 text-emerald-400 bg-emerald-950/20';
     if (cat.includes('video') || cat.includes('webinar')) return 'border-rose-500/30 text-rose-400 bg-rose-950/20';
+    if (cat.includes('skill')) return 'border-fuchsia-500/30 text-fuchsia-400 bg-fuchsia-950/20';
     return 'border-blue-500/30 text-blue-400 bg-blue-950/20';
   };
 
@@ -165,6 +233,9 @@ const ResourcesPage = () => {
     }
     if (activeCategory === 'Vídeos') {
       return item.category?.toUpperCase().includes('WEBINAR') || item.category?.toUpperCase().includes('VIDEO') || item.category?.toUpperCase() === 'VÍDEO';
+    }
+    if (activeCategory === 'Skills') {
+      return item.category?.toUpperCase() === 'SKILLS' || item.category?.toUpperCase().includes('SKILL');
     }
     return true;
   });
