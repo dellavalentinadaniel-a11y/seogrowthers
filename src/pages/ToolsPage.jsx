@@ -1,14 +1,84 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { Link } from 'react-router-dom';
 import ScrollToTop from '@/components/layout/ScrollToTop';
 import Breadcrumbs from '@/components/layout/Breadcrumbs';
 import RecentArticlesCarousel from '@/components/shared/RecentArticlesCarousel';
+import ToolCard from '@/components/tools/ToolCard';
+import { toolsData } from '@/data/toolsData';
+import { Search, Star, X, SlidersHorizontal, Sparkles } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
 
 const ToolsPage = () => {
+  const [searchTerm, setSearchTerm] = useState('');
+  const [selectedCategory, setSelectedCategory] = useState('Todos');
+  const [favorites, setFavorites] = useState(() => {
+    try {
+      const saved = localStorage.getItem('seogrowthers_favorite_tools');
+      return saved ? JSON.parse(saved) : [];
+    } catch (e) {
+      console.error('Error al cargar favoritos:', e);
+      return [];
+    }
+  });
+
+  const searchInputRef = useRef(null);
+
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
+
+  // Atajo de teclado: presionar '/' enfoca el buscador si no se está escribiendo en él
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.key === '/' && document.activeElement !== searchInputRef.current) {
+        e.preventDefault();
+        searchInputRef.current?.focus();
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, []);
+
+  const handleFavoriteToggle = (toolId, isFav) => {
+    if (isFav) {
+      setFavorites(prev => [...prev, toolId]);
+    } else {
+      setFavorites(prev => prev.filter(id => id !== toolId));
+    }
+  };
+
+  // Categorías fijas del catálogo
+  const categories = [
+    'Todos',
+    'Favoritos',
+    'Herramientas de diseño',
+    'Herramientas de desarrollo',
+    'Herramientas de productividad',
+    'Herramientas de SEO y marketing',
+    'Herramientas de testing'
+  ];
+
+  // Filtrado de herramientas en tiempo real
+  const filteredTools = toolsData.filter(tool => {
+    // Filtro por Categorías
+    if (selectedCategory === 'Favoritos') {
+      if (!favorites.includes(tool.id)) return false;
+    } else if (selectedCategory !== 'Todos') {
+      if (tool.category !== selectedCategory) return false;
+    }
+
+    // Filtro por Buscador
+    if (searchTerm.trim() !== '') {
+      const term = searchTerm.toLowerCase();
+      const nameMatch = tool.name?.toLowerCase().includes(term);
+      const descMatch = tool.description?.toLowerCase().includes(term);
+      const featuresMatch = tool.features?.some(f => f?.toLowerCase().includes(term));
+      return nameMatch || descMatch || featuresMatch;
+    }
+
+    return true;
+  });
 
   return (
     <div className="text-on-surface font-body selection:bg-primary-container selection:text-on-primary-container min-h-screen overflow-x-hidden">
@@ -166,6 +236,158 @@ const ToolsPage = () => {
             <p className="text-xs text-slate-500">Sincronización multi-cluster.</p>
           </div>
         </div>
+
+        {/* Separador elegante de neón */}
+        <div className="my-20 h-[1px] w-full bg-gradient-to-r from-transparent via-slate-800 to-transparent"></div>
+
+        {/* Sección del Catálogo Completo */}
+        <div className="mb-12 flex flex-col md:flex-row md:items-center md:justify-between gap-6" id="catalogo-herramientas">
+          <div>
+            <h3 className="font-headline text-3xl font-bold text-white mb-2 flex items-center gap-2.5">
+              <Sparkles size={24} className="text-cyan-400 animate-pulse" />
+              Catálogo de Herramientas Premium
+            </h3>
+            <p className="text-gray-400 text-sm max-w-xl">
+              Explora nuestra selección curada de utilidades profesionales. Filtra por categoría, busca palabras clave o guarda tus favoritas ⭐.
+            </p>
+          </div>
+
+          {/* Buscador Interactivo */}
+          <div className="relative max-w-md w-full">
+            <div className="absolute inset-y-0 left-4 flex items-center pointer-events-none text-gray-500">
+              <Search size={18} />
+            </div>
+            <input
+              ref={searchInputRef}
+              type="text"
+              placeholder="Buscar herramienta... (pulsa '/' para enfocar)"
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              className="w-full pl-11 pr-12 py-3.5 bg-slate-950/60 border border-slate-800 rounded-2xl text-white placeholder-gray-500 focus:outline-none focus:border-cyan-500/50 focus:shadow-[0_0_20px_rgba(6,182,212,0.15)] transition-all duration-300 font-body text-sm"
+            />
+            {searchTerm ? (
+              <button
+                onClick={() => setSearchTerm('')}
+                className="absolute inset-y-0 right-4 flex items-center text-gray-400 hover:text-white transition-colors"
+                aria-label="Limpiar búsqueda"
+              >
+                <X size={16} />
+              </button>
+            ) : (
+              <div className="absolute inset-y-0 right-4 flex items-center pointer-events-none">
+                <span className="text-[10px] font-mono px-2 py-0.5 bg-slate-800 border border-slate-700 rounded text-gray-400">
+                  /
+                </span>
+              </div>
+            )}
+          </div>
+        </div>
+
+        {/* Barra de Filtros */}
+        <div className="mb-10 flex flex-wrap items-center gap-3 overflow-x-auto pb-2 scrollbar-thin scrollbar-thumb-slate-800">
+          <div className="flex items-center gap-2 text-[10px] font-bold text-gray-500 uppercase tracking-widest mr-1">
+            <SlidersHorizontal size={12} className="text-gray-400" />
+            <span>Filtros:</span>
+          </div>
+
+          {categories.map((category) => {
+            const isSelected = selectedCategory === category;
+            const isFav = category === 'Favoritos';
+            
+            return (
+              <button
+                key={category}
+                onClick={() => setSelectedCategory(category)}
+                className={`px-4 py-2 rounded-xl text-xs font-semibold transition-all duration-300 flex items-center gap-2 border shrink-0 ${
+                  isSelected
+                    ? isFav
+                      ? 'bg-yellow-500/20 text-yellow-400 border-yellow-500/40 shadow-[0_0_15px_rgba(250,204,21,0.1)]'
+                      : 'bg-cyan-500/10 text-cyan-400 border-cyan-500/30 shadow-[0_0_15px_rgba(6,182,212,0.15)]'
+                    : 'bg-slate-900/40 text-gray-400 border-slate-800/80 hover:bg-slate-850 hover:text-white hover:border-slate-700'
+                }`}
+              >
+                {isFav && (
+                  <Star
+                    size={13}
+                    className={isSelected ? 'text-yellow-400 fill-yellow-400' : 'text-gray-400'}
+                  />
+                )}
+                <span>{category}</span>
+                {isFav && favorites.length > 0 && (
+                  <span className="ml-1 px-1.5 py-0.5 text-[9px] bg-yellow-500/30 text-yellow-300 font-bold rounded-full">
+                    {favorites.length}
+                  </span>
+                )}
+              </button>
+            );
+          })}
+        </div>
+
+        {/* Catálogo Grid */}
+        <motion.div 
+          layout
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"
+        >
+          <AnimatePresence mode="popLayout">
+            {filteredTools.map((tool) => (
+              <motion.div
+                layout
+                key={tool.id}
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.9 }}
+                transition={{ duration: 0.25 }}
+              >
+                <ToolCard tool={tool} onFavoriteToggle={handleFavoriteToggle} />
+              </motion.div>
+            ))}
+          </AnimatePresence>
+        </motion.div>
+
+        {/* Sin resultados */}
+        {filteredTools.length === 0 && (
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="text-center py-20 bg-slate-900/10 backdrop-blur-md rounded-2xl border border-slate-800/50 max-w-lg mx-auto flex flex-col items-center justify-center p-8 mt-6"
+          >
+            <div className="w-14 h-14 rounded-full bg-slate-950/40 border border-slate-800 flex items-center justify-center mb-5">
+              {selectedCategory === 'Favoritos' ? (
+                <Star className="text-yellow-500 w-6 h-6 fill-yellow-500/10" />
+              ) : (
+                <Search className="text-gray-500 w-6 h-6" />
+              )}
+            </div>
+            <h4 className="text-lg font-bold text-white mb-2">
+              {selectedCategory === 'Favoritos'
+                ? 'No tienes herramientas favoritas'
+                : 'No se encontraron resultados'}
+            </h4>
+            <p className="text-gray-400 text-xs max-w-sm leading-relaxed mb-6">
+              {selectedCategory === 'Favoritos'
+                ? 'Marca tus herramientas preferidas pulsando la estrella ⭐ en las tarjetas para poder verlas rápidamente aquí.'
+                : 'Prueba a cambiar tus palabras clave o utiliza una categoría de filtro distinta.'}
+            </p>
+            {selectedCategory === 'Favoritos' ? (
+              <button
+                onClick={() => setSelectedCategory('Todos')}
+                className="px-5 py-2.5 bg-slate-800 hover:bg-slate-700 text-white rounded-xl text-xs font-semibold transition-all"
+              >
+                Ver todo el catálogo
+              </button>
+            ) : (
+              <button
+                onClick={() => {
+                  setSearchTerm('');
+                  setSelectedCategory('Todos');
+                }}
+                className="px-5 py-2.5 bg-slate-800 hover:bg-slate-700 text-white rounded-xl text-xs font-semibold transition-all"
+              >
+                Restablecer filtros
+              </button>
+            )}
+          </motion.div>
+        )}
       </main>
 
       {/* Side Decorative Elements */}
@@ -176,3 +398,4 @@ const ToolsPage = () => {
 };
 
 export default ToolsPage;
+

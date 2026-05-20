@@ -10,6 +10,8 @@ export const toolsData = [
     pricing: "Freemium",
     rating: 5,
     link: "https://www.figma.com/",
+    logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/figma/figma-original.svg",
+    image: "https://images.unsplash.com/photo-1611532736597-de2d4265fba3?auto=format&fit=crop&w=600&q=80",
     icon: Figma,
     featured: true
   },
@@ -22,6 +24,8 @@ export const toolsData = [
     pricing: "Free",
     rating: 5,
     link: "https://code.visualstudio.com/",
+    logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vscode/vscode-original.svg",
+    image: "https://images.unsplash.com/photo-1542831371-29b0f74f9713?auto=format&fit=crop&w=600&q=80",
     icon: Code,
     featured: true
   },
@@ -34,6 +38,8 @@ export const toolsData = [
     pricing: "Freemium",
     rating: 4.8,
     link: "https://www.notion.so/",
+    logo: "https://cdn.simpleicons.org/notion",
+    image: "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?auto=format&fit=crop&w=600&q=80",
     icon: Database,
     featured: true
   },
@@ -46,6 +52,8 @@ export const toolsData = [
     pricing: "Paid",
     rating: 4.9,
     link: "https://ahrefs.com/",
+    logo: "https://cdn.simpleicons.org/ahrefs",
+    image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=600&q=80",
     icon: Search,
     featured: true
   },
@@ -58,6 +66,8 @@ export const toolsData = [
     pricing: "Freemium",
     rating: 4.7,
     link: "https://www.postman.com/",
+    logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postman/postman-original.svg",
+    image: "https://images.unsplash.com/photo-1623282928859-a5985923c40a?auto=format&fit=crop&w=600&q=80",
     icon: Globe,
     featured: false
   },
@@ -70,6 +80,8 @@ export const toolsData = [
     pricing: "Freemium",
     rating: 4.9,
     link: "https://linear.app/",
+    logo: "https://cdn.simpleicons.org/linear",
+    image: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=600&q=80",
     icon: Zap,
     featured: true
   },
@@ -82,6 +94,8 @@ export const toolsData = [
     pricing: "Freemium",
     rating: 4.6,
     link: "https://www.canva.com/",
+    logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/canva/canva-original.svg",
+    image: "https://images.unsplash.com/photo-1626785774573-4b799315345d?auto=format&fit=crop&w=600&q=80",
     icon: PenTool,
     featured: false
   },
@@ -94,6 +108,8 @@ export const toolsData = [
     pricing: "Freemium",
     rating: 4.8,
     link: "https://www.screamingfrog.co.uk/",
+    logo: "https://cdn.simpleicons.org/screamingfrog",
+    image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=600&q=80",
     icon: Activity,
     featured: false
   },
@@ -106,6 +122,8 @@ export const toolsData = [
     pricing: "Free",
     rating: 4.7,
     link: "https://www.cypress.io/",
+    logo: "https://cdn.simpleicons.org/cypress",
+    image: "https://images.unsplash.com/photo-1504639725590-34d0984388bd?auto=format&fit=crop&w=600&q=80",
     icon: TestTube,
     featured: false
   },
@@ -118,6 +136,8 @@ export const toolsData = [
     pricing: "Paid",
     rating: 4.9,
     link: "https://www.midjourney.com/",
+    logo: "https://cdn.simpleicons.org/midjourney",
+    image: "https://images.unsplash.com/photo-1620712943543-bcc4688e7485?auto=format&fit=crop&w=600&q=80",
     icon: Image,
     featured: false
   },
@@ -130,6 +150,8 @@ export const toolsData = [
     pricing: "Freemium",
     rating: 4.8,
     link: "https://www.warp.dev/",
+    logo: "https://cdn.simpleicons.org/warp",
+    image: "https://images.unsplash.com/photo-1629654297299-c8506221ca97?auto=format&fit=crop&w=600&q=80",
     icon: Terminal,
     featured: false
   },
@@ -142,6 +164,8 @@ export const toolsData = [
     pricing: "Freemium",
     rating: 4.9,
     link: "https://resend.com/",
+    logo: "https://cdn.simpleicons.org/resend",
+    image: "https://images.unsplash.com/photo-1557200134-90327ee9fafa?auto=format&fit=crop&w=600&q=80",
     icon: Mail,
     featured: false
   },
@@ -154,6 +178,8 @@ export const toolsData = [
     pricing: "Free",
     rating: 4.5,
     link: "https://analytics.google.com/",
+    logo: "https://cdn.simpleicons.org/googleanalytics",
+    image: "https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&w=600&q=80",
     icon: BarChart,
     featured: false
   },
@@ -166,6 +192,8 @@ export const toolsData = [
     pricing: "Free",
     rating: 4.8,
     link: "https://jestjs.io/",
+    logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/jest/jest-plain.svg",
+    image: "https://images.unsplash.com/photo-1607799279861-4dd421887fb3?auto=format&fit=crop&w=600&q=80",
     icon: TestTube,
     featured: false
   },
@@ -178,6 +206,8 @@ export const toolsData = [
     pricing: "Freemium",
     rating: 4.9,
     link: "https://excalidraw.com/",
+    logo: "https://cdn.simpleicons.org/excalidraw",
+    image: "https://images.unsplash.com/photo-1513542789411-b6a5d4f31634?auto=format&fit=crop&w=600&q=80",
     icon: PenTool,
     featured: false
   }
