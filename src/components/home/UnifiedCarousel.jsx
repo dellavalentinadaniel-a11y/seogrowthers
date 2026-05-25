@@ -1,216 +1,179 @@
-
-import React, { useEffect, useState, useCallback } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { m, AnimatePresence } from 'framer-motion';
-import { supabase } from '@/lib/customSupabaseClient';
-import { ChevronRight, ArrowRight, BookOpen, Star } from 'lucide-react';
+import { ChevronRight, ArrowRight, Star } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import SkeletonLoader from '@/components/shared/SkeletonLoader';
 import { Button } from '@/components/ui/button';
 
+const successCasesList = [
+  {
+    id: 'seo-growthers-platform',
+    title: 'SEO Growthers: Ecosistema Digital Completo',
+    description: 'Desarrollamos nuestra propia plataforma de crecimiento. Ingesta automática de contenidos, automatización con Python y una experiencia premium de velocidad extrema enfocada a conversiones.',
+    image: '/images/seo-platform-showcase.webp',
+    result: 'Lighthouse 100/100',
+    industry: 'Tecnología / SEO',
+    slug: 'seo-growthers-plataforma-ecosistema',
+    category: 'Plataforma',
+    url: '/services/success-cases/seo-growthers-plataforma-ecosistema'
+  },
+  {
+    id: 'aluvalle-static',
+    title: 'Aluvalle: Transformación Digital e Impacto SEO',
+    description: 'Implementamos una arquitectura digital escalable y una estrategia de contenidos avanzada, logrando resultados extraordinarios en visibilidad y posicionamiento local en Google Maps.',
+    image: '/images/aluvalle-showcase.webp',
+    result: '+300% Tráfico Orgánico',
+    industry: 'Retail / Construcción',
+    slug: 'aluvalle-transformacion-digital',
+    category: 'Construcción',
+    url: '/services/success-cases/aluvalle-transformacion-digital'
+  },
+  {
+    id: 'inmofuture-static',
+    title: 'InmoFuture: Plataforma de Real Estate de Gama Alta',
+    description: 'Portal inmobiliario de élite con buscador inteligente de propiedades, filtros a medida y sistema de gestión optimizado para potenciar la productividad y el cierre de ventas.',
+    image: '/images/inmofuture-showcase.webp',
+    result: '+358% Leads Generados',
+    industry: 'Real Estate / Premium',
+    slug: 'inmofuture-plataforma-inmobiliaria',
+    category: 'Inmobiliaria',
+    url: '/services/success-cases/inmofuture-plataforma-inmobiliaria'
+  },
+  {
+    id: 'edv-remolques-static',
+    title: 'EDV Remolques: Auxilio y Soporte Vial 24/7',
+    description: 'Landing page táctica móvil ultra-veloz equipada con optimización mobile-first extrema y embudos de llamada optimizados para campañas de alta conversión.',
+    image: '/images/edv-remolques-hero.webp',
+    result: '10/10 Google Ads Score',
+    industry: 'Auxilio Vial / Logística',
+    slug: 'edv-remolques-tactica-logistica',
+    category: 'Landing Page',
+    url: '/services/success-cases/edv-remolques-tactica-logistica'
+  }
+];
+
 const UnifiedCarousel = () => {
-  const [items, setItems] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [loading, setLoading] = useState(true);
   const [isPaused, setIsPaused] = useState(false);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        // Fetch success cases
-        const { data: casesData } = await supabase
-          .from('success_cases')
-          .select('id, title, description, image, result, industry, slug, category')
-          .order('created_at', { ascending: false });
-
-        // Add the manual Aluvalle case if it's not in DB yet (as we did before)
-        const aluvalleCase = {
-          id: 'aluvalle-static',
-          type: 'case',
-          title: 'Aluvalle: Transformación Digital e Impacto SEO',
-          description: 'Implementamos una arquitectura digital escalable y una estrategia de contenidos avanzada, logrando resultados extraordinarios en visibilidad y tasa de conversión.',
-          image: '/images/aluvalle-premium.webp',
-          result: '+300% Tráfico Orgánico',
-          industry: 'Retail / Construcción',
-          slug: 'aluvalle-transformacion-digital',
-          category: 'Retail',
-          url: '/services/success-cases/aluvalle-transformacion-digital'
-        };
-
-        const cases = (casesData || []).map(c => ({
-          ...c,
-          type: 'case',
-          tag: c.industry || 'Caso de Éxito',
-          url: `/services/success-cases/${c.slug}`
-        }));
-
-        // Add Aluvalle at the beginning
-        const finalCases = [aluvalleCase, ...cases];
-
-        // Fetch articles
-        const { data: articlesData } = await supabase
-          .from('articles')
-          .select('id, title, summary, featured_image, slug, category, created_at, status')
-          .eq('status', 'published')
-          .neq('section', 'Foro')
-          .order('created_at', { ascending: false })
-          .limit(5);
-
-        const articles = (articlesData || []).map(a => ({
-          ...a,
-          type: 'article',
-          description: a.summary,
-          image: a.featured_image,
-          tag: a.category || 'Blog',
-          url: `/blog/${a.category || 'general'}/${a.slug}`,
-          result: 'Knowledge Hub'
-        }));
-
-        // Interleave items
-        const combined = [];
-        const maxLength = Math.max(finalCases.length, articles.length);
-        
-        for (let i = 0; i < maxLength; i++) {
-          if (i < finalCases.length) combined.push(finalCases[i]);
-          if (i < articles.length) combined.push(articles[i]);
-        }
-
-        setItems(combined);
-      } catch (err) {
-        console.error('Error fetching unified data:', err);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchData();
+  const nextSlide = useCallback(() => {
+    setCurrentIndex((prev) => (prev + 1) % successCasesList.length);
   }, []);
 
-  const nextSlide = useCallback(() => {
-    setCurrentIndex((prev) => (prev + 1) % items.length);
-  }, [items.length]);
-
   useEffect(() => {
-    if (items.length <= 1 || isPaused) return;
-    const interval = setInterval(nextSlide, 6000);
+    if (isPaused) return;
+    const interval = setInterval(nextSlide, 7000);
     return () => clearInterval(interval);
-  }, [items.length, isPaused, nextSlide]);
-
-  if (loading) {
-    return (
-      <div className="w-full py-20 bg-black container mx-auto px-6">
-        <SkeletonLoader className="w-full h-[500px] rounded-3xl" />
-      </div>
-    );
-  }
-
-  if (items.length === 0) return null;
+  }, [isPaused, nextSlide]);
 
   return (
     <section className="py-20 bg-[#0C0D0D] overflow-hidden" id="unified-showcase">
-      <div className="container mx-auto px-6">
+      <div className="container mx-auto px-6 max-w-6xl">
+        
+        {/* Section Header */}
         <div className="flex flex-col md:flex-row justify-between items-end mb-10 gap-4">
           <div>
             <div className="flex items-center gap-2 mb-2">
               <span className="w-8 h-[1px] bg-cyan-500"></span>
-              <span className="text-xs font-bold tracking-widest text-cyan-400 uppercase">Featured</span>
+              <span className="text-xs font-bold tracking-widest text-cyan-400 uppercase">Proyectos Destacados</span>
             </div>
-            <h2 className="text-3xl md:text-5xl font-bold text-white">Impacto & Conocimiento</h2>
+            <h2 className="text-3xl md:text-5xl font-black text-white">Casos de Éxito</h2>
           </div>
-          <div className="flex gap-4">
-             <Link to="/services/success-cases" className="text-sm text-gray-400 hover:text-white transition-colors">Casos</Link>
-             <span className="text-gray-800">/</span>
-             <Link to="/blog" className="text-sm text-gray-400 hover:text-white transition-colors">Blog</Link>
+          <div className="flex gap-2">
+             <Link 
+               to="/services/success-cases" 
+               className="text-sm font-bold text-cyan-400 hover:text-white hover:underline transition-all flex items-center gap-1.5 group"
+             >
+               <span>Ver todos los casos</span>
+               <ArrowRight size={14} className="transition-transform group-hover:translate-x-1" />
+             </Link>
           </div>
         </div>
 
+        {/* Carousel Container */}
         <div 
-          className="relative w-full aspect-[16/10] md:aspect-[21/9] rounded-[2rem] overflow-hidden group shadow-[0_30px_60px_rgba(0,0,0,0.8)] border border-white/10"
+          className="relative w-full aspect-[16/10] md:aspect-[21/9] rounded-[2.5rem] overflow-hidden group shadow-[0_30px_70px_rgba(0,0,0,0.85)] border border-white/10"
           onMouseEnter={() => setIsPaused(true)}
           onMouseLeave={() => setIsPaused(false)}
         >
           <AnimatePresence mode="wait">
             <m.div
               key={currentIndex}
-              initial={{ opacity: 0, scale: 1.05 }}
+              initial={{ opacity: 0, scale: 1.02 }}
               animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.95 }}
-              transition={{ duration: 0.8, ease: "easeOut" }}
+              exit={{ opacity: 0, scale: 0.98 }}
+              transition={{ duration: 0.6, ease: "easeOut" }}
               className="absolute inset-0 w-full h-full"
             >
+              {/* Eager loading and decoding async for ultimate performance */}
               <img 
-                src={items[currentIndex].image} 
-                alt={items[currentIndex].title}
-                className="w-full h-full object-cover transition-transform duration-[10000ms] group-hover:scale-110 md:will-change-transform"
+                src={successCasesList[currentIndex].image} 
+                alt={successCasesList[currentIndex].title}
+                className="w-full h-full object-cover transition-transform duration-[12000ms] group-hover:scale-105 will-change-transform opacity-80"
                 loading="eager"
                 decoding="async"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-[#0C0D0D] via-[#0C0D0D]/70 to-transparent opacity-95"></div>
+              <div className="absolute inset-0 bg-gradient-to-t from-[#0C0D0D] via-[#0C0D0D]/65 to-transparent opacity-95"></div>
               
-              <div className="absolute inset-0 p-8 md:p-16 flex flex-col justify-end z-10">
+              <div className="absolute inset-0 p-8 md:p-14 flex flex-col justify-end z-10">
                 <div className="max-w-3xl">
+                  
+                  {/* Category and tag info */}
                   <m.div
-                    initial={{ y: 20, opacity: 0 }}
+                    initial={{ y: 15, opacity: 0 }}
                     animate={{ y: 0, opacity: 1 }}
-                    transition={{ delay: 0.2 }}
-                    className="flex items-center gap-3 mb-6"
+                    transition={{ delay: 0.15 }}
+                    className="flex items-center gap-3 mb-4.5"
                   >
-                    <span className={`px-4 py-1 rounded-full text-[10px] font-black uppercase tracking-[0.2em] border ${
-                      items[currentIndex].type === 'case' 
-                        ? "bg-cyan-500/10 text-cyan-400 border-cyan-500/30" 
-                        : "bg-blue-500/10 text-blue-400 border-blue-500/30"
-                    }`}>
-                      {items[currentIndex].type === 'case' ? 'Success Case' : 'Knowledge Hub'}
+                    <span className="px-3.5 py-1 rounded-full text-[9px] font-black uppercase tracking-[0.2em] border bg-cyan-500/10 text-cyan-400 border-cyan-500/30">
+                      Caso de Éxito
                     </span>
-                    <span className="text-white/30 text-xs">•</span>
-                    <span className="text-white/60 text-xs font-medium uppercase tracking-widest">{items[currentIndex].tag}</span>
+                    <span className="text-white/20 text-xs">•</span>
+                    <span className="text-white/60 text-[10px] font-black uppercase tracking-widest">{successCasesList[currentIndex].industry}</span>
                   </m.div>
 
+                  {/* Title */}
                   <m.h3
-                    initial={{ y: 20, opacity: 0 }}
+                    initial={{ y: 15, opacity: 0 }}
                     animate={{ y: 0, opacity: 1 }}
-                    transition={{ delay: 0.3 }}
-                    className="text-3xl md:text-6xl font-bold text-white mb-4 leading-tight"
+                    transition={{ delay: 0.25 }}
+                    className="text-2xl sm:text-3.5xl md:text-5.5xl font-black text-white mb-3.5 leading-tight tracking-tight"
                   >
-                    {items[currentIndex].title}
+                    {successCasesList[currentIndex].title}
                   </m.h3>
 
+                  {/* KPI Result */}
                   <m.div
-                    initial={{ y: 20, opacity: 0 }}
+                    initial={{ y: 15, opacity: 0 }}
                     animate={{ y: 0, opacity: 1 }}
-                    transition={{ delay: 0.4 }}
-                    className="flex flex-wrap items-center gap-6 mb-8"
+                    transition={{ delay: 0.35 }}
+                    className="flex flex-wrap items-center gap-6 mb-5"
                   >
-                    {items[currentIndex].type === 'case' ? (
-                      <p className="text-2xl md:text-3xl font-bold text-green-400 flex items-center gap-2">
-                        <Star className="fill-green-400" size={24} />
-                        {items[currentIndex].result}
-                      </p>
-                    ) : (
-                      <div className="flex items-center gap-2 text-blue-400">
-                        <BookOpen size={24} />
-                        <span className="text-xl font-medium tracking-tight">Artículo de Interés</span>
-                      </div>
-                    )}
+                    <p className="text-xl md:text-2.5xl font-black text-emerald-400 flex items-center gap-2">
+                      <Star className="fill-emerald-400 text-emerald-400" size={20} />
+                      {successCasesList[currentIndex].result}
+                    </p>
                   </m.div>
 
+                  {/* Description */}
                   <m.p
-                    initial={{ y: 20, opacity: 0 }}
+                    initial={{ y: 15, opacity: 0 }}
                     animate={{ y: 0, opacity: 1 }}
-                    transition={{ delay: 0.5 }}
-                    className="text-gray-300 text-lg md:text-xl line-clamp-2 md:line-clamp-none max-w-2xl mb-10 font-light leading-relaxed"
+                    transition={{ delay: 0.45 }}
+                    className="text-slate-300 text-sm md:text-base line-clamp-2 md:line-clamp-none max-w-2xl mb-7 font-light leading-relaxed"
                   >
-                    {items[currentIndex].description}
+                    {successCasesList[currentIndex].description}
                   </m.p>
 
+                  {/* CTA Button */}
                   <m.div
-                    initial={{ y: 20, opacity: 0 }}
+                    initial={{ y: 15, opacity: 0 }}
                     animate={{ y: 0, opacity: 1 }}
-                    transition={{ delay: 0.6 }}
+                    transition={{ delay: 0.55 }}
                   >
-                    <Link to={items[currentIndex].url}>
-                      <Button className="bg-white text-black hover:bg-cyan-400 hover:text-black font-bold px-8 py-6 rounded-full transition-all duration-300 group/btn">
-                        {items[currentIndex].type === 'case' ? 'Ver caso completo' : 'Leer artículo'}
-                        <ArrowRight className="ml-2 transition-transform group-hover/btn:translate-x-1" size={20} />
+                    <Link to={successCasesList[currentIndex].url}>
+                      <Button className="bg-white text-black hover:bg-cyan-400 hover:text-black font-bold px-7 py-5.5 rounded-xl transition-all duration-300 group/btn text-xs uppercase tracking-wider">
+                        Ver caso completo
+                        <ArrowRight className="ml-2 transition-transform group-hover/btn:translate-x-1" size={16} />
                       </Button>
                     </Link>
                   </m.div>
@@ -219,38 +182,40 @@ const UnifiedCarousel = () => {
             </m.div>
           </AnimatePresence>
 
-          {/* Controls */}
+          {/* Slider Arrow Controls */}
           <div className="absolute bottom-8 right-8 z-20 flex gap-2">
             <button 
-              onClick={() => setCurrentIndex((prev) => (prev - 1 + items.length) % items.length)}
-              className="w-12 h-12 rounded-full border border-white/10 bg-black/20 backdrop-blur-md flex items-center justify-center text-white hover:bg-white hover:text-black transition-all"
+              onClick={() => setCurrentIndex((prev) => (prev - 1 + successCasesList.length) % successCasesList.length)}
+              className="w-11 h-11 rounded-xl border border-white/10 bg-black/35 backdrop-blur-md flex items-center justify-center text-white hover:bg-white hover:text-black transition-all"
+              aria-label="Anterior"
             >
-              <ChevronRight className="rotate-180" size={20} />
+              <ChevronRight className="rotate-180" size={16} />
             </button>
             <button 
               onClick={nextSlide}
-              className="w-12 h-12 rounded-full border border-white/10 bg-black/20 backdrop-blur-md flex items-center justify-center text-white hover:bg-white hover:text-black transition-all"
+              className="w-11 h-11 rounded-xl border border-white/10 bg-black/35 backdrop-blur-md flex items-center justify-center text-white hover:bg-white hover:text-black transition-all"
+              aria-label="Siguiente"
             >
-              <ChevronRight size={20} />
+              <ChevronRight size={16} />
             </button>
           </div>
         </div>
 
-        {/* Thumbnail Indicators */}
-        <div className="flex justify-start md:justify-center gap-3 mt-12 px-2 overflow-x-auto pb-4 scrollbar-hide touch-pan-x overscroll-contain">
-          {items.map((item, idx) => (
+        {/* Thumbnail Indicators (Instant Load) */}
+        <div className="flex justify-start md:justify-center gap-3.5 mt-8 px-2 overflow-x-auto pb-2 scrollbar-hide touch-pan-x overscroll-contain">
+          {successCasesList.map((item, idx) => (
             <button
               key={idx}
               onClick={() => setCurrentIndex(idx)}
-              className={`relative flex-shrink-0 w-20 md:w-28 aspect-video rounded-xl overflow-hidden transition-all duration-300 border-2 ${
+              className={`relative flex-shrink-0 w-20 md:w-26 aspect-video rounded-xl overflow-hidden transition-all duration-300 border-2 ${
                 idx === currentIndex 
-                  ? "border-cyan-500 scale-105 shadow-[0_0_15px_rgba(6,182,212,0.3)] z-10" 
-                  : "border-white/5 opacity-40 hover:opacity-80 scale-100"
+                  ? "border-cyan-500 scale-105 shadow-[0_0_15px_rgba(6,182,212,0.35)] z-10" 
+                  : "border-white/5 opacity-40 hover:opacity-75 scale-100"
               }`}
             >
               <img src={item.image} alt={item.title} className="w-full h-full object-cover pointer-events-none" loading="lazy" />
               <div className={`absolute inset-0 transition-opacity duration-500 ${
-                idx === currentIndex ? "bg-cyan-500/10" : "bg-black/60"
+                idx === currentIndex ? "bg-cyan-500/10" : "bg-black/55"
               }`}></div>
             </button>
           ))}
