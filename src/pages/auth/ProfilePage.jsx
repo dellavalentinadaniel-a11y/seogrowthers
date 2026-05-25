@@ -10,6 +10,7 @@ import AvatarSelector from '@/components/profile/AvatarSelector.jsx';
 import BannerSelector from '@/components/profile/BannerSelector.jsx';
 import SkillsPicker from '@/components/profile/SkillsPicker.jsx';
 import FacebookStyleEditor from '@/components/forum/FacebookStyleEditor';
+import AdminSocialHub from '@/components/profile/AdminSocialHub';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Progress } from "@/components/ui/progress.jsx";
 import { Badge } from '@/components/ui/badge.jsx';
@@ -762,6 +763,13 @@ const ProfilePage = () => {
                 </div>
               </div>
             </div>
+
+            {/* Admin Social Hub & Scheduler */}
+            {profile?.role === 'admin' && (
+              <div className="mt-2 animate-fadeIn">
+                <AdminSocialHub />
+              </div>
+            )}
 
             {/* Secondary Grid (Trophies & Quests) */}
             <div className="grid grid-cols-1 xl:grid-cols-2 gap-6">
