@@ -66,8 +66,50 @@ const UnifiedCarousel = () => {
   }, [isPaused, nextSlide]);
 
   return (
-    <section className="py-20 bg-[#0C0D0D] overflow-hidden" id="unified-showcase">
-      <div className="container mx-auto px-6 max-w-6xl">
+    <section className="py-20 bg-[#070808] overflow-hidden relative" id="unified-showcase">
+      {/* Tech Grid Background */}
+      <div 
+        className="absolute inset-0 pointer-events-none opacity-[0.25]" 
+        style={{
+          backgroundImage: `
+            linear-gradient(to right, rgba(6, 182, 212, 0.1) 1px, transparent 1px),
+            linear-gradient(to bottom, rgba(6, 182, 212, 0.1) 1px, transparent 1px)
+          `,
+          backgroundSize: '4rem 4rem',
+          maskImage: 'radial-gradient(ellipse 65% 55% at 50% 50%, black 30%, transparent 100%)',
+          WebkitMaskImage: 'radial-gradient(ellipse 65% 55% at 50% 50%, black 30%, transparent 100%)'
+        }}
+      ></div>
+
+      {/* Dynamic Floating Ambient Orbs */}
+      <m.div 
+        animate={{
+          x: [0, 60, -30, 0],
+          y: [0, -50, 30, 0],
+          scale: [1, 1.1, 0.9, 1],
+        }}
+        transition={{
+          duration: 20,
+          repeat: Infinity,
+          ease: "easeInOut"
+        }}
+        className="absolute top-1/12 left-10 w-96 h-96 bg-cyan-500/5 rounded-full blur-[110px] pointer-events-none"
+      />
+      <m.div 
+        animate={{
+          x: [0, -80, 40, 0],
+          y: [0, 60, -40, 0],
+          scale: [1, 0.95, 1.15, 1],
+        }}
+        transition={{
+          duration: 18,
+          repeat: Infinity,
+          ease: "easeInOut"
+        }}
+        className="absolute bottom-1/12 right-10 w-[24rem] h-[24rem] bg-purple-500/5 rounded-full blur-[130px] pointer-events-none"
+      />
+
+      <div className="container mx-auto px-6 max-w-6xl relative z-10">
         
         {/* Section Header */}
         <div className="flex flex-col md:flex-row justify-between items-end mb-10 gap-4">
