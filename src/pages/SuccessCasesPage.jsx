@@ -9,6 +9,17 @@ import { ArrowRight, Sparkles, CheckCircle2, TrendingUp, Cpu, Smartphone } from 
 
 const cases = [
   {
+    slug: 'seo-growthers-plataforma-ecosistema',
+    title: 'SEO Growthers Platform',
+    subtitle: 'Ecosistema Completo & IA',
+    desc: 'El desarrollo técnico detrás de nuestra propia plataforma digital. Ingesta automatizada de canales RSS, scrapers en Python, base de datos en Supabase y metodologías avanzadas de Vibe Coding.',
+    kpis: ['Lighthouse 100/100', 'Automatización de RSS', 'TTFB Mínimo'],
+    tags: ['React + Vite', 'Python Automation', 'Supabase', 'Vibe Coding'],
+    icon: <Cpu className="w-5 h-5" />,
+    image: "/images/seo-platform-showcase.webp",
+    color: "from-cyan-500/20 to-blue-500/20"
+  },
+  {
     slug: 'aluvalle-transformacion-digital',
     title: 'Aluvalle SAS',
     subtitle: 'Transformación Digital & SEO Industrial',

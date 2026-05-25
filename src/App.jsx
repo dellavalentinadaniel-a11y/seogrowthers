@@ -47,6 +47,7 @@ const SuccessCaseAluvalle = lazy(() => import('@/pages/SuccessCaseAluvalle'));
 const NotFoundPage = lazy(() => import('@/pages/NotFoundPage'));
 const SuccessCaseInmoFuture = lazy(() => import('@/pages/SuccessCaseInmoFuture'));
 const SuccessCaseEdvRemolques = lazy(() => import('@/pages/SuccessCaseEdvRemolques'));
+const SuccessCaseSeoPlatform = lazy(() => import('@/pages/SuccessCaseSeoPlatform'));
 const RpaAutomatizacionPage = lazy(() => import('@/pages/services/RpaAutomatizacionPage'));
 const NoCodePage = lazy(() => import('@/pages/services/NoCodePage'));
 const IaAgenticaPage = lazy(() => import('@/pages/services/IaAgenticaPage'));
@@ -150,6 +151,7 @@ function App() {
               <Route path="services/success-cases/aluvalle-transformacion-digital" element={<SuccessCaseAluvalle />} />
               <Route path="services/success-cases/inmofuture-plataforma-inmobiliaria" element={<SuccessCaseInmoFuture />} />
               <Route path="services/success-cases/edv-remolques-tactica-logistica" element={<SuccessCaseEdvRemolques />} />
+              <Route path="services/success-cases/seo-growthers-plataforma-ecosistema" element={<SuccessCaseSeoPlatform />} />
               <Route path="*" element={<NotFoundPage />} />
             </Route>
 

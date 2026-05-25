@@ -14,6 +14,8 @@ const projects = [
     title: "SEO Growthers Platform",
     desc: "Ecosistema digital completo: Blog, Comunidad, Herramientas SEO y Servicios profesionales con rendimiento estelar.",
     link: "https://seogrowthers.com/",
+    internalLink: "/services/success-cases/seo-growthers-plataforma-ecosistema",
+    isInternal: true,
     tags: ["Platform", "SEO Tools", "Community", "Supabase"],
     image: "/images/seo-platform-showcase.webp"
   },
@@ -23,6 +25,8 @@ const projects = [
     title: "Aluvalle SAS",
     desc: "Catálogo industrial y corporativo líder en aberturas de aluminio, posicionado en el top de Google Maps Neuquén.",
     link: "https://www.aluvalle.store/",
+    internalLink: "/services/success-cases/aluvalle-transformacion-digital",
+    isInternal: true,
     tags: ["Industrial", "SEO Local", "Catalog", "Premium"],
     image: "/images/aluvalle-showcase.webp"
   },
@@ -32,6 +36,8 @@ const projects = [
     title: "InmoFuture Platform",
     desc: "Portal inmobiliario de gama alta con buscador dinámico, CRM inteligente y diseño premium enfocado en conversiones.",
     link: "https://inmobiliaria-plantilla.vercel.app/",
+    internalLink: "/services/success-cases/inmofuture-plataforma-inmobiliaria",
+    isInternal: true,
     tags: ["Real Estate", "React", "Management", "Framer Motion"],
     image: "/images/inmofuture-showcase.webp"
   },
@@ -41,6 +47,8 @@ const projects = [
     title: "EDV Remolques",
     desc: "Soporte táctico y auxilio mecánico 24hs con optimización mobile-first extrema y sintonización de velocidad perfecta.",
     link: "https://edvremolques.online/",
+    internalLink: "/services/success-cases/edv-remolques-tactica-logistica",
+    isInternal: true,
     tags: ["Landing Page", "Logistics", "Mobile-First", "High Conversion"],
     image: "/images/edv-remolques-hero.webp"
   },
@@ -254,19 +262,32 @@ const PortfolioPage = () => {
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-[#111322] via-[#111322]/10 to-transparent pointer-events-none"></div>
 
-                    {project.link && (
-                      <a
-                        href={project.link}
-                        target="_blank"
-                        rel="noopener noreferrer"
+                    {project.isInternal ? (
+                      <Link
+                        to={project.internalLink}
                         className="absolute inset-0 bg-[#0d0e17]/85 opacity-0 group-hover:opacity-100 transition-all duration-300 flex flex-col items-center justify-center gap-3"
-                        onClick={() => trackCTAClick('portfolio_visit_site')}
+                        onClick={() => trackCTAClick(`portfolio_visit_internal_${project.id}`)}
                       >
                         <span className="w-12 h-12 rounded-full bg-cyan-400 text-[#0d0e17] flex items-center justify-center shadow-lg transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
-                          <ExternalLink className="w-5 h-5" />
+                          <ArrowRight className="w-5 h-5" />
                         </span>
-                        <span className="text-white font-headline text-[10px] font-black uppercase tracking-[0.25em]">Visitar Sitio Oficial</span>
-                      </a>
+                        <span className="text-white font-headline text-[10px] font-black uppercase tracking-[0.25em]">Ver Caso de Éxito</span>
+                      </Link>
+                    ) : (
+                      project.link && (
+                        <a
+                          href={project.link}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="absolute inset-0 bg-[#0d0e17]/85 opacity-0 group-hover:opacity-100 transition-all duration-300 flex flex-col items-center justify-center gap-3"
+                          onClick={() => trackCTAClick('portfolio_visit_site')}
+                        >
+                          <span className="w-12 h-12 rounded-full bg-cyan-400 text-[#0d0e17] flex items-center justify-center shadow-lg transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
+                            <ExternalLink className="w-5 h-5" />
+                          </span>
+                          <span className="text-white font-headline text-[10px] font-black uppercase tracking-[0.25em]">Visitar Sitio Oficial</span>
+                        </a>
+                      )
                     )}
                   </div>
 
@@ -297,7 +318,15 @@ const PortfolioPage = () => {
                         {project.category}
                       </span>
                       
-                      {project.link ? (
+                      {project.isInternal ? (
+                        <Link 
+                          to={project.internalLink} 
+                          className="text-cyan-400 hover:text-white transition-colors flex items-center gap-1.5 text-xs font-bold"
+                        >
+                          <span>Ver Caso</span>
+                          <ArrowRight className="w-3.5 h-3.5" />
+                        </Link>
+                      ) : project.link ? (
                         <a 
                           href={project.link} 
                           target="_blank" 
