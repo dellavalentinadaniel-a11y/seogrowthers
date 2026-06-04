@@ -4,6 +4,8 @@ import { Link } from 'react-router-dom';
 import ScrollToTop from '@/components/layout/ScrollToTop';
 import Breadcrumbs from '@/components/layout/Breadcrumbs';
 import ContactForm from '@/components/contact/ContactForm';
+import ContactFAQ from '@/components/contact/ContactFAQ';
+import SuccessCasesCarousel from '@/components/home/SuccessCasesCarousel';
 import { trackWhatsAppClick } from '@/lib/analytics';
 
 const ContactPage = () => {
@@ -86,12 +88,12 @@ const ContactPage = () => {
       <main className="pt-32 pb-24 px-6 md:px-12 lg:px-24 max-w-7xl mx-auto">
         <Breadcrumbs className="mb-4" />
         {/* Hero Section */}
-        <section className="mb-20 text-center">
-          <h1 className="font-headline text-3xl sm:text-5xl md:text-7xl font-bold tracking-tighter text-on-surface mb-6">
-            Sincroniza con el <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary-container to-secondary-container">Nodo Central</span>
+        <section className="mb-16 text-center">
+          <h1 className="text-3xl sm:text-4xl md:text-6xl font-bold text-white mb-6">
+            Hablemos de tu <span className="text-cyan-400">Proyecto</span>
           </h1>
-          <p className="max-w-2xl mx-auto text-on-surface-variant text-lg leading-relaxed">
-            Establece un enlace directo con la arquitectura neural de 2026. Tu intención será procesada por nuestros protocolos de alta fidelidad.
+          <p className="text-xl text-gray-400 max-w-2xl mx-auto">
+            Impulsa tu crecimiento digital hoy mismo. Déjanos tus datos y un experto analizará tu caso sin compromiso.
           </p>
         </section>
 
@@ -235,6 +237,16 @@ const ContactPage = () => {
         </div>
       </main>
 
+      {/* Social Proof */}
+      <div className="py-12 bg-slate-900/50 border-y border-white/5">
+        <div className="text-center mb-8">
+          <p className="font-label text-sm uppercase tracking-widest text-cyan-400 font-bold">Empresas que ya crecen con nosotros</p>
+        </div>
+        <SuccessCasesCarousel />
+      </div>
+
+      {/* FAQ Section */}
+      <ContactFAQ />
 
       {/* Footer Decoration */}
       <footer className="py-12 px-8 text-center border-t border-white/5 opacity-50">

@@ -154,8 +154,8 @@ const ContactForm = () => {
       <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-primary-container via-secondary-container to-tertiary-container"></div>
       
       <h2 className="font-headline text-3xl font-bold text-white mb-8 flex items-center gap-3">
-        <span className="material-symbols-outlined text-primary-container">rocket_launch</span>
-        Formulario de Consulta
+        <span className="material-symbols-outlined text-cyan-400">mail</span>
+        Completa tus datos
       </h2>
 
       <form onSubmit={handleSubmit} className="space-y-8">
@@ -171,7 +171,7 @@ const ContactForm = () => {
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           <div className="space-y-2 group">
-            <Label htmlFor="name" className="font-label text-[10px] uppercase tracking-[0.2em] text-primary/70 ml-1">Identidad_ID <span className="text-red-500">*</span></Label>
+            <Label htmlFor="name" className="font-label text-xs uppercase tracking-wider text-gray-400 ml-1">Nombre Completo <span className="text-red-500">*</span></Label>
             <Input 
               id="name"
               value={formData.name}
@@ -184,7 +184,7 @@ const ContactForm = () => {
           </div>
 
           <div className="space-y-2 group">
-            <Label htmlFor="email" className="font-label text-[10px] uppercase tracking-[0.2em] text-primary/70 ml-1">Enlace_Protocolo <span className="text-red-500">*</span></Label>
+            <Label htmlFor="email" className="font-label text-xs uppercase tracking-wider text-gray-400 ml-1">Correo Electrónico <span className="text-red-500">*</span></Label>
             <Input 
               id="email"
               type="email"
@@ -200,7 +200,7 @@ const ContactForm = () => {
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           <div className="space-y-2 group">
-            <Label htmlFor="phone" className="font-label text-[10px] uppercase tracking-[0.2em] text-primary/70 ml-1">Frecuencia_Tel <span className="text-xs text-gray-500 normal-case tracking-normal">(Opcional)</span></Label>
+            <Label htmlFor="phone" className="font-label text-xs uppercase tracking-wider text-gray-400 ml-1">Teléfono o WhatsApp <span className="text-xs text-gray-500 normal-case tracking-normal">(Opcional)</span></Label>
             <Input 
               id="phone"
               type="tel"
@@ -214,7 +214,7 @@ const ContactForm = () => {
           </div>
 
           <div className="space-y-2 group">
-            <Label htmlFor="subject" className="font-label text-[10px] uppercase tracking-[0.2em] text-primary/70 ml-1">Vector_Motivo <span className="text-red-500">*</span></Label>
+            <Label htmlFor="subject" className="font-label text-xs uppercase tracking-wider text-gray-400 ml-1">Motivo de Contacto <span className="text-red-500">*</span></Label>
             <Select 
               value={formData.subject} 
               onValueChange={(val) => handleChange('subject', val)}
@@ -224,11 +224,11 @@ const ContactForm = () => {
                 <SelectValue placeholder="Selecciona un vector" />
               </SelectTrigger>
               <SelectContent className="bg-surface-container-low border border-white/10 text-on-surface">
-                <SelectItem value="Desarrollo de Arquitectura">Desarrollo de Arquitectura</SelectItem>
-                <SelectItem value="Consultoría de Vibe Coding">Consultoría de Vibe Coding</SelectItem>
-                <SelectItem value="Expansión de Capacidad Neural">Expansión de Capacidad Neural</SelectItem>
-                <SelectItem value="Error en el Sistema">Error en el Sistema</SelectItem>
-                <SelectItem value="Otro">Otro</SelectItem>
+                <SelectItem value="SEO y Posicionamiento">SEO y Posicionamiento</SelectItem>
+                <SelectItem value="Desarrollo Web / E-commerce">Desarrollo Web / E-commerce</SelectItem>
+                <SelectItem value="Consultoría Digital">Consultoría Digital</SelectItem>
+                <SelectItem value="Error en el Sistema">Error en la Web</SelectItem>
+                <SelectItem value="Otro">Otro Motivo</SelectItem>
               </SelectContent>
             </Select>
             {errors.subject && <p className="text-red-500 text-[10px] mt-1 font-bold">{errors.subject}</p>}
@@ -236,7 +236,7 @@ const ContactForm = () => {
         </div>
 
         <div className="space-y-2 group">
-          <Label htmlFor="message" className="font-label text-[10px] uppercase tracking-[0.2em] text-primary/70 ml-1">Carga_Mensaje <span className="text-red-500">*</span></Label>
+          <Label htmlFor="message" className="font-label text-xs uppercase tracking-wider text-gray-400 ml-1">Mensaje <span className="text-red-500">*</span></Label>
           <Textarea 
             id="message"
             value={formData.message}
@@ -283,10 +283,10 @@ const ContactForm = () => {
         <button 
           type="submit" 
           disabled={isSubmitting || submitStatus === 'success'}
-          className={`group relative w-full md:w-auto px-10 py-5 rounded-2xl font-headline font-bold text-xs uppercase tracking-[0.3em] overflow-hidden transition-all shadow-xl active:scale-95 disabled:opacity-50 disabled:active:scale-100 ${
+          className={`group relative w-full md:w-auto px-10 py-5 rounded-2xl font-headline font-bold text-sm uppercase tracking-wider overflow-hidden transition-all shadow-xl active:scale-95 disabled:opacity-50 disabled:active:scale-100 ${
             submitStatus === 'success' 
               ? 'bg-green-500 text-white' 
-              : 'premium-btn-glow text-white'
+              : 'bg-cyan-500 hover:bg-cyan-600 text-[#0C0D0D] shadow-[0_0_20px_rgba(0,229,255,0.3)] hover:scale-105'
           }`}
         >
           <div className="relative z-10 flex items-center justify-center gap-3">
@@ -296,7 +296,7 @@ const ContactForm = () => {
               <><CheckCircle2 className="h-4 w-4" /> TRANSMITIDO</>
             ) : (
               <>
-                <span>Transmitir Intento</span>
+                <span>Enviar Mensaje</span>
                 <span className="material-symbols-outlined group-hover:translate-x-1 transition-transform">send</span>
               </>
             )}
