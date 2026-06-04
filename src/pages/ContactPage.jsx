@@ -85,7 +85,7 @@ const ContactPage = () => {
       <ScrollToTop />
 
 
-      <main className="pt-32 pb-24 px-6 md:px-12 lg:px-24 max-w-7xl mx-auto">
+      <main className="pt-24 md:pt-32 pb-16 md:pb-24 px-6 md:px-12 lg:px-24 max-w-7xl mx-auto">
         <Breadcrumbs className="mb-4" />
         {/* Hero Section */}
         <section className="mb-16 text-center">
@@ -204,7 +204,7 @@ const ContactPage = () => {
                     <h4 className="font-bold text-white text-lg">Planta Industrial & Ventas</h4>
                     <p className="text-gray-400 text-sm">Argentina Neuquén Capital</p>
                   </div>
-                  <div className="text-right md:text-right space-y-1">
+                  <div className="text-left md:text-right space-y-1 mt-4 md:mt-0 pt-4 md:pt-0 border-t md:border-t-0 border-white/10">
                     <p className="text-primary font-bold text-lg">+54 9 2995504783</p>
                     <p className="text-gray-500 text-[10px] uppercase tracking-widest font-bold">
                       LUN A VIE: 8:00 A 17:00 HS

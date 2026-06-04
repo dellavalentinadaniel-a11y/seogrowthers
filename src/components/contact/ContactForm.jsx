@@ -149,7 +149,7 @@ const ContactForm = () => {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.8 }}
-      className="bg-slate-900/80 backdrop-blur-3xl p-8 md:p-12 rounded-[2.5rem] border border-white/10 shadow-[0_20px_50px_rgba(0,0,0,0.5)] relative overflow-hidden"
+      className="bg-slate-900/80 backdrop-blur-3xl p-6 md:p-12 rounded-3xl md:rounded-[2.5rem] border border-white/10 shadow-[0_20px_50px_rgba(0,0,0,0.5)] relative overflow-hidden"
     >
       <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-primary-container via-secondary-container to-tertiary-container"></div>
       
@@ -169,14 +169,14 @@ const ContactForm = () => {
             autoComplete="off"
         />
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
           <div className="space-y-2 group">
             <Label htmlFor="name" className="font-label text-xs uppercase tracking-wider text-gray-400 ml-1">Nombre Completo <span className="text-red-500">*</span></Label>
             <Input 
               id="name"
               value={formData.name}
               onChange={(e) => handleChange('name', e.target.value)}
-              className={`bg-surface-container-lowest border border-outline-variant/30 rounded-xl px-4 py-6 text-on-surface focus:border-primary-container focus:ring-1 focus:ring-primary-container outline-none transition-all font-body ${errors.name ? 'border-red-500' : ''}`}
+              className={`bg-surface-container-lowest border border-outline-variant/30 rounded-xl px-4 py-4 md:py-6 text-on-surface focus:border-primary-container focus:ring-1 focus:ring-primary-container outline-none transition-all font-body ${errors.name ? 'border-red-500' : ''}`}
               placeholder="Nombre completo o alias"
               disabled={isSubmitting}
             />
@@ -190,7 +190,7 @@ const ContactForm = () => {
               type="email"
               value={formData.email}
               onChange={(e) => handleChange('email', e.target.value)}
-              className={`bg-surface-container-lowest border border-outline-variant/30 rounded-xl px-4 py-6 text-on-surface focus:border-primary-container focus:ring-1 focus:ring-primary-container outline-none transition-all font-body ${errors.email ? 'border-red-500' : ''}`}
+              className={`bg-surface-container-lowest border border-outline-variant/30 rounded-xl px-4 py-4 md:py-6 text-on-surface focus:border-primary-container focus:ring-1 focus:ring-primary-container outline-none transition-all font-body ${errors.email ? 'border-red-500' : ''}`}
               placeholder="correo@neuronal.com"
               disabled={isSubmitting}
             />
@@ -198,7 +198,7 @@ const ContactForm = () => {
           </div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
           <div className="space-y-2 group">
             <Label htmlFor="phone" className="font-label text-xs uppercase tracking-wider text-gray-400 ml-1">Teléfono o WhatsApp <span className="text-xs text-gray-500 normal-case tracking-normal">(Opcional)</span></Label>
             <Input 
@@ -206,7 +206,7 @@ const ContactForm = () => {
               type="tel"
               value={formData.phone}
               onChange={(e) => handleChange('phone', e.target.value)}
-              className={`bg-surface-container-lowest border border-outline-variant/30 rounded-xl px-4 py-6 text-on-surface focus:border-primary-container focus:ring-1 focus:ring-primary-container outline-none transition-all font-body ${errors.phone ? 'border-red-500' : ''}`}
+              className={`bg-surface-container-lowest border border-outline-variant/30 rounded-xl px-4 py-4 md:py-6 text-on-surface focus:border-primary-container focus:ring-1 focus:ring-primary-container outline-none transition-all font-body ${errors.phone ? 'border-red-500' : ''}`}
               placeholder="+34 600 000 000"
               disabled={isSubmitting}
             />
@@ -220,7 +220,7 @@ const ContactForm = () => {
               onValueChange={(val) => handleChange('subject', val)}
               disabled={isSubmitting}
             >
-              <SelectTrigger className={`bg-surface-container-lowest border border-outline-variant/30 rounded-xl px-4 py-6 text-on-surface focus:ring-1 focus:ring-primary-container outline-none transition-all font-body ${errors.subject ? 'border-red-500' : ''}`}>
+              <SelectTrigger className={`bg-surface-container-lowest border border-outline-variant/30 rounded-xl px-4 py-4 md:py-6 text-on-surface focus:ring-1 focus:ring-primary-container outline-none transition-all font-body ${errors.subject ? 'border-red-500' : ''}`}>
                 <SelectValue placeholder="Selecciona un vector" />
               </SelectTrigger>
               <SelectContent className="bg-surface-container-low border border-white/10 text-on-surface">
@@ -293,7 +293,7 @@ const ContactForm = () => {
             {isSubmitting ? (
               <><Loader2 className="h-4 w-4 animate-spin" /> PROCESANDO...</>
             ) : submitStatus === 'success' ? (
-              <><CheckCircle2 className="h-4 w-4" /> TRANSMITIDO</>
+              <><CheckCircle2 className="h-4 w-4" /> ENVIADO</>
             ) : (
               <>
                 <span>Enviar Mensaje</span>
