@@ -36,6 +36,7 @@ const Terms = lazy(() => import('@/pages/Terms'));
 const BlogPage = lazy(() => import('@/pages/BlogPage'));
 const CreatePostPage = lazy(() => import('@/pages/blog/CreatePostPage'));
 const ForumPage = lazy(() => import('@/pages/ForumPage'));
+const CareersPage = lazy(() => import('@/pages/CareersPage'));
 
 // Auth Pages (Lazy Loaded)
 const LoginPage = lazy(() => import('@/pages/auth/LoginPage'));
@@ -137,6 +138,7 @@ function App() {
               <Route path="auditoria-seo-gratis" element={<AuditoriaGratisPage />} />
               <Route path="about" element={<AboutPage />} />
               <Route path="contact" element={<ContactPage />} />
+              <Route path="trabaja-con-nosotros" element={<CareersPage />} />
               <Route path="project/:projectId" element={<Project />} />
               <Route path="privacy-policy" element={<Privacy />} />
               <Route path="terms-of-service" element={<Terms />} />

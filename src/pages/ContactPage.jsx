@@ -3,7 +3,7 @@ import { Helmet } from 'react-helmet-async';
 import { Link } from 'react-router-dom';
 import ScrollToTop from '@/components/layout/ScrollToTop';
 import Breadcrumbs from '@/components/layout/Breadcrumbs';
-import ContactForm from '@/components/contact/ContactForm';
+import LeadQualifierForm from '@/components/contact/LeadQualifierForm';
 import ContactFAQ from '@/components/contact/ContactFAQ';
 import SuccessCasesCarousel from '@/components/home/SuccessCasesCarousel';
 import { trackWhatsAppClick } from '@/lib/analytics';
@@ -102,7 +102,7 @@ const ContactPage = () => {
           
           {/* Contact Form Card (Large) */}
           <div className="lg:col-span-8">
-            <ContactForm />
+            <LeadQualifierForm />
           </div>
 
           {/* Side Info Cards */}
@@ -121,7 +121,7 @@ const ContactPage = () => {
               </p>
               <a 
                 href="mailto:seogrowthers@gmail.com" 
-                className="text-primary font-bold hover:underline transition-all block text-lg mb-6"
+                className="text-cyan-400 hover:text-cyan-300 font-bold hover:underline transition-all block text-lg mb-6"
               >
                 seogrowthers@gmail.com
               </a>
@@ -133,7 +133,7 @@ const ContactPage = () => {
                   </p>
                   <a
                     href="mailto:seogrowthers@gmail.com"
-                    className="text-gray-300 hover:text-primary transition-colors block"
+                    className="text-gray-300 hover:text-cyan-400 transition-colors block"
                   >
                     seogrowthers@gmail.com
                   </a>
@@ -144,7 +144,7 @@ const ContactPage = () => {
                   </p>
                   <a
                     href="mailto:seogrowthers@gmail.com"
-                    className="text-gray-300 hover:text-primary transition-colors block"
+                    className="text-gray-300 hover:text-cyan-400 transition-colors block"
                   >
                     seogrowthers@gmail.com
                   </a>
@@ -155,7 +155,7 @@ const ContactPage = () => {
                   </p>
                   <a
                     href="mailto:seogrowthers@gmail.com"
-                    className="text-gray-300 hover:text-primary transition-colors block"
+                    className="text-gray-300 hover:text-cyan-400 transition-colors block"
                   >
                     seogrowthers@gmail.com
                   </a>
@@ -213,23 +213,6 @@ const ContactPage = () => {
                 </div>
                 {/* Subtle background glow */}
                 <div className="absolute top-0 right-0 w-32 h-32 bg-primary/5 rounded-full blur-3xl -mr-16 -mt-16 group-hover:bg-primary/10 transition-all duration-500"></div>
-              </div>
-            </div>
-
-            {/* Interactive Map Button */}
-            <div className="relative rounded-3xl overflow-hidden h-48 border border-white/5 group cursor-pointer shadow-2xl">
-              <img 
-                src="/images/fotos/1726058564177.jpg" 
-                alt="Mapa Interactivo" 
-                className="w-full h-full object-cover grayscale brightness-50 group-hover:scale-105 transition-transform duration-700"
-              />
-              <div className="absolute inset-0 flex flex-col items-center justify-center bg-black/40 group-hover:bg-black/20 transition-all">
-                <div className="w-12 h-12 bg-primary/20 backdrop-blur-md rounded-full flex items-center justify-center mb-3 text-primary border border-primary/30 group-hover:scale-110 transition-transform">
-                  <span className="material-symbols-outlined">location_on</span>
-                </div>
-                <span className="text-white font-bold tracking-[0.2em] text-xs uppercase drop-shadow-md">
-                  Ver Mapa Interactivo
-                </span>
               </div>
             </div>
             

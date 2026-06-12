@@ -96,10 +96,10 @@ const Header = () => {
         <div className="hidden md:flex items-center gap-8">
           <NavigationMenu variant="horizontal" />
           <Link
-            to="/auditoria-seo-gratis"
+            to="/contact"
             className="ml-4 px-5 py-2.5 premium-btn-glow text-white text-xs font-headline font-bold uppercase tracking-wider rounded-lg transition-all whitespace-nowrap"
           >
-            Auditoría Gratis
+            Contacto
           </Link>
         </div>
 
@@ -107,10 +107,10 @@ const Header = () => {
         <div className="flex items-center gap-2 md:gap-4 relative" ref={dropdownRef}>
           {/* Mobile CTA button */}
           <Link
-            to="/auditoria-seo-gratis"
+            to="/contact"
             className="flex md:hidden px-3 py-2 premium-btn-glow text-white text-[10px] font-headline font-bold uppercase tracking-wider rounded-lg whitespace-nowrap min-h-[36px] items-center"
           >
-            Auditoría Gratis
+            Contacto
           </Link>
 
           {session ? (

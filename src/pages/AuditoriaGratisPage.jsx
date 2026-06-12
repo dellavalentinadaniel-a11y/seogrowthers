@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
-import { Link } from 'react-router-dom';
+import { Link, Navigate } from 'react-router-dom';
 import ScrollToTop from '@/components/layout/ScrollToTop';
 import Breadcrumbs from '@/components/layout/Breadcrumbs';
 import { supabase } from '@/lib/customSupabaseClient';
@@ -51,6 +51,10 @@ const FAQItem = ({ faq }) => {
 };
 
 const AuditoriaGratisPage = () => {
+  return <Navigate to="/contact" replace />;
+};
+
+const AuditoriaGratisPageOld = () => {
   const [formData, setFormData] = useState({ name: '', email: '', website: '', message: '' });
   const [submitting, setSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);

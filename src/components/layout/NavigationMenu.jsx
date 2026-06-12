@@ -8,8 +8,6 @@ const navLinks = [
   { name: 'Foro', href: '/forum' },
   { name: 'Recursos', href: '/resources' },
   { name: 'Servicios', href: '/services' },
-  { name: 'Herramientas', href: '/tools' },
-  { name: 'Contacto', href: '/contact' },
 ];
 
 const NavigationMenu = ({ variant = 'horizontal', className }) => {

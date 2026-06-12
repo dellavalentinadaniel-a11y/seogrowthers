@@ -48,7 +48,25 @@ const stats = [
 const timeline = [
   { year: "2024", title: "Fundación", desc: "SEO Growthers nace en Neuquén, Argentina, con la misión de democratizar el marketing digital de calidad para PyMEs." },
   { year: "2025", title: "Expansión", desc: "Incorporamos automatización con IA y desarrollo web a nuestro portafolio. Primeros clientes en Buenos Aires y España." },
-  { year: "2026", title: "Innovación", desc: "Lanzamiento de herramientas propias, plataforma de recursos y sistema de auditoría SEO automatizada con agentes de IA." },
+];
+
+const team = [
+  {
+    name: "Valentin Della",
+    role: "Co-founder & Tech Lead",
+    bio: "Especialista en desarrollo web, arquitectura cloud, optimización de velocidad de carga (Core Web Vitals) e integraciones avanzadas con inteligencia artificial y automatizaciones de procesos.",
+    avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=300&q=80", // Placeholder de alta resolución de Unsplash
+    linkedin: "https://www.linkedin.com/company/seogrowthers",
+    initials: "VD"
+  },
+  {
+    name: "Mateo Della",
+    role: "Co-founder & SEO Specialist",
+    bio: "Consultor experto en posicionamiento orgánico, SEO local y de nichos, analítica digital avanzada del comportamiento de conversión y desarrollo de hojas de ruta tácticas de crecimiento de tráfico.",
+    avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=300&q=80",
+    linkedin: "https://www.linkedin.com/company/seogrowthers",
+    initials: "MD"
+  }
 ];
 
 const AboutPage = () => {
@@ -260,6 +278,73 @@ const AboutPage = () => {
                 </m.div>
               ))}
             </div>
+          </div>
+        </section>
+
+        {/* Team Section */}
+        <section className="px-6 md:px-12 lg:px-24 max-w-7xl mx-auto mb-24">
+          <div className="text-center mb-16">
+            <span className="font-label text-xs tracking-[0.2em] text-primary uppercase mb-4 block">Talento & Compromiso</span>
+            <h2 className="font-headline text-3xl md:text-5xl font-bold text-on-surface tracking-tight">
+              Nuestro Equipo
+            </h2>
+            <p className="text-on-surface-variant mt-4 max-w-2xl mx-auto text-base font-light">
+              Co-fundadores dedicados a transformar la visibilidad de tu marca y automatizar tus operaciones con tecnología de punta.
+            </p>
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+            {team.map((member, i) => (
+              <m.div
+                key={i}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.15 }}
+                className="p-8 rounded-[2rem] bg-slate-900/40 border border-white/5 hover:border-primary/20 hover:bg-slate-900/60 transition-all duration-300 relative group shadow-xl"
+              >
+                <div className="flex flex-col sm:flex-row items-center sm:items-start gap-6">
+                  {/* Avatar con iniciales de respaldo */}
+                  <div className="relative w-20 h-20 rounded-2xl overflow-hidden bg-primary/10 border border-primary/20 flex-shrink-0 flex items-center justify-center font-headline text-2xl font-black text-primary">
+                    {member.avatar ? (
+                      <img 
+                        src={member.avatar} 
+                        alt={member.name} 
+                        className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500"
+                        onError={(e) => {
+                          // Fallback si la imagen no carga
+                          e.target.style.display = 'none';
+                        }}
+                      />
+                    ) : null}
+                    <span className="absolute z-[-1]">{member.initials}</span>
+                  </div>
+
+                  <div className="text-center sm:text-left space-y-2">
+                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                      <div>
+                        <h3 className="font-headline text-xl font-bold text-white group-hover:text-primary transition-colors">{member.name}</h3>
+                        <p className="text-xs text-primary font-bold uppercase tracking-wider">{member.role}</p>
+                      </div>
+                      {member.linkedin && (
+                        <a 
+                          href={member.linkedin}
+                          target="_blank" 
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center justify-center w-8 h-8 rounded-lg bg-white/5 hover:bg-primary/15 hover:text-primary text-gray-400 transition-colors mx-auto sm:mx-0"
+                          title="LinkedIn Profile"
+                        >
+                          <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
+                          </svg>
+                        </a>
+                      )}
+                    </div>
+                    <p className="text-slate-400 text-sm leading-relaxed font-light">{member.bio}</p>
+                  </div>
+                </div>
+              </m.div>
+            ))}
           </div>
         </section>
 

@@ -10,8 +10,6 @@ const navLinks = [
   { name: 'Foro', href: '/forum' },
   { name: 'Recursos', href: '/resources' },
   { name: 'Servicios', href: '/services' },
-  { name: 'Herramientas', href: '/tools' },
-  { name: 'Contacto', href: '/contact' },
 ];
 
 const MobileMenu = () => {
@@ -71,11 +69,11 @@ const MobileMenu = () => {
               })}
               
               <Link
-                to="/auditoria-seo-gratis"
+                to="/contact"
                 onClick={closeMenu}
                 className="mt-4 px-6 py-4 premium-btn-glow text-white text-center font-headline font-bold uppercase tracking-wider rounded-xl transition-all"
               >
-                Auditoría Gratis
+                Contacto
               </Link>
             </nav>
 

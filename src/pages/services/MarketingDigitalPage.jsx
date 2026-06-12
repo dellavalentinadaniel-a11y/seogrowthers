@@ -3,6 +3,7 @@ import { Helmet } from 'react-helmet-async';
 import { Link } from 'react-router-dom';
 import Breadcrumbs from '@/components/layout/Breadcrumbs';
 import InternalLinkingCTA from '@/components/shared/InternalLinkingCTA';
+import LeadQualifierForm from '@/components/contact/LeadQualifierForm';
 import { trackWhatsAppClick, trackCTAClick } from '@/lib/analytics';
 
 const channels = [
@@ -184,22 +185,18 @@ const MarketingDigitalPage = () => {
           </div>
         </section>
 
-        {/* CTA */}
-        <section className="text-center p-12 md:p-20 rounded-3xl border border-primary-container/10 relative overflow-hidden mb-12" style={{ backgroundImage: 'linear-gradient(to bottom, transparent, rgba(156,240,255,0.03))' }}>
-          <h2 className="font-headline text-3xl md:text-5xl font-bold text-on-surface mb-4 relative z-10">
-            Empezá a vender <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary-container to-secondary-container">de verdad</span>
-          </h2>
-          <p className="text-on-surface-variant text-lg mb-8 relative z-10">Nuestro equipo de expertos en crecimiento digital a tu disposición.</p>
-          <a
-            href="https://wa.me/5492995504783?text=Hola%2C%20quiero%20una%20estrategia%20de%20marketing%20digital"
-            target="_blank"
-            rel="noopener noreferrer"
-            onClick={() => trackWhatsAppClick('marketing_digital_cta')}
-            className="bg-primary-container text-on-primary-container px-10 py-4 rounded-xl font-bold tracking-wider inline-flex items-center gap-2 hover:shadow-[0_0_20px_rgba(0,229,255,0.3)] transition-all relative z-10"
-          >
-            Quiero una Auditoría <span className="material-symbols-outlined text-sm">arrow_forward</span>
-          </a>
-          <div className="absolute -right-20 -top-20 w-64 h-64 bg-primary-container/10 blur-[100px] rounded-full pointer-events-none"></div>
+        {/* Formulario de Calificación */}
+        <section className="mb-20 max-w-4xl mx-auto" id="presupuesto-marketing">
+          <div className="text-center mb-12">
+            <span className="font-label text-xs tracking-[0.2em] text-[#00E5FF] uppercase mb-4 block">Calculador de Estrategia</span>
+            <h2 className="font-headline text-3xl md:text-5xl font-bold text-on-surface mb-4">
+              Agenda tu Auditoría de Marketing
+            </h2>
+            <p className="text-on-surface-variant text-base max-w-xl mx-auto font-light leading-relaxed">
+              Completa los canales de tu interés e inversión inicial estimada y nuestro equipo de Growth preparará una auditoría preliminar para tu negocio.
+            </p>
+          </div>
+          <LeadQualifierForm initialService="marketing" />
         </section>
 
         <InternalLinkingCTA variant="seo" />

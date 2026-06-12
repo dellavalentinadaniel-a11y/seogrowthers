@@ -57,6 +57,7 @@ const Footer = () => {
                 { name: 'Auditoría SEO Gratis', href: '/auditoria-seo-gratis' },
                 { name: 'Casos de Éxito', href: '/services/success-cases' },
                 { name: 'Blog', href: '/blog' },
+                { name: 'Trabaja con nosotros', href: '/trabaja-con-nosotros' },
             ],
         },
         {

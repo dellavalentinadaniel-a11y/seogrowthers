@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import ScrollToTop from '@/components/layout/ScrollToTop';
 import Breadcrumbs from '@/components/layout/Breadcrumbs';
 import InternalLinkingCTA from '@/components/shared/InternalLinkingCTA';
+import LeadQualifierForm from '@/components/contact/LeadQualifierForm';
 import TechMarquee from '@/components/shared/TechMarquee';
 import { trackCTAClick } from '@/lib/analytics';
 import { ArrowRight, Sparkles, CheckCircle2, HelpCircle, Percent } from 'lucide-react';
@@ -471,8 +472,19 @@ const DesarrolloWebPage = () => {
           </div>
         </section>
 
-        {/* Dynamic CTA Block 2 (SEO Free Audit callout) */}
-        <InternalLinkingCTA variant="audit" />
+        {/* Formulario de Calificación */}
+        <section className="mb-32 max-w-4xl mx-auto" id="presupuesto-desarrollo">
+          <div className="text-center mb-12">
+            <span className="font-label text-[10px] tracking-[0.3em] text-cyan-400 uppercase font-bold block mb-3">COTIZADOR AL INSTANTE</span>
+            <h2 className="font-headline text-3xl md:text-5xl font-black text-white tracking-tight">
+              Calcula el Presupuesto de tu Web
+            </h2>
+            <p className="text-slate-400 mt-4 max-w-xl mx-auto text-sm md:text-base font-light leading-relaxed">
+              Completa los requerimientos iniciales de tu proyecto y recibe una estimación y propuesta de desarrollo adaptada a tu medida.
+            </p>
+          </div>
+          <LeadQualifierForm initialService="desarrollo" />
+        </section>
       </main>
     </div>
   );
