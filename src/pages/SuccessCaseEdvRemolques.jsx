@@ -102,7 +102,7 @@ const SuccessCaseEdvRemolques = () => {
             <img 
               src="/images/edv-remolques-hero.webp" 
               alt="EDV Remolques Preview" 
-              fetchpriority="high"
+              fetchPriority="high"
               decoding="async"
               className="relative rounded-3xl border border-white/10 shadow-[0_20px_50px_rgba(0,0,0,0.8)] w-full h-auto object-cover"
             />
