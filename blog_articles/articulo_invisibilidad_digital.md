@@ -3,12 +3,12 @@ title: "La Invisibilidad Digital: ¿Por qué el 83% de los Negocios Modernos Est
 category: "Transformación Digital y Estrategia"
 tags: ["Invisibilidad Digital", "Estrategia Comercial", "Comercio Local", "Transformación Digital", "Efecto ROPO", "Neuquén"]
 keywords: "invisibilidad digital, fracaso comercial, estrategia digital, comercio minorista Neuquén, presencia digital, efecto ROPO, modelo phygital, mercado local Neuquén"
-image_url: "C:\\Users\\della\\.gemini\\antigravity-ide\\brain\\b876ca76-20ba-487b-9f93-f4a5c9bf577b\\digital_invisibility_business_1784401202015.webp"
+image_url: "/images/blog/digital_invisibility_business_1784401202015.webp"
 image_alt: "Ilustración conceptual sobre la invisibilidad digital mostrando un local físico desvaneciéndose frente al crecimiento del ecosistema online."
 image_title: "El peligro de la invisibilidad digital para los negocios modernos"
 ---
 
-![El peligro de la invisibilidad digital para los negocios modernos](C:\Users\della\.gemini\antigravity-ide\brain\b876ca76-20ba-487b-9f93-f4a5c9bf577b\digital_invisibility_business_1784401202015.webp)
+![El peligro de la invisibilidad digital para los negocios modernos](/images/blog/digital_invisibility_business_1784401202015.webp)
 
 # La Invisibilidad Digital: ¿Por qué el 83% de los Negocios Modernos Están Condenados a Desaparecer?
 
@@ -16,7 +16,7 @@ En el mercado actual se está gestando un fracaso silencioso, una hemorragia de 
 
 Este fenómeno no es una coincidencia, sino la consecuencia de una brecha crítica entre el comportamiento del consumidor y la inercia empresarial. En Neuquén, por ejemplo, el comercio minorista físico registró una caída promedio del 6.5% en su volumen de ventas durante los primeros nueve meses de 2025. En una era de hiperconectividad, seguir "jugando al escondite" con el cliente no es solo un error táctico; es un suicidio corporativo. La digitalización ha dejado de ser una opción de crecimiento para convertirse en el activo más crítico del balance general de cara al 2026.
 
-![Infografía: 83% de los fracasos comerciales por falta de estrategia digital](C:\Users\della\.gemini\antigravity-ide\brain\b876ca76-20ba-487b-9f93-f4a5c9bf577b\infografia_invisibilidad_digital.jpg)
+![Infografía: 83% de los fracasos comerciales por falta de estrategia digital](/images/blog/infografia_invisibilidad.webp)
 
 ## El Paradox del Escaparate Vacío: 90% de Clientes vs. 28% de Presencia
 

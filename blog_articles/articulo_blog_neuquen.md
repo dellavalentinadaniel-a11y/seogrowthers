@@ -3,12 +3,12 @@ title: "Informe de Competitividad: El Comercio de Neuquén ante la Transformaci�
 category: "E-commerce y Transformación Digital"
 tags: ["Comercio Local", "Transformación Digital", "E-commerce Neuquén", "Phygital", "Mercado Local"]
 keywords: "transformación digital Neuquén, comercio local Neuquén, inactividad comercial, mercado libre vs comercio local, comprar local Neuquén, modelo phygital, SEO local Neuquén"
-image_url: "C:\\Users\\della\\.gemini\\antigravity-ide\\brain\\b876ca76-20ba-487b-9f93-f4a5c9bf577b\\informe_competitividad_nuevo.webp"
+image_url: "/images/blog/informe_competitividad_nuevo.webp"
 image_alt: "Concepto visual de transformación digital en comercios de Neuquén, fusionando tienda física con interfaz digital (modelo phygital)."
 image_title: "Transformación Digital del Comercio en Neuquén"
 ---
 
-![Informe de Competitividad del Comercio en Neuquén](C:\Users\della\.gemini\antigravity-ide\brain\b876ca76-20ba-487b-9f93-f4a5c9bf577b\informe_competitividad_nuevo.webp)
+![Informe de Competitividad del Comercio en Neuquén](/images/blog/informe_competitividad_nuevo.webp)
 
 # Informe de Competitividad: El Comercio de Neuquén ante la Transformación Digital (2025-2026)
 
