@@ -138,14 +138,12 @@ const LandingPagesPage = () => {
             ))}
           </div>
 
-          {/* Hero Investment CTA Block */}
+          {/* Hero Call to Action Block */}
           <div className="p-6 md:p-8 rounded-2xl bg-surface-container-low/90 border border-cyan-500/20 backdrop-blur-xl flex flex-col md:flex-row items-start md:items-center justify-between gap-6 shadow-[0_10px_30px_rgba(0,0,0,0.4)]">
-            <div>
-              <span className="text-[11px] font-headline font-bold text-cyan-400 uppercase tracking-[0.2em] block mb-1">INVERSIÓN INICIAL:</span>
-              <div className="flex items-baseline gap-2">
-                <span className="text-4xl md:text-5xl font-black text-white">$800</span>
-                <span className="text-sm font-bold text-slate-300">USD / proyecto</span>
-              </div>
+            <div className="max-w-xl">
+              <span className="text-[11px] font-headline font-bold text-cyan-400 uppercase tracking-[0.2em] block mb-1">IMPULSÁ TU NEGOCIO</span>
+              <h2 className="text-xl md:text-2xl font-extrabold text-white tracking-tight">¿Listo para maximizar tus conversiones?</h2>
+              <p className="text-xs md:text-sm text-slate-300 font-light mt-1">Diseñamos la landing page estratégica y optimizada que tu marca necesita para captar clientes.</p>
             </div>
 
             <div className="flex flex-wrap items-center gap-3 w-full md:w-auto">
