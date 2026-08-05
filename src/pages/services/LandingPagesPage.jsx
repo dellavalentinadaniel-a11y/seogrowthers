@@ -138,26 +138,30 @@ const LandingPagesPage = () => {
             ))}
           </div>
 
-          <div className="flex flex-wrap items-center gap-6">
+          {/* Hero Investment CTA Block */}
+          <div className="p-6 md:p-8 rounded-2xl bg-surface-container-low/90 border border-cyan-500/20 backdrop-blur-xl flex flex-col md:flex-row items-start md:items-center justify-between gap-6 shadow-[0_10px_30px_rgba(0,0,0,0.4)]">
             <div>
-              <span className="text-slate-400 text-xs uppercase tracking-wider block font-bold">Inversión inicial:</span>
-              <span className="text-4xl font-extrabold text-white">$800 <span className="text-lg font-medium text-slate-400">USD / proyecto</span></span>
+              <span className="text-[11px] font-headline font-bold text-cyan-400 uppercase tracking-[0.2em] block mb-1">INVERSIÓN INICIAL:</span>
+              <div className="flex items-baseline gap-2">
+                <span className="text-4xl md:text-5xl font-black text-white">$800</span>
+                <span className="text-sm font-bold text-slate-300">USD / proyecto</span>
+              </div>
             </div>
 
-            <div className="flex flex-wrap gap-4">
+            <div className="flex flex-wrap items-center gap-3 w-full md:w-auto">
               <a
                 href="https://wa.me/5492995504783?text=Hola%2C%20me%20interesa%20el%20servicio%20de%20landing%20page"
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={() => { trackWhatsAppClick('landing_pages_page'); trackCTAClick('landing_pages_hero_cta'); }}
-                className="bg-gradient-to-r from-cyan-400 to-blue-600 text-slate-950 px-8 py-4 rounded-xl font-headline font-black text-xs uppercase tracking-widest inline-flex items-center gap-2 hover:shadow-[0_0_30px_rgba(0,229,255,0.4)] transition-all hover:scale-105"
+                className="flex-1 md:flex-initial bg-gradient-to-r from-cyan-400 to-blue-500 text-slate-950 px-6 py-3.5 rounded-xl font-headline font-black text-xs uppercase tracking-widest inline-flex items-center justify-center gap-2 hover:shadow-[0_0_25px_rgba(0,229,255,0.4)] transition-all hover:scale-105"
               >
-                Solicitar Presupuesto
+                <span>Solicitar Presupuesto</span>
                 <ArrowRight className="w-4 h-4" />
               </a>
               <Link
                 to="/auditoria-seo-gratis"
-                className="border border-white/15 text-white px-8 py-4 rounded-xl font-headline font-bold text-xs uppercase tracking-widest hover:border-cyan-400 hover:text-cyan-400 transition-all bg-white/5"
+                className="flex-1 md:flex-initial border border-white/20 text-white px-6 py-3.5 rounded-xl font-headline font-bold text-xs uppercase tracking-widest hover:border-cyan-400 hover:text-cyan-400 transition-all bg-white/5 text-center"
               >
                 Auditoría Gratuita
               </Link>
@@ -364,78 +368,115 @@ const LandingPagesPage = () => {
                     <h2 className="font-headline text-2xl md:text-4xl font-bold text-white mb-1">
                       Matriz de Inversión y Comparativa
                     </h2>
-                    <p className="text-slate-400 text-sm">Transparencia de costos según escala y tipo de proveedor.</p>
+                    <p className="text-slate-400 text-sm">Transparencia de costos según escala y tipo de proveedor en Argentina.</p>
                   </div>
 
-                  <div className="inline-flex bg-slate-900 p-1 rounded-xl border border-white/10">
-                    <button
-                      onClick={() => setCurrency('usd')}
-                      className={`px-4 py-2 rounded-lg text-xs font-bold uppercase tracking-wider transition-all ${
-                        currency === 'usd' ? 'bg-cyan-500 text-slate-950' : 'text-slate-400'
-                      }`}
-                    >
-                      USD
-                    </button>
+                  <div className="inline-flex bg-slate-900 p-1.5 rounded-2xl border border-white/10">
                     <button
                       onClick={() => setCurrency('ars')}
-                      className={`px-4 py-2 rounded-lg text-xs font-bold uppercase tracking-wider transition-all ${
-                        currency === 'ars' ? 'bg-cyan-500 text-slate-950' : 'text-slate-400'
+                      className={`px-5 py-2.5 rounded-xl text-xs font-headline font-bold transition-all ${
+                        currency === 'ars' ? 'bg-white text-slate-950 shadow-lg' : 'text-slate-400 hover:text-white'
                       }`}
                     >
-                      ARS (Estimado)
+                      Precios en ARS
+                    </button>
+                    <button
+                      onClick={() => setCurrency('usd')}
+                      className={`px-5 py-2.5 rounded-xl text-xs font-headline font-bold transition-all ${
+                        currency === 'usd' ? 'bg-white text-slate-950 shadow-lg' : 'text-slate-400 hover:text-white'
+                      }`}
+                    >
+                      Referencia USD
                     </button>
                   </div>
                 </div>
 
-                <div className="grid md:grid-cols-3 gap-6">
-                  <div className="bg-slate-900/60 p-6 rounded-2xl border border-white/10 flex flex-col justify-between">
+                <div className="grid md:grid-cols-3 gap-6 items-stretch pt-4">
+                  
+                  {/* CARD 1 */}
+                  <div className="bg-slate-900/60 p-8 rounded-3xl border border-white/10 flex flex-col justify-between hover:border-white/20 transition-all">
                     <div>
-                      <h3 className="font-bold text-white text-lg mb-1">LP Inicial / Plantilla</h3>
-                      <div className="text-2xl font-black text-cyan-400 mb-4">
-                        {currency === 'usd' ? 'USD 300 - 500' : '$350k - $600k ARS'}
+                      <h3 className="font-headline font-bold text-white text-xl mb-4">LP Inicial / Plantilla</h3>
+                      <div className="text-3xl font-black text-white mb-6">
+                        {currency === 'ars' ? '$150k - $300k' : 'USD 150 - 300'}
                       </div>
-                      <ul className="text-xs text-slate-400 space-y-2 mb-6">
-                        <li>• Maquetación estándar</li>
-                        <li>• Formulario básico</li>
-                        <li>• Diseño responsive</li>
+                      <ul className="text-sm text-slate-300 space-y-3 mb-8">
+                        <li className="flex items-start gap-2">
+                          <span className="text-cyan-400 font-bold">•</span>
+                          <span>Basada en maquetadores (Wix/WP)</span>
+                        </li>
+                        <li className="flex items-start gap-2">
+                          <span className="text-cyan-400 font-bold">•</span>
+                          <span>Formulario básico</span>
+                        </li>
+                        <li className="flex items-start gap-2">
+                          <span className="text-cyan-400 font-bold">•</span>
+                          <span>Diseño responsive estándar</span>
+                        </li>
                       </ul>
                     </div>
-                    <span className="text-[11px] text-slate-500 block">Opción para validación inicial.</span>
+                    <span className="text-xs text-slate-500 font-light block pt-4 border-t border-white/5">
+                      Opción ideal para validación rápida.
+                    </span>
                   </div>
 
-                  <div className="bg-slate-900 p-6 rounded-2xl border-2 border-cyan-400 flex flex-col justify-between relative shadow-[0_0_30px_rgba(0,229,255,0.15)]">
-                    <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-cyan-400 text-slate-950 text-[10px] font-black px-3 py-0.5 rounded-full uppercase tracking-wider">
-                      Recomendado
+                  {/* CARD 2 - RECOMENDADO */}
+                  <div className="bg-slate-900 p-8 rounded-3xl border-2 border-amber-500 flex flex-col justify-between relative shadow-[0_0_35px_rgba(245,158,11,0.2)] transform md:-translate-y-2">
+                    <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-amber-500 text-slate-950 text-[11px] font-headline font-black px-5 py-1 rounded-full uppercase tracking-widest shadow-md">
+                      RECOMENDADO
                     </div>
                     <div>
-                      <h3 className="font-bold text-white text-lg mb-1">Profesional a Medida</h3>
-                      <div className="text-2xl font-black text-cyan-400 mb-4">
-                        {currency === 'usd' ? 'USD 800 - 1,200' : '$950k - $1.4M ARS'}
+                      <h3 className="font-headline font-bold text-white text-xl mb-4 mt-2">Profesional a Medida</h3>
+                      <div className="text-3xl font-black text-white mb-6">
+                        {currency === 'ars' ? '$200k - $500k' : 'USD 300 - 900'}
                       </div>
-                      <ul className="text-xs text-slate-300 space-y-2 mb-6">
-                        <li>• Desarrollo ultra-veloz en React / Vite</li>
-                        <li>• SEO Técnico Avanzado nativo</li>
-                        <li>• Core Web Vitals 100/100</li>
-                        <li>• Soporte post-lanzamiento VIP</li>
+                      <ul className="text-sm text-slate-200 space-y-3 mb-8">
+                        <li className="flex items-start gap-2">
+                          <span className="text-amber-400 font-bold">•</span>
+                          <span>Desarrollo en Next.js o WP Optimizado</span>
+                        </li>
+                        <li className="flex items-start gap-2">
+                          <span className="text-amber-400 font-bold">•</span>
+                          <span>SEO Técnico Avanzado</span>
+                        </li>
+                        <li className="flex items-start gap-2">
+                          <span className="text-amber-400 font-bold">•</span>
+                          <span>Core Web Vitals en Verde</span>
+                        </li>
                       </ul>
                     </div>
-                    <span className="text-[11px] text-cyan-300 block font-bold">Máximo retorno sobre campañas.</span>
+                    <span className="text-xs text-amber-300/90 font-medium block pt-4 border-t border-white/10">
+                      Enfoque en alta conversión y escalabilidad.
+                    </span>
                   </div>
 
-                  <div className="bg-slate-900/60 p-6 rounded-2xl border border-white/10 flex flex-col justify-between">
+                  {/* CARD 3 */}
+                  <div className="bg-slate-900/60 p-8 rounded-3xl border border-white/10 flex flex-col justify-between hover:border-white/20 transition-all">
                     <div>
-                      <h3 className="font-bold text-white text-lg mb-1">Sub-hub / eCommerce</h3>
-                      <div className="text-2xl font-black text-cyan-400 mb-4">
-                        {currency === 'usd' ? 'USD 1,500 - 2,500' : '$1.8M - $3M ARS'}
+                      <h3 className="font-headline font-bold text-white text-xl mb-4">eCommerce / Sub-hub</h3>
+                      <div className="text-3xl font-black text-white mb-6">
+                        {currency === 'ars' ? '$490k - $1.2M' : 'USD 500 - 1200'}
                       </div>
-                      <ul className="text-xs text-slate-400 space-y-2 mb-6">
-                        <li>• Integración de pasarelas de pago</li>
-                        <li>• Marcado Schema dinámico</li>
-                        <li>• Catálogo amplio autogestionable</li>
+                      <ul className="text-sm text-slate-300 space-y-3 mb-8">
+                        <li className="flex items-start gap-2">
+                          <span className="text-cyan-400 font-bold">•</span>
+                          <span>Configuración Tiendanube Avanzada</span>
+                        </li>
+                        <li className="flex items-start gap-2">
+                          <span className="text-cyan-400 font-bold">•</span>
+                          <span>Inyección de Schema Markup</span>
+                        </li>
+                        <li className="flex items-start gap-2">
+                          <span className="text-cyan-400 font-bold">•</span>
+                          <span>Auditoría de Canibalización SEO</span>
+                        </li>
                       </ul>
                     </div>
-                    <span className="text-[11px] text-slate-500 block">Para alto volumen transaccional.</span>
+                    <span className="text-xs text-slate-500 font-light block pt-4 border-t border-white/5">
+                      Orientado a facturación masiva.
+                    </span>
                   </div>
+
                 </div>
               </motion.div>
             )}
