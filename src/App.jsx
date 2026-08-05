@@ -76,7 +76,7 @@ const Placeholders = lazy(() => import('@/pages/Placeholders'));
 const SuccessCasesPage = lazy(() => import('@/pages/SuccessCasesPage'));
 const SuccessCaseDetailPage = lazy(() => import('@/pages/Placeholders').then(module => ({ default: module.SuccessCaseDetailPage })));
 const TestimonialsPage = lazy(() => import('@/pages/Placeholders').then(module => ({ default: module.TestimonialsPage })));
-const ServiceDetailPage = lazy(() => import('@/pages/Placeholders').then(module => ({ default: module.ServiceDetailPage })));
+const ServiceDetailPage = lazy(() => import('@/pages/services/ServiceDetailPage'));
 const ResourceDetailPage = lazy(() => import('@/pages/ResourceDetailPage'));
 const ToolDetailPage = lazy(() => import('@/pages/ToolDetailPage'));
 
@@ -95,13 +95,16 @@ function App() {
             <Route path="/" element={<Layout />}>
               <Route index element={<Home />} />
 
-              {/* Blog Cluster */}
+              {/* Blog & News Cluster */}
               <Route path="blog" element={<BlogPage />} />
+              <Route path="news" element={<BlogPage />} />
               <Route path="forum" element={<ForumPage />} />
               <Route path="blog/create" element={<CreatePostPage />} />
               <Route path="blog/edit/:id" element={<CreatePostPage />} />
               <Route path="blog/:category" element={<BlogPage />} />
               <Route path="blog/:category/:slug" element={<ArticleDetail />} />
+              <Route path="news/:slug" element={<ArticleDetail />} />
+              <Route path="news/:category/:slug" element={<ArticleDetail />} />
 
 
 
@@ -115,6 +118,8 @@ function App() {
               <Route path="services/ecommerce" element={<EcommercePage />} />
               <Route path="services/marketing-digital" element={<MarketingDigitalPage />} />
               <Route path="services/success-cases" element={<SuccessCasesPage />} />
+              <Route path="success-cases" element={<SuccessCasesPage />} />
+              <Route path="casos-de-exito" element={<SuccessCasesPage />} />
               <Route path="services/success-cases/:slug" element={<SuccessCaseDetailPage />} />
               <Route path="services/testimonials" element={<TestimonialsPage />} />
               <Route path="services/:slug" element={<ServiceDetailPage />} />

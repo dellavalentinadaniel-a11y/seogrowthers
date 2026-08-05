@@ -89,6 +89,18 @@ const ArticleDetail = () => {
         } else if (data) {
           current = data;
         }
+
+        // Fallback: buscar en la tabla 'blog_news' si no existe en 'articles'
+        if (!current) {
+          const { data: newsData, error: newsErr } = await supabase
+            .from('blog_news')
+            .select('*')
+            .or(orFilter)
+            .maybeSingle();
+          if (newsData && !newsErr) {
+            current = newsData;
+          }
+        }
       } catch (err) {
         console.error("Error crítico en fetchArticle:", err);
       }

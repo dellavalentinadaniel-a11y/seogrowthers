@@ -125,9 +125,9 @@ const ResourceDetailPage = () => {
     setLoading(true);
     setNotFound(false);
 
-    // 1. Intercept Multi-Agent offline Skill
-    if (slug === 'multi-agente') {
-      setResource({
+    // 1. Intercept Static Resources
+    const STATIC_RESOURCES = {
+      'multi-agente': {
         id: 'multi-agente',
         title: 'Habilidad de Multi-Agente para Antigravity',
         description: 'Esta habilidad permite a Antigravity coordinar un equipo de agentes inteligentes trabajando en paralelo sobre el mismo proyecto, replicando la funcionalidad de "Agent Teams" de Claude Code.',
@@ -141,7 +141,39 @@ const ResourceDetailPage = () => {
         created_at: new Date().toISOString(),
         author: 'Antigravity Core',
         isSkill: true
-      });
+      },
+      'plantilla-keyword-research-ia': {
+        id: 'plantilla-keyword-research-ia',
+        title: 'Plantilla de Keyword Research Automatizada con IA',
+        description: 'Plantilla avanzada en Google Sheets conectada a APIs de IA para automatizar la agrupación semántica e intención de búsqueda de palabras clave.',
+        category: 'ACTIVOS',
+        link: '#',
+        featured: false,
+        image: '/images/seo_pillar.webp',
+        downloads: 1852,
+        file_size: '1.2 MB',
+        file_type: 'zip',
+        created_at: new Date(Date.now() - 43200000).toISOString(),
+        author: 'SEO Growthers'
+      },
+      'checklist-core-web-vitals': {
+        id: 'checklist-core-web-vitals',
+        title: 'Checklist Avanzado de Core Web Vitals',
+        description: 'Una guía-lista de control interactiva para optimizar el rendimiento de velocidad de tu sitio y obtener 100/100 en Google PageSpeed Insights.',
+        category: 'TÉCNICOS',
+        link: '#',
+        featured: false,
+        image: '/images/seo_pillar.webp',
+        downloads: 2420,
+        file_size: '3.5 MB',
+        file_type: 'pdf',
+        created_at: new Date(Date.now() - 86400000).toISOString(),
+        author: 'SEO Growthers'
+      }
+    };
+
+    if (STATIC_RESOURCES[slug]) {
+      setResource(STATIC_RESOURCES[slug]);
       setLoading(false);
       return;
     }
