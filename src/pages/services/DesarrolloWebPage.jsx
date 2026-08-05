@@ -88,6 +88,7 @@ const packages = [
     features: ["Diseño responsive mobile-first", "Formulario de contacto inteligente", "SEO on-page estructurado básico", "Optimización de velocidad extrema (WebP)", "1 revisión de diseño completa", "Hosting inicial de 3 meses incluido"],
     popular: false,
     icon: "web",
+    detailUrl: "/services/landing-pages"
   },
   {
     name: "Sitio Corporativo",
@@ -96,6 +97,7 @@ const packages = [
     features: ["Hasta 8 secciones o páginas exclusivas", "Blog integrado con panel autogestionable", "SEO técnico y de indexación profundo", "Schema markup estructurado de marca", "Google Analytics y Search Console", "Panel de administración y control", "3 revisiones de diseño completas", "Soporte VIP post-lanzamiento de 30 días"],
     popular: true,
     icon: "domain",
+    detailUrl: "/services/web-corporativa"
   },
   {
     name: "Tienda Online",
@@ -104,6 +106,7 @@ const packages = [
     features: ["Catálogo e inventario de productos ilimitado", "Pasarela de pagos (Mercado Pago, Stripe)", "Carrito y checkout fluido de alta conversión", "Panel intuitivo de gestión de pedidos", "SEO avanzado para categorías y productos", "Correos automatizados de confirmación", "Integración logística con envíos locales", "Soporte técnico VIP extendido de 60 días"],
     popular: false,
     icon: "storefront",
+    detailUrl: "/services/ecommerce"
   },
 ];
 
@@ -278,13 +281,16 @@ const DesarrolloWebPage = () => {
                   )}
                   
                   {/* Top Header Card */}
-                  <div className="mb-8 relative z-10">
-                    <div className="w-14 h-14 rounded-2xl bg-cyan-500/10 text-cyan-400 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-500 border border-cyan-500/20">
+                  <Link to={pkg.detailUrl} className="mb-8 relative z-10 block group/title cursor-pointer">
+                    <div className="w-14 h-14 rounded-2xl bg-cyan-500/10 text-cyan-400 flex items-center justify-center mb-6 group-hover:scale-110 group-hover/title:bg-cyan-500/20 transition-all duration-500 border border-cyan-500/20">
                       <span className="material-symbols-outlined text-4xl">{pkg.icon}</span>
                     </div>
-                    <h3 className="font-headline text-2xl font-extrabold text-white mb-3 tracking-tight">{pkg.name}</h3>
+                    <h3 className="font-headline text-2xl font-extrabold text-white mb-3 tracking-tight group-hover/title:text-cyan-400 transition-colors flex items-center gap-2">
+                      {pkg.name}
+                      <span className="material-symbols-outlined text-lg opacity-0 group-hover/title:opacity-100 group-hover/title:translate-x-1 transition-all">arrow_forward</span>
+                    </h3>
                     <p className="text-slate-350 text-sm leading-relaxed font-light min-h-[48px]">{pkg.desc}</p>
-                  </div>
+                  </Link>
 
                   {/* Price Block */}
                   <div className="mb-8 border-y border-white/10 py-6 relative z-10">
@@ -314,12 +320,13 @@ const DesarrolloWebPage = () => {
                     >
                       Solicitar Presupuesto
                     </Link>
-                    <a
-                      href="#plantillas-prediseñadas"
-                      className="w-full py-3.5 rounded-xl font-headline text-xs uppercase tracking-[0.2em] text-center bg-white/[0.04] border border-white/10 text-slate-300 hover:bg-white/[0.08] hover:text-white hover:border-cyan-500/30 transition-all duration-300 transform active:scale-95"
+                    <Link
+                      to={pkg.detailUrl}
+                      className="w-full py-3.5 rounded-xl font-headline text-xs uppercase tracking-[0.2em] text-center bg-white/[0.04] border border-white/10 text-slate-300 hover:bg-white/[0.08] hover:text-white hover:border-cyan-500/30 transition-all duration-300 transform active:scale-95 flex items-center justify-center gap-1"
                     >
-                      Ver detalles
-                    </a>
+                      <span>Ver detalles</span>
+                      <span className="material-symbols-outlined text-sm">chevron_right</span>
+                    </Link>
                   </div>
                 </div>
               );
