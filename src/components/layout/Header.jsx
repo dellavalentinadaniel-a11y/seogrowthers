@@ -83,8 +83,22 @@ const Header = () => {
 
 
 
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 20);
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
   return (
-    <header className="fixed top-0 w-full z-50 bg-gradient-to-b from-[#0a0e27]/95 to-[#0c0f1f]/90 backdrop-blur-lg border-b border-cyan-500/10 shadow-[0_8px_32px_rgba(0,0,0,0.6)]">
+    <header className={`fixed top-0 w-full z-50 transition-all duration-500 ${
+      scrolled 
+        ? 'bg-[#050505]/85 backdrop-blur-xl border-b border-cyan-500/25 shadow-[0_8px_32px_rgba(0,242,255,0.12)]' 
+        : 'bg-gradient-to-b from-[#050505]/90 to-transparent backdrop-blur-md border-b border-white/10'
+    }`}>
       <div className="flex justify-between items-center px-4 md:px-8 h-16 md:h-20 w-full max-w-[1600px] mx-auto">
 
         {/* Brand */}

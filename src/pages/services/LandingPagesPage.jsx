@@ -21,21 +21,37 @@ import {
   ChevronDown,
   DollarSign,
   AlertTriangle,
-  Award
+  Award,
+  Plus,
+  Minus,
+  MessageSquare,
+  Compass,
+  Cpu,
+  Rocket
 } from 'lucide-react';
 
-const FAQItem = ({ question, answer }) => {
-  const [isOpen, setIsOpen] = useState(false);
+const FAQItem = ({ question, answer, defaultOpen = false }) => {
+  const [isOpen, setIsOpen] = useState(defaultOpen);
   return (
-    <div className="rounded-2xl border border-white/10 bg-surface-container-low/60 backdrop-blur-md overflow-hidden hover:border-primary/40 transition-all duration-300">
+    <div className={`rounded-2xl border transition-all duration-300 backdrop-blur-md overflow-hidden ${
+      isOpen
+        ? 'border-cyan-400/50 bg-slate-900/90 shadow-[0_0_25px_rgba(0,242,255,0.12)]'
+        : 'border-white/10 bg-slate-950/60 hover:border-cyan-400/30'
+    }`}>
       <button
         onClick={() => setIsOpen(!isOpen)}
         className="w-full flex items-center justify-between p-6 text-left group"
       >
-        <h3 className="font-headline text-base md:text-lg font-bold text-on-surface group-hover:text-primary transition-colors pr-4">
+        <h3 className={`font-headline text-base md:text-lg font-bold pr-4 transition-colors ${
+          isOpen ? 'text-cyan-400' : 'text-white group-hover:text-cyan-400'
+        }`}>
           {question}
         </h3>
-        <ChevronDown className={`w-5 h-5 text-on-surface-variant transition-transform duration-300 flex-shrink-0 ${isOpen ? 'rotate-180 text-primary' : ''}`} />
+        <div className={`w-8 h-8 rounded-full flex items-center justify-center transition-all ${
+          isOpen ? 'bg-cyan-400/20 text-cyan-400' : 'bg-white/5 text-slate-400 group-hover:text-white'
+        }`}>
+          {isOpen ? <Minus className="w-5 h-5" /> : <Plus className="w-5 h-5" />}
+        </div>
       </button>
       <AnimatePresence>
         {isOpen && (
@@ -46,7 +62,7 @@ const FAQItem = ({ question, answer }) => {
             transition={{ duration: 0.3 }}
             className="overflow-hidden"
           >
-            <p className="px-6 pb-6 text-on-surface-variant leading-relaxed font-light text-sm md:text-base border-t border-white/5 pt-4">
+            <p className="px-6 pb-6 text-slate-300 leading-relaxed font-light text-sm md:text-base border-t border-white/5 pt-4">
               {answer}
             </p>
           </motion.div>
@@ -82,20 +98,62 @@ const LandingPagesPage = () => {
   };
 
   const faqs = [
-    { q: '¿Qué incluye exactamente el diseño de landing page?', a: 'Incluye arquitectura de 1 página de alta conversión, optimización responsive mobile-first, dominio y hosting por 1 año, certificado SSL, 1 correo corporativo, SEO on-page básico y botón flotante de WhatsApp.' },
-    { q: '¿Cuánto tiempo tarda en estar lista mi landing page?', a: 'El tiempo promedio de entrega es de 7 a 14 días hábiles desde la recepción del contenido e insumos de marca.' },
-    { q: '¿Es compatible con campañas de Google Ads y Facebook Ads?', a: 'Absolutamente. Nuestras landing pages están estructuradas específicamente para elevar el Quality Score de Google Ads y maximizar el retorno de inversión en Meta Ads.' },
-    { q: '¿Puedo actualizar textos e imágenes en el futuro?', a: 'Sí, incluimos un panel de gestión intuitivo para que actualices contenido sin necesidad de saber programación.' },
-    { q: '¿Qué diferencia a una landing page de un sitio web corporativo completo?', a: 'Una landing page se enfoca en un único objetivo de conversión (lead o venta) con 0 distracciones. Un sitio corporativo abarca múltiples secciones para brindar presencia institucional completa.' }
+    {
+      q: '¿Qué es una Landing Page y por qué es importante?',
+      a: 'Una landing page es una página web diseñada con un único objetivo de conversión: captar leads cualificados o generar ventas directas sin distracciones. Es fundamental para maximizar el retorno de inversión (ROI) en campañas de tráfico pago (Google Ads, Meta Ads) y posicionamiento orgánico.',
+      defaultOpen: false
+    },
+    {
+      q: '¿Cómo funciona vuestro proceso de diseño?',
+      a: 'Nuestro proceso es iterativo y se enfoca en resultados empíricos. Desde el análisis inicial y wireframing hasta la optimización de velocidad de carga y pruebas A/B, trabajamos en estrecha colaboración para asegurar el éxito comercial de tu proyecto.',
+      defaultOpen: true
+    },
+    {
+      q: '¿Qué incluyen los planes de inversión?',
+      a: 'Todos los planes incluyen maquetación responsive mobile-first, optimización de velocidad de carga extrema (WPO con LCP < 1.5s), SEO técnico estructurado, integración de formularios, certificado SSL, dominio y soporte post-lanzamiento.',
+      defaultOpen: false
+    },
+    {
+      q: '¿Ofrecen soporte post-lanzamiento?',
+      a: 'Sí, todos nuestros proyectos incluyen soporte técnico VIP post-lanzamiento, monitoreo continuo de disponibilidad y capacitación grabada para la gestión autónoma del contenido.',
+      defaultOpen: false
+    }
+  ];
+
+  const methodologySteps = [
+    {
+      number: "01",
+      title: "Análisis & Investigación",
+      icon: Compass,
+      desc: "Auditamos tu nicho, competencia directa y comportamiento de usuarios para definir la estrategia CRO exacta."
+    },
+    {
+      number: "02",
+      title: "Arquitectura & Wireframing",
+      icon: Target,
+      desc: "Diseñamos la estructura de persuasión visual, jerarquía de llamados a la acción y copywriting de alto impacto."
+    },
+    {
+      number: "03",
+      title: "Desarrollo & WPO",
+      icon: Cpu,
+      desc: "Codificamos en React / Vite con arquitectura ultra-veloz, optimización WebP y Core Web Vitals 100/100."
+    },
+    {
+      number: "04",
+      title: "Lanzamiento & Aceleración",
+      icon: Rocket,
+      desc: "Integramos analítica avanzada (GA4 & GSC), realizamos testing continuo y aceleramos tus tasas de conversión."
+    }
   ];
 
   return (
-    <div className="text-on-surface font-body min-h-screen bg-background selection:bg-cyan-500/30 selection:text-white">
+    <div className="text-on-surface font-body min-h-screen bg-[#050505] selection:bg-cyan-500/30 selection:text-white">
       <Helmet>
-        <title>Diseño de Landing Pages | Alta Conversión - SEO Growthers</title>
+        <title>Diseño Web Landing Page | Ingeniería de Conversión - SEO Growthers</title>
         <meta name="description" content="Diseño profesional de landing pages de alta conversión en Argentina. Optimizadas para campañas de Google Ads, captura de leads y ventas. Desde $800 USD." />
         <link rel="canonical" href="https://seogrowthers.com/services/landing-pages" />
-        <meta property="og:title" content="Diseño de Landing Pages | SEO Growthers" />
+        <meta property="og:title" content="Diseño Web Landing Page | SEO Growthers" />
         <meta property="og:description" content="Landing pages optimizadas para convertir visitantes en clientes. Diseño responsive, SEO y carga rápida." />
         <meta property="og:url" content="https://seogrowthers.com/services/landing-pages" />
         <meta property="og:type" content="website" />
@@ -106,9 +164,9 @@ const LandingPagesPage = () => {
         <Breadcrumbs className="mb-6" />
 
         {/* HERO SECTION */}
-        <section className="mb-20 relative">
-          <div className="absolute top-0 left-1/4 w-96 h-96 bg-cyan-500/10 rounded-full blur-[140px] pointer-events-none" />
-          
+        <section className="mb-24 relative">
+          <div className="absolute top-0 left-1/4 w-[500px] h-[500px] bg-cyan-500/10 rounded-full blur-[160px] pointer-events-none" />
+
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-cyan-500/10 border border-cyan-500/30 mb-6 backdrop-blur-md">
             <Sparkles className="w-4 h-4 text-cyan-400" />
             <span className="font-label text-xs tracking-[0.2em] text-cyan-400 uppercase font-extrabold">
@@ -131,15 +189,15 @@ const LandingPagesPage = () => {
               "Dominio, Hosting & SSL 1 año",
               "Integración WhatsApp & CRM"
             ].map((item, idx) => (
-              <div key={idx} className="flex items-center gap-3 p-4 rounded-xl bg-surface-container-low/80 border border-white/10 backdrop-blur-md">
+              <div key={idx} className="flex items-center gap-3 p-4 rounded-xl bg-slate-900/60 border border-white/10 backdrop-blur-md hover:border-cyan-400/30 transition-all">
                 <CheckCircle2 className="w-5 h-5 text-cyan-400 flex-shrink-0" />
                 <span className="text-xs md:text-sm font-bold text-white">{item}</span>
               </div>
             ))}
           </div>
 
-          {/* Hero Call to Action Block */}
-          <div className="p-6 md:p-8 rounded-2xl bg-surface-container-low/90 border border-cyan-500/20 backdrop-blur-xl flex flex-col md:flex-row items-start md:items-center justify-between gap-6 shadow-[0_10px_30px_rgba(0,0,0,0.4)]">
+          {/* HERO CALL TO ACTION CARD */}
+          <div className="p-6 md:p-8 rounded-2xl bg-gradient-to-r from-slate-900/90 via-slate-900/95 to-cyan-950/50 border border-cyan-400/30 backdrop-blur-xl flex flex-col md:flex-row items-start md:items-center justify-between gap-6 shadow-[0_10px_35px_rgba(0,242,255,0.1)]">
             <div className="max-w-xl">
               <span className="text-[11px] font-headline font-bold text-cyan-400 uppercase tracking-[0.2em] block mb-1">IMPULSÁ TU NEGOCIO</span>
               <h2 className="text-xl md:text-2xl font-extrabold text-white tracking-tight">¿Listo para maximizar tus conversiones?</h2>
@@ -152,7 +210,7 @@ const LandingPagesPage = () => {
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={() => { trackWhatsAppClick('landing_pages_page'); trackCTAClick('landing_pages_hero_cta'); }}
-                className="flex-1 md:flex-initial bg-gradient-to-r from-cyan-400 to-blue-500 text-slate-950 px-6 py-3.5 rounded-xl font-headline font-black text-xs uppercase tracking-widest inline-flex items-center justify-center gap-2 hover:shadow-[0_0_25px_rgba(0,229,255,0.4)] transition-all hover:scale-105"
+                className="flex-1 md:flex-initial bg-gradient-to-r from-cyan-400 to-blue-500 text-slate-950 px-6 py-3.5 rounded-xl font-headline font-black text-xs uppercase tracking-widest inline-flex items-center justify-center gap-2 hover:shadow-[0_0_25px_rgba(0,242,255,0.4)] transition-all hover:scale-105"
               >
                 <span>Solicitar Presupuesto</span>
                 <ArrowRight className="w-4 h-4" />
@@ -167,14 +225,49 @@ const LandingPagesPage = () => {
           </div>
         </section>
 
+        {/* METODOLOGÍA / PROCESOS (PRD SECTION 4) */}
+        <section className="mb-24 space-y-12">
+          <div className="text-center max-w-3xl mx-auto">
+            <span className="font-label text-xs tracking-[0.2em] text-cyan-400 uppercase font-bold block mb-2">Ingeniería de Proceso</span>
+            <h2 className="font-headline text-3xl md:text-5xl font-black text-white tracking-tight">
+              Metodología de Conversión Paso a Paso
+            </h2>
+            <p className="text-slate-300 mt-4 text-base font-light">
+              Garantizamos la máxima efectividad eliminando la fricción y enfocándonos en resultados cuantificables.
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {methodologySteps.map((step, idx) => {
+              const Icon = step.icon;
+              return (
+                <div key={idx} className="p-8 rounded-3xl bg-slate-900/60 border border-white/10 hover:border-cyan-400/40 transition-all relative group flex flex-col justify-between">
+                  <div>
+                    <div className="flex items-center justify-between mb-6">
+                      <span className="text-3xl font-black text-cyan-400/40 group-hover:text-cyan-400 transition-colors font-headline">
+                        {step.number}
+                      </span>
+                      <div className="w-10 h-10 rounded-xl bg-cyan-500/10 text-cyan-400 flex items-center justify-center">
+                        <Icon className="w-5 h-5" />
+                      </div>
+                    </div>
+                    <h3 className="font-headline font-bold text-white text-lg mb-3">{step.title}</h3>
+                    <p className="text-slate-400 text-xs leading-relaxed font-light">{step.desc}</p>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </section>
+
         {/* NAVEGACIÓN INTERACTIVA DE INFORME TÉCNICO */}
-        <section className="mb-20">
+        <section className="mb-24">
           <div className="border-b border-white/10 flex flex-wrap gap-4 mb-10">
             {[
               { id: 'tipologias', label: 'Tipologías & Embudo', icon: Layers },
               { id: 'tecnica', label: 'Performance & Vitals', icon: Zap },
               { id: 'casos', label: 'Casos & Migraciones', icon: TrendingUp },
-              { id: 'precios', label: 'Matriz de Inversión', icon: DollarSign }
+              { id: 'precios', label: 'Planes de Inversión', icon: DollarSign }
             ].map(tab => {
               const Icon = tab.icon;
               const isActive = activeTab === tab.id;
@@ -197,9 +290,9 @@ const LandingPagesPage = () => {
           </div>
 
           {/* CONTENIDO SEGÚN PESTAÑA */}
-          <div className="bg-surface-container-low/40 border border-white/10 rounded-3xl p-6 md:p-12 backdrop-blur-xl">
+          <div className="bg-slate-900/40 border border-white/10 rounded-3xl p-6 md:p-12 backdrop-blur-xl">
             
-            {/* TUPOLOGÍAS */}
+            {/* TIPO LOGÍAS */}
             {activeTab === 'tipologias' && (
               <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }} className="space-y-8">
                 <div>
@@ -358,15 +451,15 @@ const LandingPagesPage = () => {
               </motion.div>
             )}
 
-            {/* PRECIOS Y COMPARATIVA */}
+            {/* PRECIOS Y PLANES DE INVERSIÓN */}
             {activeTab === 'precios' && (
               <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }} className="space-y-8">
                 <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
                   <div>
                     <h2 className="font-headline text-2xl md:text-4xl font-bold text-white mb-1">
-                      Matriz de Inversión y Comparativa
+                      Planes de Inversión y Comparativa
                     </h2>
-                    <p className="text-slate-400 text-sm">Transparencia de costos según escala y tipo de proveedor en Argentina.</p>
+                    <p className="text-slate-400 text-sm">Estructura de inversión transparente en tres niveles de servicio.</p>
                   </div>
 
                   <div className="inline-flex bg-slate-900 p-1.5 rounded-2xl border border-white/10">
@@ -418,28 +511,28 @@ const LandingPagesPage = () => {
                     </span>
                   </div>
 
-                  {/* CARD 2 - RECOMENDADO */}
+                  {/* CARD 2 - BUSINESS PRO / RECOMENDADO */}
                   <div className="bg-slate-900 p-8 rounded-3xl border-2 border-amber-500 flex flex-col justify-between relative shadow-[0_0_35px_rgba(245,158,11,0.2)] transform md:-translate-y-2">
                     <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-amber-500 text-slate-950 text-[11px] font-headline font-black px-5 py-1 rounded-full uppercase tracking-widest shadow-md">
-                      RECOMENDADO
+                      MÁS POPULAR
                     </div>
                     <div>
-                      <h3 className="font-headline font-bold text-white text-xl mb-4 mt-2">Profesional a Medida</h3>
+                      <h3 className="font-headline font-bold text-white text-xl mb-4 mt-2">Business Pro (A Medida)</h3>
                       <div className="text-3xl font-black text-white mb-6">
                         {currency === 'ars' ? '$200k - $500k' : 'USD 300 - 900'}
                       </div>
                       <ul className="text-sm text-slate-200 space-y-3 mb-8">
                         <li className="flex items-start gap-2">
                           <span className="text-amber-400 font-bold">•</span>
-                          <span>Desarrollo en Next.js o WP Optimizado</span>
+                          <span>Desarrollo en React / Next.js / WP</span>
                         </li>
                         <li className="flex items-start gap-2">
                           <span className="text-amber-400 font-bold">•</span>
-                          <span>SEO Técnico Avanzado</span>
+                          <span>SEO Técnico Avanzado nativo</span>
                         </li>
                         <li className="flex items-start gap-2">
                           <span className="text-amber-400 font-bold">•</span>
-                          <span>Core Web Vitals en Verde</span>
+                          <span>Core Web Vitals 100/100 en verde</span>
                         </li>
                       </ul>
                     </div>
@@ -482,13 +575,42 @@ const LandingPagesPage = () => {
           </div>
         </section>
 
-        {/* FAQ SECTION */}
-        <section className="mb-20">
-          <h2 className="font-headline text-3xl md:text-4xl font-bold text-white mb-8">Preguntas Frecuentes</h2>
-          <div className="space-y-4 max-w-4xl">
+        {/* CENTRO DE AYUDA (FAQ - SEGÚN SCREENSHOT PRD) */}
+        <section className="mb-24 max-w-4xl mx-auto">
+          <div className="text-center mb-12">
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-cyan-400/10 border border-cyan-400/30 mb-4 backdrop-blur-md">
+              <Zap className="w-4 h-4 text-cyan-400" />
+              <span className="font-headline text-xs tracking-widest text-cyan-400 uppercase font-black">
+                FAQ
+              </span>
+            </div>
+
+            <h2 className="font-headline text-3xl md:text-5xl font-black text-white tracking-tight">
+              Preguntas <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-teal-300 to-blue-500">Frecuentes</span>
+            </h2>
+          </div>
+
+          <div className="space-y-4">
             {faqs.map((faq, i) => (
-              <FAQItem key={i} question={faq.q} answer={faq.a} />
+              <FAQItem
+                key={i}
+                question={faq.q}
+                answer={faq.a}
+                defaultOpen={faq.defaultOpen}
+              />
             ))}
+          </div>
+
+          <div className="text-center mt-10">
+            <p className="text-slate-300 text-sm md:text-base font-light">
+              Still have questions?{' '}
+              <Link
+                to="/contact"
+                className="text-cyan-400 font-bold hover:text-cyan-300 underline underline-offset-4 transition-colors"
+              >
+                Contáctanos.
+              </Link>
+            </p>
           </div>
         </section>
 
