@@ -37,6 +37,7 @@ const Privacy = lazy(() => import('@/pages/Privacy'));
 const Terms = lazy(() => import('@/pages/Terms'));
 const BlogPage = lazy(() => import('@/pages/BlogPage'));
 const CreatePostPage = lazy(() => import('@/pages/blog/CreatePostPage'));
+const EstrategiaEcommercePage = lazy(() => import('@/pages/blog/EstrategiaEcommercePage'));
 const ForumPage = lazy(() => import('@/pages/ForumPage'));
 const CareersPage = lazy(() => import('@/pages/CareersPage'));
 
@@ -103,6 +104,8 @@ function App() {
               <Route path="forum" element={<ForumPage />} />
               <Route path="blog/create" element={<CreatePostPage />} />
               <Route path="blog/edit/:id" element={<CreatePostPage />} />
+              <Route path="blog/seo/estrategia-seo-ecommerce-argentina-migracion-tiendanube" element={<EstrategiaEcommercePage />} />
+              <Route path="blog/estrategia-seo-ecommerce-argentina" element={<EstrategiaEcommercePage />} />
               <Route path="blog/:category" element={<BlogPage />} />
               <Route path="blog/:category/:slug" element={<ArticleDetail />} />
               <Route path="news/:slug" element={<ArticleDetail />} />
@@ -137,6 +140,8 @@ function App() {
               <Route path="resources/google-seo-fundamentals" element={<SeoGuidePage />} />
               <Route path="resources/google-ai-studio-2026" element={<AiStudioGuidePage />} />
               <Route path="resources/ssd-ps5-optimization-2026" element={<SsdGuidePage />} />
+              <Route path="resources/estrategia-seo-ecommerce-argentina" element={<EstrategiaEcommercePage />} />
+              <Route path="recursos/estrategia-seo-ecommerce-argentina" element={<EstrategiaEcommercePage />} />
               <Route path="resources/:slug" element={<ResourceDetailPage />} />
 
               {/* Tools Cluster */}
