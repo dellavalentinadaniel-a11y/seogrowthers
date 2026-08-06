@@ -29,6 +29,8 @@ const AutomatizacionIAPage = lazy(() => import('@/pages/services/AutomatizacionI
 const LandingPagesPage = lazy(() => import('@/pages/services/LandingPagesPage'));
 const WebCorporativaPage = lazy(() => import('@/pages/services/WebCorporativaPage'));
 const EcommercePage = lazy(() => import('@/pages/services/EcommercePage'));
+const EcommerceTiendanubePage = lazy(() => import('@/pages/services/EcommerceTiendanubePage'));
+const EcommerceMercadoShopsPage = lazy(() => import('@/pages/services/EcommerceMercadoShopsPage'));
 const MarketingDigitalPage = lazy(() => import('@/pages/services/MarketingDigitalPage'));
 const PortfolioPage = lazy(() => import('@/pages/PortfolioPage'));
 const Privacy = lazy(() => import('@/pages/Privacy'));
@@ -116,6 +118,11 @@ function App() {
               <Route path="services/landing-pages" element={<LandingPagesPage />} />
               <Route path="services/web-corporativa" element={<WebCorporativaPage />} />
               <Route path="services/ecommerce" element={<EcommercePage />} />
+              <Route path="servicios/ecommerce" element={<EcommercePage />} />
+              <Route path="services/ecommerce/tiendanube" element={<EcommerceTiendanubePage />} />
+              <Route path="servicios/ecommerce/tiendanube" element={<EcommerceTiendanubePage />} />
+              <Route path="services/ecommerce/mercadoshops" element={<EcommerceMercadoShopsPage />} />
+              <Route path="servicios/ecommerce/mercadoshops" element={<EcommerceMercadoShopsPage />} />
               <Route path="services/marketing-digital" element={<MarketingDigitalPage />} />
               <Route path="services/success-cases" element={<SuccessCasesPage />} />
               <Route path="success-cases" element={<SuccessCasesPage />} />

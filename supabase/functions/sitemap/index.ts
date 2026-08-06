@@ -14,6 +14,8 @@ const STATIC_PAGES = [
   { loc: '/services/landing-pages', changefreq: 'weekly', priority: '0.9' },
   { loc: '/services/web-corporativa', changefreq: 'weekly', priority: '0.9' },
   { loc: '/services/ecommerce', changefreq: 'weekly', priority: '0.9' },
+  { loc: '/services/ecommerce/tiendanube', changefreq: 'weekly', priority: '0.9' },
+  { loc: '/services/ecommerce/mercadoshops', changefreq: 'weekly', priority: '0.9' },
   { loc: '/services/marketing-digital', changefreq: 'weekly', priority: '0.9' },
   { loc: '/services/rpa-automatizacion', changefreq: 'weekly', priority: '0.8' },
   { loc: '/services/integraciones-no-code', changefreq: 'weekly', priority: '0.8' },

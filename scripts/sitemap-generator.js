@@ -53,6 +53,8 @@ const staticRoutes = [
   { path: '/services/landing-pages', priority: 0.9, changefreq: 'weekly' },
   { path: '/services/web-corporativa', priority: 0.9, changefreq: 'weekly' },
   { path: '/services/ecommerce', priority: 0.9, changefreq: 'weekly' },
+  { path: '/services/ecommerce/tiendanube', priority: 0.9, changefreq: 'weekly' },
+  { path: '/services/ecommerce/mercadoshops', priority: 0.9, changefreq: 'weekly' },
   { path: '/services/marketing-digital', priority: 0.9, changefreq: 'weekly' },
   { path: '/services/rpa-automatizacion', priority: 0.8, changefreq: 'weekly' },
   { path: '/services/integraciones-no-code', priority: 0.8, changefreq: 'weekly' },
