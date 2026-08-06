@@ -6,36 +6,29 @@ import Breadcrumbs from '@/components/layout/Breadcrumbs';
 import InternalLinkingCTA from '@/components/shared/InternalLinkingCTA';
 import { trackWhatsAppClick, trackCTAClick } from '@/lib/analytics';
 import {
-  Zap,
-  Target,
-  Smartphone,
-  BarChart3,
-  CheckCircle2,
-  HelpCircle,
+  Bolt,
   ArrowRight,
-  ShieldCheck,
+  ArrowLeft,
+  Star,
+  CheckCircle2,
+  BarChart3,
   Code2,
-  TrendingUp,
-  Layers,
-  Sparkles,
-  ChevronDown,
-  DollarSign,
-  AlertTriangle,
-  Award,
+  Rocket,
   Plus,
   Minus,
-  MessageSquare,
-  Compass,
-  Cpu,
-  Rocket
+  Sparkles,
+  Award,
+  Layers,
+  ChevronRight,
+  ShieldCheck
 } from 'lucide-react';
 
 const FAQItem = ({ question, answer, defaultOpen = false }) => {
   const [isOpen, setIsOpen] = useState(defaultOpen);
   return (
-    <div className={`rounded-2xl border transition-all duration-300 backdrop-blur-md overflow-hidden ${
+    <div className={`rounded-xl border transition-all duration-300 backdrop-blur-md overflow-hidden ${
       isOpen
-        ? 'border-cyan-400/50 bg-slate-900/90 shadow-[0_0_25px_rgba(0,242,255,0.12)]'
+        ? 'border-cyan-400/50 bg-slate-900/90 shadow-[0_0_25px_rgba(0,219,231,0.12)]'
         : 'border-white/10 bg-slate-950/60 hover:border-cyan-400/30'
     }`}>
       <button
@@ -73,186 +66,283 @@ const FAQItem = ({ question, answer, defaultOpen = false }) => {
 };
 
 const LandingPagesPage = () => {
-  const [activeTab, setActiveTab] = useState('tipologias');
-  const [activeCase, setActiveCase] = useState('a1');
-  const [currency, setCurrency] = useState('usd');
+  const [activeTestimonial, setActiveTestimonial] = useState(0);
 
-  const structuredData = {
-    "@context": "https://schema.org",
-    "@type": "Service",
-    "name": "Diseño y Arquitectura de Landing Pages",
-    "provider": {
-      "@type": "Organization",
-      "name": "SEO Growthers",
-      "url": "https://seogrowthers.com"
-    },
-    "description": "Diseño profesional de landing pages de alta conversión en Argentina. Optimizadas para campañas publicitarias, captura de leads y ventas.",
-    "areaServed": { "@type": "Country", "name": "Argentina" },
-    "offers": {
-      "@type": "Offer",
-      "price": "800",
-      "priceCurrency": "USD",
-      "description": "Landing page de alta conversión con dominio, hosting y SSL incluido"
-    },
-    "serviceType": "Landing Page Design & CRO Architecture"
-  };
-
-  const faqs = [
+  const testimonials = [
     {
-      q: '¿Qué es una Landing Page y por qué es importante?',
-      a: 'Una landing page es una página web diseñada con un único objetivo de conversión: captar leads cualificados o generar ventas directas sin distracciones. Es fundamental para maximizar el retorno de inversión (ROI) en campañas de tráfico pago (Google Ads, Meta Ads) y posicionamiento orgánico.',
-      defaultOpen: false
+      quote: "La ingeniería detrás de nuestra nueva landing page es brutal. Pasamos de un 2% a un 8% de conversión en el primer mes de lanzamiento.",
+      author: "Carlos M.",
+      role: "CEO, TechSaaS",
+      avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=150&q=80"
     },
     {
-      q: '¿Cómo funciona vuestro proceso de diseño?',
-      a: 'Nuestro proceso es iterativo y se enfoca en resultados empíricos. Desde el análisis inicial y wireframing hasta la optimización de velocidad de carga y pruebas A/B, trabajamos en estrecha colaboración para asegurar el éxito comercial de tu proyecto.',
-      defaultOpen: true
+      quote: "No solo es un diseño increíble, es que la velocidad de carga y la estructura SEO técnica han disparado nuestro tráfico orgánico.",
+      author: "Elena R.",
+      role: "CMO, E-com Global",
+      avatar: "https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&w=150&q=80"
     },
     {
-      q: '¿Qué incluyen los planes de inversión?',
-      a: 'Todos los planes incluyen maquetación responsive mobile-first, optimización de velocidad de carga extrema (WPO con LCP < 1.5s), SEO técnico estructurado, integración de formularios, certificado SSL, dominio y soporte post-lanzamiento.',
-      defaultOpen: false
-    },
-    {
-      q: '¿Ofrecen soporte post-lanzamiento?',
-      a: 'Sí, todos nuestros proyectos incluyen soporte técnico VIP post-lanzamiento, monitoreo continuo de disponibilidad y capacitación grabada para la gestión autónoma del contenido.',
-      defaultOpen: false
+      quote: "El enfoque en datos antes que en estética (sin perderla) es lo que los diferencia. Una inversión que se pagó sola en semanas.",
+      author: "Javier L.",
+      role: "VP Engineering, DataCorp",
+      avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=150&q=80"
     }
   ];
 
   const methodologySteps = [
     {
-      number: "01",
-      title: "Análisis & Investigación",
-      icon: Compass,
-      desc: "Auditamos tu nicho, competencia directa y comportamiento de usuarios para definir la estrategia CRO exacta."
+      step: "01",
+      icon: BarChart3,
+      title: "Análisis y Estrategia",
+      desc: "Auditoría profunda del mercado, análisis de competidores y definición de KPIs para establecer la arquitectura de conversión."
     },
     {
-      number: "02",
-      title: "Arquitectura & Wireframing",
-      icon: Target,
-      desc: "Diseñamos la estructura de persuasión visual, jerarquía de llamados a la acción y copywriting de alto impacto."
+      step: "02",
+      icon: Sparkles,
+      title: "Diseño UX/UI",
+      desc: "Creación de interfaces de alta conversión utilizando heurísticas de usabilidad y jerarquía visual persuasiva."
     },
     {
-      number: "03",
-      title: "Desarrollo & WPO",
-      icon: Cpu,
-      desc: "Codificamos en React / Vite con arquitectura ultra-veloz, optimización WebP y Core Web Vitals 100/100."
+      step: "03",
+      icon: Code2,
+      title: "Desarrollo y Optim.",
+      desc: "Implementación técnica impecable, optimización de Core Web Vitals y estructuración de datos para motores de búsqueda."
     },
     {
-      number: "04",
-      title: "Lanzamiento & Aceleración",
+      step: "04",
       icon: Rocket,
-      desc: "Integramos analítica avanzada (GA4 & GSC), realizamos testing continuo y aceleramos tus tasas de conversión."
+      title: "Lanzamiento y Seg.",
+      desc: "Despliegue a producción, configuración de tracking avanzado y monitorización iterativa de métricas de rendimiento."
     }
   ];
 
+  const faqs = [
+    {
+      q: '¿Cuánto tarda el desarrollo de una Landing Base?',
+      a: 'Típicamente, una Landing Base toma entre 2 a 3 semanas desde la reunión inicial de kick-off hasta el despliegue final. Esto incluye fases de investigación, wireframing, diseño UI de alta fidelidad y desarrollo técnico con optimización SEO on-page.',
+      defaultOpen: true
+    },
+    {
+      q: '¿Qué CMS o tecnología utilizáis para el desarrollo?',
+      a: 'Dependiendo del paquete. Para Landing Base solemos usar maquetadores visuales altamente optimizados o Webflow. Para Business Pro y Enterprise, optamos por arquitecturas Headless (Next.js, Astro) conectadas a CMS modernos para maximizar la velocidad y seguridad.',
+      defaultOpen: false
+    },
+    {
+      q: '¿El diseño incluye la redacción de textos (Copywriting)?',
+      a: 'Nuestros planes incluyen optimización estructural y asesoramiento en el copy. Sin embargo, la redacción desde cero por un Copywriter especializado en respuesta directa es un servicio adicional que recomendamos altamente para acompañar el diseño.',
+      defaultOpen: false
+    },
+    {
+      q: '¿Garantizáis resultados de conversión?',
+      a: 'Si bien aplicamos las mejores prácticas de CRO (Conversion Rate Optimization) basadas en datos empíricos, la conversión final depende de múltiples factores externos como la calidad de tu tráfico, tu oferta y el mercado. Garantizamos una base técnica y visual impecable diseñada para maximizar esas oportunidades.',
+      defaultOpen: false
+    }
+  ];
+
+  const structuredData = {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": "Diseño Web Landing Page - SEO Growthers",
+    "provider": {
+      "@type": "Organization",
+      "name": "SEO Growthers",
+      "url": "https://seogrowthers.com"
+    },
+    "description": "Ingeniería de conversión de alta precisión. Construimos ecosistemas digitales enfocados en maximizar resultados de búsqueda y ratios de conversión.",
+    "areaServed": { "@type": "Country", "name": "Argentina" },
+    "serviceType": "Landing Page Design & CRO Engineering"
+  };
+
   return (
-    <div className="text-on-surface font-body min-h-screen bg-[#050505] selection:bg-cyan-500/30 selection:text-white">
+    <div className="text-slate-200 font-body min-h-screen bg-[#0d1515] selection:bg-cyan-500/30 selection:text-white relative">
       <Helmet>
-        <title>Diseño Web Landing Page | Ingeniería de Conversión - SEO Growthers</title>
-        <meta name="description" content="Diseño profesional de landing pages de alta conversión en Argentina. Optimizadas para campañas de Google Ads, captura de leads y ventas. Desde $800 USD." />
+        <title>Diseño Web Landing Page | CRO & SEO Engineering - SEO Growthers</title>
+        <meta name="description" content="Ingeniería de conversión de alta precisión. Construimos landing pages enfáticas en maximizar resultados de búsqueda y conversión con arquitectura avanzada." />
         <link rel="canonical" href="https://seogrowthers.com/services/landing-pages" />
         <meta property="og:title" content="Diseño Web Landing Page | SEO Growthers" />
-        <meta property="og:description" content="Landing pages optimizadas para convertir visitantes en clientes. Diseño responsive, SEO y carga rápida." />
+        <meta property="og:description" content="Ingeniería de conversión de alta precisión para landing pages de alto rendimiento." />
         <meta property="og:url" content="https://seogrowthers.com/services/landing-pages" />
         <meta property="og:type" content="website" />
         <script type="application/ld+json">{JSON.stringify(structuredData)}</script>
       </Helmet>
 
-      <main className="pt-32 pb-24 px-4 sm:px-6 lg:px-12 max-w-7xl mx-auto">
+      {/* Mesh Background Pattern */}
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_2px_2px,rgba(0,219,231,0.04)_1px,transparent_0)] bg-[size:40px_40px] pointer-events-none" />
+
+      <main className="pt-28 pb-24 px-4 sm:px-6 lg:px-12 max-w-7xl mx-auto relative z-10">
         <Breadcrumbs className="mb-6" />
 
         {/* HERO SECTION */}
-        <section className="mb-24 relative">
-          <div className="absolute top-0 left-1/4 w-[500px] h-[500px] bg-cyan-500/10 rounded-full blur-[160px] pointer-events-none" />
+        <section className="relative min-h-[750px] flex items-center justify-center pt-8 pb-16">
+          {/* Ambient Glows */}
+          <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-cyan-400/10 rounded-full blur-[140px] pointer-events-none" />
+          <div className="absolute bottom-1/4 right-1/4 w-[450px] h-[450px] bg-cyan-500/10 rounded-full blur-[160px] pointer-events-none" />
 
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-cyan-500/10 border border-cyan-500/30 mb-6 backdrop-blur-md">
-            <Sparkles className="w-4 h-4 text-cyan-400" />
-            <span className="font-label text-xs tracking-[0.2em] text-cyan-400 uppercase font-extrabold">
-              Arquitectura CRO & Landing Pages 2026
-            </span>
+          <div className="w-full grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+            {/* Left Content */}
+            <div className="lg:col-span-7 flex flex-col items-start space-y-6 text-left">
+              <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-cyan-400/30 bg-cyan-400/10 backdrop-blur-md">
+                <span className="w-2 h-2 rounded-full bg-cyan-400 animate-pulse" />
+                <span className="font-mono text-xs text-cyan-400 tracking-widest uppercase font-semibold">
+                  CRO & SEO ENGINEERING
+                </span>
+              </div>
+
+              <h1 className="font-headline text-4xl sm:text-6xl lg:text-7xl font-extrabold text-white leading-[1.1] tracking-tight">
+                Diseño Web <br />
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 via-cyan-400 to-teal-300 drop-shadow-[0_0_20px_rgba(0,219,231,0.3)]">
+                  Landing Page
+                </span>
+              </h1>
+
+              <p className="text-slate-300 text-lg md:text-xl font-light leading-relaxed max-w-xl">
+                Ingeniería de conversión de alta precisión. Construimos ecosistemas digitales enfocados en maximizar resultados de búsqueda y ratios de conversión mediante arquitectura de datos avanzada.
+              </p>
+
+              <div className="flex flex-col sm:flex-row gap-4 pt-2 w-full sm:w-auto">
+                <a
+                  href="https://wa.me/5492995504783?text=Hola%2C%20quiero%20iniciar%20un%20proyecto%20de%20landing%20page"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={() => { trackWhatsAppClick('hero_iniciar_proyecto'); trackCTAClick('landing_pages_main_cta'); }}
+                  className="bg-gradient-to-r from-cyan-400 to-cyan-500 text-slate-950 px-8 py-4 rounded-lg font-mono text-xs font-black uppercase tracking-widest shadow-[0_0_25px_rgba(0,219,231,0.3)] hover:shadow-[0_0_35px_rgba(0,219,231,0.5)] hover:scale-[1.02] transition-all flex items-center justify-center gap-2"
+                >
+                  <span>INICIAR PROYECTO</span>
+                </a>
+                <Link
+                  to="/portfolio"
+                  className="bg-white/5 border border-white/10 text-cyan-400 px-8 py-4 rounded-lg font-mono text-xs font-bold uppercase tracking-widest hover:bg-white/10 transition-all flex items-center justify-center gap-2"
+                >
+                  <span>VER PORTFOLIO</span>
+                  <ArrowRight className="w-4 h-4" />
+                </Link>
+              </div>
+
+              {/* Social Proof Avatars */}
+              <div className="flex items-center gap-6 pt-6 border-t border-white/10 w-full">
+                <div className="flex -space-x-3">
+                  <img className="w-10 h-10 rounded-full border-2 border-slate-900 object-cover" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=100&q=80" alt="Avatar 1" />
+                  <img className="w-10 h-10 rounded-full border-2 border-slate-900 object-cover" src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=100&q=80" alt="Avatar 2" />
+                  <img className="w-10 h-10 rounded-full border-2 border-slate-900 object-cover" src="https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&w=100&q=80" alt="Avatar 3" />
+                  <div className="w-10 h-10 rounded-full border-2 border-slate-900 bg-slate-800 flex items-center justify-center font-mono text-xs text-cyan-400 font-bold">
+                    +500
+                  </div>
+                </div>
+                <div className="text-xs md:text-sm text-slate-300 font-light leading-snug">
+                  Proyectos de alta conversión <br />entregados con éxito.
+                </div>
+              </div>
+            </div>
+
+            {/* Right Visual Graphic */}
+            <div className="lg:col-span-5 relative w-full h-[450px] lg:h-[550px] group">
+              <div className="absolute inset-0 bg-slate-900/80 backdrop-blur-xl border border-white/10 rounded-2xl overflow-hidden shadow-2xl p-2">
+                <div className="w-full h-full rounded-xl overflow-hidden relative">
+                  <img
+                    src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=800&q=80"
+                    alt="3D Cyber Metric Analytics Panel"
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 opacity-60 mix-blend-luminosity"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#0d1515] via-[#0d1515]/40 to-transparent" />
+
+                  {/* Floating Stats Card Overlay */}
+                  <div className="absolute bottom-6 left-6 right-6 backdrop-blur-md bg-slate-950/80 p-5 rounded-xl border-l-4 border-l-cyan-400 border border-white/10 flex items-center justify-between shadow-2xl">
+                    <div>
+                      <div className="text-[10px] font-mono font-bold text-slate-400 uppercase tracking-widest mb-1">CONVERSION RATE</div>
+                      <div className="text-3xl font-black text-cyan-400 font-headline">+24.8%</div>
+                    </div>
+                    <div className="w-20 h-10 flex items-end gap-1">
+                      <div className="w-2 h-4 bg-cyan-500/40 rounded-t" />
+                      <div className="w-2 h-6 bg-cyan-500/60 rounded-t" />
+                      <div className="w-2 h-3 bg-cyan-500/30 rounded-t" />
+                      <div className="w-2 h-8 bg-cyan-500/80 rounded-t" />
+                      <div className="w-2 h-10 bg-cyan-400 rounded-t shadow-[0_0_10px_#00dbe7]" />
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Orbiting Glowing Element */}
+              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[115%] h-[115%] border border-cyan-400/10 rounded-full animate-[spin_60s_linear_infinite] pointer-events-none">
+                <div className="absolute top-0 left-1/2 w-3 h-3 rounded-full bg-cyan-400 shadow-[0_0_15px_#00dbe7]" />
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* TESTIMONIOS SECTION */}
+        <section className="py-20 mb-20 relative bg-slate-950/50 rounded-3xl border border-white/10 px-6 md:px-12">
+          <div className="text-center mb-12">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-cyan-400/20 bg-cyan-400/10 text-cyan-400 font-mono text-xs uppercase tracking-widest mb-3">
+              VERIFIED RESULTS
+            </div>
+            <h2 className="font-headline text-3xl md:text-5xl font-black text-white">
+              Lo que dicen nuestros clientes
+            </h2>
           </div>
 
-          <h1 className="font-headline text-4xl sm:text-6xl md:text-7xl font-black tracking-tight text-white mb-6 leading-[1.1]">
-            Diseño Web <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-teal-300 to-blue-500">Landing Page</span>
-          </h1>
+          <div className="grid md:grid-cols-3 gap-6">
+            {testimonials.map((t, idx) => (
+              <div
+                key={idx}
+                className={`p-8 rounded-2xl backdrop-blur-md transition-all duration-300 flex flex-col justify-between ${
+                  idx === 1
+                    ? 'bg-slate-900/90 border-2 border-cyan-400/50 shadow-[0_0_30px_rgba(0,219,231,0.1)]'
+                    : 'bg-slate-950/60 border border-white/10 hover:border-cyan-400/30'
+                }`}
+              >
+                <div>
+                  <div className="flex gap-1 text-cyan-400 mb-6">
+                    {[...Array(5)].map((_, i) => (
+                      <Star key={i} className="w-5 h-5 fill-cyan-400" />
+                    ))}
+                  </div>
+                  <p className="text-slate-300 italic text-sm md:text-base leading-relaxed mb-8">
+                    "{t.quote}"
+                  </p>
+                </div>
 
-          <p className="max-w-3xl text-slate-300 text-lg md:text-xl leading-relaxed mb-10 font-light">
-            Creamos landing pages de alto impacto visual e ingeniería de conversión. Diseñadas para convertir visitantes fríos en leads cualificados y ventas inmediatas.
-          </p>
-
-          <div className="grid sm:grid-cols-2 md:grid-cols-4 gap-4 mb-10">
-            {[
-              "1 Página de Alta Conversión",
-              "Carga Ultrarrápida (< 1.5s)",
-              "Dominio, Hosting & SSL 1 año",
-              "Integración WhatsApp & CRM"
-            ].map((item, idx) => (
-              <div key={idx} className="flex items-center gap-3 p-4 rounded-xl bg-slate-900/60 border border-white/10 backdrop-blur-md hover:border-cyan-400/30 transition-all">
-                <CheckCircle2 className="w-5 h-5 text-cyan-400 flex-shrink-0" />
-                <span className="text-xs md:text-sm font-bold text-white">{item}</span>
+                <div className="flex items-center gap-4 border-t border-white/5 pt-6">
+                  <img src={t.avatar} alt={t.author} className="w-12 h-12 rounded-full object-cover border border-cyan-400/30" />
+                  <div>
+                    <div className="font-mono text-xs font-bold text-white uppercase tracking-wider">{t.author}</div>
+                    <div className="text-slate-400 text-xs font-light">{t.role}</div>
+                  </div>
+                </div>
               </div>
             ))}
           </div>
-
-          {/* HERO CALL TO ACTION CARD */}
-          <div className="p-6 md:p-8 rounded-2xl bg-gradient-to-r from-slate-900/90 via-slate-900/95 to-cyan-950/50 border border-cyan-400/30 backdrop-blur-xl flex flex-col md:flex-row items-start md:items-center justify-between gap-6 shadow-[0_10px_35px_rgba(0,242,255,0.1)]">
-            <div className="max-w-xl">
-              <span className="text-[11px] font-headline font-bold text-cyan-400 uppercase tracking-[0.2em] block mb-1">IMPULSÁ TU NEGOCIO</span>
-              <h2 className="text-xl md:text-2xl font-extrabold text-white tracking-tight">¿Listo para maximizar tus conversiones?</h2>
-              <p className="text-xs md:text-sm text-slate-300 font-light mt-1">Diseñamos la landing page estratégica y optimizada que tu marca necesita para captar clientes.</p>
-            </div>
-
-            <div className="flex flex-wrap items-center gap-3 w-full md:w-auto">
-              <a
-                href="https://wa.me/5492995504783?text=Hola%2C%20me%20interesa%20el%20servicio%20de%20landing%20page"
-                target="_blank"
-                rel="noopener noreferrer"
-                onClick={() => { trackWhatsAppClick('landing_pages_page'); trackCTAClick('landing_pages_hero_cta'); }}
-                className="flex-1 md:flex-initial bg-gradient-to-r from-cyan-400 to-blue-500 text-slate-950 px-6 py-3.5 rounded-xl font-headline font-black text-xs uppercase tracking-widest inline-flex items-center justify-center gap-2 hover:shadow-[0_0_25px_rgba(0,242,255,0.4)] transition-all hover:scale-105"
-              >
-                <span>Solicitar Presupuesto</span>
-                <ArrowRight className="w-4 h-4" />
-              </a>
-              <Link
-                to="/auditoria-seo-gratis"
-                className="flex-1 md:flex-initial border border-white/20 text-white px-6 py-3.5 rounded-xl font-headline font-bold text-xs uppercase tracking-widest hover:border-cyan-400 hover:text-cyan-400 transition-all bg-white/5 text-center"
-              >
-                Auditoría Gratuita
-              </Link>
-            </div>
-          </div>
         </section>
 
-        {/* METODOLOGÍA / PROCESOS (PRD SECTION 4) */}
-        <section className="mb-24 space-y-12">
-          <div className="text-center max-w-3xl mx-auto">
-            <span className="font-label text-xs tracking-[0.2em] text-cyan-400 uppercase font-bold block mb-2">Ingeniería de Proceso</span>
-            <h2 className="font-headline text-3xl md:text-5xl font-black text-white tracking-tight">
-              Metodología de Conversión Paso a Paso
+        {/* METODOLOGÍA / PROCESOS SECTION */}
+        <section className="py-20 mb-20">
+          <div className="text-center max-w-3xl mx-auto mb-16">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-cyan-400/20 bg-cyan-400/10 text-cyan-400 font-mono text-xs uppercase tracking-widest mb-3">
+              METODOLOGÍA
+            </div>
+            <h2 className="font-headline text-3xl md:text-5xl font-black text-white mb-4">
+              Nuestro Proceso de Trabajo
             </h2>
-            <p className="text-slate-300 mt-4 text-base font-light">
-              Garantizamos la máxima efectividad eliminando la fricción y enfocándonos en resultados cuantificables.
+            <p className="text-slate-300 text-base font-light">
+              Un pipeline de ingeniería sistemático, diseñado para extraer datos, construir interfaces y escalar conversiones con precisión predecible.
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {methodologySteps.map((step, idx) => {
-              const Icon = step.icon;
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 relative">
+            {methodologySteps.map((s, idx) => {
+              const Icon = s.icon;
               return (
-                <div key={idx} className="p-8 rounded-3xl bg-slate-900/60 border border-white/10 hover:border-cyan-400/40 transition-all relative group flex flex-col justify-between">
+                <div key={idx} className="p-8 rounded-2xl bg-slate-900/60 border border-white/10 backdrop-blur-md relative overflow-hidden group hover:border-cyan-400/40 transition-all flex flex-col justify-between">
+                  <div className="absolute -right-2 -bottom-6 font-headline font-black text-8xl text-white/[0.03] group-hover:text-cyan-400/[0.08] transition-colors pointer-events-none">
+                    {s.step}
+                  </div>
+
                   <div>
-                    <div className="flex items-center justify-between mb-6">
-                      <span className="text-3xl font-black text-cyan-400/40 group-hover:text-cyan-400 transition-colors font-headline">
-                        {step.number}
-                      </span>
-                      <div className="w-10 h-10 rounded-xl bg-cyan-500/10 text-cyan-400 flex items-center justify-center">
-                        <Icon className="w-5 h-5" />
-                      </div>
+                    <div className="w-14 h-14 rounded-xl bg-cyan-400/10 border border-cyan-400/30 flex items-center justify-center mb-6 group-hover:bg-cyan-400/20 transition-all">
+                      <Icon className="w-7 h-7 text-cyan-400" />
                     </div>
-                    <h3 className="font-headline font-bold text-white text-lg mb-3">{step.title}</h3>
-                    <p className="text-slate-400 text-xs leading-relaxed font-light">{step.desc}</p>
+                    <h3 className="font-headline font-bold text-white text-xl mb-3 relative z-10">{s.title}</h3>
+                    <p className="text-slate-400 text-xs leading-relaxed font-light relative z-10">{s.desc}</p>
                   </div>
                 </div>
               );
@@ -260,389 +350,164 @@ const LandingPagesPage = () => {
           </div>
         </section>
 
-        {/* NAVEGACIÓN INTERACTIVA DE INFORME TÉCNICO */}
-        <section className="mb-24">
-          <div className="border-b border-white/10 flex flex-wrap gap-4 mb-10">
-            {[
-              { id: 'tipologias', label: 'Tipologías & Embudo', icon: Layers },
-              { id: 'tecnica', label: 'Performance & Vitals', icon: Zap },
-              { id: 'casos', label: 'Casos & Migraciones', icon: TrendingUp },
-              { id: 'precios', label: 'Planes de Inversión', icon: DollarSign }
-            ].map(tab => {
-              const Icon = tab.icon;
-              const isActive = activeTab === tab.id;
-              return (
-                <button
-                  key={tab.id}
-                  onClick={() => setActiveTab(tab.id)}
-                  className={`pb-4 px-4 font-headline text-xs md:text-sm uppercase tracking-widest font-bold flex items-center gap-2 transition-all relative ${
-                    isActive ? 'text-cyan-400' : 'text-slate-400 hover:text-white'
-                  }`}
-                >
-                  <Icon className="w-4 h-4" />
-                  <span>{tab.label}</span>
-                  {isActive && (
-                    <motion.div layoutId="tabUnderline" className="absolute bottom-0 left-0 right-0 h-1 bg-cyan-400 rounded-full" />
-                  )}
-                </button>
-              );
-            })}
+        {/* PLANES DE INVERSIÓN SECTION */}
+        <section className="py-20 mb-20 relative">
+          <div className="text-center max-w-3xl mx-auto mb-16">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-cyan-400/20 bg-cyan-400/10 text-cyan-400 font-mono text-xs uppercase tracking-widest mb-3">
+              PAQUETES
+            </div>
+            <h2 className="font-headline text-3xl md:text-5xl font-black text-white mb-4">
+              Nuestros Planes de Inversión
+            </h2>
+            <p className="text-slate-300 text-base font-light">
+              Estructuras de pricing diseñadas para escalar. Desde validación de leads hasta ecosistemas enterprise de alta disponibilidad.
+            </p>
           </div>
 
-          {/* CONTENIDO SEGÚN PESTAÑA */}
-          <div className="bg-slate-900/40 border border-white/10 rounded-3xl p-6 md:p-12 backdrop-blur-xl">
-            
-            {/* TIPO LOGÍAS */}
-            {activeTab === 'tipologias' && (
-              <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }} className="space-y-8">
-                <div>
-                  <h2 className="font-headline text-2xl md:text-4xl font-bold text-white mb-3">
-                    Arquitectura y Tipologías de Conversión
-                  </h2>
-                  <p className="text-slate-300 font-light text-base md:text-lg">
-                    Cada landing page responde a una etapa específica del embudo de ventas. Diseñamos la estructura exacta según la intención de tu tráfico.
-                  </p>
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-stretch">
+            {/* PLAN 1: LANDING BASE */}
+            <div className="p-8 rounded-2xl bg-slate-900/60 border border-white/10 flex flex-col justify-between hover:border-white/20 transition-all">
+              <div>
+                <h3 className="font-headline text-2xl font-bold text-white mb-2">Landing Base</h3>
+                <p className="text-slate-400 text-xs leading-relaxed mb-6 font-light">Ideal para validación de productos y captación de leads inicial.</p>
+
+                <div className="flex items-baseline gap-2 mb-8 border-b border-white/10 pb-6">
+                  <span className="text-slate-400 text-xs font-mono">Desde</span>
+                  <span className="text-4xl font-black text-white font-headline">$800</span>
+                  <span className="text-xs text-slate-400 font-mono">USD</span>
                 </div>
 
-                <div className="grid md:grid-cols-3 gap-6">
-                  <div className="bg-slate-900/60 p-6 rounded-2xl border border-cyan-500/20 hover:border-cyan-400 transition-all">
-                    <div className="w-12 h-12 rounded-xl bg-cyan-500/10 text-cyan-400 flex items-center justify-center mb-4 font-bold text-xl">01</div>
-                    <h3 className="font-bold text-white text-lg mb-2">Captación de Leads (B2B / Servicios)</h3>
-                    <p className="text-slate-400 text-sm leading-relaxed">
-                      Enfoque en formularios cualificados, lead magnets de alto valor (PDF, plantillas) y prueba social contundente.
-                    </p>
-                  </div>
+                <ul className="space-y-4 mb-8 text-sm text-slate-300">
+                  <li className="flex items-center gap-3"><CheckCircle2 className="w-5 h-5 text-cyan-400 shrink-0" /> 1 Página Principal (One-Page)</li>
+                  <li className="flex items-center gap-3"><CheckCircle2 className="w-5 h-5 text-cyan-400 shrink-0" /> Diseño UX/UI Custom</li>
+                  <li className="flex items-center gap-3"><CheckCircle2 className="w-5 h-5 text-cyan-400 shrink-0" /> Optimización SEO Básica</li>
+                  <li className="flex items-center gap-3"><CheckCircle2 className="w-5 h-5 text-cyan-400 shrink-0" /> Formulario de Contacto / Lead</li>
+                </ul>
+              </div>
 
-                  <div className="bg-slate-900/60 p-6 rounded-2xl border border-blue-500/20 hover:border-blue-400 transition-all">
-                    <div className="w-12 h-12 rounded-xl bg-blue-500/10 text-blue-400 flex items-center justify-center mb-4 font-bold text-xl">02</div>
-                    <h3 className="font-bold text-white text-lg mb-2">Conversión Directa (Ventas / Ads)</h3>
-                    <p className="text-slate-400 text-sm leading-relaxed">
-                      Estructura transaccional sin puntos de fuga. Matriz de beneficios, llamado a la acción visible y ofertas por tiempo limitado.
-                    </p>
-                  </div>
-
-                  <div className="bg-slate-900/60 p-6 rounded-2xl border border-emerald-500/20 hover:border-emerald-400 transition-all">
-                    <div className="w-12 h-12 rounded-xl bg-emerald-500/10 text-emerald-400 flex items-center justify-center mb-4 font-bold text-xl">03</div>
-                    <h3 className="font-bold text-white text-lg mb-2">Sub-hubs SEO (Categorías)</h3>
-                    <p className="text-slate-400 text-sm leading-relaxed">
-                      Landing pages optimizadas orgánicamente para captar intenciones comerciales específicas en Google con marcado Schema.
-                    </p>
-                  </div>
-                </div>
-              </motion.div>
-            )}
-
-            {/* PERFORMANCE Y VITALS */}
-            {activeTab === 'tecnica' && (
-              <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }} className="space-y-8">
-                <div>
-                  <h2 className="font-headline text-2xl md:text-4xl font-bold text-white mb-3">
-                    Performance y Core Web Vitals Extremos
-                  </h2>
-                  <p className="text-slate-300 font-light text-base">
-                    La velocidad de carga no es solo experiencia de usuario: es el factor #1 en el nivel de calidad de Google Ads y conversión móvil.
-                  </p>
-                </div>
-
-                <div className="grid sm:grid-cols-3 gap-6">
-                  <div className="p-6 rounded-2xl bg-slate-900/80 border border-emerald-500/30 text-center">
-                    <div className="text-4xl font-black text-emerald-400 mb-2">&lt; 1.5s</div>
-                    <div className="font-label text-xs uppercase tracking-wider text-slate-400 font-bold">Carga LCP Ideal</div>
-                    <p className="text-xs text-slate-500 mt-2">Evita el rebote de usuarios en redes móviles.</p>
-                  </div>
-
-                  <div className="p-6 rounded-2xl bg-slate-900/80 border border-cyan-500/30 text-center">
-                    <div className="text-4xl font-black text-cyan-400 mb-2">75%+</div>
-                    <div className="font-label text-xs uppercase tracking-wider text-slate-400 font-bold">Tráfico Móvil</div>
-                    <p className="text-xs text-slate-500 mt-2">Maquetación responsive Mobile-First nativa.</p>
-                  </div>
-
-                  <div className="p-6 rounded-2xl bg-slate-900/80 border border-purple-500/30 text-center">
-                    <div className="text-4xl font-black text-purple-400 mb-2">10/10</div>
-                    <div className="font-label text-xs uppercase tracking-wider text-slate-400 font-bold">Google Ads Quality Score</div>
-                    <p className="text-xs text-slate-500 mt-2">Relevancia de destino para reducir el CPC.</p>
-                  </div>
-                </div>
-
-                <div className="bg-slate-950 p-6 md:p-8 rounded-2xl border border-white/10">
-                  <h3 className="text-lg font-bold text-white mb-4">Checklist de Optimización Técnica Incluido:</h3>
-                  <div className="grid md:grid-cols-2 gap-4 text-sm text-slate-300">
-                    <div className="flex items-start gap-3">
-                      <ShieldCheck className="w-5 h-5 text-cyan-400 flex-shrink-0 mt-0.5" />
-                      <span><strong>Indexabilidad Semántica:</strong> HTML5 semántico limpio y metadatos adaptados a buscadores.</span>
-                    </div>
-                    <div className="flex items-start gap-3">
-                      <ShieldCheck className="w-5 h-5 text-cyan-400 flex-shrink-0 mt-0.5" />
-                      <span><strong>Datos Estructurados:</strong> Marcado Schema.org (Product, Offer, FAQPage) integrado.</span>
-                    </div>
-                    <div className="flex items-start gap-3">
-                      <ShieldCheck className="w-5 h-5 text-cyan-400 flex-shrink-0 mt-0.5" />
-                      <span><strong>Control Canónico:</strong> Etiquetas rel="canonical" para evitar duplicados.</span>
-                    </div>
-                    <div className="flex items-start gap-3">
-                      <ShieldCheck className="w-5 h-5 text-cyan-400 flex-shrink-0 mt-0.5" />
-                      <span><strong>Optimización de Recursos:</strong> Imágenes WebP de última generación y scripts diferidos.</span>
-                    </div>
-                  </div>
-                </div>
-              </motion.div>
-            )}
-
-            {/* CASOS Y MIGRACIONES */}
-            {activeTab === 'casos' && (
-              <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }} className="space-y-8">
-                <div>
-                  <h2 className="font-headline text-2xl md:text-4xl font-bold text-white mb-3">
-                    Transición de Plataformas y Caso de Éxito
-                  </h2>
-                  <p className="text-slate-300 font-light text-base">
-                    Analizamos las migraciones críticas de ecosistemas y el impacto directo en resultados comerciales.
-                  </p>
-                </div>
-
-                <div className="flex gap-4">
-                  <button
-                    onClick={() => setActiveCase('a1')}
-                    className={`px-6 py-2.5 rounded-xl font-bold text-xs uppercase tracking-wider transition-all ${
-                      activeCase === 'a1' ? 'bg-cyan-500 text-slate-950' : 'bg-white/5 text-slate-400 hover:text-white'
-                    }`}
-                  >
-                    Caso A1: Escala sin Pauta
-                  </button>
-                  <button
-                    onClick={() => setActiveCase('a2')}
-                    className={`px-6 py-2.5 rounded-xl font-bold text-xs uppercase tracking-wider transition-all ${
-                      activeCase === 'a2' ? 'bg-cyan-500 text-slate-950' : 'bg-white/5 text-slate-400 hover:text-white'
-                    }`}
-                  >
-                    Caso A2: Migración MercadoShops / Tiendanube
-                  </button>
-                </div>
-
-                {activeCase === 'a1' ? (
-                  <div className="bg-slate-900/80 p-6 md:p-8 rounded-2xl border border-cyan-500/20 space-y-4">
-                    <h3 className="text-xl font-bold text-white">Resultados Medidos en Landing de Alta Conversión</h3>
-                    <p className="text-slate-300 text-sm leading-relaxed">
-                      Implementación de landing page transaccional con velocidad de respuesta extrema (LCP 0.7s) y optimización de llamados a la acción por WhatsApp.
-                    </p>
-                    <div className="grid sm:grid-cols-2 gap-4 pt-4 border-t border-white/10">
-                      <div>
-                        <span className="text-xs text-slate-500 font-bold block">INCREMENTO EN LEADS</span>
-                        <span className="text-2xl font-bold text-cyan-400">+140% Conversión</span>
-                      </div>
-                      <div>
-                        <span className="text-xs text-slate-500 font-bold block">TIEMPO DE RESPUESTA</span>
-                        <span className="text-2xl font-bold text-emerald-400">&lt; 1 segundo</span>
-                      </div>
-                    </div>
-                  </div>
-                ) : (
-                  <div className="bg-slate-900/80 p-6 md:p-8 rounded-2xl border border-amber-500/20 space-y-4">
-                    <div className="flex items-center gap-2 text-amber-400 text-xs font-bold uppercase tracking-wider">
-                      <AlertTriangle className="w-4 h-4" />
-                      <span>Transición Crítica de Plataforma</span>
-                    </div>
-                    <h3 className="text-xl font-bold text-white">Migración Hacia Ecosistema Propio</h3>
-                    <p className="text-slate-300 text-sm leading-relaxed">
-                      Ante cierres o limitaciones de marketplaces cerrados, la migración a una plataforma propia (React / Next.js / Tiendanube / WooCommerce) preserva la autoridad SEO con Redirecciones 301 masivas.
-                    </p>
-                  </div>
-                )}
-              </motion.div>
-            )}
-
-            {/* PRECIOS Y PLANES DE INVERSIÓN */}
-            {activeTab === 'precios' && (
-              <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }} className="space-y-8">
-                <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
-                  <div>
-                    <h2 className="font-headline text-2xl md:text-4xl font-bold text-white mb-1">
-                      Planes de Inversión y Comparativa
-                    </h2>
-                    <p className="text-slate-400 text-sm">Estructura de inversión transparente en tres niveles de servicio.</p>
-                  </div>
-
-                  <div className="inline-flex bg-slate-900 p-1.5 rounded-2xl border border-white/10">
-                    <button
-                      onClick={() => setCurrency('ars')}
-                      className={`px-5 py-2.5 rounded-xl text-xs font-headline font-bold transition-all ${
-                        currency === 'ars' ? 'bg-white text-slate-950 shadow-lg' : 'text-slate-400 hover:text-white'
-                      }`}
-                    >
-                      Precios en ARS
-                    </button>
-                    <button
-                      onClick={() => setCurrency('usd')}
-                      className={`px-5 py-2.5 rounded-xl text-xs font-headline font-bold transition-all ${
-                        currency === 'usd' ? 'bg-white text-slate-950 shadow-lg' : 'text-slate-400 hover:text-white'
-                      }`}
-                    >
-                      Referencia USD
-                    </button>
-                  </div>
-                </div>
-
-                <div className="grid md:grid-cols-3 gap-6 items-stretch pt-4">
-                  
-                  {/* CARD 1 */}
-                  <div className="bg-slate-900/60 p-8 rounded-3xl border border-white/10 flex flex-col justify-between hover:border-white/20 transition-all">
-                    <div>
-                      <h3 className="font-headline font-bold text-white text-xl mb-4">LP Inicial / Plantilla</h3>
-                      <div className="text-3xl font-black text-white mb-6">
-                        {currency === 'ars' ? '$150k - $300k' : 'USD 150 - 300'}
-                      </div>
-                      <ul className="text-sm text-slate-300 space-y-3 mb-8">
-                        <li className="flex items-start gap-2">
-                          <span className="text-cyan-400 font-bold">•</span>
-                          <span>Basada en maquetadores (Wix/WP)</span>
-                        </li>
-                        <li className="flex items-start gap-2">
-                          <span className="text-cyan-400 font-bold">•</span>
-                          <span>Formulario básico</span>
-                        </li>
-                        <li className="flex items-start gap-2">
-                          <span className="text-cyan-400 font-bold">•</span>
-                          <span>Diseño responsive estándar</span>
-                        </li>
-                      </ul>
-                    </div>
-                    <span className="text-xs text-slate-500 font-light block pt-4 border-t border-white/5">
-                      Opción ideal para validación rápida.
-                    </span>
-                  </div>
-
-                  {/* CARD 2 - BUSINESS PRO / RECOMENDADO */}
-                  <div className="bg-slate-900 p-8 rounded-3xl border-2 border-amber-500 flex flex-col justify-between relative shadow-[0_0_35px_rgba(245,158,11,0.2)] transform md:-translate-y-2">
-                    <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-amber-500 text-slate-950 text-[11px] font-headline font-black px-5 py-1 rounded-full uppercase tracking-widest shadow-md">
-                      MÁS POPULAR
-                    </div>
-                    <div>
-                      <h3 className="font-headline font-bold text-white text-xl mb-4 mt-2">Business Pro (A Medida)</h3>
-                      <div className="text-3xl font-black text-white mb-6">
-                        {currency === 'ars' ? '$200k - $500k' : 'USD 300 - 900'}
-                      </div>
-                      <ul className="text-sm text-slate-200 space-y-3 mb-8">
-                        <li className="flex items-start gap-2">
-                          <span className="text-amber-400 font-bold">•</span>
-                          <span>Desarrollo en React / Next.js / WP</span>
-                        </li>
-                        <li className="flex items-start gap-2">
-                          <span className="text-amber-400 font-bold">•</span>
-                          <span>SEO Técnico Avanzado nativo</span>
-                        </li>
-                        <li className="flex items-start gap-2">
-                          <span className="text-amber-400 font-bold">•</span>
-                          <span>Core Web Vitals 100/100 en verde</span>
-                        </li>
-                      </ul>
-                    </div>
-                    <span className="text-xs text-amber-300/90 font-medium block pt-4 border-t border-white/10">
-                      Enfoque en alta conversión y escalabilidad.
-                    </span>
-                  </div>
-
-                  {/* CARD 3 */}
-                  <div className="bg-slate-900/60 p-8 rounded-3xl border border-white/10 flex flex-col justify-between hover:border-white/20 transition-all">
-                    <div>
-                      <h3 className="font-headline font-bold text-white text-xl mb-4">eCommerce / Sub-hub</h3>
-                      <div className="text-3xl font-black text-white mb-6">
-                        {currency === 'ars' ? '$490k - $1.2M' : 'USD 500 - 1200'}
-                      </div>
-                      <ul className="text-sm text-slate-300 space-y-3 mb-8">
-                        <li className="flex items-start gap-2">
-                          <span className="text-cyan-400 font-bold">•</span>
-                          <span>Configuración Tiendanube Avanzada</span>
-                        </li>
-                        <li className="flex items-start gap-2">
-                          <span className="text-cyan-400 font-bold">•</span>
-                          <span>Inyección de Schema Markup</span>
-                        </li>
-                        <li className="flex items-start gap-2">
-                          <span className="text-cyan-400 font-bold">•</span>
-                          <span>Auditoría de Canibalización SEO</span>
-                        </li>
-                      </ul>
-                    </div>
-                    <span className="text-xs text-slate-500 font-light block pt-4 border-t border-white/5">
-                      Orientado a facturación masiva.
-                    </span>
-                  </div>
-
-                </div>
-              </motion.div>
-            )}
-
-          </div>
-        </section>
-
-        {/* CENTRO DE AYUDA (FAQ - SEGÚN SCREENSHOT PRD) */}
-        <section className="mb-24 max-w-4xl mx-auto">
-          <div className="text-center mb-12">
-            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-cyan-400/10 border border-cyan-400/30 mb-4 backdrop-blur-md">
-              <Zap className="w-4 h-4 text-cyan-400" />
-              <span className="font-headline text-xs tracking-widest text-cyan-400 uppercase font-black">
-                FAQ
-              </span>
+              <a
+                href="https://wa.me/5492995504783?text=Hola%2C%20me%20interesa%20el%20plan%20Landing%20Base"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-full py-3.5 rounded-lg border border-cyan-400 text-cyan-400 font-mono text-xs font-bold uppercase tracking-widest hover:bg-cyan-400/10 transition-all text-center"
+              >
+                SOLICITAR PRESUPUESTO
+              </a>
             </div>
 
-            <h2 className="font-headline text-3xl md:text-5xl font-black text-white tracking-tight">
-              Preguntas <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-teal-300 to-blue-500">Frecuentes</span>
+            {/* PLAN 2: BUSINESS PRO (MÁS POPULAR) */}
+            <div className="p-8 rounded-2xl bg-slate-900 border-2 border-cyan-400 flex flex-col justify-between relative shadow-[0_0_35px_rgba(0,219,231,0.2)] transform lg:-translate-y-3">
+              <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-cyan-400 text-slate-950 px-4 py-1 rounded-full font-mono text-[11px] font-black tracking-widest uppercase shadow-md">
+                MÁS POPULAR
+              </div>
+
+              <div>
+                <h3 className="font-headline text-2xl font-bold text-white mb-2 mt-2">Business Pro</h3>
+                <p className="text-slate-300 text-xs leading-relaxed mb-6 font-light">El estándar de la industria. Arquitectura web completa con enfoque agresivo en CRO y Performance.</p>
+
+                <div className="flex items-baseline gap-2 mb-8 border-b border-white/10 pb-6">
+                  <span className="text-slate-400 text-xs font-mono">Desde</span>
+                  <span className="text-5xl font-black text-cyan-400 font-headline">$1,500</span>
+                  <span className="text-xs text-slate-400 font-mono">USD</span>
+                </div>
+
+                <ul className="space-y-4 mb-8 text-sm text-slate-200">
+                  <li className="flex items-center gap-3"><CheckCircle2 className="w-5 h-5 text-cyan-400 shrink-0" /> Hasta 8 Páginas Corporativas</li>
+                  <li className="flex items-center gap-3"><CheckCircle2 className="w-5 h-5 text-cyan-400 shrink-0" /> SEO Técnico Avanzado & Schema</li>
+                  <li className="flex items-center gap-3"><CheckCircle2 className="w-5 h-5 text-cyan-400 shrink-0" /> Auditoría y Estrategia CRO</li>
+                  <li className="flex items-center gap-3"><CheckCircle2 className="w-5 h-5 text-cyan-400 shrink-0" /> Optimización Extrema (Vitals 95+)</li>
+                  <li className="flex items-center gap-3"><CheckCircle2 className="w-5 h-5 text-cyan-400 shrink-0" /> Setup Analítica Avanzada (GA4/GTM)</li>
+                </ul>
+              </div>
+
+              <a
+                href="https://wa.me/5492995504783?text=Hola%2C%20me%20interesa%20el%20plan%20Business%20Pro"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-full py-4 rounded-lg bg-gradient-to-r from-cyan-400 to-cyan-500 text-slate-950 font-mono text-xs font-black uppercase tracking-widest shadow-[0_0_20px_rgba(0,219,231,0.4)] hover:scale-105 transition-all text-center"
+              >
+                INICIAR PROYECTO
+              </a>
+            </div>
+
+            {/* PLAN 3: CUSTOM ENTERPRISE */}
+            <div className="p-8 rounded-2xl bg-slate-900/60 border border-white/10 flex flex-col justify-between hover:border-white/20 transition-all">
+              <div>
+                <h3 className="font-headline text-2xl font-bold text-white mb-2">Custom Enterprise</h3>
+                <p className="text-slate-400 text-xs leading-relaxed mb-6 font-light">Soluciones a medida para corporaciones y grandes e-commerces que requieren ecosistemas complejos.</p>
+
+                <div className="flex items-baseline gap-2 mb-8 border-b border-white/10 pb-6">
+                  <span className="text-3xl font-black text-white font-headline">A Medida</span>
+                </div>
+
+                <ul className="space-y-4 mb-8 text-sm text-slate-300">
+                  <li className="flex items-center gap-3"><CheckCircle2 className="w-5 h-5 text-cyan-400 shrink-0" /> Arquitectura Headless / Jamstack</li>
+                  <li className="flex items-center gap-3"><CheckCircle2 className="w-5 h-5 text-cyan-400 shrink-0" /> Integraciones API Custom</li>
+                  <li className="flex items-center gap-3"><CheckCircle2 className="w-5 h-5 text-cyan-400 shrink-0" /> Migraciones SEO Complejas</li>
+                  <li className="flex items-center gap-3"><CheckCircle2 className="w-5 h-5 text-cyan-400 shrink-0" /> Soporte y SLA 24/7</li>
+                </ul>
+              </div>
+
+              <a
+                href="https://wa.me/5492995504783?text=Hola%2C%20me%20interesa%20un%20plan%20Custom%20Enterprise"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-full py-3.5 rounded-lg border border-cyan-400 text-cyan-400 font-mono text-xs font-bold uppercase tracking-widest hover:bg-cyan-400/10 transition-all text-center"
+              >
+                AGENDAR CONSULTORÍA
+              </a>
+            </div>
+          </div>
+        </section>
+
+        {/* FAQ SECTION */}
+        <section className="py-20 mb-20 max-w-3xl mx-auto">
+          <div className="text-center mb-12">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-cyan-400/20 bg-cyan-400/10 text-cyan-400 font-mono text-xs uppercase tracking-widest mb-3">
+              FAQ
+            </div>
+            <h2 className="font-headline text-3xl md:text-5xl font-black text-white">
+              Preguntas Frecuentes
             </h2>
           </div>
 
           <div className="space-y-4">
-            {faqs.map((faq, i) => (
-              <FAQItem
-                key={i}
-                question={faq.q}
-                answer={faq.a}
-                defaultOpen={faq.defaultOpen}
-              />
+            {faqs.map((faq, idx) => (
+              <FAQItem key={idx} question={faq.q} answer={faq.a} defaultOpen={faq.defaultOpen} />
             ))}
           </div>
 
-          <div className="text-center mt-10">
-            <p className="text-slate-300 text-sm md:text-base font-light">
-              Still have questions?{' '}
-              <Link
-                to="/contact"
-                className="text-cyan-400 font-bold hover:text-cyan-300 underline underline-offset-4 transition-colors"
-              >
-                Contáctanos.
-              </Link>
-            </p>
+          <div className="mt-12 text-center">
+            <p className="text-slate-400 text-sm font-mono mb-2">¿Aún tienes dudas técnicas?</p>
+            <Link
+              to="/contact"
+              className="inline-flex items-center gap-1 text-cyan-400 hover:text-cyan-300 font-mono text-xs uppercase tracking-widest border-b border-cyan-400/40 pb-1 transition-colors"
+            >
+              <span>CONTACTA CON UN INGENIERO</span>
+              <ArrowRight className="w-4 h-4" />
+            </Link>
           </div>
         </section>
 
-        {/* BANNER CTA FINAL */}
-        <section className="text-center p-10 md:p-16 rounded-3xl border border-cyan-500/20 bg-gradient-to-b from-cyan-500/10 via-transparent to-transparent backdrop-blur-xl relative overflow-hidden">
-          <div className="relative z-10 max-w-3xl mx-auto">
-            <Award className="w-12 h-12 text-cyan-400 mx-auto mb-4" />
-            <h2 className="font-headline text-3xl md:text-5xl font-bold text-white mb-4">
-              ¿Listo para multiplicar las conversiones de tu negocio?
+        {/* FINAL CTA SECTION */}
+        <section className="py-20 border-t border-white/10 relative overflow-hidden">
+          <div className="max-w-4xl mx-auto text-center backdrop-blur-xl bg-slate-900/80 p-12 md:p-20 rounded-3xl border border-cyan-400/30 relative z-10 shadow-2xl">
+            <h2 className="font-headline text-3xl md:text-5xl font-black text-white mb-6">
+              ¿Listo para maximizar <br />tus conversiones?
             </h2>
-            <p className="text-slate-300 text-base md:text-lg mb-8 font-light leading-relaxed">
-              Solicitá hoy tu presupuesto personalizado y recibí una consultoría preliminar gratuita sobre la arquitectura de tu landing page.
+            <p className="text-slate-300 text-base md:text-lg mb-10 max-w-2xl mx-auto font-light leading-relaxed">
+              Deja de perder leads por una arquitectura web deficiente. Construyamos un motor de adquisición de clientes validado y optimizado.
             </p>
-            <div className="flex flex-wrap justify-center gap-4">
-              <a
-                href="https://wa.me/5492995504783?text=Hola%2C%20quiero%20cotizar%20una%20landing%20page"
-                target="_blank"
-                rel="noopener noreferrer"
-                onClick={() => trackWhatsAppClick('landing_pages_bottom_cta')}
-                className="bg-cyan-400 text-slate-950 font-headline font-black px-8 py-4 rounded-xl uppercase tracking-widest text-xs hover:bg-cyan-300 transition-all shadow-lg shadow-cyan-500/20"
-              >
-                Solicitar por WhatsApp
-              </a>
-              <Link
-                to="/contact"
-                className="border border-white/20 text-white font-headline font-bold px-8 py-4 rounded-xl uppercase tracking-widest text-xs hover:border-cyan-400 hover:text-cyan-400 transition-all bg-white/5"
-              >
-                Formulario de Contacto
-              </Link>
-            </div>
+            <Link
+              to="/auditoria-seo-gratis"
+              className="inline-block bg-gradient-to-r from-cyan-400 to-cyan-500 text-slate-950 px-10 py-5 rounded-lg font-mono text-sm font-black uppercase tracking-widest shadow-[0_0_30px_rgba(0,219,231,0.3)] hover:scale-105 transition-all"
+            >
+              SOLICITAR AUDITORÍA GRATUITA
+            </Link>
           </div>
         </section>
+
+        <InternalLinkingCTA variant="services" />
       </main>
     </div>
   );
