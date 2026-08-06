@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import Breadcrumbs from '@/components/layout/Breadcrumbs';
 import InternalLinkingCTA from '@/components/shared/InternalLinkingCTA';
+import GoogleBusinessReviews from '@/components/shared/GoogleBusinessReviews';
 import { trackWhatsAppClick, trackCTAClick } from '@/lib/analytics';
 import {
   Bolt,
@@ -66,28 +67,9 @@ const FAQItem = ({ question, answer, defaultOpen = false }) => {
 };
 
 const LandingPagesPage = () => {
-  const [activeTestimonial, setActiveTestimonial] = useState(0);
-
-  const testimonials = [
-    {
-      quote: "La ingeniería detrás de nuestra nueva landing page es brutal. Pasamos de un 2% a un 8% de conversión en el primer mes de lanzamiento.",
-      author: "Carlos M.",
-      role: "CEO, TechSaaS",
-      avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=150&q=80"
-    },
-    {
-      quote: "No solo es un diseño increíble, es que la velocidad de carga y la estructura SEO técnica han disparado nuestro tráfico orgánico.",
-      author: "Elena R.",
-      role: "CMO, E-com Global",
-      avatar: "https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&w=150&q=80"
-    },
-    {
-      quote: "El enfoque en datos antes que en estética (sin perderla) es lo que los diferencia. Una inversión que se pagó sola en semanas.",
-      author: "Javier L.",
-      role: "VP Engineering, DataCorp",
-      avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=150&q=80"
-    }
-  ];
+  const [activeTab, setActiveTab] = useState('tipologias');
+  const [activeCase, setActiveCase] = useState('a1');
+  const [currency, setCurrency] = useState('usd');
 
   const methodologySteps = [
     {
@@ -118,23 +100,28 @@ const LandingPagesPage = () => {
 
   const faqs = [
     {
-      q: '¿Cuánto tarda el desarrollo de una Landing Base?',
-      a: 'Típicamente, una Landing Base toma entre 2 a 3 semanas desde la reunión inicial de kick-off hasta el despliegue final. Esto incluye fases de investigación, wireframing, diseño UI de alta fidelidad y desarrollo técnico con optimización SEO on-page.',
+      q: '¿Por qué elegir a SEO Growthers como tu agencia SEO en Argentina (Buenos Aires, Córdoba y Rosario)?',
+      a: 'Como empresa SEO líder en Argentina, combinamos ingeniería WPO de ultra-velocidad con optimización semántica profunda. Diseñamos estrategias personalizadas para clientes en Buenos Aires, Córdoba, Rosario y todo el país, garantizando un posicionamiento web sólido y sustentable en Google Argentina.',
       defaultOpen: true
     },
     {
-      q: '¿Qué CMS o tecnología utilizáis para el desarrollo?',
-      a: 'Dependiendo del paquete. Para Landing Base solemos usar maquetadores visuales altamente optimizados o Webflow. Para Business Pro y Enterprise, optamos por arquitecturas Headless (Next.js, Astro) conectadas a CMS modernos para maximizar la velocidad y seguridad.',
+      q: '¿Cómo funciona la consultoría SEO en Argentina y qué incluye la auditoría SEO en Buenos Aires?',
+      a: 'Nuestra consultoría SEO en Argentina analiza 4 pilares: salud técnica, velocidad Core Web Vitals, intención comercial de búsqueda y perfil de backlinks (link building Argentina). Con nuestra auditoría SEO en Buenos Aires identificamos los cuellos de botella exactos y entregamos una hoja de ruta para elevar tu tasa de conversión.',
       defaultOpen: false
     },
     {
-      q: '¿El diseño incluye la redacción de textos (Copywriting)?',
-      a: 'Nuestros planes incluyen optimización estructural y asesoramiento en el copy. Sin embargo, la redacción desde cero por un Copywriter especializado en respuesta directa es un servicio adicional que recomendamos altamente para acompañar el diseño.',
+      q: '¿Qué servicios SEO para ecommerce ofrecen en Tiendanube y MercadoShops?',
+      a: 'Desarrollamos soluciones especializadas de SEO para Tiendanube y SEO para MercadoShops. Optimizamos la arquitectura de categorías, eliminamos el contenido duplicado de variantes y parametrizaciones, e inyectamos datos estructurados Schema.org para posicionar tus productos en las primeras posiciones de Google.',
       defaultOpen: false
     },
     {
-      q: '¿Garantizáis resultados de conversión?',
-      a: 'Si bien aplicamos las mejores prácticas de CRO (Conversion Rate Optimization) basadas en datos empíricos, la conversión final depende de múltiples factores externos como la calidad de tu tráfico, tu oferta y el mercado. Garantizamos una base técnica y visual impecable diseñada para maximizar esas oportunidades.',
+      q: '¿Cuánto tiempo tarda en verse el posicionamiento en Google Argentina?',
+      a: 'Las mejoras técnicas WPO e indexación semántica muestran resultados en 2 a 4 semanas. El incremento masivo de tráfico orgánico transaccional y posicionamiento en Google Argentina para palabras clave competitivas suele consolidarse entre los 60 y 90 días.',
+      defaultOpen: false
+    },
+    {
+      q: '¿Cómo se integran las estrategias de Link Building en Argentina con el desarrollo de Landing Pages?',
+      a: 'Construir una landing page de alta conversión es el primer paso; amplificar su autoridad requiere link building estratégico en Argentina. Obtenemos menciones y backlinks de alta reputación que impulsan el ranking de tu sitio sin correr riesgos de penalizaciones.',
       defaultOpen: false
     }
   ];
@@ -148,19 +135,19 @@ const LandingPagesPage = () => {
       "name": "SEO Growthers",
       "url": "https://seogrowthers.com"
     },
-    "description": "Ingeniería de conversión de alta precisión. Construimos ecosistemas digitales enfocados en maximizar resultados de búsqueda y ratios de conversión.",
+    "description": "Agencia SEO en Argentina especializada en diseño de landing pages de alta conversión, posicionamiento web en Google, SEO para ecommerce (Tiendanube, MercadoShops) y consultoría.",
     "areaServed": { "@type": "Country", "name": "Argentina" },
-    "serviceType": "Landing Page Design & CRO Engineering"
+    "serviceType": "Landing Page Design & SEO Engineering"
   };
 
   return (
     <div className="text-slate-200 font-body min-h-screen bg-[#0d1515] selection:bg-cyan-500/30 selection:text-white relative">
       <Helmet>
-        <title>Diseño Web Landing Page | CRO & SEO Engineering - SEO Growthers</title>
-        <meta name="description" content="Ingeniería de conversión de alta precisión. Construimos landing pages enfáticas en maximizar resultados de búsqueda y conversión con arquitectura avanzada." />
+        <title>Diseño Web Landing Page | Agencia SEO Argentina - SEO Growthers</title>
+        <meta name="description" content="Agencia SEO en Argentina especializada en diseño web de landing pages, posicionamiento en Google, SEO para ecommerce (Tiendanube, MercadoShops) y auditoría en Buenos Aires." />
         <link rel="canonical" href="https://seogrowthers.com/services/landing-pages" />
-        <meta property="og:title" content="Diseño Web Landing Page | SEO Growthers" />
-        <meta property="og:description" content="Ingeniería de conversión de alta precisión para landing pages de alto rendimiento." />
+        <meta property="og:title" content="Diseño Web Landing Page | Agencia SEO Argentina - SEO Growthers" />
+        <meta property="og:description" content="Ingeniería de conversión de alta precisión y posicionamiento orgánico en Google Argentina." />
         <meta property="og:url" content="https://seogrowthers.com/services/landing-pages" />
         <meta property="og:type" content="website" />
         <script type="application/ld+json">{JSON.stringify(structuredData)}</script>
@@ -184,7 +171,7 @@ const LandingPagesPage = () => {
               <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-cyan-400/30 bg-cyan-400/10 backdrop-blur-md">
                 <span className="w-2 h-2 rounded-full bg-cyan-400 animate-pulse" />
                 <span className="font-mono text-xs text-cyan-400 tracking-widest uppercase font-semibold">
-                  CRO & SEO ENGINEERING
+                  AGENCIA SEO ARGENTINA • CRO ENGINEERING
                 </span>
               </div>
 
@@ -196,7 +183,7 @@ const LandingPagesPage = () => {
               </h1>
 
               <p className="text-slate-300 text-lg md:text-xl font-light leading-relaxed max-w-xl">
-                Ingeniería de conversión de alta precisión. Construimos ecosistemas digitales enfocados en maximizar resultados de búsqueda y ratios de conversión mediante arquitectura de datos avanzada.
+                Ingeniería de conversión y posicionamiento web en Argentina. Construimos ecosistemas digitales enfocados en maximizar resultados en Google y ratios de conversión mediante arquitectura avanzada.
               </p>
 
               <div className="flex flex-col sm:flex-row gap-4 pt-2 w-full sm:w-auto">
@@ -229,7 +216,7 @@ const LandingPagesPage = () => {
                   </div>
                 </div>
                 <div className="text-xs md:text-sm text-slate-300 font-light leading-snug">
-                  Proyectos de alta conversión <br />entregados con éxito.
+                  Proyectos de alta conversión <br />entregados con éxito en Argentina.
                 </div>
               </div>
             </div>
@@ -270,49 +257,8 @@ const LandingPagesPage = () => {
           </div>
         </section>
 
-        {/* TESTIMONIOS SECTION */}
-        <section className="py-20 mb-20 relative bg-slate-950/50 rounded-3xl border border-white/10 px-6 md:px-12">
-          <div className="text-center mb-12">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-cyan-400/20 bg-cyan-400/10 text-cyan-400 font-mono text-xs uppercase tracking-widest mb-3">
-              VERIFIED RESULTS
-            </div>
-            <h2 className="font-headline text-3xl md:text-5xl font-black text-white">
-              Lo que dicen nuestros clientes
-            </h2>
-          </div>
-
-          <div className="grid md:grid-cols-3 gap-6">
-            {testimonials.map((t, idx) => (
-              <div
-                key={idx}
-                className={`p-8 rounded-2xl backdrop-blur-md transition-all duration-300 flex flex-col justify-between ${
-                  idx === 1
-                    ? 'bg-slate-900/90 border-2 border-cyan-400/50 shadow-[0_0_30px_rgba(0,219,231,0.1)]'
-                    : 'bg-slate-950/60 border border-white/10 hover:border-cyan-400/30'
-                }`}
-              >
-                <div>
-                  <div className="flex gap-1 text-cyan-400 mb-6">
-                    {[...Array(5)].map((_, i) => (
-                      <Star key={i} className="w-5 h-5 fill-cyan-400" />
-                    ))}
-                  </div>
-                  <p className="text-slate-300 italic text-sm md:text-base leading-relaxed mb-8">
-                    "{t.quote}"
-                  </p>
-                </div>
-
-                <div className="flex items-center gap-4 border-t border-white/5 pt-6">
-                  <img src={t.avatar} alt={t.author} className="w-12 h-12 rounded-full object-cover border border-cyan-400/30" />
-                  <div>
-                    <div className="font-mono text-xs font-bold text-white uppercase tracking-wider">{t.author}</div>
-                    <div className="text-slate-400 text-xs font-light">{t.role}</div>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </section>
+        {/* COMPONENTE DE RESEÑAS GOOGLE BUSINESS REALES + INCENTIVADO */}
+        <GoogleBusinessReviews />
 
         {/* METODOLOGÍA / PROCESOS SECTION */}
         <section className="py-20 mb-20">
@@ -460,11 +406,11 @@ const LandingPagesPage = () => {
           </div>
         </section>
 
-        {/* FAQ SECTION */}
-        <section className="py-20 mb-20 max-w-3xl mx-auto">
+        {/* FAQ SECTION OPTIMIZADA PARA KEYWORDS Y CONVERSIÓN */}
+        <section className="py-20 mb-20 max-w-4xl mx-auto">
           <div className="text-center mb-12">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-cyan-400/20 bg-cyan-400/10 text-cyan-400 font-mono text-xs uppercase tracking-widest mb-3">
-              FAQ
+              FAQ • SEO ARGENTINA
             </div>
             <h2 className="font-headline text-3xl md:text-5xl font-black text-white">
               Preguntas Frecuentes
@@ -478,12 +424,12 @@ const LandingPagesPage = () => {
           </div>
 
           <div className="mt-12 text-center">
-            <p className="text-slate-400 text-sm font-mono mb-2">¿Aún tienes dudas técnicas?</p>
+            <p className="text-slate-400 text-sm font-mono mb-2">¿Aún tienes dudas técnicas sobre tu proyecto?</p>
             <Link
               to="/contact"
               className="inline-flex items-center gap-1 text-cyan-400 hover:text-cyan-300 font-mono text-xs uppercase tracking-widest border-b border-cyan-400/40 pb-1 transition-colors"
             >
-              <span>CONTACTA CON UN INGENIERO</span>
+              <span>CONTACTA CON UN INGENIERO SEO</span>
               <ArrowRight className="w-4 h-4" />
             </Link>
           </div>
@@ -496,7 +442,7 @@ const LandingPagesPage = () => {
               ¿Listo para maximizar <br />tus conversiones?
             </h2>
             <p className="text-slate-300 text-base md:text-lg mb-10 max-w-2xl mx-auto font-light leading-relaxed">
-              Deja de perder leads por una arquitectura web deficiente. Construyamos un motor de adquisición de clientes validado y optimizado.
+              Deja de perder leads por una arquitectura web deficiente. Construyamos un motor de adquisición de clientes validado y optimizado en Google Argentina.
             </p>
             <Link
               to="/auditoria-seo-gratis"
