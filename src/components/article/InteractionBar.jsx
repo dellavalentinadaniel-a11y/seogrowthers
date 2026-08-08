@@ -27,13 +27,13 @@ const InteractionBar = ({ contentId, contentType, commentsCount = 0, onLikeChang
             setLikes(count || 0);
 
             // Check if current user liked it
-            const { data: { user } } = await supabase.auth.getUser();
-            if (user) {
+            const { data: { session } } = await supabase.auth.getSession();
+            if (session?.user) {
                 const { data, error: likeError } = await supabase
                     .from(tableName)
                     .select('id')
                     .eq(idColumn, contentId)
-                    .eq('user_id', user.id)
+                    .eq('user_id', session.user.id)
                     .maybeSingle();
                 
                 if (data) setIsLiked(true);

@@ -34,8 +34,8 @@ const ArticleDetail = () => {
   const [forumPosts, setForumPosts] = useState([]);
 
   useEffect(() => {
-    supabase.auth.getUser().then(({ data: { user } }) => {
-      if (user) setCurrentUserEmail(user.email);
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      if (session?.user) setCurrentUserEmail(session.user.email);
     });
   }, []);
 
