@@ -37,7 +37,6 @@ const Privacy = lazy(() => import('@/pages/Privacy'));
 const Terms = lazy(() => import('@/pages/Terms'));
 const BlogPage = lazy(() => import('@/pages/BlogPage'));
 const CreatePostPage = lazy(() => import('@/pages/blog/CreatePostPage'));
-const EstrategiaEcommercePage = lazy(() => import('@/pages/blog/EstrategiaEcommercePage'));
 const ForumPage = lazy(() => import('@/pages/ForumPage'));
 const CareersPage = lazy(() => import('@/pages/CareersPage'));
 
@@ -58,7 +57,6 @@ const IaAgenticaPage = lazy(() => import('@/pages/services/IaAgenticaPage'));
 
 // Admin Imports (Lazy Loaded)
 const AdminLayout = lazy(() => import('@/components/admin/AdminLayout'));
-// const Login = lazy(() => import('@/pages/admin/Login'));
 const ArticlesList = lazy(() => import('@/pages/admin/ArticlesList'));
 const ArticleForm = lazy(() => import('@/pages/admin/ArticleForm'));
 const ToolsList = lazy(() => import('@/pages/admin/ToolsList'));
@@ -104,14 +102,10 @@ function App() {
               <Route path="forum" element={<ForumPage />} />
               <Route path="blog/create" element={<CreatePostPage />} />
               <Route path="blog/edit/:id" element={<CreatePostPage />} />
-              <Route path="blog/seo/estrategia-seo-ecommerce-argentina-migracion-tiendanube" element={<EstrategiaEcommercePage />} />
-              <Route path="blog/estrategia-seo-ecommerce-argentina" element={<EstrategiaEcommercePage />} />
               <Route path="blog/:category" element={<BlogPage />} />
               <Route path="blog/:category/:slug" element={<ArticleDetail />} />
               <Route path="news/:slug" element={<ArticleDetail />} />
               <Route path="news/:category/:slug" element={<ArticleDetail />} />
-
-
 
               {/* Services Cluster */}
               <Route path="services" element={<Services />} />
@@ -140,8 +134,6 @@ function App() {
               <Route path="resources/google-seo-fundamentals" element={<SeoGuidePage />} />
               <Route path="resources/google-ai-studio-2026" element={<AiStudioGuidePage />} />
               <Route path="resources/ssd-ps5-optimization-2026" element={<SsdGuidePage />} />
-              <Route path="resources/estrategia-seo-ecommerce-argentina" element={<EstrategiaEcommercePage />} />
-              <Route path="recursos/estrategia-seo-ecommerce-argentina" element={<EstrategiaEcommercePage />} />
               <Route path="resources/:slug" element={<ResourceDetailPage />} />
 
               {/* Tools Cluster */}
@@ -174,8 +166,6 @@ function App() {
               <Route path="*" element={<NotFoundPage />} />
             </Route>
 
-
-
             {/* Admin Routes */}
 
             <Route path="/admin" element={<AdminLayout />}>
@@ -186,8 +176,6 @@ function App() {
               <Route path="articles" element={<ArticlesList />} />
               <Route path="articles/new" element={<ArticleForm />} />
               <Route path="articles/:id/edit" element={<ArticleForm />} />
-
-
 
               {/* Tools */}
               <Route path="tools" element={<ToolsList />} />
