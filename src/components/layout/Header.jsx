@@ -18,8 +18,8 @@ const Header = () => {
 
   useEffect(() => {
     const fetchProfile = async (userId) => {
-        const { data } = await supabase.from('profiles').select('avatar_url, role').eq('id', userId).single();
-        if (data) setProfile(data);
+      const { data } = await supabase.from('profiles').select('avatar_url, role').eq('id', userId).single();
+      if (data) setProfile(data);
     };
 
     supabase.auth.getSession().then(({ data: { session } }) => {
@@ -65,7 +65,7 @@ const Header = () => {
     try {
       const { error } = await supabase.auth.signOut();
       if (error) throw error;
-      
+
       toast({
         title: "Sesión cerrada",
         description: "Has salido del ecosistema de forma segura.",
@@ -94,11 +94,10 @@ const Header = () => {
   }, []);
 
   return (
-    <header className={`fixed top-0 w-full z-50 transition-all duration-500 ${
-      scrolled 
-        ? 'bg-[#050505]/85 backdrop-blur-xl border-b border-cyan-500/25 shadow-[0_8px_32px_rgba(0,242,255,0.12)]' 
+    <header className={`fixed top-0 w-full z-50 transition-all duration-500 ${scrolled
+        ? 'bg-[#050505]/85 backdrop-blur-xl border-b border-cyan-500/25 shadow-[0_8px_32px_rgba(0,242,255,0.12)]'
         : 'bg-gradient-to-b from-[#050505]/90 to-transparent backdrop-blur-md border-b border-white/10'
-    }`}>
+      }`}>
       <div className="flex justify-between items-center px-4 md:px-8 h-16 md:h-20 w-full max-w-[1600px] mx-auto">
 
         {/* Brand */}
@@ -133,7 +132,7 @@ const Header = () => {
                 onClick={() => setIsDropdownOpen(!isDropdownOpen)}
                 className="h-10 w-10 md:h-11 md:w-11 rounded-full border border-primary/30 overflow-hidden flex items-center justify-center hover:border-primary transition-colors focus:outline-none focus:ring-2 focus:ring-primary/50 flex-shrink-0"
               >
-                <img alt="User profile avatar" className="w-full h-full object-cover" src={profile?.avatar_url || "/images/iconos/guiaspersonaje.webp"}/>
+                <img alt="User profile avatar" className="w-full h-full object-cover" src={profile?.avatar_url || "/images/iconos/guiaspersonaje.webp"} />
               </button>
 
               <AnimatePresence>

@@ -1,7 +1,5 @@
-const { createClient } = require('@supabase/supabase-js');
+import { createClient } from '@supabase/supabase-js';
 
-// Nota: En un entorno de servidor como Node.js, estas variables deben estar en process.env
-// En el frontend (Vite), se inyectan durante el build.
 const supabaseUrl = process.env.VITE_SUPABASE_URL;
 const supabaseKey = process.env.VITE_SUPABASE_ANON_KEY;
 
