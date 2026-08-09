@@ -1,24 +1,23 @@
-import { createClient } from '@supabase/supabase-js';
-
-const supabaseUrl = "https://cgmmbtedcwzytcwezecn.supabase.co";
-const supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNnbW1idGVkY3d6eXRjd2V6ZWNuIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzg0MTc1MTEsImV4cCI6MjA5Mzk5MzUxMX0.3Uh5ZacJCo_AVBEU_cckJ620eBJSOWoZ6kjKN8R7kUk";
-
-const supabase = createClient(supabaseUrl, supabaseKey);
+import { supabase } from '../lib/supabaseClient.js';
+import process from 'process';
 
 async function checkConnection() {
   try {
+    console.log('Attempting to connect to Supabase...');
     const { data, error } = await supabase
       .from('profiles')
       .select('id')
       .limit(1);
 
     if (error) {
-      console.error('Error al conectar con Supabase:', error.message);
+      console.error('Error connecting to Supabase:', error.message);
+      process.exit(1);
     } else {
-      console.log('Conexión exitosa. Perfiles en la DB:', data);
+      console.log('✅ Connection successful. Found at least one profile.');
     }
   } catch (err) {
-    console.error('Error inesperado:', err.message);
+    console.error('Unexpected error:', err.message);
+    process.exit(1);
   }
 }
 
