@@ -50,12 +50,17 @@ export const VideoReelCard = ({
         <video
           ref={videoRef}
           src={videoSrc}
+          type="video/mp4"
+          preload="metadata"
+          poster="/images/video-thumb.jpg"
           autoPlay
           loop
           muted
           playsInline
           className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-        />
+        >
+          <source src={videoSrc} type="video/mp4" />
+        </video>
 
         {/* Dark Vignette Overlay for crisp text */}
         <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/20 to-slate-950/40 pointer-events-none" />

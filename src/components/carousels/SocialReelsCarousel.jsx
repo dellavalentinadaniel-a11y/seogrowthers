@@ -91,22 +91,7 @@ const socialNetworks = [
 const SocialReelsCarousel = () => {
   return (
     <div className="relative w-screen left-1/2 right-1/2 -translate-x-1/2 overflow-hidden py-10 pointer-events-auto bg-transparent mt-12 md:mt-16">
-      {/* Embedded CSS for seamless moving social networks marquee */}
-      <style>{`
-        @keyframes socialMarqueeShared {
-          0% { transform: translateX(0%); }
-          100% { transform: translateX(-50%); }
-        }
-        .animate-social-marquee-shared {
-          display: flex;
-          width: max-content;
-          animation: socialMarqueeShared 22s linear infinite;
-        }
-        .animate-social-marquee-shared:hover {
-          animation-play-state: paused;
-        }
-      `}</style>
-
+      
       {/* Header Info Banner above Marquee */}
       <div className="text-center mb-6">
         <span className="font-mono text-[10px] tracking-[0.3em] text-cyan-400 uppercase font-bold block mb-2">

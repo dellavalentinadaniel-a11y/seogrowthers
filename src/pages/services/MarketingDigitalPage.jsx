@@ -29,8 +29,7 @@ import {
   Plus,
   Minus,
   ShieldCheck,
-  Zap,
-  Play
+  Play,
 } from '@phosphor-icons/react';
 
 const channels = [
@@ -211,7 +210,7 @@ const MarketingDigitalPage = () => {
       <Helmet>
         <title>Marketing Digital Argentina | SEO, SEM, Redes - SEO Growthers</title>
         <meta name="description" content="Servicios de marketing digital en Argentina: SEO orgánico, Google Ads, publicidad en redes sociales, email marketing y analytics. Resultados medibles y ROI garantizado." />
-        <link rel="canonical" href="https://seogrowthers.com/services/marketing-digital" />
+        <link rel="preload" href="/images/fondo/site-background.webp" as="image" />
         <meta property="og:title" content="Marketing Digital Argentina | SEO Growthers" />
         <meta property="og:description" content="Estrategias de marketing digital orientadas a resultados. SEO, SEM, Social Ads y Analytics." />
         <meta property="og:url" content="https://seogrowthers.com/services/marketing-digital" />
@@ -230,6 +229,7 @@ const MarketingDigitalPage = () => {
           loop
           muted
           playsInline
+          preload="auto"
           className="absolute inset-0 w-full h-full object-cover"
           aria-hidden="true"
         >
@@ -443,7 +443,7 @@ const MarketingDigitalPage = () => {
                     "Soporte Prioritario"
                   ].map((feat, i) => (
                     <li key={i} className="flex items-start gap-3 text-sm text-white font-medium">
-                      <Zap weight="duotone" className="w-4 h-4 text-cyan-400 mt-0.5 shrink-0 shadow-cyan-400" />
+                      <Lightning weight="duotone" className="w-4 h-4 text-cyan-400 mt-0.5 shrink-0 shadow-cyan-400" />
                       {feat}
                     </li>
                   ))}

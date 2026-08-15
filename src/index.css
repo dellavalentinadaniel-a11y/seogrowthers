@@ -150,7 +150,23 @@ a, button, .cursor-pointer {
   .block-highlight {
     @apply border border-white/10 bg-white/[0.02] hover:bg-white/[0.05] hover:border-cyan-500/40 transition-all duration-300;
   }
+
+  /* Marquee animation utility */
+  .animate-social-marquee-shared {
+    display: flex;
+    width: max-content;
+    animation: socialMarqueeShared 22s linear infinite;
+  }
+  .animate-social-marquee-shared:hover {
+    animation-play-state: paused;
+  }
 }
+
+@keyframes socialMarqueeShared {
+  0% { transform: translateX(0%); }
+  100% { transform: translateX(-50%); }
+}
+
 .circuit-bg {
     background-image: radial-gradient(circle at 2px 2px, rgba(195, 245, 255, 0.05) 1px, transparent 0);
     background-size: 40px 40px;
