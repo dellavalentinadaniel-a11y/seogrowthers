@@ -7,7 +7,6 @@ import InternalLinkingCTA from '@/components/shared/InternalLinkingCTA';
 import GoogleBusinessReviews from '@/components/shared/GoogleBusinessReviews';
 import { trackWhatsAppClick, trackCTAClick } from '@/lib/analytics';
 import {
-  Bolt,
   ArrowRight,
   ArrowLeft,
   Star,

@@ -1,20 +1,45 @@
 
-import React from 'react';
+import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useMobileMenu } from '@/contexts/MobileMenuContext';
+import { Megaphone, Code2, Smartphone, Bot, ChevronDown } from 'lucide-react';
 
 const navLinks = [
   { name: 'Inicio', href: '/' },
   { name: 'Blog', href: '/blog' },
   { name: 'Foro', href: '/forum' },
   { name: 'Recursos', href: '/resources' },
-  { name: 'Servicios', href: '/services' },
+  { name: 'Servicios', href: '/services', hasDropdown: true },
+];
+
+const serviciosSubLinks = [
+  {
+    name: 'Marketing Digital',
+    href: '/services/marketing-digital',
+    icon: Megaphone,
+  },
+  {
+    name: 'Desarrollo Web',
+    href: '/services/desarrollo-web-argentina',
+    icon: Code2,
+  },
+  {
+    name: 'Apps & Software',
+    href: '/services/apps-software',
+    icon: Smartphone,
+  },
+  {
+    name: 'Automatización',
+    href: '/services/automatizacion-ia',
+    icon: Bot,
+  },
 ];
 
 const MobileMenu = () => {
   const { isMenuOpen, closeMenu } = useMobileMenu();
   const location = useLocation();
+  const [isServiciosOpen, setIsServiciosOpen] = useState(false);
 
   return (
     <AnimatePresence>
@@ -35,7 +60,7 @@ const MobileMenu = () => {
             animate={{ x: 0 }}
             exit={{ x: '100%' }}
             transition={{ type: 'spring', damping: 25, stiffness: 200 }}
-            className="fixed right-0 top-0 bottom-0 w-[80%] max-w-sm bg-[#0d0e17] border-l border-white/10 z-[70] p-6 flex flex-col md:hidden"
+            className="fixed right-0 top-0 bottom-0 w-[80%] max-w-sm bg-[#0d0e17] border-l border-white/10 z-[70] p-6 flex flex-col md:hidden overflow-y-auto"
           >
             <div className="flex justify-between items-center mb-8">
               <h2 className="text-xl font-headline font-bold text-white">Menú</h2>
@@ -47,17 +72,93 @@ const MobileMenu = () => {
               </button>
             </div>
 
-            <nav className="flex flex-col gap-4">
+            <nav className="flex flex-col gap-2">
               {navLinks.map((link) => {
                 const isActive = location.pathname === link.href ||
                                  (link.href !== '/' && location.pathname.startsWith(link.href));
+
+                if (link.hasDropdown) {
+                  return (
+                    <div key={link.name}>
+                      {/* Servicios toggle */}
+                      <button
+                        onClick={() => setIsServiciosOpen(!isServiciosOpen)}
+                        className={`w-full flex items-center justify-between text-lg font-headline tracking-tight py-3 px-2 rounded-lg transition-colors ${
+                          isActive
+                            ? 'text-[#c3f5ff] font-bold'
+                            : 'text-slate-400 hover:text-white'
+                        }`}
+                      >
+                        {link.name}
+                        <ChevronDown
+                          size={18}
+                          className={`transition-transform duration-300 ${
+                            isServiciosOpen ? 'rotate-180' : 'rotate-0'
+                          }`}
+                        />
+                      </button>
+
+                      {/* Sub-links */}
+                      <AnimatePresence>
+                        {isServiciosOpen && (
+                          <motion.div
+                            initial={{ height: 0, opacity: 0 }}
+                            animate={{ height: 'auto', opacity: 1 }}
+                            exit={{ height: 0, opacity: 0 }}
+                            transition={{ duration: 0.25, ease: 'easeInOut' }}
+                            className="overflow-hidden"
+                          >
+                            <div className="pl-2 pb-2 flex flex-col gap-1">
+                              {serviciosSubLinks.map((subLink) => {
+                                const Icon = subLink.icon;
+                                const subActive = location.pathname === subLink.href;
+                                return (
+                                  <Link
+                                    key={subLink.name}
+                                    to={subLink.href}
+                                    onClick={closeMenu}
+                                    className={`flex items-center gap-3 px-3 py-2.5 rounded-xl transition-all ${
+                                      subActive
+                                        ? 'bg-cyan-500/10 text-cyan-300'
+                                        : 'text-slate-400 hover:text-white hover:bg-white/5'
+                                    }`}
+                                  >
+                                    <div className={`w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0 ${
+                                      subActive
+                                        ? 'bg-cyan-500/20 text-cyan-300'
+                                        : 'bg-white/5 text-slate-500'
+                                    }`}>
+                                      <Icon size={16} strokeWidth={1.8} />
+                                    </div>
+                                    <span className="text-sm font-headline font-semibold">
+                                      {subLink.name}
+                                    </span>
+                                  </Link>
+                                );
+                              })}
+
+                              {/* Ver todos */}
+                              <Link
+                                to="/services"
+                                onClick={closeMenu}
+                                className="flex items-center justify-center gap-1.5 mt-1 px-3 py-2 text-xs font-headline font-semibold text-cyan-400/70 hover:text-cyan-300 transition-colors"
+                              >
+                                Ver todos los servicios →
+                              </Link>
+                            </div>
+                          </motion.div>
+                        )}
+                      </AnimatePresence>
+                    </div>
+                  );
+                }
 
                 return (
                   <Link
                     key={link.name}
                     to={link.href}
                     onClick={closeMenu}
-                    className={`text-lg font-headline tracking-tight py-2 transition-colors ${
+                    className={`text-lg font-headline tracking-tight py-3 px-2 rounded-lg transition-colors ${
                       isActive
                         ? 'text-[#c3f5ff] font-bold'
                         : 'text-slate-400 hover:text-white'

@@ -32,6 +32,9 @@ const EcommercePage = lazy(() => import('@/pages/services/EcommercePage'));
 const EcommerceTiendanubePage = lazy(() => import('@/pages/services/EcommerceTiendanubePage'));
 const EcommerceMercadoShopsPage = lazy(() => import('@/pages/services/EcommerceMercadoShopsPage'));
 const MarketingDigitalPage = lazy(() => import('@/pages/services/MarketingDigitalPage'));
+const PerformancePackPage = lazy(() => import('@/pages/services/PerformancePackPage'));
+const GrowthPartnerPage = lazy(() => import('@/pages/services/GrowthPartnerPage'));
+const AppsSoftwarePage = lazy(() => import('@/pages/services/AppsSoftwarePage'));
 const PortfolioPage = lazy(() => import('@/pages/PortfolioPage'));
 const Privacy = lazy(() => import('@/pages/Privacy'));
 const Terms = lazy(() => import('@/pages/Terms'));
@@ -39,6 +42,7 @@ const BlogPage = lazy(() => import('@/pages/BlogPage'));
 const CreatePostPage = lazy(() => import('@/pages/blog/CreatePostPage'));
 const ForumPage = lazy(() => import('@/pages/ForumPage'));
 const CareersPage = lazy(() => import('@/pages/CareersPage'));
+const AssetLibraryPage = lazy(() => import('@/pages/AssetLibraryPage'));
 
 // Auth Pages (Lazy Loaded)
 const LoginPage = lazy(() => import('@/pages/auth/LoginPage'));
@@ -121,6 +125,11 @@ function App() {
               <Route path="services/ecommerce/mercadoshops" element={<EcommerceMercadoShopsPage />} />
               <Route path="servicios/ecommerce/mercadoshops" element={<EcommerceMercadoShopsPage />} />
               <Route path="services/marketing-digital" element={<MarketingDigitalPage />} />
+              <Route path="services/marketing-digital/performance-pack" element={<PerformancePackPage />} />
+              <Route path="services/performance-pack" element={<PerformancePackPage />} />
+              <Route path="services/marketing-digital/growth-partner" element={<GrowthPartnerPage />} />
+              <Route path="services/growth-partner" element={<GrowthPartnerPage />} />
+              <Route path="services/apps-software" element={<AppsSoftwarePage />} />
               <Route path="services/success-cases" element={<SuccessCasesPage />} />
               <Route path="success-cases" element={<SuccessCasesPage />} />
               <Route path="casos-de-exito" element={<SuccessCasesPage />} />
@@ -131,6 +140,8 @@ function App() {
               {/* Resources Cluster */}
               <Route path="resources" element={<ResourcesPage />} />
               <Route path="recursos" element={<ResourcesPage />} />
+              <Route path="resources/asset-library" element={<AssetLibraryPage />} />
+              <Route path="recursos/biblioteca-assets" element={<AssetLibraryPage />} />
               <Route path="resources/google-seo-fundamentals" element={<SeoGuidePage />} />
               <Route path="resources/google-ai-studio-2026" element={<AiStudioGuidePage />} />
               <Route path="resources/ssd-ps5-optimization-2026" element={<SsdGuidePage />} />

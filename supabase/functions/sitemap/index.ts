@@ -1,4 +1,7 @@
+// @ts-ignore
 import { createClient } from 'https://esm.sh/@supabase/supabase-js@2';
+
+declare const Deno: any;
 
 const BASE_URL = 'https://seogrowthers.com';
 
@@ -63,7 +66,7 @@ Deno.serve(async () => {
     <priority>${priority}</priority>
   </url>`).join('');
 
-  const articleEntries = (articles || []).map(({ slug, category, updated_at, created_at }) => {
+  const articleEntries = (articles || []).map(({ slug, category, updated_at, created_at }: any) => {
     const lastmod = (updated_at || created_at || today).split('T')[0];
     const catPath = category ? category.toLowerCase().replace(/\s+/g, '-') : 'blog';
     return `

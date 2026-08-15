@@ -8,7 +8,7 @@ Este archivo contiene las directrices de desarrollo, convenciones arquitectónic
 
 - **Frontend**: React (Vite) + Tailwind CSS + Framer Motion.
 - **Backend / Base de Datos**: Supabase (PostgreSQL + Supabase Auth + RLS).
-- **Iconografía**: Lucide React.
+- **Iconografía**: Phosphor Icons (Duotone).
 - **Enrutamiento**: React Router con Lazy Loading (`React.lazy`) para optimizar Core Web Vitals (LCP < 1.0s).
 
 ---
