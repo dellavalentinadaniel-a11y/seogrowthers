@@ -1,7 +1,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { MapPin, Phone, Mail, Clock, ChevronLeft, ChevronRight } from 'lucide-react';
+import { MapPin, Phone, Envelope as Mail, Clock, CaretLeft as ChevronLeft, CaretRight as ChevronRight } from '@phosphor-icons/react';
 import { Button } from '@/components/ui/button';
 
 const OfficesCarousel = () => {

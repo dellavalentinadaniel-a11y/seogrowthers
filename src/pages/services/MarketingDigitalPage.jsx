@@ -11,25 +11,27 @@ import VideoReelsPair from '@/components/shared/VideoReelsGrid';
 import { trackWhatsAppClick, trackCTAClick } from '@/lib/analytics';
 import {
   Megaphone,
-  Search,
+  MagnifyingGlass as Search,
   Target,
-  TrendingUp,
-  MousePointerClick,
-  Mail,
-  Smartphone,
+  TrendUp as TrendingUp,
+  Mouse as MousePointerClick,
+  Envelope,
+  DeviceMobile,
   Star,
-  CheckCircle2,
+  CheckCircle,
   ArrowRight,
-  Zap,
-  BarChart3,
-  Sparkles,
-  Layers,
-  ChevronRight,
-  HelpCircle,
+  Lightning,
+  ChartBar as BarChart,
+  Sparkle,
+  Stack as Layers,
+  CaretRight,
+  Question as Help,
   Plus,
   Minus,
-  ShieldCheck
-} from 'lucide-react';
+  ShieldCheck,
+  Zap,
+  Play
+} from '@phosphor-icons/react';
 
 const channels = [
   { icon: Search, title: 'SEO On-Page', desc: 'Optimización técnica y de contenido para aparecer en Google.', link: '/services/seo-neuquen' },
@@ -37,8 +39,8 @@ const channels = [
   { icon: Megaphone, title: 'Social Ads', desc: 'Publicidad en Facebook, Instagram y LinkedIn con segmentación precisa.', link: null },
   { icon: TrendingUp, title: 'Data Analytics', desc: 'Medición exhaustiva de cada peso invertido en marketing.', link: null },
   { icon: MousePointerClick, title: 'CRO', desc: 'Mejoramos tu web para que convierta más visitantes en clientes.', link: null },
-  { icon: Mail, title: 'Email Marketing', desc: 'Automatización de flujos para nutrir y convertir leads.', link: null },
-  { icon: Smartphone, title: 'Mobile First', desc: 'Estrategias pensadas para el dispositivo más usado.', link: null },
+  { icon: Envelope, title: 'Email Marketing', desc: 'Automatización de flujos para nutrir y convertir leads.', link: null },
+  { icon: DeviceMobile, title: 'Mobile First', desc: 'Estrategias pensadas para el dispositivo más usado.', link: null },
   { icon: Star, title: 'Reputación Online', desc: 'Gestión de reseñas y presencia en Google Maps.', link: null },
 ];
 
@@ -53,19 +55,19 @@ const faqs = [
 const methodologySteps = [
   {
     step: "01",
-    icon: BarChart3,
+    icon: BarChart,
     title: "Diagnóstico & Setup",
     desc: "Auditoría profunda del mercado, configuración de tracking avanzado y definición de KPIs clave para tu negocio."
   },
   {
     step: "02",
-    icon: Sparkles,
+    icon: Sparkle,
     title: "Estrategia Multicanal",
     desc: "Planificación táctica orientada a ROI, seleccionando los canales con mayor potencial de conversión."
   },
   {
     step: "03",
-    icon: Zap,
+    icon: Lightning,
     title: "Lanzamiento & Ejecución",
     desc: "Puesta en marcha de campañas y optimización SEO técnica con un enfoque agresivo en resultados."
   },
@@ -143,7 +145,7 @@ const FAQItem = ({ question, answer }) => {
         <div className={`w-8 h-8 rounded-full flex items-center justify-center transition-all ${
           isOpen ? 'bg-cyan-400/20 text-cyan-400' : 'bg-white/5 text-slate-400 group-hover:text-white'
         }`}>
-          {isOpen ? <Minus className="w-5 h-5" /> : <Plus className="w-5 h-5" />}
+          {isOpen ? <Minus weight="duotone" className="w-5 h-5" /> : <Plus weight="duotone" className="w-5 h-5" />}
         </div>
       </button>
       <AnimatePresence>
@@ -266,7 +268,7 @@ const MarketingDigitalPage = () => {
                       transition={{ delay: 0.1 * i, duration: 0.5 }}
                       className="flex items-center gap-3 text-base font-medium text-slate-200"
                     >
-                      <CheckCircle2 className="w-5 h-5 text-cyan-400" />
+                      <CheckCircle weight="duotone" className="w-5 h-5 text-cyan-400" />
                       <span>{item}</span>
                     </motion.div>
                   ))}
@@ -281,7 +283,7 @@ const MarketingDigitalPage = () => {
                     className="bg-cyan-500 text-slate-950 px-8 py-4 rounded-xl font-black text-xs uppercase tracking-widest flex items-center gap-2 hover:bg-cyan-400 transition-all hover:shadow-[0_0_25px_rgba(0,219,231,0.4)]"
                   >
                     CONSULTAR ESTRATEGIA
-                    <ArrowRight className="w-4 h-4" />
+                    <ArrowRight weight="duotone" className="w-4 h-4" />
                   </a>
                   <Link 
                     to="/auditoria-seo-gratis" 
@@ -334,7 +336,7 @@ const MarketingDigitalPage = () => {
                       <h3 className="text-4xl font-black text-white">+312%</h3>
                     </div>
                     <div className="w-16 h-16 rounded-full bg-cyan-500/10 flex items-center justify-center border border-cyan-500/20">
-                      <TrendingUp className="w-8 h-8 text-cyan-400" />
+                      <TrendingUp weight="duotone" className="w-8 h-8 text-cyan-400" />
                     </div>
                   </div>
 
@@ -392,7 +394,7 @@ const MarketingDigitalPage = () => {
                     "Acompañamiento Estratégico"
                   ].map((feat, i) => (
                     <li key={i} className="flex items-start gap-3 text-sm text-slate-300 font-light">
-                      <CheckCircle2 className="w-4 h-4 text-cyan-400 mt-0.5 shrink-0" />
+                      <CheckCircle weight="duotone" className="w-4 h-4 text-cyan-400 mt-0.5 shrink-0" />
                       {feat}
                     </li>
                   ))}
@@ -404,7 +406,7 @@ const MarketingDigitalPage = () => {
                   className="w-full py-3.5 rounded-xl bg-cyan-500/10 border border-cyan-400/60 text-cyan-300 font-mono text-[10px] font-black uppercase tracking-widest hover:bg-cyan-400 hover:text-slate-950 transition-all text-center flex items-center justify-center gap-1.5 shadow-[0_0_20px_rgba(0,219,231,0.2)] group"
                 >
                   <span>MÁS INFORMACIÓN / DETALLES</span>
-                  <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
+                  <ArrowRight weight="duotone" className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
                 </Link>
                 <a 
                   href="https://wa.me/5492995504783?text=Hola%2C%20me%20interesa%20el%20Plan%20Performance" 
@@ -441,7 +443,7 @@ const MarketingDigitalPage = () => {
                     "Soporte Prioritario"
                   ].map((feat, i) => (
                     <li key={i} className="flex items-start gap-3 text-sm text-white font-medium">
-                      <Zap className="w-4 h-4 text-cyan-400 mt-0.5 shrink-0 shadow-cyan-400" />
+                      <Zap weight="duotone" className="w-4 h-4 text-cyan-400 mt-0.5 shrink-0 shadow-cyan-400" />
                       {feat}
                     </li>
                   ))}
@@ -453,7 +455,7 @@ const MarketingDigitalPage = () => {
                   className="w-full py-3.5 rounded-xl bg-cyan-500/10 border border-cyan-400/60 text-cyan-300 font-mono text-[10px] font-black uppercase tracking-widest hover:bg-cyan-400 hover:text-slate-950 transition-all text-center flex items-center justify-center gap-1.5 shadow-[0_0_20px_rgba(0,219,231,0.2)] group"
                 >
                   <span>MÁS INFORMACIÓN / DETALLES</span>
-                  <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
+                  <ArrowRight weight="duotone" className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
                 </Link>
                 <a href="https://wa.me/5492995504783?text=Hola%2C%20me%20interesa%20el%20Plan%20Growth" target="_blank" rel="noopener noreferrer" className="w-full py-3 rounded-xl border border-white/15 text-slate-400 font-mono text-[10px] font-black uppercase tracking-widest hover:bg-white/10 hover:text-white transition-all text-center block">
                   COMENZAR AHORA
@@ -482,7 +484,7 @@ const MarketingDigitalPage = () => {
                     "Account Manager Senior Dedicado"
                   ].map((feat, i) => (
                     <li key={i} className="flex items-start gap-3 text-sm text-slate-300 font-light">
-                      <Layers className="w-4 h-4 text-cyan-400 mt-0.5 shrink-0" />
+                      <Layers weight="duotone" className="w-4 h-4 text-cyan-400 mt-0.5 shrink-0" />
                       {feat}
                     </li>
                   ))}
@@ -510,13 +512,13 @@ const MarketingDigitalPage = () => {
                   {step.step}
                 </div>
                 <div className="w-14 h-14 rounded-xl bg-cyan-500/5 border border-cyan-500/10 flex items-center justify-center mb-6">
-                  <step.icon className="w-7 h-7 text-cyan-400" />
+                  <step.icon weight="duotone" className="w-7 h-7 text-cyan-400" />
                 </div>
                 <h3 className="font-bold text-white text-xl mb-3">{step.title}</h3>
                 <p className="text-slate-400 text-sm leading-relaxed font-light">{step.desc}</p>
                 {i < methodologySteps.length - 1 && (
                   <div className="hidden lg:block absolute top-1/2 -right-4 translate-x-1/2 -translate-y-1/2 z-20">
-                    <ChevronRight className="w-6 h-6 text-white/10" />
+                    <CaretRight weight="duotone" className="w-6 h-6 text-white/10" />
                   </div>
                 )}
               </div>
@@ -549,12 +551,12 @@ const MarketingDigitalPage = () => {
                   whileHover={{ y: -5 }}
                   className="p-8 rounded-2xl bg-slate-900/40 border border-white/10 hover:border-cyan-400/30 transition-all group"
                 >
-                  <Icon className="text-cyan-400 w-8 h-8 mb-6 group-hover:scale-110 transition-transform" />
+                  <Icon weight="duotone" className="text-cyan-400 w-8 h-8 mb-6 group-hover:scale-110 transition-transform" />
                   <h3 className="font-bold text-white text-xl mb-3">{item.title}</h3>
                   <p className="text-slate-400 text-sm leading-relaxed font-light mb-6">{item.desc}</p>
                   {item.link ? (
                     <Link to={item.link} className="text-cyan-400 text-[10px] font-black tracking-widest uppercase hover:underline inline-flex items-center gap-1">
-                      DOCUMENTACIÓN <ChevronRight className="w-3 h-3" />
+                      DOCUMENTACIÓN <CaretRight weight="duotone" className="w-3 h-3" />
                     </Link>
                   ) : (
                     <span className="text-slate-600 text-[10px] font-black tracking-widest uppercase cursor-default">
@@ -590,11 +592,11 @@ const MarketingDigitalPage = () => {
               {[
                 { title: "SEO Orgánico de Alto Rendimiento", desc: "Optimizamos tu arquitectura para dominar las SERPs sin depender exclusivamente del gasto publicitario.", icon: Search },
                 { title: "Performance Marketing (SEM/Social)", desc: "Campañas ultra-segmentadas con algoritmos de pujas automáticas para maximizar el ROAS.", icon: Target },
-                { title: "Content Engine & Authority", desc: "Estrategias de contenido que no solo atraen, sino que educan y cierran la venta por vos.", icon: Sparkles },
+                { title: "Content Engine & Authority", desc: "Estrategias de contenido que no solo atraen, sino que educan y cierran la venta por vos.", icon: Sparkle },
               ].map((item, i) => (
                 <div key={i} className="flex gap-5 group">
                   <div className="w-12 h-12 shrink-0 rounded-xl bg-cyan-500/10 flex items-center justify-center border border-cyan-500/20 group-hover:bg-cyan-500/20 transition-all">
-                    <item.icon className="w-6 h-6 text-cyan-400" />
+                    <item.icon weight="duotone" className="w-6 h-6 text-cyan-400" />
                   </div>
                   <div>
                     <h3 className="font-bold text-white text-xl mb-2">{item.title}</h3>
@@ -612,7 +614,7 @@ const MarketingDigitalPage = () => {
             className="bg-slate-900/40 backdrop-blur-xl rounded-3xl p-10 border border-white/10 relative overflow-hidden group"
           >
             <div className="absolute top-0 right-0 p-6 opacity-10 group-hover:opacity-20 transition-opacity">
-              <TrendingUp className="w-24 h-24 text-cyan-400" />
+              <TrendingUp weight="duotone" className="w-24 h-24 text-cyan-400" />
             </div>
             
             <div className="space-y-6 relative z-10">
@@ -638,7 +640,7 @@ const MarketingDigitalPage = () => {
               ))}
               <div className="pt-6 border-t border-white/5 flex items-center justify-between text-[10px] font-mono text-slate-500">
                 <span>ESTIMACIÓN BASADA EN PROYECTOS 2025</span>
-                <span className="flex items-center gap-1 text-green-400"><ShieldCheck className="w-3 h-3" /> VERIFICADO</span>
+                <span className="flex items-center gap-1 text-green-400"><ShieldCheck weight="duotone" className="w-3 h-3" /> VERIFICADO</span>
               </div>
             </div>
           </motion.div>

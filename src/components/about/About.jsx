@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Check } from 'lucide-react';
+import { Check } from '@phosphor-icons/react';
 
 const About = () => {
   return (
@@ -26,7 +26,7 @@ const About = () => {
               {['Estrategia Digital', 'Desarrollo Web & App', 'Diseño UX/UI', 'Marketing & SEO', 'Consultoría Tech', 'Soporte 24/7'].map((item, index) => (
                 <div key={index} className="flex items-center space-x-2">
                   <div className="bg-cyan-500/10 p-1 rounded-full">
-                    <Check size={16} className="text-cyan-400" />
+                    <Check size={16} weight="duotone" className="text-cyan-400" />
                   </div>
                   <span className="text-gray-300">{item}</span>
                 </div>

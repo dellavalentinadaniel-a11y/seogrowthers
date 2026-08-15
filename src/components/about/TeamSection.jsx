@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import { supabase } from '@/lib/customSupabaseClient';
 import { motion } from 'framer-motion';
-import { Linkedin, Twitter, Mail, RefreshCcw, AlertTriangle } from 'lucide-react';
+import { LinkedinLogo as Linkedin, TwitterLogo as Twitter, Envelope as Mail, ArrowsClockwise as RefreshCcw, Warning as AlertTriangle } from '@phosphor-icons/react';
 import { Button } from '@/components/ui/button';
 import SkeletonLoader from '@/components/shared/SkeletonLoader';
 
