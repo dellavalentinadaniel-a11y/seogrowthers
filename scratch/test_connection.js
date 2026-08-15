@@ -1,4 +1,4 @@
-import { supabase } from '../lib/supabaseClient.js';
+import { supabase } from './supabaseClient.js';
 import process from 'process';
 
 async function checkConnection() {
