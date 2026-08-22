@@ -3,43 +3,90 @@ import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useMobileMenu } from '@/contexts/MobileMenuContext';
-import { Megaphone, Code2, Smartphone, Bot, ChevronDown } from 'lucide-react';
+import { 
+  Megaphone, 
+  Code2, 
+  Smartphone, 
+  Bot, 
+  ChevronDown,
+  Search,
+  Newspaper,
+  MessageSquare,
+  Star,
+  BookOpen,
+  Wrench
+} from 'lucide-react';
 
 const navLinks = [
-  { name: 'Inicio', href: '/' },
-  { name: 'Blog', href: '/blog' },
-  { name: 'Foro', href: '/forum' },
-  { name: 'Recursos', href: '/resources' },
-  { name: 'Servicios', href: '/services', hasDropdown: true },
-];
-
-const serviciosSubLinks = [
-  {
-    name: 'Marketing Digital',
-    href: '/services/marketing-digital',
-    icon: Megaphone,
+  { 
+    name: 'Servicios', 
+    href: '/services', 
+    hasDropdown: true,
+    subLinks: [
+      {
+        name: 'Desarrollo Web',
+        href: '/services/desarrollo-web',
+        icon: Code2,
+      },
+      {
+        name: 'Marketing Digital',
+        href: '/services/marketing-digital',
+        icon: Megaphone,
+      },
+      {
+        name: 'Automatización IA',
+        href: '/services/automatizacion-ia',
+        icon: Bot,
+      },
+    ]
   },
-  {
-    name: 'Desarrollo Web',
-    href: '/services/desarrollo-web-argentina',
-    icon: Code2,
+  { 
+    name: 'Blog', 
+    href: '/blog', 
+    hasDropdown: true,
+    subLinks: [
+      {
+        name: 'Noticias',
+        href: '/blog/noticias',
+        icon: Newspaper,
+      },
+      {
+        name: 'Foros',
+        href: '/blog/foros',
+        icon: MessageSquare,
+      },
+      {
+        name: 'Reseñas',
+        href: '/blog/reseñas',
+        icon: Star,
+      },
+    ]
   },
-  {
-    name: 'Apps & Software',
-    href: '/services/apps-software',
-    icon: Smartphone,
+  { 
+    name: 'Recursos', 
+    href: '/recursos', 
+    hasDropdown: true,
+    subLinks: [
+      {
+        name: 'Guías',
+        href: '/recursos/guias',
+        icon: BookOpen,
+      },
+      {
+        name: 'Herramientas',
+        href: '/recursos/herramientas',
+        icon: Wrench,
+      },
+    ]
   },
-  {
-    name: 'Automatización',
-    href: '/services/automatizacion-ia',
-    icon: Bot,
-  },
+  { name: 'Clientes', href: '/clientes' },
+  { name: 'Nosotros', href: '/nosotros' },
 ];
 
 const MobileMenu = () => {
   const { isMenuOpen, closeMenu } = useMobileMenu();
   const location = useLocation();
-  const [isServiciosOpen, setIsServiciosOpen] = useState(false);
+  const [openDropdown, setOpenDropdown] = useState(null);
 
   return (
     <AnimatePresence>
@@ -78,11 +125,12 @@ const MobileMenu = () => {
                                  (link.href !== '/' && location.pathname.startsWith(link.href));
 
                 if (link.hasDropdown) {
+                  const isOpen = openDropdown === link.name;
                   return (
                     <div key={link.name}>
-                      {/* Servicios toggle */}
+                      {/* Dropdown toggle */}
                       <button
-                        onClick={() => setIsServiciosOpen(!isServiciosOpen)}
+                        onClick={() => setOpenDropdown(isOpen ? null : link.name)}
                         className={`w-full flex items-center justify-between text-lg font-headline tracking-tight py-3 px-2 rounded-lg transition-colors ${
                           isActive
                             ? 'text-[#c3f5ff] font-bold'
@@ -93,14 +141,14 @@ const MobileMenu = () => {
                         <ChevronDown
                           size={18}
                           className={`transition-transform duration-300 ${
-                            isServiciosOpen ? 'rotate-180' : 'rotate-0'
+                            isOpen ? 'rotate-180' : 'rotate-0'
                           }`}
                         />
                       </button>
 
                       {/* Sub-links */}
                       <AnimatePresence>
-                        {isServiciosOpen && (
+                        {isOpen && (
                           <motion.div
                             initial={{ height: 0, opacity: 0 }}
                             animate={{ height: 'auto', opacity: 1 }}
@@ -109,7 +157,7 @@ const MobileMenu = () => {
                             className="overflow-hidden"
                           >
                             <div className="pl-2 pb-2 flex flex-col gap-1">
-                              {serviciosSubLinks.map((subLink) => {
+                              {link.subLinks?.map((subLink) => {
                                 const Icon = subLink.icon;
                                 const subActive = location.pathname === subLink.href;
                                 return (
@@ -139,11 +187,11 @@ const MobileMenu = () => {
 
                               {/* Ver todos */}
                               <Link
-                                to="/services"
+                                to={link.href}
                                 onClick={closeMenu}
                                 className="flex items-center justify-center gap-1.5 mt-1 px-3 py-2 text-xs font-headline font-semibold text-cyan-400/70 hover:text-cyan-300 transition-colors"
                               >
-                                Ver todos los servicios →
+                                Ver todos →
                               </Link>
                             </div>
                           </motion.div>

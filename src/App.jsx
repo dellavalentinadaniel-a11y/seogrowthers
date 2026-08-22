@@ -104,6 +104,7 @@ function App() {
               <Route path="blog" element={<BlogPage />} />
               <Route path="news" element={<BlogPage />} />
               <Route path="forum" element={<ForumPage />} />
+              <Route path="blog/foros" element={<ForumPage />} />
               <Route path="blog/create" element={<CreatePostPage />} />
               <Route path="blog/edit/:id" element={<CreatePostPage />} />
               <Route path="blog/:category" element={<BlogPage />} />
@@ -113,9 +114,16 @@ function App() {
 
               {/* Services Cluster */}
               <Route path="services" element={<Services />} />
+              <Route path="servicios" element={<Services />} />
               <Route path="services/seo-neuquen" element={<SeoNeuquenPage />} />
+              <Route path="servicios/seo" element={<SeoNeuquenPage />} />
               <Route path="services/desarrollo-web-argentina" element={<DesarrolloWebPage />} />
+              <Route path="services/desarrollo-web" element={<DesarrolloWebPage />} />
+              <Route path="servicios/desarrollo-web" element={<DesarrolloWebPage />} />
+              <Route path="services/desarrollo-web/landing-pages" element={<LandingPagesPage />} />
+              <Route path="servicios/desarrollo-web/landing-pages" element={<LandingPagesPage />} />
               <Route path="services/automatizacion-ia" element={<AutomatizacionIAPage />} />
+              <Route path="servicios/automatizacion-ia" element={<AutomatizacionIAPage />} />
               <Route path="services/landing-pages" element={<LandingPagesPage />} />
               <Route path="services/web-corporativa" element={<WebCorporativaPage />} />
               <Route path="services/ecommerce" element={<EcommercePage />} />
@@ -125,9 +133,12 @@ function App() {
               <Route path="services/ecommerce/mercadoshops" element={<EcommerceMercadoShopsPage />} />
               <Route path="servicios/ecommerce/mercadoshops" element={<EcommerceMercadoShopsPage />} />
               <Route path="services/marketing-digital" element={<MarketingDigitalPage />} />
+              <Route path="servicios/marketing-digital" element={<MarketingDigitalPage />} />
               <Route path="services/marketing-digital/performance-pack" element={<PerformancePackPage />} />
+              <Route path="servicios/marketing-digital/performance-pack" element={<PerformancePackPage />} />
               <Route path="services/performance-pack" element={<PerformancePackPage />} />
               <Route path="services/marketing-digital/growth-partner" element={<GrowthPartnerPage />} />
+              <Route path="servicios/marketing-digital/growth-partner" element={<GrowthPartnerPage />} />
               <Route path="services/growth-partner" element={<GrowthPartnerPage />} />
               <Route path="services/apps-software" element={<AppsSoftwarePage />} />
               <Route path="services/success-cases" element={<SuccessCasesPage />} />
@@ -140,6 +151,8 @@ function App() {
               {/* Resources Cluster */}
               <Route path="resources" element={<ResourcesPage />} />
               <Route path="recursos" element={<ResourcesPage />} />
+              <Route path="recursos/guias" element={<ResourcesPage />} />
+              <Route path="recursos/herramientas" element={<ToolsPage />} />
               <Route path="resources/asset-library" element={<AssetLibraryPage />} />
               <Route path="recursos/biblioteca-assets" element={<AssetLibraryPage />} />
               <Route path="resources/google-seo-fundamentals" element={<SeoGuidePage />} />
@@ -155,8 +168,11 @@ function App() {
               <Route path="portfolio" element={<PortfolioPage />} />
 
               {/* Core Pages */}
+              <Route path="clientes" element={<SuccessCasesPage />} />
+              <Route path="contacto" element={<ContactPage />} />
               <Route path="auditoria-seo-gratis" element={<AuditoriaGratisPage />} />
               <Route path="about" element={<AboutPage />} />
+              <Route path="nosotros" element={<AboutPage />} />
               <Route path="contact" element={<ContactPage />} />
               <Route path="trabaja-con-nosotros" element={<CareersPage />} />
               <Route path="project/:projectId" element={<Project />} />

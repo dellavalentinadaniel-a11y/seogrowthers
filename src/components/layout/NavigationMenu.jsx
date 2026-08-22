@@ -1,46 +1,97 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { cn } from '@/lib/utils';
-import { Megaphone, Code2, Smartphone, Bot, ChevronDown } from 'lucide-react';
+import { 
+  Megaphone, 
+  Code2, 
+  Smartphone, 
+  Bot, 
+  ChevronDown,
+  Search,
+  Newspaper,
+  MessageSquare,
+  Star,
+  BookOpen,
+  Wrench
+} from 'lucide-react';
 
 const navLinks = [
-  { name: 'Inicio', href: '/' },
-  { name: 'Blog', href: '/blog' },
-  { name: 'Foro', href: '/forum' },
-  { name: 'Recursos', href: '/resources' },
-  { name: 'Servicios', href: '/services', hasDropdown: true },
-];
-
-const serviciosSubLinks = [
-  {
-    name: 'Marketing Digital',
-    href: '/services/marketing-digital',
-    icon: Megaphone,
-    description: 'SEO, SEM, Social Ads y estrategias de crecimiento orgánico.',
+  { 
+    name: 'Servicios', 
+    href: '/services', 
+    hasDropdown: true,
+    subLinks: [
+      {
+        name: 'Desarrollo Web',
+        href: '/services/desarrollo-web',
+        icon: Code2,
+        description: 'Sitios de alto rendimiento, landing pages y software.',
+      },
+      {
+        name: 'Marketing Digital',
+        href: '/services/marketing-digital',
+        icon: Megaphone,
+        description: 'Performance Pack, Growth Partner y estrategias de conversión.',
+      },
+      {
+        name: 'Automatización IA',
+        href: '/services/automatizacion-ia',
+        icon: Bot,
+        description: 'Flujos inteligentes con IA, RPA y agentes autónomos.',
+      },
+    ]
   },
-  {
-    name: 'Desarrollo Web',
-    href: '/services/desarrollo-web-argentina',
-    icon: Code2,
-    description: 'Sitios de alto rendimiento, e-commerce y landing pages.',
+  { 
+    name: 'Blog', 
+    href: '/blog', 
+    hasDropdown: true,
+    subLinks: [
+      {
+        name: 'Noticias',
+        href: '/blog/noticias',
+        icon: Newspaper,
+        description: 'Últimas novedades del sector.',
+      },
+      {
+        name: 'Foros',
+        href: '/blog/foros',
+        icon: MessageSquare,
+        description: 'Comunidad y debates.',
+      },
+      {
+        name: 'Reseñas',
+        href: '/blog/reseñas',
+        icon: Star,
+        description: 'Análisis de herramientas y estrategias.',
+      },
+    ]
   },
-  {
-    name: 'Apps & Software',
-    href: '/services/apps-software',
-    icon: Smartphone,
-    description: 'Aplicaciones móviles, software a medida y soluciones SaaS.',
+  { 
+    name: 'Recursos', 
+    href: '/recursos', 
+    hasDropdown: true,
+    subLinks: [
+      {
+        name: 'Guías',
+        href: '/recursos/guias',
+        icon: BookOpen,
+        description: 'Material educativo detallado.',
+      },
+      {
+        name: 'Herramientas',
+        href: '/recursos/herramientas',
+        icon: Wrench,
+        description: 'Utilidades gratuitas y premium.',
+      },
+    ]
   },
-  {
-    name: 'Automatización',
-    href: '/services/automatizacion-ia',
-    icon: Bot,
-    description: 'Flujos inteligentes con IA, RPA y automatización de procesos.',
-  },
+  { name: 'Clientes', href: '/clientes' },
+  { name: 'Nosotros', href: '/nosotros' },
 ];
 
 const NavigationMenu = ({ variant = 'horizontal', className }) => {
   const location = useLocation();
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [openDropdownIndex, setOpenDropdownIndex] = useState(null);
   const dropdownRef = useRef(null);
   const timeoutRef = useRef(null);
 
@@ -49,20 +100,20 @@ const NavigationMenu = ({ variant = 'horizontal', className }) => {
            (href !== '/' && location.pathname.startsWith(href));
   };
 
-  const handleMouseEnter = () => {
+  const handleMouseEnter = (index) => {
     clearTimeout(timeoutRef.current);
-    setIsDropdownOpen(true);
+    setOpenDropdownIndex(index);
   };
 
   const handleMouseLeave = () => {
     timeoutRef.current = setTimeout(() => {
-      setIsDropdownOpen(false);
+      setOpenDropdownIndex(null);
     }, 150);
   };
 
   // Close on route change
   useEffect(() => {
-    setIsDropdownOpen(false);
+    setOpenDropdownIndex(null);
   }, [location.pathname]);
 
   // Cleanup timeout on unmount
@@ -93,16 +144,16 @@ const NavigationMenu = ({ variant = 'horizontal', className }) => {
 
   return (
     <nav className={cn('flex items-center gap-8', className)}>
-      {navLinks.map((link) => {
+      {navLinks.map((link, index) => {
         const active = isActive(link.href);
-
         if (link.hasDropdown) {
+          const isDropdownOpen = openDropdownIndex === index;
           return (
             <div
               key={link.name}
               className="relative"
               ref={dropdownRef}
-              onMouseEnter={handleMouseEnter}
+              onMouseEnter={() => handleMouseEnter(index)}
               onMouseLeave={handleMouseLeave}
             >
               {/* Trigger */}
@@ -146,13 +197,13 @@ const NavigationMenu = ({ variant = 'horizontal', className }) => {
                   {/* Header */}
                   <div className="px-5 pt-4 pb-3 border-b border-white/5">
                     <p className="text-[10px] font-label uppercase tracking-[0.2em] text-cyan-400/70">
-                      Nuestros Servicios
+                      Nuestros {link.name}
                     </p>
                   </div>
 
                   {/* Links */}
                   <div className="p-2">
-                    {serviciosSubLinks.map((subLink) => {
+                    {link.subLinks?.map((subLink) => {
                       const Icon = subLink.icon;
                       const subActive = location.pathname === subLink.href;
                       return (
@@ -193,10 +244,10 @@ const NavigationMenu = ({ variant = 'horizontal', className }) => {
                   {/* Footer */}
                   <div className="px-4 py-3 border-t border-white/5 bg-white/[0.02]">
                     <Link
-                      to="/services"
+                      to={link.href}
                       className="flex items-center justify-center gap-2 text-xs font-headline font-semibold text-cyan-400/80 hover:text-cyan-300 transition-colors"
                     >
-                      Ver todos los servicios
+                      Ver todos
                       <span className="text-[10px]">→</span>
                     </Link>
                   </div>

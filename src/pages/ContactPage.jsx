@@ -13,87 +13,101 @@ const ContactPage = () => {
     window.scrollTo(0, 0);
   }, []);
 
+
+  const contactPageSchema = {
+
+    "@context": "https://schema.org",
+    "@type": "ContactPage",
+    "name": "Contacta con SEO Growthers",
+    "description": "Ponte en contacto con nuestra agencia digital en Neuquén. Respuesta en 24hs. ¡Iniciemos tu proyecto hoy!",
+    "url": "https://seogrowthers.com/contacto",
+    "mainEntity": {
+      "@type": "ContactPoint",
+      "telephone": "+54 (299)25504783",
+      "contactType": "sales",
+      "email": "seogrowthers@gmail.com",
+      "areaServed": ["Neuquén", "Argentina", "Latinoamérica"],
+      "availableLanguage": ["Spanish", "English"],
+      "hoursAvailable": {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+        "opens": "08:00",
+        "closes": "17:00"
+      }
+    }
+  };
+
+  const localBusinessSchema = {
+    "@context": "https://schema.org",
+    "@type": "LocalBusiness",
+    "name": "SEO Growthers",
+    "image": "https://seogrowthers.com/logo_kiwi.png",
+    "description": "Agencia digital especializada en desarrollo web, SEO y automatización con IA",
+    "telephone": "+54 (299)25504783",
+    "email": "seogrowthers@gmail.com",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "El manzano 2115 Neuquen Capital",
+      "addressLocality": "Neuquén",
+      "addressRegion": "Neuquén",
+      "postalCode": "8300",
+      "addressCountry": "AR"
+    },
+    "geo": {
+      "@type": "GeoCoordinates",
+      "latitude": "-38.9517",
+      "longitude": "-68.0591"
+    },
+    "sameAs": [
+      "https://www.facebook.com/seogrowthers",
+      "https://www.linkedin.com/company/seogrowthers",
+      "https://www.instagram.com/seogrowthers/",
+      "https://x.com/SEOGrowthers",
+      "https://www.youtube.com/@seogrowthers-s4r"
+    ],
+    "areaServed": ["Neuquén", "Argentina", "Latinoamérica"],
+    "priceRange": "$$"
+  };
+
   return (
     <div className="text-on-background font-body selection:bg-primary-container selection:text-on-primary-container min-h-screen">
       <Helmet>
-        <title>Contacto | SEO Growthers - Agencia de SEO y Desarrollo Web en Neuquén</title>
-        <meta name="description" content="Contáctanos en Neuquén Capital. Expertos en SEO, Desarrollo Web y Analytics para potenciar tu presencia digital en Argentina." />
-        <link rel="canonical" href="https://seogrowthers.com/contact" />
-        <meta property="og:title" content="Contacto | SEO Growthers" />
-        <meta property="og:description" content="Contáctanos en Neuquén Capital. Expertos en SEO, Desarrollo Web y Analytics." />
-        <meta property="og:url" content="https://seogrowthers.com/contact" />
+        <title>Contacta con SEO Growthers - Desarrollo Web y SEO en Neuquén</title>
+        <meta name="description" content="Ponte en contacto con nuestra agencia digital en Neuquén. Respuesta en 24hs. ¡Iniciemos tu proyecto hoy!" />
+        <link rel="canonical" href="https://seogrowthers.com/contacto" />
+        <meta property="og:title" content="Contacta con SEO Growthers - Desarrollo Web y SEO en Neuquén" />
+        <meta property="og:description" content="Ponte en contacto con nuestra agencia digital en Neuquén. Respuesta en 24hs. ¡Iniciemos tu proyecto hoy!" />
+        <meta property="og:url" content="https://seogrowthers.com/contacto" />
         <meta property="og:type" content="website" />
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:site" content="@SEOGrowthers" />
-        <meta property="og:image" content="https://seogrowthers.com/api/og?title=Contacto&subtitle=Respuesta+en+menos+de+24+horas" />
-        <script type="application/ld+json">{JSON.stringify({
-          "@context": "https://schema.org",
-          "@type": "ProfessionalService",
-          "name": "SEO Growthers",
-          "url": "https://seogrowthers.com",
-          "logo": "https://seogrowthers.com/api/og?title=Contacto&subtitle=Respuesta+en+menos+de+24+horas",
-          "image": "https://seogrowthers.com/api/og?title=Contacto&subtitle=Respuesta+en+menos+de+24+horas",
-          "description": "Agencia de SEO, Desarrollo Web y Analytics en Neuquén, Argentina. Estrategias basadas en datos para crecimiento digital sostenible.",
-          "telephone": "+54 9 2995504783",
-          "email": "seogrowthers@gmail.com",
-          "priceRange": "$$",
-          "currenciesAccepted": "ARS, USD",
-          "paymentAccepted": "Transferencia bancaria, PayPal",
-          "address": {
-            "@type": "PostalAddress",
-            "streetAddress": "Neuquén Capital",
-            "addressLocality": "Neuquén",
-            "addressRegion": "Neuquén",
-            "addressCountry": "AR"
-          },
-          "geo": {
-            "@type": "GeoCoordinates",
-            "latitude": -38.9516,
-            "longitude": -68.0591
-          },
-          "areaServed": [
-            { "@type": "Country", "name": "Argentina" },
-            { "@type": "AdministrativeArea", "name": "Neuquén" }
-          ],
-          "hasOfferCatalog": {
-            "@type": "OfferCatalog",
-            "name": "Servicios Digitales",
-            "itemListElement": [
-              { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "SEO Orgánico" } },
-              { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Desarrollo Web" } },
-              { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Analytics y Medición" } },
-              { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Automatización con IA" } }
-            ]
-          },
-          "sameAs": [
-            "https://x.com/SEOGrowthers",
-            "https://www.linkedin.com/company/seogrowthers",
-            "https://www.instagram.com/seogrowthers/",
-            "https://www.youtube.com/@seogrowthers-s4r"
-          ],
-          "openingHoursSpecification": [
-            {
-              "@type": "OpeningHoursSpecification",
-              "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday"],
-              "opens": "09:00",
-              "closes": "18:00"
-            }
-          ]
-        })}</script>
+        <meta name="twitter:title" content="Contacta con SEO Growthers - Desarrollo Web y SEO en Neuquén" />
+        <meta name="twitter:description" content="Ponte en contacto con nuestra agencia digital en Neuquén. Respuesta en 24hs. ¡Iniciemos tu proyecto hoy!" />
+        <meta property="og:image" content="https://seogrowthers.com/logo_kiwi.png" />
+        <meta name="twitter:image" content="https://seogrowthers.com/logo_kiwi.png" />
+        <script type="application/ld+json">
+          {JSON.stringify(contactPageSchema)}
+        </script>
+        <script type="application/ld+json">
+          {JSON.stringify(localBusinessSchema)}
+        </script>
       </Helmet>
       
       <ScrollToTop />
 
-
       <main className="pt-24 md:pt-32 pb-16 md:pb-24 px-6 md:px-12 lg:px-24 max-w-7xl mx-auto">
         <Breadcrumbs className="mb-4" />
+
         {/* Hero Section */}
         <section className="mb-16 text-center">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-cyan-400/20 bg-cyan-400/10 text-cyan-400 font-mono text-[10px] uppercase tracking-widest mb-4">
+            RESPUESTA EN 24HS GARANTIZADA
+          </div>
           <h1 className="text-3xl sm:text-4xl md:text-6xl font-bold text-white mb-6">
             Hablemos de tu <span className="text-cyan-400">Proyecto</span>
           </h1>
           <p className="text-xl text-gray-400 max-w-2xl mx-auto">
-            Impulsa tu crecimiento digital hoy mismo. Déjanos tus datos y un experto analizará tu caso sin compromiso.
+            Impulsa tu crecimiento digital hoy mismo. Déjanos tus datos y un especialista analizará tu caso sin compromiso.
           </p>
         </section>
 
@@ -116,8 +130,8 @@ const ContactPage = () => {
               <h3 className="font-headline text-2xl font-bold text-white mb-2">
                 Ventas y Servicios
               </h3>
-              <p className="text-gray-400 text-sm mb-6 leading-relaxed">
-                Solicitudes de presupuesto y asesoramiento técnico.
+              <p className="text-gray-400 text-sm mb-4 leading-relaxed">
+                Solicitudes de presupuesto, asesoramiento técnico y planes a medida.
               </p>
               <a 
                 href="mailto:seogrowthers@gmail.com" 
@@ -128,37 +142,23 @@ const ContactPage = () => {
 
               <div className="border-t border-white/5 pt-6 space-y-4">
                 <div>
-                  <p className="text-[10px] uppercase tracking-widest text-gray-500 font-bold mb-2">
-                    ADMINISTRACIÓN
+                  <p className="text-[10px] uppercase tracking-widest text-gray-500 font-bold mb-1">
+                    TELÉFONO DIRECTO
                   </p>
                   <a
-                    href="mailto:seogrowthers@gmail.com"
-                    className="text-gray-300 hover:text-cyan-400 transition-colors block"
+                    href="tel:+5429925504783"
+                    className="text-gray-300 hover:text-cyan-400 transition-colors block font-semibold text-sm"
                   >
-                    seogrowthers@gmail.com
+                    +54 (299) 25504783
                   </a>
                 </div>
                 <div>
-                  <p className="text-[10px] uppercase tracking-widest text-gray-500 font-bold mb-2">
-                    SOPORTE TÉCNICO
+                  <p className="text-[10px] uppercase tracking-widest text-gray-500 font-bold mb-1">
+                    HORARIOS DE ATENCIÓN
                   </p>
-                  <a
-                    href="mailto:seogrowthers@gmail.com"
-                    className="text-gray-300 hover:text-cyan-400 transition-colors block"
-                  >
-                    seogrowthers@gmail.com
-                  </a>
-                </div>
-                <div>
-                  <p className="text-[10px] uppercase tracking-widest text-gray-500 font-bold mb-2">
-                    OTRAS CONSULTAS
+                  <p className="text-gray-300 text-sm font-semibold">
+                    Lunes a Viernes: 08:00 a 17:00 hs
                   </p>
-                  <a
-                    href="mailto:seogrowthers@gmail.com"
-                    className="text-gray-300 hover:text-cyan-400 transition-colors block"
-                  >
-                    seogrowthers@gmail.com
-                  </a>
                 </div>
               </div>
             </div>
@@ -174,7 +174,7 @@ const ContactPage = () => {
                 Atención Directa
               </h3>
               <p className="text-gray-400 text-sm mb-4 leading-relaxed">
-                Ponte en contacto al instante mediante WhatsApp.
+                Ponte en contacto al instante mediante WhatsApp con nuestro equipo.
               </p>
               <p className="text-[#25D366] font-bold text-lg mb-6">
                 +54 9 2995504783
@@ -191,27 +191,31 @@ const ContactPage = () => {
               <div className="absolute top-0 right-0 w-32 h-32 bg-[#25D366]/5 rounded-full blur-3xl -mr-16 -mt-16 group-hover:bg-[#25D366]/15 transition-all duration-500"></div>
             </div>
 
-            {/* Nuestras Sedes Section */}
+            {/* Ubicación & Mapa */}
             <div className="space-y-4">
               <h3 className="font-headline text-2xl font-bold text-white flex items-center gap-3 ml-2">
                 <span className="material-symbols-outlined text-primary">location_on</span>
-                Nuestras Sedes
+                Nuestra Sede
               </h3>
               
               <div className="bg-[#1a1c1e] rounded-2xl p-6 border-l-4 border-primary border-y border-r border-white/5 shadow-xl relative overflow-hidden group">
-                <div className="flex flex-col md:flex-row justify-between gap-4 relative z-10">
-                  <div className="space-y-1">
-                    <h4 className="font-bold text-white text-lg">Planta Industrial & Ventas</h4>
-                    <p className="text-gray-400 text-sm">Argentina Neuquén Capital</p>
-                  </div>
-                  <div className="text-left md:text-right space-y-1 mt-4 md:mt-0 pt-4 md:pt-0 border-t md:border-t-0 border-white/10">
-                    <p className="text-primary font-bold text-lg">+54 9 2995504783</p>
-                    <p className="text-gray-500 text-[10px] uppercase tracking-widest font-bold">
-                      LUN A VIE: 8:00 A 17:00 HS
-                    </p>
-                  </div>
+                <div className="space-y-2 relative z-10 mb-4">
+                  <h4 className="font-bold text-white text-lg">Oficina Central & Operaciones</h4>
+                  <p className="text-gray-300 text-sm">El Manzano 2115, Neuquén Capital</p>
+                  <p className="text-gray-500 text-xs">CP 8300 • Neuquén, Argentina</p>
                 </div>
-                {/* Subtle background glow */}
+
+                {/* Google Maps Embed Frame */}
+                <div className="relative rounded-xl overflow-hidden border border-white/10 aspect-[16/9] w-full">
+                  <iframe
+                    title="Ubicación SEO Growthers Neuquén"
+                    src="https://maps.google.com/maps?q=-38.9517,-68.0591&hl=es&z=14&output=embed"
+                    className="w-full h-full border-0 filter grayscale invert contrast-125 opacity-80 hover:opacity-100 transition-opacity"
+                    loading="lazy"
+                    allowFullScreen
+                  />
+                </div>
+
                 <div className="absolute top-0 right-0 w-32 h-32 bg-primary/5 rounded-full blur-3xl -mr-16 -mt-16 group-hover:bg-primary/10 transition-all duration-500"></div>
               </div>
             </div>

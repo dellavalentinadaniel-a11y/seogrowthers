@@ -12,6 +12,7 @@ import PerformancePackAudienceRequirements from '@/components/marketing/Performa
 import PerformancePackInvestmentBanner from '@/components/marketing/PerformancePackInvestmentBanner';
 import PerformancePackFinalCTA from '@/components/marketing/PerformancePackFinalCTA';
 import PerformancePackFAQ, { performancePackFaqData } from '@/components/marketing/PerformancePackFAQ';
+import InteractiveCircuit from '@/components/animations/InteractiveCircuit';
 import {
   Search,
   Monitor,
@@ -316,48 +317,21 @@ export default function PerformancePackPage() {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-5">
-            {fivePillars.map((pillar, idx) => (
-              <motion.div
-                key={idx}
-                initial={{ opacity: 0, y: 25 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: idx * 0.08 }}
-                className={`p-6 rounded-[2rem] bg-slate-900/60 border border-white/10 ${pillar.borderGlow} backdrop-blur-xl transition-all duration-300 flex flex-col justify-between shadow-xl group`}
-              >
+          <InteractiveCircuit 
+            steps={fivePillars.map(pillar => ({
+              icon: pillar.iconImage,
+              title: pillar.title,
+              description: (
                 <div>
-                  <div className="flex justify-center mb-5">
-                    <div className="relative w-16 h-16 rounded-2xl p-1 bg-gradient-to-b from-white/20 to-white/5 shadow-2xl border border-white/20 backdrop-blur group-hover:scale-110 transition-transform duration-300">
-                      <img
-                        src={pillar.iconImage}
-                        alt={pillar.iconAlt}
-                        className="w-full h-full object-cover rounded-xl"
-                      />
-                    </div>
-                  </div>
-
-                  <h3 className="font-headline text-base md:text-lg font-bold text-white text-center mb-2 leading-snug">
-                    {pillar.title}
-                  </h3>
-                  <p className="text-slate-400 text-xs font-light text-center mb-5 leading-relaxed min-h-[48px]">
-                    {pillar.tagline}
-                  </p>
-                  <div className="pt-4 border-t border-white/10 space-y-2.5">
-                    {pillar.points.map((point, pIdx) => (
-                      <div key={pIdx} className="flex items-start gap-2 text-xs text-slate-300 font-light leading-snug">
-                        <CheckCircle2 className={`w-3.5 h-3.5 ${pillar.bulletColor} shrink-0 mt-0.5`} />
-                        <span>{point}</span>
-                      </div>
-                    ))}
-                  </div>
+                  <p className="text-sm mb-4">{pillar.tagline}</p>
+                  <ul className="grid grid-cols-2 gap-2 text-xs text-slate-300">
+                    {pillar.points.map((point, idx) => <li key={idx} className="flex items-center gap-1">• {point}</li>)}
+                  </ul>
                 </div>
-                <div>
-                  {pillar.footerVisual}
-                </div>
-              </motion.div>
-            ))}
-          </div>
+              )
+            }))} 
+            className="w-full"
+          />
         </section>
 
         {/* SECTION 3: HOW IT WORKS (6 STEPS WORKFLOW) */}

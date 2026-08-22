@@ -44,15 +44,18 @@ const AutomatizacionIAPage = () => {
   return (
     <div className="text-on-surface font-body selection:bg-primary-container selection:text-on-primary-container min-h-screen">
       <Helmet>
-        <title>Automatización con IA para Empresas | Chatbots, Embudos y Agentes | SEO Growthers</title>
-        <meta name="description" content="Automatizá tu negocio con inteligencia artificial. Chatbots 24/7, embudos de venta automáticos, generación de contenido y agentes de IA. Reducí costos hasta un 60%. Consultá gratis." />
+        <title>Automatización con IA en Neuquén | Chatbots y Embudos de Venta</title>
+        <meta name="description" content="Automatizá tu empresa con IA en Neuquén: chatbots 24/7, embudos de venta automáticos y agentes de IA. Ahorrá hasta 60% en costos operativos. ¡Consultá gratis!" />
         <link rel="canonical" href="https://seogrowthers.com/services/automatizacion-ia" />
-        <meta property="og:title" content="Automatización con IA para Empresas | SEO Growthers" />
-        <meta property="og:description" content="Chatbots, embudos automáticos y agentes de IA para escalar tu negocio sin contratar. Reducí costos operativos hasta un 60%." />
+        <meta property="og:title" content="Automatización con IA en Neuquén | SEO Growthers" />
+        <meta property="og:description" content="Chatbots, embudos automáticos y agentes de IA para escalar tu negocio sin contratar. Ahorrá hasta un 60% en costos operativos." />
         <meta property="og:url" content="https://seogrowthers.com/services/automatizacion-ia" />
         <meta property="og:type" content="website" />
+        <meta property="og:image" content="https://seogrowthers.com/logo_kiwi.png" />
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="keywords" content="automatizacion ia, chatbot inteligencia artificial, embudo de ventas automatico, agentes ia, automatizar negocio, rpa argentina" />
+        <meta name="twitter:title" content="Automatización con IA en Neuquén | SEO Growthers" />
+        <meta name="twitter:description" content="Chatbots, embudos automáticos y agentes de IA para escalar tu negocio. Ahorrá hasta un 60% en costos operativos." />
+        <meta name="keywords" content="automatizacion ia neuquen, chatbot inteligencia artificial, embudo de ventas automatico, agentes ia, automatizar negocio, rpa argentina" />
         <script type="application/ld+json">{JSON.stringify({
           "@context": "https://schema.org",
           "@type": "Service",
@@ -66,7 +69,7 @@ const AutomatizacionIAPage = () => {
           },
           "areaServed": [
             { "@type": "Country", "name": "Argentina" },
-            { "@type": "Country", "name": "España" }
+            { "@type": "AdministrativeArea", "name": "Neuquén" }
           ],
           "serviceType": "Automatización con IA"
         })}</script>
@@ -76,6 +79,7 @@ const AutomatizacionIAPage = () => {
           "mainEntity": faqs.map(f => ({ "@type": "Question", "name": f.question, "acceptedAnswer": { "@type": "Answer", "text": f.answer } }))
         })}</script>
       </Helmet>
+
 
       <ScrollToTop />
 

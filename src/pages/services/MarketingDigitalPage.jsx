@@ -208,18 +208,23 @@ const MarketingDigitalPage = () => {
   return (
     <div className="text-on-surface font-body text-white min-h-screen relative overflow-hidden bg-transparent">
       <Helmet>
-        <title>Marketing Digital Argentina | SEO, SEM, Redes - SEO Growthers</title>
-        <meta name="description" content="Servicios de marketing digital en Argentina: SEO orgánico, Google Ads, publicidad en redes sociales, email marketing y analytics. Resultados medibles y ROI garantizado." />
+        <title>Marketing Digital en Neuquén | SEO, Google Ads y Redes Sociales</title>
+        <meta name="description" content="Agencia de marketing digital en Neuquén: SEO orgánico, Google Ads, Social Ads y email marketing. Estrategias con ROI medible desde el día 1. ¡Solicitá tu auditoría gratis!" />
+        <link rel="canonical" href="https://seogrowthers.com/services/marketing-digital" />
         <link rel="preload" href="/images/fondo/site-background.webp" as="image" />
-        <meta property="og:title" content="Marketing Digital Argentina | SEO Growthers" />
-        <meta property="og:description" content="Estrategias de marketing digital orientadas a resultados. SEO, SEM, Social Ads y Analytics." />
+        <meta property="og:title" content="Marketing Digital en Neuquén | SEO Growthers" />
+        <meta property="og:description" content="Agencia de marketing digital en Neuquén: SEO, Google Ads, Social Ads y Analytics. ROI medible desde el día 1." />
         <meta property="og:url" content="https://seogrowthers.com/services/marketing-digital" />
         <meta property="og:type" content="website" />
-        <meta property="og:image" content="https://seogrowthers.com/api/og?title=Marketing+Digital&subtitle=SEO%2C+Google+Ads%2C+redes+sociales&type=service" />
+        <meta property="og:image" content="https://seogrowthers.com/logo_kiwi.png" />
         <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Marketing Digital en Neuquén | SEO Growthers" />
+        <meta name="twitter:description" content="Agencia de marketing digital en Neuquén: SEO, Google Ads, Social Ads y Analytics. ROI medible desde el día 1." />
+        <meta name="keywords" content="marketing digital neuquen, agencia SEO argentina, google ads neuquen, social ads, email marketing argentina" />
         <script type="application/ld+json">{JSON.stringify(structuredData)}</script>
         <script type="application/ld+json">{JSON.stringify(faqSchema)}</script>
       </Helmet>
+
 
       {/* Hero Section with Video Background */}
       <section className="relative min-h-screen flex items-center overflow-hidden">

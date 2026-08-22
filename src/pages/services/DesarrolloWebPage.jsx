@@ -116,15 +116,18 @@ const DesarrolloWebPage = () => {
   return (
     <div className="text-on-surface font-body selection:bg-cyan-500/30 selection:text-white min-h-screen relative overflow-hidden bg-transparent">
       <Helmet>
-        <title>Desarrollo Web en Argentina | Sitios Rápidos y Optimizados | SEO Growthers</title>
-        <meta name="description" content="Desarrollo web profesional en Argentina. Landing pages, sitios corporativos y tiendas online con SEO incluido. Diseño responsive, velocidad optimizada y panel de administración. Desde $800 USD." />
-        <link rel="canonical" href="https://seogrowthers.com/services/desarrollo-web-argentina" />
-        <meta property="og:title" content="Desarrollo Web en Argentina | SEO Growthers" />
-        <meta property="og:description" content="Sitios web profesionales con SEO incluido. Landing pages desde $800 USD. Diseño responsive y velocidad optimizada." />
-        <meta property="og:url" content="https://seogrowthers.com/services/desarrollo-web-argentina" />
+        <title>Desarrollo Web Personalizado en Neuquén | Landing Pages y Tiendas Online</title>
+        <meta name="description" content="Agencia de desarrollo web en Neuquén. Landing pages, sitios corporativos y tiendas online con SEO incluido. Diseño mobile-first y velocidad Core Web Vitals 100/100. ¡Cotizá gratis!" />
+        <link rel="canonical" href="https://seogrowthers.com/services/desarrollo-web" />
+        <meta property="og:title" content="Desarrollo Web Personalizado en Neuquén | SEO Growthers" />
+        <meta property="og:description" content="Agencia de desarrollo web en Neuquén. Landing pages y tiendas online con SEO nativo. Core Web Vitals 100/100. ¡Cotizá gratis!" />
+        <meta property="og:url" content="https://seogrowthers.com/services/desarrollo-web" />
         <meta property="og:type" content="website" />
+        <meta property="og:image" content="https://seogrowthers.com/logo_kiwi.png" />
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="keywords" content="desarrollo web argentina, diseño web profesional, crear pagina web, tienda online argentina, landing page argentina" />
+        <meta name="twitter:title" content="Desarrollo Web Personalizado en Neuquén | SEO Growthers" />
+        <meta name="twitter:description" content="Agencia de desarrollo web en Neuquén. Landing pages y tiendas online con SEO nativo. Core Web Vitals 100/100." />
+        <meta name="keywords" content="desarrollo web neuquen, diseño web profesional, crear pagina web, tienda online neuquen, landing page argentina" />
         <script type="application/ld+json">{JSON.stringify({
           "@context": "https://schema.org",
           "@type": "Service",
@@ -202,8 +205,8 @@ const DesarrolloWebPage = () => {
             {/* Highly Visible Neon styled Action Buttons */}
             <div className="flex flex-col sm:flex-row justify-center items-center gap-4 w-full max-w-md sm:max-w-none sm:w-auto">
               <Link 
-                to="/contact" 
-                onClick={() => trackCTAClick('webdev_hero', '/contact')} 
+                to="/contacto" 
+                onClick={() => trackCTAClick('webdev_hero', '/contacto')} 
                 className="w-full sm:w-auto inline-flex items-center justify-center gap-3 px-6 py-4 md:px-8 md:py-5 bg-gradient-to-r from-cyan-500 to-blue-600 text-[#0d0e17] font-headline font-black rounded-2xl text-xs uppercase tracking-[0.2em] hover:shadow-[0_0_40px_rgba(6,182,212,0.4)] hover:scale-105 transition-all duration-300"
               >
                 <span>Solicitar Presupuesto</span>

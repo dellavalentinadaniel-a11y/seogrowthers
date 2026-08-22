@@ -68,35 +68,37 @@ const Home = () => {
 
   const localBusinessSchema = {
     "@context": "https://schema.org",
-    "@type": "ProfessionalService",
+    "@type": "LocalBusiness",
     "name": "SEO Growthers",
-    "url": "https://seogrowthers.com",
-    "logo": "https://seogrowthers.com/api/og?title=SEO+Growthers&subtitle=SEO%2C+Desarrollo+Web+y+Automatizaci%C3%B3n+con+IA",
-    "description": "Agencia de SEO, Desarrollo Web y Analytics en Neuquén, Argentina.",
-    "telephone": "+54 9 2995504783",
-    "email": "seogrowthers@gmail.com",
-    "priceRange": "$$",
+    "image": "https://seogrowthers.com/logo_kiwi.png",
+    "description": "Agencia digital especializada en desarrollo web, SEO y automatización con IA",
+    "telephone": "+54 (299)25504783 ",
     "address": {
       "@type": "PostalAddress",
+      "streetAddress": "El manzano 2115 Neuquen Capital",
       "addressLocality": "Neuquén",
       "addressRegion": "Neuquén",
+      "postalCode": "8300",
       "addressCountry": "AR"
     },
     "geo": {
       "@type": "GeoCoordinates",
-      "latitude": -38.9516,
-      "longitude": -68.0591
+      "latitude": "-38.9517",
+      "longitude": "-68.0591"
     },
-    "areaServed": [
-      { "@type": "Country", "name": "Argentina" },
-      { "@type": "AdministrativeArea", "name": "Neuquén" }
-    ],
     "sameAs": [
-      "https://x.com/SEOGrowthers",
-      "https://www.instagram.com/seogrowthers/",
+      "https://www.facebook.com/seogrowthers",
       "https://www.linkedin.com/company/seogrowthers",
+      "https://www.instagram.com/seogrowthers/",
+      "https://x.com/SEOGrowthers",
       "https://www.youtube.com/@seogrowthers-s4r"
-    ]
+    ],
+    "areaServed": [
+      "Neuquén",
+      "Argentina",
+      "Latinoamérica"
+    ],
+    "priceRange": "$$"
   };
 
   const websiteSchema = {
@@ -117,20 +119,20 @@ const Home = () => {
   return (
     <>
       <Helmet>
-        <title>SEO Growthers - Web Development, SEO & Analytics</title>
-        <meta name="description" content="SEO Growthers: agencia experta en Web Development, SEO y Analytics. Potencia tu crecimiento digital con estrategias basadas en datos reales y resultados medibles." />
+        <title>Desarrollo Web, SEO y Automatización con IA en Neuquén</title>
+        <meta name="description" content="Agencia digital especializada en SEO, desarrollo web y automatización con IA en Neuquén. Estrategias de datos que impulsan resultados. ¡Contáctanos!" />
         <link rel="canonical" href="https://seogrowthers.com/" />
-        <meta property="og:title" content="SEO Growthers - Web Development, SEO & Analytics" />
-        <meta property="og:description" content="Impulsa tu negocio con SEO Growthers. Expertos en Web Development, SEO y Analytics para maximizar tu crecimiento digital." />
+        <meta property="og:title" content="Desarrollo Web, SEO y Automatización con IA en Neuquén" />
+        <meta property="og:description" content="Agencia digital especializada en SEO, desarrollo web y automatización con IA en Neuquén. Estrategias de datos que impulsan resultados. ¡Contáctanos!" />
         <meta property="og:type" content="website" />
         <meta property="og:url" content="https://seogrowthers.com/" />
-        <meta property="og:image" content="https://seogrowthers.com/api/og?title=SEO+Growthers&subtitle=SEO%2C+Desarrollo+Web+y+Automatizaci%C3%B3n+con+IA" />
+        <meta property="og:image" content="https://seogrowthers.com/logo_kiwi.png" />
         <meta property="og:locale" content="es_AR" />
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:site" content="@SEOGrowthers" />
-        <meta name="twitter:title" content="SEO Growthers - Web Development, SEO & Analytics" />
-        <meta name="twitter:description" content="Agencia experta en Web Development, SEO y Analytics para potenciar tu crecimiento digital." />
-        <meta name="twitter:image" content="https://seogrowthers.com/api/og?title=SEO+Growthers&subtitle=SEO%2C+Desarrollo+Web+y+Automatizaci%C3%B3n+con+IA" />
+        <meta name="twitter:title" content="Desarrollo Web, SEO y Automatización con IA en Neuquén" />
+        <meta name="twitter:description" content="Agencia digital especializada en SEO, desarrollo web y automatización con IA en Neuquén. Estrategias de datos que impulsan resultados. ¡Contáctanos!" />
+        <meta name="twitter:image" content="https://seogrowthers.com/logo_kiwi.png" />
         <meta property="og:image:width" content="1200" />
         <meta property="og:image:height" content="630" />
         <script type="application/ld+json">
